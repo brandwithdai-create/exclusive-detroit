@@ -331,7 +331,7 @@ desc:"A Cass Corridor cocktail bar and kitchen with contemporary Chinese-America
 vibes:["Chinese-American","Craft Cocktails","Late Night"], addr:"420 Peterboro St, Detroit, MI 48201",
 hours:"Wed-Thu 5pm-9pm | Fri 5pm-11pm | Sat 12pm-11pm | Sun 4:30pm-9pm | Mon-Tue Closed", best:"Weekend / Date Night",
 exclusive:"Most people eat dinner and leave. The people who stay for the back bar after 10pm know something most visitors don't.",
-badges:["firsttimer","locals"], websiteUrl:"https://www.thepeterboro.com" },
+cats:["Downtown","Cocktail Lounges"],badges:["firsttimer","locals"], websiteUrl:"https://www.thepeterboro.com" },
 
 { id:31, name:"Batch Brewing Company",            hood:"Corktown",           cat:"Corktown",
 desc:"Detroit's first nano-brewery and Corktown's communal anchor. Small-batch craft beer brewed on-site, rotating food, live music on stage.",
