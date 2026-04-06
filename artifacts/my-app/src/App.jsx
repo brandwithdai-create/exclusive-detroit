@@ -37,7 +37,7 @@ return null;
 
 const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happy Hour","Sports","Hidden Bars","Speakeasies","Cocktail Lounges","Rooftops","Hotel Lounges","Alley Spots","Nightlife","Comedy / Live Events","Date Night","Outdoor Activities","Midtown","Downtown","Corktown"];
 
-const COORDS={"1":[42.3339,-83.0497],"2":[42.3316,-83.0499],"3":[42.3322,-83.0524],"4":[42.3328,-83.0452],"5":[42.3330,-83.0489],"6":[42.3283,-83.0469],"7":[42.3675,-83.0636],"8":[42.3353,-83.0489],"9":[42.3337,-83.0466],"10":[42.3437,-83.0558],"11":[42.3291,-83.0621],"12":[42.3322,-83.0524],"13":[42.3274,-83.0714],"14":[42.3337,-83.0466],"15":[42.3330,-83.0489],"16":[42.3332,-83.0489],"17":[42.3322,-83.0524],"18":[42.3361,-83.0490],"19":[42.3340,-83.0473],"20":[42.3617,-83.0648],"21":[42.3534,-83.0886],"22":[42.3498,-83.0583],"23":[42.3609,-83.0624],"24":[42.3540,-83.0571],"25":[42.3326,-83.0490],"26":[42.3398,-82.9820],"27":[42.3473,-83.0401],"28":[42.3475,-83.0397],"29":[42.3567,-83.0654],"30":[42.3501,-83.0611],"31":[42.3289,-83.0631],"32":[42.3291,-83.0618],"33":[42.3290,-83.0593],"34":[42.3338,-83.0496],"35":[42.3315,-83.0490],"36":[42.3313,-83.0500],"37":[42.3576,-83.0912],"38":[42.3567,-83.0654],"39":[42.3322,-83.0524],"40":[42.3322,-83.0524],"41":[42.3322,-83.0524],"42":[42.3346,-83.0490],"43":[42.3316,-83.0497],"44":[42.3540,-83.0571],"45":[42.3690,-83.0636],"46":[42.3333,-83.0494],"47":[42.3333,-83.0502],"48":[42.3355,-83.0487],"49":[42.3339,-83.0497],"50":[42.3328,-83.0490],"51":[42.3280,-83.0487],"52":[42.3289,-83.0662],"53":[42.3310,-83.0490],"54":[42.3310,-83.0490],"55":[42.3562,-83.0654],"56":[42.3338,-83.0497],"57":[42.3307,-83.0471],"58":[42.3338,-83.0496],"59":[42.3315,-83.0490],"60":[42.3313,-83.0500],"61":[42.3576,-83.0912],"62":[42.3567,-83.0654],"63":[42.3330,-83.0489],"64":[42.3341,-83.0460],"65":[42.3523,-83.0501],"66":[42.3523,-83.0501],"67":[42.3314,-83.0449],"r1":[42.3340,-83.0470],"r2":[42.3660,-82.9960],"r3":[42.3470,-83.0370],"r4":[42.3291,-83.0621],"r5":[42.3606,-83.0647],"u1":[42.3307,-83.0471],"u2":[42.3319,-83.0475],"u3":[42.3348,-83.0490],"u4":[42.3819,-82.9574]};
+const COORDS={"1":[42.3339,-83.0497],"2":[42.3316,-83.0499],"3":[42.3322,-83.0524],"4":[42.3328,-83.0452],"5":[42.3330,-83.0489],"6":[42.3283,-83.0469],"7":[42.3675,-83.0636],"8":[42.3353,-83.0489],"9":[42.3337,-83.0466],"10":[42.3437,-83.0558],"11":[42.3291,-83.0621],"12":[42.3322,-83.0524],"13":[42.3274,-83.0714],"14":[42.3337,-83.0466],"15":[42.3330,-83.0489],"16":[42.3332,-83.0489],"17":[42.3322,-83.0524],"18":[42.3361,-83.0490],"19":[42.3340,-83.0473],"20":[42.3617,-83.0648],"21":[42.3534,-83.0886],"22":[42.3498,-83.0583],"23":[42.3609,-83.0624],"24":[42.3540,-83.0571],"25":[42.3326,-83.0490],"26":[42.3398,-82.9820],"27":[42.3473,-83.0401],"28":[42.3475,-83.0397],"29":[42.3567,-83.0654],"30":[42.3501,-83.0611],"31":[42.3289,-83.0631],"32":[42.3291,-83.0618],"33":[42.3290,-83.0593],"34":[42.3338,-83.0496],"35":[42.3315,-83.0490],"36":[42.3313,-83.0500],"37":[42.3576,-83.0912],"38":[42.3567,-83.0654],"39":[42.3322,-83.0524],"40":[42.3322,-83.0524],"41":[42.3322,-83.0524],"42":[42.3346,-83.0490],"43":[42.3316,-83.0497],"44":[42.3540,-83.0571],"45":[42.3690,-83.0636],"46":[42.3333,-83.0494],"47":[42.3333,-83.0502],"48":[42.3355,-83.0487],"49":[42.3339,-83.0497],"50":[42.3328,-83.0490],"51":[42.3280,-83.0487],"52":[42.3289,-83.0662],"53":[42.3310,-83.0490],"54":[42.3310,-83.0490],"55":[42.3562,-83.0654],"56":[42.3338,-83.0497],"57":[42.3307,-83.0471],"58":[42.3338,-83.0496],"59":[42.3315,-83.0490],"60":[42.3313,-83.0500],"61":[42.3576,-83.0912],"62":[42.3567,-83.0654],"63":[42.3330,-83.0489],"64":[42.3341,-83.0460],"65":[42.3523,-83.0501],"66":[42.3523,-83.0501],"67":[42.3314,-83.0449],"68":[42.3333,-83.0494],"r1":[42.3340,-83.0470],"r2":[42.3660,-82.9960],"r3":[42.3470,-83.0370],"r4":[42.3291,-83.0621],"r5":[42.3606,-83.0647],"u1":[42.3307,-83.0471],"u2":[42.3319,-83.0475],"u3":[42.3348,-83.0490],"u4":[42.3819,-82.9574]};
 
 function haversine(lat1,lon1,lat2,lon2){const R=3958.8,d2r=Math.PI/180;const dLat=(lat2-lat1)*d2r,dLon=(lon2-lon1)*d2r;const a=Math.sin(dLat/2)**2+Math.cos(lat1*d2r)*Math.cos(lat2*d2r)*Math.sin(dLon/2)**2;return R*2*Math.asin(Math.sqrt(a));}
 
@@ -361,7 +361,7 @@ vibes:["Breakfast Staple","Generous Portions","Full Bar","Brunch Cocktails"],
 addr:"1241 Woodward Ave, Detroit, MI 48226",
 hours:"Mon-Sun 8am-3pm",
 best:"Breakfast / Weekend Brunch",
-exclusive:"The most consistently excellent breakfast in Downtown Detroit. Ask for Julius. Reservations are strongly recommended on weekends – walk-in waits can run an hour.",
+exclusive:"This is where locals go when they want a guaranteed great brunch. Come early or expect a wait — worth it every time. Portions are massive, so come hungry or plan to share.",
 badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/the-hudson-cafe-detroit" },
 
@@ -405,6 +405,15 @@ best:"Morning Coffee / Late Night",
 exclusive:"A coffee shop that stays open until 2am with a DJ every night. Come for the cortado at 10am, come back for the dance floor at midnight. No other place in Detroit operates like this.",
 badges:["locals","hidden"],
 websiteUrl:"https://spkrbox.bar" },
+
+{ id:68, name:"Orange Room",                       hood:"Downtown",           cat:"Hidden Bars",
+desc:"A tucked-away late-night room beneath SPKRBOX with a darker, more intimate energy. Low lighting, resident DJs spinning underground Detroit sounds, and a crowd that feels like you're in on something most people walking past on Grand River never find out about.",
+vibes:["Underground Detroit","Intimate","Late Night DJs"],
+addr:"200 Grand River Ave (beneath SPKRBOX), Detroit, MI 48226",
+hours:"Daily late night – access through SPKRBOX",
+best:"Late Night / After Hours",
+exclusive:"You don't stumble into the Orange Room. You find it through SPKRBOX. It's a second layer most people miss — a basement with a pulse and a crowd that got the word.",
+badges:["hidden","locals"] },
 
 { id:47, name:"Cannelle",                          hood:"Downtown",           cat:"Coffee Shops & Bakeries",
 desc:"A French patisserie in Capitol Park from master pastry chef Matt Knio, who trained in Paris under a Academies de Versailles master artisan after working on a cocoa plantation in Ivory Coast. Handcrafted croissants, chocolate eclairs, tarts, macarons, and espresso drinks. One of the most beautiful pastry cases in the city.",
