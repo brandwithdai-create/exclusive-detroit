@@ -215,14 +215,14 @@ desc:"A James Beard-nominated farm-to-table restaurant inside the Park Shelton b
 vibes:["James Beard Nominated","Small Plates","Seasonal"], addr:"15 E Kirby St (entrance on Woodward), Detroit, MI 48202",
 hours:"Tue-Thu 5pm-9pm | Fri 11:30am-2pm and 5pm-9:30pm | Sat 5pm-9:30pm | Sun 4pm-8pm | Mon Closed", best:"Date Night / Weeknight",
 exclusive:"James Beard semifinalist inside the Park Shelton. The entrance makes you feel like you found something. Make a reservation.",
-badges:["firsttimer","locals"], reservationUrl:"https://www.opentable.com/r/chartreuse-kitchen-and-cocktails-detroit" },
+cats:["Date Night","Dinner"],badges:["firsttimer","locals"], reservationUrl:"https://www.opentable.com/r/chartreuse-kitchen-and-cocktails-detroit" },
 
 { id:25, name:"Parc Detroit",                      hood:"Downtown",           cat:"Date Night",
 desc:"A French-inspired bistro overlooking Campus Martius Park. Expansive wine list, wood-fired grill flavors, and floor-to-ceiling windows that open completely in warm weather.",
 vibes:["French-Inspired","Campus Martius","Wine Forward"], addr:"800 Woodward Ave, Detroit, MI 48226",
 hours:"Mon-Fri Lunch 11am-2:30pm, Dinner 4pm-9:30pm | Sat Brunch 10:30am, Dinner 4:30pm-10:30pm | Sun Brunch 10:30am, Dinner 4:30pm-8:30pm", best:"Date Night / Weekend Brunch",
 exclusive:"Campus Martius Park at your feet. Windows that open onto the city. The wine list takes it seriously.",
-badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/parc-detroit" },
+cats:["Date Night","Dinner"],badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/parc-detroit" },
 
 { id:34, name:"Prime + Proper",                   hood:"Downtown",           cat:"Date Night",
 desc:"A modern cathedral of American steakhouse dining inside the restored Capitol Park Loft building, built in 1912. All beef is butchered in-house, aged a minimum of 28 days, and cooked over open flame. One of the most design-forward, nationally recognized steakhouses in the Midwest.",
@@ -281,7 +281,7 @@ addr:"1265 Washington Blvd (Lower Level, Book Tower), Detroit, MI 48226",
 hours:"Tue-Thu 5pm-10pm | Fri 4pm-11pm | Sat 4pm-11pm | Sun 4pm-9pm | Mon Closed",
 best:"Date Night / Special Occasion",
 exclusive:"Chef Hiroki Fujiyama trained under Iron Chef Masaharu Morimoto. The shoji-lined private dining room inside a former bank vault feels like a mafia sit-down in the best possible way. Reservations are essential.",
-badges:["firsttimer","locals"],
+cats:["Date Night","Dinner"],badges:["firsttimer","locals"],
 reservationUrl:"https://resy.com/cities/detroit-mi/venues/hiroki-san" },
 
 { id:40, name:"Le Supreme",                        hood:"Downtown",           cat:"Date Night",
@@ -291,7 +291,7 @@ addr:"1265 Washington Blvd (Book Tower), Detroit, MI 48226",
 hours:"Mon-Thu 4pm-10pm | Fri 4pm-11pm | Sat 10am-2:30pm and 4pm-11pm | Sun 10am-2:30pm and 4pm-9pm",
 best:"Date Night / Weekend Brunch",
 exclusive:"The first restaurant to open in Book Tower's $300 million restoration. 210 seats, a 24-seat private dining room with a fireplace, and enough French elegance to make you forget you're in Michigan.",
-badges:["firsttimer"],
+cats:["Date Night","Dinner"],badges:["firsttimer"],
 reservationUrl:"https://resy.com/cities/detroit-mi/venues/le-supreme" },
 
 { id:41, name:"The Aladdin Sane",                  hood:"Downtown",           cat:"Hidden Bars",
@@ -755,7 +755,7 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }, msg);
 }
 
-const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Date Night","Happy Hour","Sports","Speakeasies"];
+const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports","Speakeasies","Cocktail Lounges"];
 function MapView({isFav,toggleFav,setModalId}){
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
@@ -789,7 +789,7 @@ React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 markersRef.current.forEach(m=>map.removeLayer(m));markersRef.current=[];
 [...ALL,...UPCOMING].forEach(v=>{
-if(mapCat!=="all"&&v.cat!==mapCat)return;
+if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return;
 const coord=COORDS[String(v.id)];if(!coord)return;
 const isNew=!!(v.status||(v.badges||[]).includes("recentopen"));
 const pin=isNew?"#C8AEFF":"#C9A84C";
