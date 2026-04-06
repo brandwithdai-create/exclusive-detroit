@@ -736,7 +736,7 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 }
 
-function UCard({ venue, i, onOpen }) {
+function UCard({ venue, i, onOpen, isFav, onFav }) {
 const [hov, setHov] = useState(false);
 const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
@@ -759,7 +759,7 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 ),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.48rem", color:C.smoke, letterSpacing:"0.08em" }}, venue.addr.split(",")[0])
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -914,6 +914,7 @@ const sid=String(id);const v=ALL.find(x=>String(x.id)===sid);
 setFavs(prev=>{const next=prev.includes(sid)?prev.filter(f=>f!==sid):[...prev,sid];showToast(prev.includes(sid)?"Removed: "+(v?v.name:""):"Saved: "+(v?v.name:""));return next;});
 },[]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},60);},[]);
+const switchCat=useCallback(c=>{setCat(c);requestAnimationFrame(()=>{const el=filtersRef.current;if(!el)return;let top=0,node=el;while(node){top+=node.offsetTop;node=node.offsetParent;}window.scrollTo({top:Math.max(0,top-64),behavior:"instant"});});},[]);
 const doGetLocation=()=>{navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},120);},err=>{if(err.code===1)setGeoError("Location access is blocked. To enable it, go to your device Settings → Browser → Location and allow this site.");else setGeoError("Couldn't get your location — please try again.");});};
 const activateNearMe=()=>{if(!navigator.geolocation){setGeoError("Geolocation is not supported by your browser.");return;}if(navigator.permissions){navigator.permissions.query({name:"geolocation"}).then(r=>{if(r.state==="granted")doGetLocation();else if(r.state==="denied")setGeoError("Location access is blocked. To use Near Me, enable location for this browser in your device Settings.");else setGeoModal(true);}).catch(()=>setGeoModal(true));}else{setGeoModal(true);}};
 const deactivateNearMe=()=>{setNearMe(false);setUserCoords(null);setGeoError(null);};
@@ -1007,7 +1008,7 @@ React.createElement("div",{style:{flex:1,height:1,background:"rgba(110,75,195,0.
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.5rem)",fontWeight:400,color:C.white}},"Opening Soon in Detroit")
 ),
 React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
-UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModalId}))
+UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav}))
 )
 )
 ),
@@ -1016,7 +1017,7 @@ React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"
 React.createElement("div",{style:{display:"flex",gap:7,overflowX:"auto",paddingBottom:12,scrollbarWidth:"none"}},
 CATS.map(c=>{
 const active=c===cat;
-return React.createElement("button",{key:c,onClick:()=>setCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1px solid "+(active?C.gold:C.border),background:active?C.gold:"transparent",color:active?C.black:C.smoke,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Spots":c);
+return React.createElement("button",{key:c,onClick:()=>switchCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1px solid "+(active?C.gold:C.border),background:active?C.gold:"transparent",color:active?C.black:C.smoke,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Spots":c);
 })),
 React.createElement("div",{style:{paddingBottom:10,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}},
 nearMe?React.createElement("button",{onClick:deactivateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.black,background:C.purple,padding:"5px 12px",borderRadius:100,cursor:"pointer"}},"◉ Near Me ×"):React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",border:"1px solid "+C.border,color:C.smoke,background:"transparent",padding:"5px 12px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
