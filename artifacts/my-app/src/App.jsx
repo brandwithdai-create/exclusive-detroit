@@ -855,7 +855,7 @@ const row=(children,extra={})=>React.createElement("div",{style:{display:"flex",
 const mono=(text,color,size="0.52rem",extra={})=>React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:size,letterSpacing:"0.14em",textTransform:"uppercase",color,...extra}},text);
 const serif=(tag,text,size,extra={})=>React.createElement(tag,{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:size,color:C.white,...extra}},text);
 
-const NavBar=()=>React.createElement("nav",{style:{position:"fixed",top:0,left:0,right:0,zIndex:500,height:60,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 24px",background:scrolled?"rgba(10,10,10,0.98)":"rgba(10,10,10,0.92)",backdropFilter:"blur(14px)",borderBottom:"1px solid "+C.border}},
+const NavBar=()=>React.createElement("nav",{style:{position:"fixed",top:0,left:0,right:0,zIndex:500,height:"calc(60px + env(safe-area-inset-top))",display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:"env(safe-area-inset-top)",paddingLeft:"24px",paddingRight:"24px",background:scrolled?"rgba(10,10,10,0.98)":"rgba(10,10,10,0.92)",backdropFilter:"blur(14px)",borderBottom:"1px solid "+C.border}},
 React.createElement("div",{onClick:()=>navTo("explore"),style:{cursor:"pointer"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.22em",color:C.gold,textTransform:"uppercase"}},"EXCLUSIVE"),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:C.white,lineHeight:1.1}},"Detroit")
@@ -870,7 +870,7 @@ s==="favorites"&&favs.length>0&&React.createElement("span",{style:{background:C.
 )
 );
 
-const Hero=()=>React.createElement("div",{style:{minHeight:"66vh",display:"flex",alignItems:"center",justifyContent:"center",paddingTop:60,background:"linear-gradient(135deg,#0A0808 0%,#0E0D14 45%,#090E10 100%)",position:"relative",overflow:"hidden"}},
+const Hero=()=>React.createElement("div",{style:{minHeight:"66vh",display:"flex",alignItems:"center",justifyContent:"center",paddingTop:"calc(60px + env(safe-area-inset-top))",background:"linear-gradient(135deg,#0A0808 0%,#0E0D14 45%,#090E10 100%)",position:"relative",overflow:"hidden"}},
 React.createElement("div",{style:{position:"absolute",inset:0,opacity:0.35,pointerEvents:"none"}},
 React.createElement("div",{style:{position:"absolute",width:500,height:500,top:"10%",left:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%)"}}),
 React.createElement("div",{style:{position:"absolute",width:400,height:400,bottom:"5%",right:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(110,75,195,0.09) 0%,transparent 70%)"}})
@@ -918,7 +918,7 @@ UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModa
 )
 )
 ),
-React.createElement("div",{ref:filtersRef,style:{position:"sticky",top:60,zIndex:200,background:C.black,borderBottom:"1px solid "+C.border,padding:"12px 0 0"}},
+React.createElement("div",{ref:filtersRef,style:{position:"sticky",top:"calc(60px + env(safe-area-inset-top))",zIndex:200,background:C.black,borderBottom:"1px solid "+C.border,padding:"12px 0 0"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"}},
 React.createElement("div",{style:{display:"flex",gap:7,overflowX:"auto",paddingBottom:12,scrollbarWidth:"none"}},
 CATS.map(c=>{
@@ -949,7 +949,7 @@ shown.length===0
 )
 );
 
-const Favs=()=>React.createElement("div",{style:{paddingTop:60}},
+const Favs=()=>React.createElement("div",{style:{paddingTop:"calc(60px + env(safe-area-inset-top))"}},
 React.createElement("div",{style:{background:"linear-gradient(160deg,#110D07 0%,"+C.deep+" 100%)",padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Your Collection"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Saved Spots"),
@@ -974,7 +974,7 @@ const HOODS=[
 {k:"Eastern Market", d:"Saturday mornings and late-night raves. A neighborhood with a double life."},
 {k:"Alley Spots",    d:"The Belt - a mural-covered downtown alley turned open-air social hub."},
 ];
-const Areas=()=>React.createElement("div",{style:{paddingTop:60}},
+const Areas=()=>React.createElement("div",{style:{paddingTop:"calc(60px + env(safe-area-inset-top))"}},
 React.createElement("div",{style:{background:C.deep,padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Navigate by Area"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Detroit Neighborhoods"),
@@ -994,7 +994,7 @@ React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5
 )
 );
 
-const About=()=>React.createElement("div",{style:{paddingTop:60}},
+const About=()=>React.createElement("div",{style:{paddingTop:"calc(60px + env(safe-area-inset-top))"}},
 React.createElement("div",{style:{background:C.deep,padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"The City Brief"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"About Detroit")
