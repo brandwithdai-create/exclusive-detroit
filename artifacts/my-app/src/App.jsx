@@ -711,8 +711,44 @@ style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'D
 }, cta.label);
 }
 
-const CAT_EMOJI={"Breakfast":"☕","Coffee Shops & Bakeries":"☕","Lunch":"🍽","Dinner":"🍷","Happy Hour":"🍸","Sports":"🏆","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🍸","Rooftops":"🌆","Hotel Lounges":"✨","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🕯","Outdoor Activities":"🌿","Midtown":"🎨","Downtown":"🏙","Corktown":"🪴","African Restaurant":"🌍"};
-function getVibeLine(venue){const emoji=CAT_EMOJI[venue.cat]||"✨";const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
+const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🍽","Dinner":"🍷","Happy Hour":"🍸","Sports":"🏆","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🍸","Rooftops":"🌆","Hotel Lounges":"✨","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🕯","Outdoor Activities":"🌿","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍"};
+const VIBE_EMOJI=[
+[["wood-fired","hearth"],"🔥"],
+[["fire pit"],"🔥"],
+[["ramen","noodle"],"🍜"],
+[["sushi","omakase","japanese"],"🍣"],
+[["pizza","neapolitan"],"🍕"],
+[["steak","steakhouse","argentine","churrasco","smash burger","burger"],"🥩"],
+[["taco","latin","cuban","paella","empanada"],"🌮"],
+[["liberian","west african","african"],"🌍"],
+[["salsa","cumbia","merengue"],"🎶"],
+[["farm-to-table","seasonal plates","michigan farm","small plates","local farms"],"🌿"],
+[["greenway","trail","park","garden","outdoor market","nature walk"],"🌿"],
+[["market","farmers market","vendor"],"🧺"],
+[["rooftop","skyline","terrace","panoramic","city views","aerial"],"🌆"],
+[["speakeasy","hidden bar","underground","secret door","hidden entrance"],"🚪"],
+[["live music","jazz","blues","live band","punk","rock show"],"🎵"],
+[["dj","dancing","nightclub","dance floor"],"🌙"],
+[["coffee","espresso","café bar","latte"],"☕"],
+[["brunch","breakfast","egg","pastry","croissant","waffle"],"🍳"],
+[["craft cocktail","cocktail","mixology","bespoke drink"],"🍸"],
+[["whiskey","bourbon","scotch","aged spirit"],"🥃"],
+[["beer","brewery","taproom","draft","craft beer"],"🍺"],
+[["wine","sommelier","natural wine","cellar"],"🍷"],
+[["comedy","stand-up","improv","open mic"],"🎭"],
+[["sports bar","game day","watch party","nfl","mlb","nba"],"🏆"],
+[["waterfront","island","marina"],"🏝"],
+[["hotel","boutique hotel","lobby bar"],"✨"],
+[["candlelit","romantic","intimate","cozy","date night"],"🕯"],
+[["happy hour","after-work","after work"],"🍸"],
+[["mural","street art","art gallery","gallery"],"🖼"],
+];
+function getEmojiForVenue(venue){
+const text=[...(venue.vibes||[]),venue.cat,venue.name,venue.desc||""].join(" ").toLowerCase();
+for(const[keys,emoji]of VIBE_EMOJI){if(keys.some(k=>text.includes(k)))return emoji;}
+return CAT_EMOJI[venue.cat]||"✨";
+}
+function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
 
 function VCard({ venue, isFav, onFav, onOpen, i }) {
@@ -836,6 +872,7 @@ const [mapReady,setMapReady]=React.useState(false);
 const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
+const zoomCtrlRef=React.useRef(null);
 React.useEffect(()=>{
 const prev=document.body.style.overflow;
 document.body.style.overflow="hidden";
@@ -845,14 +882,17 @@ React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false});
 L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",{attribution:"\u00a9 OSM \u00a9 CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
-L.control.zoom({position:"topleft"}).addTo(map);
+const zc=L.control.zoom({position:"topleft"});zc.addTo(map);zoomCtrlRef.current=zc;
 mapRef.current=map;setMapReady(true);
-return()=>{map.remove();mapRef.current=null;};
+return()=>{map.remove();mapRef.current=null;zoomCtrlRef.current=null;};
 },[]);
 React.useEffect(()=>{
+const hide=selected?'none':'';
+const zcEl=zoomCtrlRef.current?.getContainer?.();
+if(zcEl)zcEl.style.display=hide;
 const map=mapRef.current;if(!map)return;
-const ctrl=map.getContainer().querySelector('.leaflet-control-container');
-if(ctrl)ctrl.style.visibility=selected?'hidden':'';
+const attr=map.getContainer().querySelector('.leaflet-control-attribution');
+if(attr)attr.style.display=hide;
 },[selected]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
