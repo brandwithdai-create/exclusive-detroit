@@ -1,0 +1,55 @@
+Create a backup/checkpoint first before making any edits, so I can restore this exact version if needed.
+
+Then add these two features to the existing app without redesigning the current UI.
+
+FEATURE 1: MAP VIEW
+Add a new top navigation tab called "Map" between Explore and Saves.
+
+Requirements:
+- Create a dedicated Map screen that matches the current dark luxury aesthetic
+- Use a dark-styled map
+- Show venue pins based on venue addresses
+- Gold pins for standard venues
+- Purple pins for recently opened / coming soon venues if applicable
+- Tapping a pin should open a bottom sheet or bottom card with:
+  - venue name
+  - category
+  - neighborhood
+  - short description
+  - Save button
+  - View Details button that opens the existing venue modal
+- Add category filter chips at the top of the map screen:
+  - All
+  - Hidden Bars
+  - Date Night
+  - Rooftops
+  - Happy Hour
+  - Sports
+- Keep the design consistent with the existing app
+- Do not break or redesign Explore, Saves, Areas, or About
+
+FEATURE 2: NEAR ME
+Add a "Near Me" feature to the Explore experience.
+
+Requirements:
+- Add a "Near Me" button near the Explore filters in a way that fits the current design
+- When tapped, request the user's location using browser geolocation
+- Geocode venue addresses if needed and calculate distance from the user
+- Sort venues by closest distance
+- Show a section called "Closest to You"
+- Display distance in miles on venue cards when Near Me is active
+- If location permission is denied, show a clean fallback message and keep the normal Explore experience working
+- Keep this feature lightweight and mobile-friendly
+
+IMPORTANT RULES
+- Do not redesign the app
+- Do not remove any current features
+- Do not change existing content unless required for these features
+- Preserve the current visual style, spacing, colors, and typography
+- Keep performance smooth on iPhone
+- If either feature becomes too heavy or unstable, use the simplest clean implementation that works reliably
+
+Before finishing:
+- test that the app still runs cleanly
+- confirm the original screens still work
+- summarize exactly what was added
