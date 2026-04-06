@@ -900,7 +900,7 @@ const sid=String(id);const v=ALL.find(x=>String(x.id)===sid);
 setFavs(prev=>{const next=prev.includes(sid)?prev.filter(f=>f!==sid):[...prev,sid];showToast(prev.includes(sid)?"Removed: "+(v?v.name:""):"Saved: "+(v?v.name:""));return next;});
 },[]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},60);},[]);
-const activateNearMe=()=>{if(!navigator.geolocation){setGeoError("Geolocation not supported by your browser.");return;}navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);},()=>setGeoError("Location access denied. Enable location permissions to use Near Me."));};
+const activateNearMe=()=>{if(!navigator.geolocation){setGeoError("Geolocation not supported by your browser.");return;}navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},120);},()=>setGeoError("Location access denied. Enable location permissions to use Near Me."));};
 const deactivateNearMe=()=>{setNearMe(false);setUserCoords(null);setGeoError(null);};
 
 let shown=[...ALL];
@@ -947,6 +947,10 @@ React.createElement("div",{style:{display:"flex",gap:8,justifyContent:"center",f
 ["Breakfast","Sports","Hidden Bars","Speakeasies","Rooftops","Date Night","Dinner","Happy Hour","Cocktail Lounges","Nightlife"].map(c=>
 React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1px solid "+(cat===c?C.gold:"rgba(201,168,76,0.32)"),color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"transparent",padding:"7px 14px",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
 )
+),
+React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:20,flexWrap:"wrap"}},
+React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
+React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"transparent",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
 )
 )
 );
