@@ -37,7 +37,7 @@ return null;
 
 const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happy Hour","Sports","Hidden Bars","Speakeasies","Cocktail Lounges","Rooftops","Hotel Lounges","Alley Spots","Nightlife","Comedy / Live Events","Date Night","Weekend Plans","Midtown","Downtown","Corktown"];
 
-const COORDS={"1":[42.3339,-83.0497],"2":[42.3316,-83.0499],"3":[42.3322,-83.0524],"4":[42.3328,-83.0452],"5":[42.3330,-83.0489],"6":[42.3283,-83.0469],"7":[42.3675,-83.0636],"8":[42.3353,-83.0489],"9":[42.3337,-83.0466],"10":[42.3437,-83.0558],"11":[42.3291,-83.0621],"12":[42.3322,-83.0524],"13":[42.3274,-83.0714],"14":[42.3337,-83.0466],"15":[42.3330,-83.0489],"16":[42.3332,-83.0489],"17":[42.3322,-83.0524],"18":[42.3361,-83.0490],"19":[42.3340,-83.0473],"20":[42.3617,-83.0648],"21":[42.3534,-83.0886],"22":[42.3498,-83.0583],"23":[42.3609,-83.0624],"24":[42.3540,-83.0571],"25":[42.3326,-83.0490],"26":[42.3398,-82.9820],"27":[42.3473,-83.0401],"28":[42.3475,-83.0397],"29":[42.3567,-83.0654],"30":[42.3501,-83.0611],"31":[42.3289,-83.0631],"32":[42.3291,-83.0618],"33":[42.3290,-83.0593],"34":[42.3338,-83.0496],"35":[42.3315,-83.0490],"36":[42.3313,-83.0500],"37":[42.3576,-83.0912],"38":[42.3567,-83.0654],"39":[42.3322,-83.0524],"40":[42.3322,-83.0524],"41":[42.3322,-83.0524],"42":[42.3346,-83.0490],"43":[42.3316,-83.0497],"44":[42.3540,-83.0571],"45":[42.3690,-83.0636],"46":[42.3333,-83.0494],"47":[42.3333,-83.0502],"48":[42.3355,-83.0487],"49":[42.3339,-83.0497],"50":[42.3328,-83.0490],"51":[42.3280,-83.0487],"52":[42.3289,-83.0662],"53":[42.3310,-83.0490],"54":[42.3310,-83.0490],"55":[42.3562,-83.0654],"56":[42.3338,-83.0497],"57":[42.3307,-83.0471],"58":[42.3338,-83.0496],"59":[42.3315,-83.0490],"60":[42.3313,-83.0500],"61":[42.3576,-83.0912],"62":[42.3567,-83.0654],"63":[42.3330,-83.0489],"64":[42.3341,-83.0460],"65":[42.3523,-83.0501],"66":[42.3523,-83.0501],"r1":[42.3340,-83.0470],"r2":[42.3660,-82.9960],"r3":[42.3470,-83.0370],"r4":[42.3291,-83.0621],"r5":[42.3606,-83.0647],"u1":[42.3307,-83.0471],"u2":[42.3319,-83.0475],"u3":[42.3348,-83.0490],"u4":[42.3819,-82.9574]};
+const COORDS={"1":[42.3339,-83.0497],"2":[42.3316,-83.0499],"3":[42.3322,-83.0524],"4":[42.3328,-83.0452],"5":[42.3330,-83.0489],"6":[42.3283,-83.0469],"7":[42.3675,-83.0636],"8":[42.3353,-83.0489],"9":[42.3337,-83.0466],"10":[42.3437,-83.0558],"11":[42.3291,-83.0621],"12":[42.3322,-83.0524],"13":[42.3274,-83.0714],"14":[42.3337,-83.0466],"15":[42.3330,-83.0489],"16":[42.3332,-83.0489],"17":[42.3322,-83.0524],"18":[42.3361,-83.0490],"19":[42.3340,-83.0473],"20":[42.3617,-83.0648],"21":[42.3534,-83.0886],"22":[42.3498,-83.0583],"23":[42.3609,-83.0624],"24":[42.3540,-83.0571],"25":[42.3326,-83.0490],"26":[42.3398,-82.9820],"27":[42.3473,-83.0401],"28":[42.3475,-83.0397],"29":[42.3567,-83.0654],"30":[42.3501,-83.0611],"31":[42.3289,-83.0631],"32":[42.3291,-83.0618],"33":[42.3290,-83.0593],"34":[42.3338,-83.0496],"35":[42.3315,-83.0490],"36":[42.3313,-83.0500],"37":[42.3576,-83.0912],"38":[42.3567,-83.0654],"39":[42.3322,-83.0524],"40":[42.3322,-83.0524],"41":[42.3322,-83.0524],"42":[42.3346,-83.0490],"43":[42.3316,-83.0497],"44":[42.3540,-83.0571],"45":[42.3690,-83.0636],"46":[42.3333,-83.0494],"47":[42.3333,-83.0502],"48":[42.3355,-83.0487],"49":[42.3339,-83.0497],"50":[42.3328,-83.0490],"51":[42.3280,-83.0487],"52":[42.3289,-83.0662],"53":[42.3310,-83.0490],"54":[42.3310,-83.0490],"55":[42.3562,-83.0654],"56":[42.3338,-83.0497],"57":[42.3307,-83.0471],"58":[42.3338,-83.0496],"59":[42.3315,-83.0490],"60":[42.3313,-83.0500],"61":[42.3576,-83.0912],"62":[42.3567,-83.0654],"63":[42.3330,-83.0489],"64":[42.3341,-83.0460],"65":[42.3523,-83.0501],"66":[42.3523,-83.0501],"67":[42.3314,-83.0449],"r1":[42.3340,-83.0470],"r2":[42.3660,-82.9960],"r3":[42.3470,-83.0370],"r4":[42.3291,-83.0621],"r5":[42.3606,-83.0647],"u1":[42.3307,-83.0471],"u2":[42.3319,-83.0475],"u3":[42.3348,-83.0490],"u4":[42.3819,-82.9574]};
 
 function haversine(lat1,lon1,lat2,lon2){const R=3958.8,d2r=Math.PI/180;const dLat=(lat2-lat1)*d2r,dLon=(lon2-lon1)*d2r;const a=Math.sin(dLat/2)**2+Math.cos(lat1*d2r)*Math.cos(lat2*d2r)*Math.sin(dLon/2)**2;return R*2*Math.asin(Math.sqrt(a));}
 
@@ -139,6 +139,13 @@ vibes:["Fire Pit Terraces","Intimate","Skyline"], addr:"33 John R St, Penthouse,
 hours:"Mon-Thu 5pm-11pm | Fri 5pm-12am | Sat 4pm-12am | Sun 2pm-8pm", best:"Weeknight / Sunset",
 exclusive:"Two private fire pit terraces overlooking the entire city. The quieter, more refined side of Detroit rooftop culture.",
 badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/the-monarch-club-detroit" },
+
+{ id:67, name:"Tin Roof Detroit",                 hood:"Downtown",           cat:"Rooftops",
+desc:"A lively rooftop bar and live music venue steps from Campus Martius. Outdoor terrace with sweeping views of Woodward Ave, craft cocktails, cold beer on draft, and live performances most nights.",
+vibes:["Live Music","Rooftop Terrace","Craft Cocktails"], addr:"1 Woodward Ave, Detroit, MI 48226",
+hours:"Mon-Fri 4pm-2am | Sat-Sun 12pm-2am", best:"Evening / Live Music Nights",
+exclusive:"Detroit's most social rooftop — the energy here on a weekend night is unlike anywhere else in the city. Combine with a walk through Campus Martius.",
+badges:["firsttimer"], websiteUrl:"https://tinroofbar.com/detroit" },
 
 { id:15, name:"The Belt",                          hood:"Downtown",           cat:"Alley Spots",
 desc:"A once-overlooked downtown alley transformed into a curated open-air gallery lined with murals from international and local artists. Multiple bars spill into the space.",
@@ -765,12 +772,13 @@ const badges = venue.badges||[];
 return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, style:{ position:"fixed", inset:0, background:"rgba(0,0,0,0.88)", zIndex:800, backdropFilter:"blur(4px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(660px,93vw)", maxHeight:"90vh", overflowY:"auto", background:C.deep, border:"1px solid "+C.border, borderRadius:12, zIndex:900 }},
-React.createElement("button", { onClick:onClose, style:{ position:"absolute", top:14, right:14, zIndex:10, width:34, height:34, borderRadius:"50%", background:"rgba(10,10,10,0.85)", border:"1px solid "+C.border, color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.9rem" }}, "x"),
-React.createElement("div", { style:{ padding:"28px 28px 32px", display:"flex", flexDirection:"column", gap:14 }},
-React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
+React.createElement("div", { style:{ padding:"24px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
+React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood)
-),
+React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:10 }},
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood),
+React.createElement("button", { onClick:onClose, style:{ width:30, height:30, borderRadius:"50%", background:"rgba(10,10,10,0.85)", border:"1px solid "+C.border, color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.9rem", flexShrink:0 }}, "×")
+)),
 badges.length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:6 }}, badges.map(b=>React.createElement(Chip,{key:b,type:b}))),
 venue.status && (venue.status==="justopened"||venue.status==="comingsoon") && React.createElement("div", null, React.createElement(Chip,{type:venue.status})),
 React.createElement("h2", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.5rem,4vw,2rem)", fontWeight:600, color:C.white, lineHeight:1.1, margin:0 }}, venue.name),
@@ -793,7 +801,7 @@ React.createElement("span", { style:{ fontSize:"0.81rem", color:C.ash, fontWeigh
 ),
 React.createElement("div", { style:{ display:"flex", gap:10, alignItems:"center" }},
 React.createElement(CTA, { venue, full:true }),
-isV && React.createElement("button", { onClick:()=>onFav(String(venue.id)), style:{ padding:"12px 14px", background:isFav?"rgba(201,168,76,0.15)":"transparent", border:"1px solid "+(isFav?C.gold:C.border), color:isFav?C.gold:C.smoke, fontFamily:"'DM Mono',monospace", fontSize:"0.58rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:6, cursor:"pointer" }}, isFav?"\u2665 Saved":"\u2661 Save")
+React.createElement("button", { onClick:()=>onFav(String(venue.id)), style:{ padding:"12px 14px", background:isFav?"rgba(201,168,76,0.15)":"transparent", border:"1px solid "+(isFav?C.gold:C.border), color:isFav?C.gold:C.smoke, fontFamily:"'DM Mono',monospace", fontSize:"0.58rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:6, cursor:"pointer" }}, isFav?"\u2665 Saved":"\u2661 Save")
 )
 )
 )
@@ -815,10 +823,15 @@ const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
 React.useEffect(()=>{
+const prev=document.body.style.overflow;
+document.body.style.overflow="hidden";
+return()=>{document.body.style.overflow=prev;};
+},[]);
+React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false});
 L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",{attribution:"\u00a9 OSM \u00a9 CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
-L.control.zoom({position:"bottomright"}).addTo(map);
+L.control.zoom({position:"topleft"}).addTo(map);
 mapRef.current=map;setMapReady(true);
 return()=>{map.remove();mapRef.current=null;};
 },[]);
@@ -838,14 +851,14 @@ markersRef.current.push(m);
 },[mapCat,mapReady]);
 const navH="calc(60px + env(safe-area-inset-top))";
 return React.createElement("div",{style:{height:"calc(100vh - "+navH+")",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}},
-React.createElement("div",{style:{background:C.black,borderBottom:"1px solid "+C.border,padding:"10px 16px",display:"flex",gap:7,overflowX:"auto",flexShrink:0,scrollbarWidth:"none"}},
+React.createElement("div",{style:{background:C.black,borderBottom:"1px solid "+C.border,padding:"10px 16px",display:"flex",gap:7,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",position:"relative",zIndex:500},onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()},
 MAP_FILTER_CATS.map(c=>React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(mapCat===c?C.gold:C.border),color:mapCat===c?C.black:C.goldL,background:mapCat===c?C.gold:"transparent",padding:"6px 12px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}},c==="all"?"All Venues":c))),
 React.createElement("div",{ref:containerRef,style:{flex:1,background:C.deep,minHeight:0}}),
-React.createElement("div",{style:{position:"absolute",bottom:selected?238:16,right:12,display:"flex",flexDirection:"column",gap:5,background:"rgba(10,10,10,0.88)",border:"1px solid "+C.border,borderRadius:8,padding:"8px 12px",backdropFilter:"blur(8px)",transition:"bottom 0.3s",zIndex:800}},
+React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(238px + env(safe-area-inset-bottom))":"calc(16px + env(safe-area-inset-bottom))",left:12,display:"flex",flexDirection:"column",gap:5,background:"rgba(10,10,10,0.88)",border:"1px solid "+C.border,borderRadius:8,padding:"8px 12px",backdropFilter:"blur(8px)",WebkitBackdropFilter:"blur(8px)",transition:"bottom 0.3s",zIndex:800}},
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7}},React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:C.gold,boxShadow:"0 0 5px rgba(201,168,76,0.6)"}}),React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.45rem",letterSpacing:"0.1em",color:C.ash}},"VENUES")),
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7}},React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:C.purple,boxShadow:"0 0 5px rgba(200,174,255,0.6)"}}),React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.45rem",letterSpacing:"0.1em",color:C.ash}},"NEW / SOON"))
 ),
-selected&&React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:C.deep,borderTop:"1px solid "+C.border,borderRadius:"14px 14px 0 0",padding:"18px 20px 28px",zIndex:1000}},
+selected&&React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:C.deep,borderTop:"1px solid "+C.border,borderRadius:"14px 14px 0 0",padding:"18px 20px calc(28px + env(safe-area-inset-bottom))",zIndex:1000}},
 React.createElement("button",{onClick:()=>setSelected(null),style:{position:"absolute",top:10,right:14,background:"none",border:"none",color:C.smoke,fontSize:"1.3rem",cursor:"pointer",padding:"2px 6px",lineHeight:1}},"×"),
 React.createElement("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:3}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},selected.cat),
