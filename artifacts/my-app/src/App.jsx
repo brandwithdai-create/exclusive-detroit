@@ -855,7 +855,7 @@ const row=(children,extra={})=>React.createElement("div",{style:{display:"flex",
 const mono=(text,color,size="0.52rem",extra={})=>React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:size,letterSpacing:"0.14em",textTransform:"uppercase",color,...extra}},text);
 const serif=(tag,text,size,extra={})=>React.createElement(tag,{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:size,color:C.white,...extra}},text);
 
-const NavBar=()=>React.createElement("nav",{style:{position:"fixed",top:"env(safe-area-inset-top)",left:0,right:0,zIndex:500,height:60,display:"flex",alignItems:"center",justifyContent:"space-between",paddingLeft:"24px",paddingRight:"24px",background:scrolled?"rgba(10,10,10,0.98)":"rgba(10,10,10,0.92)",backdropFilter:"blur(14px)",borderBottom:"1px solid "+C.border}},
+const NavBar=()=>React.createElement("nav",{style:{position:"fixed",top:0,left:0,right:0,zIndex:500,height:"calc(60px + env(safe-area-inset-top))",display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:"env(safe-area-inset-top)",paddingLeft:"24px",paddingRight:"24px",background:scrolled?"rgba(10,10,10,0.98)":"rgba(10,10,10,0.92)",backdropFilter:"blur(14px)",borderBottom:"1px solid "+C.border}},
 React.createElement("div",{onClick:()=>navTo("explore"),style:{cursor:"pointer"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.22em",color:C.gold,textTransform:"uppercase"}},"EXCLUSIVE"),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:C.white,lineHeight:1.1}},"Detroit")
@@ -918,7 +918,7 @@ UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModa
 )
 )
 ),
-React.createElement("div",{ref:filtersRef,style:{position:"sticky",top:80,zIndex:200,background:C.black,borderBottom:"1px solid "+C.border,padding:"12px 0 0"}},
+React.createElement("div",{ref:filtersRef,style:{position:"sticky",top:"calc(60px + env(safe-area-inset-top))",zIndex:200,background:C.black,borderBottom:"1px solid "+C.border,padding:"12px 0 0"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"}},
 React.createElement("div",{style:{display:"flex",gap:7,overflowX:"auto",paddingBottom:12,scrollbarWidth:"none"}},
 CATS.map(c=>{
