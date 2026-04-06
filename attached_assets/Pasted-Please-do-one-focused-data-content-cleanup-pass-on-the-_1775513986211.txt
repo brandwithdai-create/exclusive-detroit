@@ -1,0 +1,42 @@
+Please do one focused data/content cleanup pass on the venue cards. A few things are still off:
+
+1. Remove duplicate venues
+Some venues are showing up more than once in Explore under multiple sections. I do not want repeated cards for the same venue appearing throughout the feed unless there is a very intentional reason.
+Please:
+- dedupe the venue dataset
+- make sure each venue appears only once in the main Explore feed
+- if a venue belongs to multiple categories, keep one canonical card and let filtering handle category membership instead of rendering duplicate cards
+
+Examples I noticed:
+- Grey Ghost appears multiple times
+- Experience Zuzu appears multiple times
+
+2. Fix emojis so they match the actual venue
+The emoji should reflect what the venue is actually known for, not just any related food category.
+
+Examples that need fixing:
+- The Aladdin Sane should NOT have a sushi emoji
+- Le Supreme should NOT have a steak emoji
+- Grey Ghost should NOT use a steak emoji just because steak is mentioned — it is much more associated with its burger/cocktail vibe
+
+Please audit the emoji logic across all venues and make the icon represent the strongest, most recognizable identity of the place:
+- cocktail/bar = cocktail glass or similar
+- burger-focused = burger
+- sushi-focused = sushi
+- rooftop/city view = skyline/building
+- outdoor park/greenway = leaf
+- comedy/performance = theater/comedy masks
+- live music = music note / microphone
+
+Do not assign emojis based on a random keyword in the description. Choose the emoji based on the venue’s primary identity.
+
+3. Specific corrections
+Please correct these specifically:
+- The Aladdin Sane: remove sushi emoji, use something that fits Japanese whisky / hidden cocktail lounge better
+- Le Supreme: replace steak emoji with something more fitting for a French brasserie
+- Grey Ghost: replace steak emoji with something more fitting for burger / cocktails / nightlife identity
+
+4. Keep the luxury feel
+Do not make the emojis feel gimmicky or childish. Keep them minimal, intentional, and aligned with the current premium Detroit aesthetic.
+
+Please check the full dataset after the update so there are no more obvious mismatches or duplicate cards.
