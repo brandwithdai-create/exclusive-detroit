@@ -152,14 +152,14 @@ desc:"A once-overlooked downtown alley transformed into a curated open-air galle
 vibes:["Street Art","Open Air","Gallery Alley"], addr:"Library St between Griswold and Shelby, Detroit, MI 48226",
 hours:"Always open | Individual venues vary", best:"Weekend / Any Visit",
 exclusive:"At night with the murals lit and bars spilling into the alley, it is the most alive block in Detroit.",
-badges:["firsttimer","hidden"], websiteUrl:"https://www.thebelt.org" },
+cats:["Alley Spots","Outdoor Activities"],badges:["firsttimer","hidden"], websiteUrl:"https://www.thebelt.org" },
 
 { id:16, name:"Deluxx Fluxx",                      hood:"Downtown",           cat:"Alley Spots",
 desc:"A neon-drenched art bar and nightclub inside The Belt designed by Brooklyn artists FAILE. Custom pinball machines, blacklight room, packed dance floor, cocktails on tap.",
 vibes:["Neon Art","Arcade","DJ Nights"], addr:"1274 Library St (The Belt), Detroit, MI 48226",
 hours:"Thu 9pm-2am | Fri-Sat 8pm-2am | Sun-Wed Closed", best:"Weekend / Late Night",
 exclusive:"Every inch of this place is a handmade art piece you can dance inside. There is nothing else like it in America.",
-badges:["firsttimer","locals"], websiteUrl:"https://www.deluxxfluxx.com" },
+cats:["Alley Spots","Nightlife"],badges:["firsttimer","locals"], websiteUrl:"https://www.deluxxfluxx.com" },
 
 { id:17, name:"Parlay Detroit",                    hood:"Downtown",           cat:"Sports",
 desc:"An 11,000-square-foot elevated sports bar within walking distance of Ford Field, Comerica Park, and Little Caesars Arena. Part-owned by former Detroit Lion Joique Bell. Cigar lounge, VIP areas, speakeasy on the lower level.",
@@ -637,7 +637,7 @@ style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'D
 }
 
 const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports":"⚾️","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🖤","Outdoor Activities":"🍃","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
-const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Speakeasies","Hidden Bars","Alley Spots","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports","Rooftops","Comedy / Live Events","Nightlife","Date Night","Outdoor Activities"];
+const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Speakeasies","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports","Rooftops","Comedy / Live Events","Nightlife","Date Night","Outdoor Activities","Alley Spots"];
 function getEmojiForVenue(venue){const all=[venue.cat,...(venue.cats||[])];for(const c of EMOJI_PRIORITY){if(all.includes(c)&&CAT_EMOJI[c])return CAT_EMOJI[c];}return CAT_EMOJI[venue.cat]||"✨";}
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
