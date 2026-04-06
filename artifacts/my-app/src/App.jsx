@@ -338,21 +338,21 @@ desc:"Detroit's first nano-brewery and Corktown's communal anchor. Small-batch c
 vibes:["Craft Beer","Live Music","Communal Taproom"], addr:"1400 Porter St, Detroit, MI 48216",
 hours:"Mon-Thu 4pm-11pm | Fri-Sat 12pm-12am | Sun 12pm-8pm", best:"Weekend / Anytime",
 exclusive:"Detroit's first nano-brewery, still in Corktown, still running the best communal table in the neighborhood.",
-badges:["firsttimer","locals"], websiteUrl:"https://www.batchbrewingcompany.com" },
+cats:["Corktown","Cocktail Lounges"],badges:["firsttimer","locals"], websiteUrl:"https://www.batchbrewingcompany.com" },
 
 { id:32, name:"Ottava Via",                       hood:"Corktown",           cat:"Corktown",
 desc:"A lively modern Italian restaurant on Michigan Ave. Wood-fired pizzas, fresh pastas, outdoor fireplace, and bocce ball lanes on the patio.",
 vibes:["Italian","Wood-Fired Pizza","Bocce Ball"], addr:"1400 Michigan Ave, Detroit, MI 48216",
 hours:"Sun-Thu 11am-10pm | Fri-Sat 11am-11pm", best:"Date Night / Weekend",
 exclusive:"Outdoor fireplace, bocce ball, wood-fired pizza. In summer this patio is one of the best tables in the city.",
-badges:["locals"], reservationUrl:"https://ottavaviadetroit.com/reservations" },
+cats:["Corktown","Dinner"],badges:["locals"], reservationUrl:"https://ottavaviadetroit.com/reservations" },
 
 { id:33, name:"Lager House",                      hood:"Corktown",           cat:"Corktown",
 desc:"A beloved live music dive bar in the heart of Corktown. Original rock, punk, blues, and metal most nights. The bar top is inlaid with signed guitar picks.",
 vibes:["Live Music","Dive Bar","Rock and Punk"], addr:"1254 Michigan Ave, Detroit, MI 48216",
 hours:"Mon-Thu 1pm-12am | Fri 1pm-2am | Sat 9am-2am | Sun 9am-12am", best:"Weekend / Late Night",
 exclusive:"The bar top is inlaid with signed guitar picks from every act that has played here. No cover most nights.",
-badges:["locals"], ticketUrl:"https://thelagerhouse.com/events", websiteUrl:"https://thelagerhouse.com" },
+cats:["Corktown","Cocktail Lounges"],badges:["locals"], ticketUrl:"https://thelagerhouse.com/events", websiteUrl:"https://thelagerhouse.com" },
 
 /* ── BREAKFAST ── */
 { id:42, name:"Hudson Cafe",                       hood:"Downtown",           cat:"Breakfast",
@@ -562,21 +562,21 @@ desc:"A second-floor cocktail bar with deep red walls and a rooftop patio overlo
 vibes:["Hidden Entrance","Rooftop Patio","DJ Nights"], addr:"1454 Gratiot Ave (2nd Floor), Detroit, MI 48207",
 hours:"Thu 7pm-12am | Fri-Sat 8pm-2am | Sun 2pm-10pm", best:"Weekend / Late Night",
 exclusive:"No sign at street level. A red neon Cocktails sign is your only clue. Head upstairs.",
-badges:["recentopen","hidden"], websiteUrl:"https://www.instagram.com/pocketchangedetroit" },
+cats:["Nightlife","Cocktail Lounges"],badges:["recentopen","hidden"], websiteUrl:"https://www.instagram.com/pocketchangedetroit" },
 
 { id:"r4", name:"Street Beet",        hood:"Corktown",      cat:"Corktown",
 desc:"Detroit's beloved vegan pop-up turned permanent restaurant in the former Bobcat Bonnie's space. Plant-based smashburgers, coney dogs, diner classics. Vintage arcade in the back.",
 vibes:["Vegan","Comfort Food","Arcade"], addr:"1800 Michigan Ave, Detroit, MI 48216",
 hours:"Wed-Thu 4pm-10pm | Fri 4pm-11pm | Sat 10am-3pm and 4pm-11pm | Sun 10am-3pm and 4pm-10pm | Mon-Tue Closed", best:"Weeknight / Weekend",
 exclusive:"Detroit's most beloved vegan pop-up finally has a permanent home.",
-badges:["recentopen"], websiteUrl:"https://www.streetbeet.online" },
+cats:["Corktown","Lunch"],badges:["recentopen"], websiteUrl:"https://www.streetbeet.online" },
 
 { id:"r5", name:"Dirty Shake",        hood:"Midtown",       cat:"Midtown",
 desc:"A high-energy neighborhood bar from the team behind Chartreuse and Freya. Nostalgic cocktails, boozy slushies, a cult-status bar burger, and a patio with garage doors.",
 vibes:["Late Night","Bar Burger","Chartreuse Team"], addr:"4120 Cass Ave, Detroit, MI 48201",
 hours:"Check @dirtyshakedetroit for current hours", best:"Late Night / Weeknight",
 exclusive:"When the Chartreuse team opens a neighborhood bar, the neighborhood pays attention.",
-badges:["recentopen"], websiteUrl:"https://www.instagram.com/dirtyshakedetroit" },
+cats:["Midtown","Cocktail Lounges"],badges:["recentopen"], websiteUrl:"https://www.instagram.com/dirtyshakedetroit" },
 ];
 
 const UPCOMING = [
@@ -637,11 +637,12 @@ style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'D
 }
 
 const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports":"⚾️","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🖤","Outdoor Activities":"🍃","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
-function getEmojiForVenue(venue){return CAT_EMOJI[venue.cat]||"✨";}
+const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Speakeasies","Hidden Bars","Alley Spots","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports","Rooftops","Comedy / Live Events","Nightlife","Date Night","Outdoor Activities"];
+function getEmojiForVenue(venue){const all=[venue.cat,...(venue.cats||[])];for(const c of EMOJI_PRIORITY){if(all.includes(c)&&CAT_EMOJI[c])return CAT_EMOJI[c];}return CAT_EMOJI[venue.cat]||"✨";}
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
 
-function VCard({ venue, isFav, onFav, onOpen, i }) {
+const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i }) {
 const [hov, setHov] = useState(false);
 const heartRef = useRef(null);
 const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
@@ -669,9 +670,9 @@ React.createElement("button", { ref:heartRef, onClick:e=>{e.stopPropagation();on
 )
 )
 );
-}
+});
 
-function UCard({ venue, i, onOpen, isFav, onFav }) {
+const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav }) {
 const [hov, setHov] = useState(false);
 const heartRef = useRef(null);
 const just = venue.status==="justopened";
@@ -703,7 +704,7 @@ React.createElement("button", { ref:heartRef, onClick:e=>{e.stopPropagation();on
 )
 )
 );
-}
+});
 
 function Modal({ venue, isFav, onFav, onClose }) {
 if (!venue) return null;
