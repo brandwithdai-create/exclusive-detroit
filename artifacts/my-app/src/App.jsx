@@ -869,6 +869,7 @@ const [scrolled,setScrolled]  = useState(false);
 const [nearMe,  setNearMe]    = useState(false);
 const [userCoords,setUserCoords]=useState(null);
 const [geoError,setGeoError]  = useState(null);
+const [geoModal,setGeoModal]  = useState(false);
 const filtersRef = useRef(null);
 
 useEffect(()=>{
@@ -900,7 +901,8 @@ const sid=String(id);const v=ALL.find(x=>String(x.id)===sid);
 setFavs(prev=>{const next=prev.includes(sid)?prev.filter(f=>f!==sid):[...prev,sid];showToast(prev.includes(sid)?"Removed: "+(v?v.name:""):"Saved: "+(v?v.name:""));return next;});
 },[]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},60);},[]);
-const activateNearMe=()=>{if(!navigator.geolocation){setGeoError("Geolocation not supported by your browser.");return;}navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},120);},()=>setGeoError("Location access denied. Enable location permissions to use Near Me."));};
+const doGetLocation=()=>{navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},120);},err=>{if(err.code===1)setGeoError("Location access is blocked. To enable it, go to your device Settings → Browser → Location and allow this site.");else setGeoError("Couldn't get your location — please try again.");});};
+const activateNearMe=()=>{if(!navigator.geolocation){setGeoError("Geolocation is not supported by your browser.");return;}if(navigator.permissions){navigator.permissions.query({name:"geolocation"}).then(r=>{if(r.state==="granted")doGetLocation();else if(r.state==="denied")setGeoError("Location access is blocked. To use Near Me, enable location for this browser in your device Settings.");else setGeoModal(true);}).catch(()=>setGeoModal(true));}else{setGeoModal(true);}};
 const deactivateNearMe=()=>{setNearMe(false);setUserCoords(null);setGeoError(null);};
 
 let shown=[...ALL];
@@ -944,13 +946,25 @@ React.createElement("h1",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 ),
 React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:300,color:"rgba(232,224,212,0.65)",maxWidth:480,margin:"0 auto 26px",lineHeight:1.82}},"The insider's guide to Detroit's most exclusive bars, speakeasies, rooftops, and hidden nightlife. Not for everyone - made for you."),
 React.createElement("div",{style:{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}},
-["Breakfast","Sports","Hidden Bars","Speakeasies","Rooftops","Date Night","Dinner","Happy Hour","Cocktail Lounges","Nightlife"].map(c=>
+["Breakfast","Sports","Hidden Bars","Rooftops","Dinner","Happy Hour","Cocktail Lounges","Nightlife"].map(c=>
 React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1px solid "+(cat===c?C.gold:"rgba(201,168,76,0.32)"),color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"transparent",padding:"7px 14px",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
 )
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:20,flexWrap:"wrap"}},
 React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
 React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"transparent",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
+)
+)
+);
+
+const GeoModal=()=>!geoModal?null:React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.88)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 24px"},onClick:()=>setGeoModal(false)},
+React.createElement("div",{style:{background:"#0E0D14",border:"1px solid rgba(201,168,76,0.28)",borderRadius:22,padding:"44px 32px 36px",maxWidth:360,width:"100%",textAlign:"center",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.7)"},onClick:e=>e.stopPropagation()},
+React.createElement("div",{style:{width:44,height:44,borderRadius:"50%",border:"1px solid rgba(201,168,76,0.35)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 22px",color:C.gold,fontSize:"1.1rem"}},"◎"),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.4rem",fontWeight:400,color:C.white,lineHeight:1.3,marginBottom:14}},"Allow Exclusive Detroit to use your location?"),
+React.createElement("p",{style:{fontSize:"0.84rem",fontWeight:300,color:"rgba(232,224,212,0.58)",lineHeight:1.78,marginBottom:34}},"We use your location to show the best nearby spots and sort results closest to you."),
+React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:10}},
+React.createElement("button",{onClick:()=>{setGeoModal(false);doGetLocation();},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:C.gold,color:"#0A0808",border:"none",borderRadius:100,padding:"14px 0",cursor:"pointer",width:"100%",fontWeight:600}},"Continue"),
+React.createElement("button",{onClick:()=>setGeoModal(false),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"transparent",color:"rgba(232,224,212,0.38)",border:"1px solid rgba(232,224,212,0.12)",borderRadius:100,padding:"13px 0",cursor:"pointer",width:"100%"}},"Not Now")
 )
 )
 );
@@ -1124,6 +1138,7 @@ React.createElement("span",null,"Detroit Edition v5.0")
 )
 )
 ),
+React.createElement(GeoModal),
 modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null)}),
 React.createElement(Toast,{msg:toast.msg,vis:toast.vis})
 );
