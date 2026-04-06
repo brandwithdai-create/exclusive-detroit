@@ -828,7 +828,7 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }, msg);
 }
 
-const MAP_FILTER_CATS=["all","Hidden Bars","Date Night","Rooftops","Happy Hour","Sports","Speakeasies"];
+const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Date Night","Happy Hour","Sports","Speakeasies"];
 function MapView({isFav,toggleFav,setModalId}){
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
@@ -849,6 +849,11 @@ L.control.zoom({position:"topleft"}).addTo(map);
 mapRef.current=map;setMapReady(true);
 return()=>{map.remove();mapRef.current=null;};
 },[]);
+React.useEffect(()=>{
+const map=mapRef.current;if(!map)return;
+const ctrl=map.getContainer().querySelector('.leaflet-control-container');
+if(ctrl)ctrl.style.visibility=selected?'hidden':'';
+},[selected]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 markersRef.current.forEach(m=>map.removeLayer(m));markersRef.current=[];
@@ -872,7 +877,7 @@ React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(238p
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7}},React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:C.gold,boxShadow:"0 0 5px rgba(201,168,76,0.6)"}}),React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.45rem",letterSpacing:"0.1em",color:C.ash}},"VENUES")),
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7}},React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:C.purple,boxShadow:"0 0 5px rgba(200,174,255,0.6)"}}),React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.45rem",letterSpacing:"0.1em",color:C.ash}},"NEW / SOON"))
 ),
-selected&&React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:C.deep,borderTop:"1px solid "+C.border,borderRadius:"14px 14px 0 0",padding:"18px 20px calc(28px + env(safe-area-inset-bottom))",zIndex:1000}},
+selected&&React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:C.deep,borderTop:"1px solid "+C.border,borderRadius:"14px 14px 0 0",padding:"18px 20px calc(28px + env(safe-area-inset-bottom))",zIndex:1100}},
 React.createElement("button",{onClick:()=>setSelected(null),style:{position:"absolute",top:10,right:14,background:"none",border:"none",color:C.smoke,fontSize:"1.3rem",cursor:"pointer",padding:"2px 6px",lineHeight:1}},"×"),
 React.createElement("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:3}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},selected.cat),
