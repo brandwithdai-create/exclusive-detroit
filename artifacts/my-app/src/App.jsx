@@ -636,45 +636,8 @@ style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'D
 }, cta.label);
 }
 
-const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🍽","Dinner":"🍷","Happy Hour":"🍸","Sports":"🏆","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🍸","Rooftops":"🌆","Hotel Lounges":"✨","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🕯","Outdoor Activities":"🌿","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍"};
-const VIBE_EMOJI=[
-[["brasserie","boulangerie","patisserie","french bistro"],"🥐"],
-[["wood-fired","hearth"],"🔥"],
-[["fire pit"],"🔥"],
-[["steakhouse","usda prime","in-house butcher","prime steak"],"🥩"],
-[["ramen","noodle"],"🍜"],
-[["sushi","omakase","sashimi","robatayaki","robata","izakaya"],"🍣"],
-[["pizza","neapolitan"],"🍕"],
-[["taco","cuban","paella","empanada"],"🌮"],
-[["liberian","west african","african"],"🌍"],
-[["salsa","cumbia","merengue"],"🎶"],
-[["farm-to-table","seasonal plates","michigan farm","local farms"],"🌿"],
-[["greenway","trail","park","garden","outdoor market","nature walk"],"🌿"],
-[["market","farmers market","vendor"],"🧺"],
-[["rooftop","skyline","terrace","panoramic","city views","aerial"],"🌆"],
-[["whisky","whiskey","bourbon","scotch","aged spirit"],"🥃"],
-[["speakeasy","hidden bar","underground","secret door","hidden entrance"],"🚪"],
-[["live music","jazz","blues","live band","punk","rock show"],"🎵"],
-[["dj","dancing","nightclub","dance floor"],"🌙"],
-[["coffee","espresso","café bar","latte"],"☕"],
-[["brunch","breakfast","egg","pastry","croissant","waffle"],"🍳"],
-[["craft cocktail","cocktail","mixology","bespoke drink"],"🍸"],
-[["steak","churrasco","argentine","smash burger","burger"],"🥩"],
-[["beer","brewery","taproom","draft","craft beer"],"🍺"],
-[["wine","sommelier","natural wine","cellar"],"🍷"],
-[["comedy","stand-up","improv","open mic"],"🎭"],
-[["sports bar","game day","watch party","nfl","mlb","nba"],"🏆"],
-[["waterfront","island","marina"],"🏝"],
-[["hotel","boutique hotel","lobby bar"],"✨"],
-[["candlelit","romantic","intimate","cozy","date night"],"🕯"],
-[["happy hour","after-work","after work"],"🍸"],
-[["mural","street art","art gallery","gallery"],"🖼"],
-];
-function getEmojiForVenue(venue){
-const text=[...(venue.vibes||[]),venue.cat,venue.name,venue.desc||""].join(" ").toLowerCase();
-for(const[keys,emoji]of VIBE_EMOJI){if(keys.some(k=>text.includes(k)))return emoji;}
-return CAT_EMOJI[venue.cat]||"✨";
-}
+const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports":"⚾️","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🖤","Outdoor Activities":"🍃","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
+function getEmojiForVenue(venue){return CAT_EMOJI[venue.cat]||"✨";}
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
 
@@ -871,6 +834,7 @@ const [geoError,setGeoError]  = useState(null);
 const [geoModal,setGeoModal]  = useState(false);
 const filtersRef = useRef(null);
 const chipRowRef = useRef(null);
+const gridTopRef = useRef(null);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
@@ -907,7 +871,7 @@ const sid=String(id);const v=ALL.find(x=>String(x.id)===sid);
 setFavs(prev=>{const next=prev.includes(sid)?prev.filter(f=>f!==sid):[...prev,sid];showToast(prev.includes(sid)?"Removed: "+(v?v.name:""):"Saved: "+(v?v.name:""));return next;});
 },[]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},60);},[]);
-const switchCat=useCallback(c=>{const savedLeft=chipRowRef.current?.scrollLeft??0;setCat(c);window.scrollTo({top:0,behavior:"instant"});requestAnimationFrame(()=>{if(chipRowRef.current)chipRowRef.current.scrollLeft=savedLeft;});},[]);
+const switchCat=useCallback(c=>{const savedLeft=chipRowRef.current?.scrollLeft??0;setCat(c);requestAnimationFrame(()=>{if(chipRowRef.current)chipRowRef.current.scrollLeft=savedLeft;gridTopRef.current?.scrollIntoView({behavior:"instant",block:"start"});});},[]);
 const doGetLocation=()=>{navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},120);},err=>{if(err.code===1)setGeoError("Location access is blocked. To enable it, go to your device Settings → Browser → Location and allow this site.");else setGeoError("Couldn't get your location — please try again.");});};
 const activateNearMe=()=>{if(!navigator.geolocation){setGeoError("Geolocation is not supported by your browser.");return;}if(navigator.permissions){navigator.permissions.query({name:"geolocation"}).then(r=>{if(r.state==="granted")doGetLocation();else if(r.state==="denied")setGeoError("Location access is blocked. To use Near Me, enable location for this browser in your device Settings.");else setGeoModal(true);}).catch(()=>setGeoModal(true));}else{setGeoModal(true);}};
 const deactivateNearMe=()=>{setNearMe(false);setUserCoords(null);setGeoError(null);};
@@ -1019,7 +983,7 @@ geoError&&!nearMe&&React.createElement("span",{style:{fontSize:"0.73rem",color:"
 )
 )
 ),
-React.createElement("div",{style:{borderBottom:"1px solid "+C.borderS,padding:"9px 0"}},
+React.createElement("div",{ref:gridTopRef,style:{borderBottom:"1px solid "+C.borderS,padding:"9px 0"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px",display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:8}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",color:C.smoke}},shown.length+" venue"+(shown.length!==1?"s":"")+(nearMe?"":(cat!=="all"?" in "+cat:""))),
 !nearMe&&React.createElement("div",{style:{display:"flex",alignItems:"center",gap:8}},
