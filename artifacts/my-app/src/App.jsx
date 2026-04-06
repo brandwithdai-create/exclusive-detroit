@@ -681,7 +681,7 @@ desc:"Detroit's first Liberian restaurant from chef Ameneh Marhaba. A halal menu
 vibes:["Liberian Cuisine","Halal","Community-Led"], addr:"16530 E Warren Ave, Detroit, MI 48224 (The Ribbon development)",
 hours:"Opening date TBD - follow @littleliberiadetroit", best:"Dinner / Cultural Experience",
 exclusive:"Detroit's first Liberian restaurant. The kind of opening that matters beyond food.",
-openDate:null, note:"Coming Soon | Detroit's first Liberian restaurant | Chef Ameneh Marhaba" },
+openDate:null, note:"Coming Soon | Detroit's first Liberian restaurant | Chef Ameneh Marhaba", websiteUrl:"https://www.littleliberia.com" },
 ].map(v => ({ ...v, status: calcStatus(v.openDate) }))
 .filter(v => v.status === "justopened" || v.status === "comingsoon");
 
@@ -759,7 +759,7 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 ),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
