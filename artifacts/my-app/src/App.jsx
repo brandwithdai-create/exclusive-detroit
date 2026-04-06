@@ -884,6 +884,7 @@ const [userCoords,setUserCoords]=useState(null);
 const [geoError,setGeoError]  = useState(null);
 const [geoModal,setGeoModal]  = useState(false);
 const filtersRef = useRef(null);
+const chipRowRef = useRef(null);
 
 useEffect(()=>{
 const fn=()=>setScrolled(window.scrollY>20);
@@ -914,7 +915,7 @@ const sid=String(id);const v=ALL.find(x=>String(x.id)===sid);
 setFavs(prev=>{const next=prev.includes(sid)?prev.filter(f=>f!==sid):[...prev,sid];showToast(prev.includes(sid)?"Removed: "+(v?v.name:""):"Saved: "+(v?v.name:""));return next;});
 },[]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},60);},[]);
-const switchCat=useCallback(c=>{setCat(c);requestAnimationFrame(()=>{const el=filtersRef.current;if(!el)return;let top=0,node=el;while(node){top+=node.offsetTop;node=node.offsetParent;}window.scrollTo({top:Math.max(0,top-64),behavior:"instant"});});},[]);
+const switchCat=useCallback(c=>{const savedLeft=chipRowRef.current?.scrollLeft??0;setCat(c);requestAnimationFrame(()=>{const el=filtersRef.current;if(!el)return;let top=0,node=el;while(node){top+=node.offsetTop;node=node.offsetParent;}window.scrollTo({top:Math.max(0,top-64),behavior:"instant"});if(chipRowRef.current)chipRowRef.current.scrollLeft=savedLeft;});},[]);
 const doGetLocation=()=>{navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},120);},err=>{if(err.code===1)setGeoError("Location access is blocked. To enable it, go to your device Settings → Browser → Location and allow this site.");else setGeoError("Couldn't get your location — please try again.");});};
 const activateNearMe=()=>{if(!navigator.geolocation){setGeoError("Geolocation is not supported by your browser.");return;}if(navigator.permissions){navigator.permissions.query({name:"geolocation"}).then(r=>{if(r.state==="granted")doGetLocation();else if(r.state==="denied")setGeoError("Location access is blocked. To use Near Me, enable location for this browser in your device Settings.");else setGeoModal(true);}).catch(()=>setGeoModal(true));}else{setGeoModal(true);}};
 const deactivateNearMe=()=>{setNearMe(false);setUserCoords(null);setGeoError(null);};
@@ -1014,7 +1015,7 @@ UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModa
 ),
 React.createElement("div",{ref:filtersRef,style:{position:"sticky",top:"calc(60px + env(safe-area-inset-top))",zIndex:200,background:C.black,borderBottom:"1px solid "+C.border,padding:"12px 0 0"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"}},
-React.createElement("div",{style:{display:"flex",gap:7,overflowX:"auto",paddingBottom:12,scrollbarWidth:"none"}},
+React.createElement("div",{ref:chipRowRef,style:{display:"flex",gap:7,overflowX:"auto",paddingBottom:12,scrollbarWidth:"none"}},
 CATS.map(c=>{
 const active=c===cat;
 return React.createElement("button",{key:c,onClick:()=>switchCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1px solid "+(active?C.gold:C.border),background:active?C.gold:"transparent",color:active?C.black:C.smoke,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Spots":c);
