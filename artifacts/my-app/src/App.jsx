@@ -231,7 +231,7 @@ addr:"1145 Griswold St, Detroit, MI 48226",
 hours:"Sun-Thu 4pm-10pm | Fri-Sat 4pm-11pm",
 best:"Date Night / Special Occasion",
 exclusive:"Soaring ceilings, marble floors, glass-walled dry-age rooms, and a custom butcher counter visible from every table. One of the most exacting steak restaurants in America.",
-badges:["firsttimer"],
+cats:["Date Night","Dinner"],badges:["firsttimer"],
 reservationUrl:"https://www.opentable.com/r/prime-and-proper-detroit" },
 
 { id:35, name:"BESA",                             hood:"Downtown",           cat:"Date Night",
@@ -241,7 +241,7 @@ addr:"600 Woodward Ave, Detroit, MI 48226",
 hours:"Mon-Thu 4pm-10pm | Fri-Sat 4pm-11pm | Sun Closed",
 best:"Date Night / Special Occasion",
 exclusive:"Detroit's Best Wine Bar two years in a row. The lamb shoulder with pomegranate reduction is one of the best plates in the city. The private loft overlooking the dining room is worth booking for a group.",
-badges:["firsttimer"],
+cats:["Date Night","Dinner"],badges:["firsttimer"],
 reservationUrl:"https://www.opentable.com/r/besa-detroit" },
 
 { id:36, name:"Ostrea",                           hood:"Downtown",           cat:"Date Night",
@@ -251,7 +251,7 @@ addr:"536 Shelby St, Detroit, MI 48226",
 hours:"Mon-Sat 3pm-11pm (kitchen 4pm-10pm) | Sun Closed",
 best:"Date Night / Pre-Show",
 exclusive:"Fresh oysters delivered every single day. Caviar service. The team behind the most storied steakhouse in Detroit history. Old-school glamour without the formality.",
-badges:["firsttimer","locals"],
+cats:["Date Night","Dinner"],badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/ostrea-detroit" },
 
 { id:37, name:"Barda",                            hood:"Core City",          cat:"Date Night",
@@ -261,7 +261,7 @@ addr:"4842 Grand River Ave, Detroit, MI 48208",
 hours:"Wed-Thu 5pm-9pm | Fri-Sat 5pm-10pm | Sun-Tue Closed",
 best:"Date Night / Special Occasion",
 exclusive:"James Beard Award finalist. A wood-burning grill is the only cooking method in the kitchen. Outdoor bonfire seating in a park setting. There is truly nothing else like Barda in Detroit.",
-badges:["firsttimer","locals"],
+cats:["Date Night","Dinner"],badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/barda-detroit" },
 
 { id:38, name:"Selden Standard",                  hood:"Midtown",            cat:"Date Night",
@@ -271,7 +271,7 @@ addr:"3921 2nd Ave, Detroit, MI 48201",
 hours:"Daily 5pm-10pm",
 best:"Date Night / Weekend",
 exclusive:"Two-time James Beard Outstanding Restaurant semifinalist. USA Today named it one of the best restaurants in America in 2024. The chef's counter is the best seat – reserve 30 days out.",
-badges:["firsttimer","locals"],
+cats:["Date Night","Dinner"],badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/selden-standard-detroit" },
 
 { id:39, name:"Hiroki-San",                        hood:"Downtown",           cat:"Date Night",
@@ -643,7 +643,7 @@ function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+ve
 
 function VCard({ venue, isFav, onFav, onOpen, i }) {
 const [hov, setHov] = useState(false);
-const [popped, setPopped] = useState(false);
+const heartRef = useRef(null);
 const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
 return React.createElement("div", {
 onClick:()=>onOpen(String(venue.id)),
@@ -665,7 +665,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));setPopped(true);setTimeout(()=>setPopped(false),350);}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", display:"inline-block", animation:popped?"heartPop 0.3s ease":"none", transformOrigin:"center" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { ref:heartRef, onClick:e=>{e.stopPropagation();onFav(String(venue.id));const b=heartRef.current;if(b){b.style.animation='none';void b.offsetHeight;b.style.animation='heartPop 0.3s ease';}}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", display:"inline-block", transformOrigin:"center" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -673,7 +673,7 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 
 function UCard({ venue, i, onOpen, isFav, onFav }) {
 const [hov, setHov] = useState(false);
-const [popped, setPopped] = useState(false);
+const heartRef = useRef(null);
 const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
 const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
@@ -699,7 +699,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));setPopped(true);setTimeout(()=>setPopped(false),350);}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto", display:"inline-block", animation:popped?"heartPop 0.3s ease":"none", transformOrigin:"center" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { ref:heartRef, onClick:e=>{e.stopPropagation();onFav(String(venue.id));const b=heartRef.current;if(b){b.style.animation='none';void b.offsetHeight;b.style.animation='heartPop 0.3s ease';}}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto", display:"inline-block", transformOrigin:"center" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -877,7 +877,7 @@ const activateNearMe=()=>{if(!navigator.geolocation){setGeoError("Geolocation is
 const deactivateNearMe=()=>{setNearMe(false);setUserCoords(null);setGeoError(null);};
 
 let shown=[...ALL];
-if(cat!=="all")shown=shown.filter(v=>v.cat===cat||v.hood===cat);
+if(cat!=="all")shown=shown.filter(v=>v.cat===cat||(v.cats||[]).includes(cat)||v.hood===cat);
 if(nearMe&&userCoords){shown=shown.map(v=>{const coord=COORDS[String(v.id)];if(coord){const d=haversine(userCoords.lat,userCoords.lng,coord[0],coord[1]);return{...v,distMi:d};}return v;}).sort((a,b)=>(a.distMi??999)-(b.distMi??999));}
 else{if(sort==="name")shown.sort((a,b)=>a.name.localeCompare(b.name));if(sort==="hood")shown.sort((a,b)=>a.hood.localeCompare(b.hood));if(sort==="cat")shown.sort((a,b)=>a.cat.localeCompare(b.cat));}
 
