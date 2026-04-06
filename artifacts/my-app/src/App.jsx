@@ -711,12 +711,18 @@ style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'D
 }, cta.label);
 }
 
+const CAT_EMOJI={"Breakfast":"☕","Coffee Shops & Bakeries":"☕","Lunch":"🍽","Dinner":"🍷","Happy Hour":"🍸","Sports":"🏆","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🍸","Rooftops":"🌆","Hotel Lounges":"✨","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🕯","Outdoor Activities":"🌿","Midtown":"🎨","Downtown":"🏙","Corktown":"🪴","African Restaurant":"🌍"};
+function getVibeLine(venue){const emoji=CAT_EMOJI[venue.cat]||"✨";const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
+function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
+
 function VCard({ venue, isFav, onFav, onOpen, i }) {
 const [hov, setHov] = useState(false);
+const [popped, setPopped] = useState(false);
+const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
 return React.createElement("div", {
 onClick:()=>onOpen(String(venue.id)),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
-style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 8px 36px rgba(0,0,0,0.55)":"0 2px 14px rgba(0,0,0,0.4)", transition:"all 0.24s", animationDelay:Math.min(i*0.04,0.5)+"s" }
+style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 8px 36px rgba(0,0,0,0.55)":"0 2px 14px rgba(0,0,0,0.4)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
@@ -726,11 +732,14 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 venue.distMi!==undefined&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.1em",color:C.purple}},"◉ "+venue.distMi.toFixed(1)+" mi away"),
 (venue.badges||[]).length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:5 }}, (venue.badges||[]).map(b=>React.createElement(Chip,{key:b,type:b}))),
 React.createElement("h3", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}, venue.name),
+vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.82rem",fontStyle:"italic",color:"rgba(201,168,76,0.62)",margin:0,lineHeight:1.4}},vibeLine),
 React.createElement("p", { style:{ fontSize:"0.78rem", color:C.ash, fontWeight:300, lineHeight:1.65, flex:1, margin:0 }}, venue.desc),
 React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:4 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v}))),
+tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingTop:8,marginTop:2}},
+React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));setPopped(true);setTimeout(()=>setPopped(false),350);}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", display:"inline-block", animation:popped?"heartPop 0.3s ease":"none", transformOrigin:"center" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -738,12 +747,14 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 
 function UCard({ venue, i, onOpen, isFav, onFav }) {
 const [hov, setHov] = useState(false);
+const [popped, setPopped] = useState(false);
 const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
+const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
 return React.createElement("div", {
 onClick:()=>onOpen(venue.id),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
-style:{ background:C.card, border:"1px solid "+(hov?(just?C.goldD:"rgba(110,75,195,0.5)"):C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 8px 36px rgba(0,0,0,0.55)":"0 2px 14px rgba(0,0,0,0.4)", transition:"all 0.24s" }
+style:{ background:C.card, border:"1px solid "+(hov?(just?C.goldD:"rgba(110,75,195,0.5)"):C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 8px 36px rgba(0,0,0,0.55)":"0 2px 14px rgba(0,0,0,0.4)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
@@ -752,14 +763,17 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 ),
 React.createElement("div", { style:{ display:"flex", gap:5 }}, React.createElement(Chip,{type:venue.status})),
 React.createElement("h3", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}, venue.name),
+vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.82rem",fontStyle:"italic",color:"rgba(201,168,76,0.62)",margin:0,lineHeight:1.4}},vibeLine),
 React.createElement("p", { style:{ fontSize:"0.78rem", color:C.ash, fontWeight:300, lineHeight:1.65, flex:1, margin:0 }}, venue.desc),
 React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:4 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v}))),
 React.createElement("div", { style:{ background:just?"rgba(201,168,76,0.09)":"rgba(110,75,195,0.09)", border:"1px solid "+(just?"rgba(201,168,76,0.28)":"rgba(110,75,195,0.28)"), borderRadius:5, padding:"6px 10px" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.48rem", letterSpacing:"0.09em", color:acc }}, venue.note)
 ),
+tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingTop:8,marginTop:2}},
+React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));setPopped(true);setTimeout(()=>setPopped(false),350);}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto", display:"inline-block", animation:popped?"heartPop 0.3s ease":"none", transformOrigin:"center" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -887,6 +901,12 @@ const filtersRef = useRef(null);
 const chipRowRef = useRef(null);
 
 useEffect(()=>{
+const s=document.createElement('style');s.id='ed-anim';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes heartPop{0%{transform:scale(1)}40%{transform:scale(1.5)}70%{transform:scale(0.85)}100%{transform:scale(1)}}';
+document.head.appendChild(s);
+return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
+},[]);
+useEffect(()=>{
 const fn=()=>setScrolled(window.scrollY>20);
 window.addEventListener("scroll",fn);
 return ()=>window.removeEventListener("scroll",fn);
@@ -984,7 +1004,7 @@ React.createElement("button",{onClick:()=>setGeoModal(false),style:{fontFamily:"
 )
 );
 
-const grid=(items,onOpen)=>React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
+const grid=(items,onOpen,animKey)=>React.createElement("div",{key:animKey,style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
 items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i}))
 );
 
@@ -1047,7 +1067,7 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52r
 React.createElement("p",{style:{fontSize:"0.78rem",color:C.smoke,fontWeight:300}},shown.length+" venue"+(shown.length!==1?"s":"")+" sorted by distance from your location.")),
 shown.length===0
 ?React.createElement("div",{style:{textAlign:"center",padding:"56px 20px",color:C.smoke,fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontStyle:"italic"}},"No venues in this category.")
-:grid(shown,setModalId)
+:grid(shown,setModalId,cat+(nearMe?"_near":"_all"))
 )
 );
 
