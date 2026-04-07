@@ -807,7 +807,7 @@ markersRef.current.push(m);
 });
 },[mapCat,mapReady]);
 const navH="calc(60px + env(safe-area-inset-top))";
-return React.createElement("div",{style:{height:"calc(100vh - "+navH+")",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}},
+return React.createElement("div",{style:{height:"calc(100dvh - "+navH+")",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}},
 React.createElement("div",{style:{background:C.black,borderBottom:"1px solid "+C.border,padding:"10px 16px",display:"flex",gap:7,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",position:"relative",zIndex:500},onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()},
 MAP_FILTER_CATS.map(c=>React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(mapCat===c?C.gold:C.border),color:mapCat===c?C.black:C.goldL,background:mapCat===c?C.gold:"transparent",padding:"6px 12px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}},c==="all"?"All Venues":c))),
 React.createElement("div",{ref:containerRef,style:{flex:1,background:C.deep,minHeight:0}}),
@@ -815,7 +815,8 @@ React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(238p
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7}},React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:C.gold,boxShadow:"0 0 5px rgba(201,168,76,0.6)"}}),React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.45rem",letterSpacing:"0.1em",color:C.ash}},"VENUES")),
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7}},React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:C.purple,boxShadow:"0 0 5px rgba(200,174,255,0.6)"}}),React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.45rem",letterSpacing:"0.1em",color:C.ash}},"NEW / SOON"))
 ),
-selected&&React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:C.deep,borderTop:"1px solid "+C.border,borderRadius:"14px 14px 0 0",padding:"18px 20px calc(28px + env(safe-area-inset-bottom))",zIndex:1100}},
+React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:C.deep,borderTop:"1px solid "+C.border,borderRadius:"14px 14px 0 0",maxHeight:"62dvh",overflowY:"auto",WebkitOverflowScrolling:"touch",zIndex:1100,transform:selected?"translateY(0)":"translateY(110%)",transition:"transform 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:selected?"auto":"none",willChange:"transform"}},
+selected&&React.createElement("div",{style:{padding:"18px 20px calc(24px + env(safe-area-inset-bottom))"}},
 React.createElement("button",{onClick:()=>setSelected(null),style:{position:"absolute",top:10,right:14,background:"none",border:"none",color:C.smoke,fontSize:"1.3rem",cursor:"pointer",padding:"2px 6px",lineHeight:1}},"×"),
 React.createElement("div",{style:{display:"flex",justifyContent:"space-between",marginBottom:3}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},selected.cat),
@@ -825,7 +826,7 @@ React.createElement("p",{style:{fontSize:"0.77rem",color:C.ash,fontWeight:300,li
 React.createElement("div",{style:{display:"flex",gap:10}},
 React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),style:{flex:"0 0 auto",padding:"10px 14px",background:isFav(selected.id)?"rgba(201,168,76,0.15)":"transparent",border:"1px solid "+(isFav(selected.id)?C.gold:C.border),color:isFav(selected.id)?C.gold:C.smoke,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:6,cursor:"pointer"}},isFav(selected.id)?"\u2665 Saved":"\u2661 Save"),
 React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"10px",background:C.gold,border:"none",color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:6,cursor:"pointer",fontWeight:500}},"View Details"))
-)
+))
 );}
 
 export default function App() {
