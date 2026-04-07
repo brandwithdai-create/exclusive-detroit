@@ -830,7 +830,7 @@ React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSe
 
 export default function App() {
 const [section, setSection]   = useState("explore");
-const [favs,    setFavs]      = useState(()=>{try{return JSON.parse(localStorage.getItem("savedSpots")||"[]");}catch{return[];}});
+const [favs,    setFavs]      = useState(()=>{try{const stored=JSON.parse(localStorage.getItem("savedSpots")||"[]");if(!Array.isArray(stored))return[];const validIds=new Set([...ALL,...UPCOMING].map(v=>String(v.id)));return stored.filter(id=>validIds.has(String(id)));}catch{return[];}});
 const [cat,     setCat]       = useState("all");
 const [sort,    setSort]      = useState("default");
 const [modalId, setModalId]   = useState(null);
@@ -895,7 +895,7 @@ if(cat!=="all")shown=shown.filter(v=>v.cat===cat||(v.cats||[]).includes(cat)||v.
 if(nearMe&&userCoords){shown=shown.map(v=>{const coord=COORDS[String(v.id)];if(coord){const d=haversine(userCoords.lat,userCoords.lng,coord[0],coord[1]);return{...v,distMi:d};}return v;}).sort((a,b)=>(a.distMi??999)-(b.distMi??999));}
 else{if(sort==="name")shown.sort((a,b)=>a.name.localeCompare(b.name));if(sort==="hood")shown.sort((a,b)=>a.hood.localeCompare(b.hood));if(sort==="cat")shown.sort((a,b)=>a.cat.localeCompare(b.cat));}
 
-const favVenues=[...ALL,...RECENTLY].filter(v=>isFav(v.id));
+const favVenues=[...ALL,...UPCOMING].filter(v=>isFav(v.id));
 const modalVenue=findItem(modalId);
 const navTo=s=>{setSection(s);window.scrollTo({top:0,behavior:"smooth"});};
 
@@ -1095,11 +1095,11 @@ React.createElement("span",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300
 );
 
 return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100vh",fontSize:15,lineHeight:1.6}},
-React.createElement(NavBar),
+NavBar(),
 React.createElement("div",{style:{marginTop:"calc(60px + env(safe-area-inset-top))"}},
 section==="explore"       && React.createElement(Explore),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId}),
-section==="favorites"     && React.createElement(Favs,{savedVenues:favVenues}),
+section==="favorites"     && Favs({savedVenues:favVenues}),
 section==="neighborhoods" && React.createElement(Areas),
 section==="about"         && React.createElement(About)
 ),
