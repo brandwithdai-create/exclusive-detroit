@@ -763,7 +763,7 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }
 
 const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports","Speakeasies","Cocktail Lounges"];
-function MapView({isFav,toggleFav,setModalId}){
+function MapView({isFav,toggleFav,setModalId,modalId}){
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
@@ -785,13 +785,13 @@ mapRef.current=map;setMapReady(true);
 return()=>{map.remove();mapRef.current=null;zoomCtrlRef.current=null;};
 },[]);
 React.useEffect(()=>{
-const hide=selected?'none':'';
+const hide=(selected||modalId!==null)?'none':'';
 const zcEl=zoomCtrlRef.current?.getContainer?.();
 if(zcEl)zcEl.style.display=hide;
 const map=mapRef.current;if(!map)return;
 const attr=map.getContainer().querySelector('.leaflet-control-attribution');
 if(attr)attr.style.display=hide;
-},[selected]);
+},[selected,modalId]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 markersRef.current.forEach(m=>map.removeLayer(m));markersRef.current=[];
@@ -1099,7 +1099,7 @@ return React.createElement("div",{style:{background:C.black,color:C.bone,fontFam
 NavBar(),
 React.createElement("div",{style:{marginTop:"calc(60px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
-section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId}),
+section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId}),
 section==="favorites"     && Favs({savedVenues:favVenues}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About()
