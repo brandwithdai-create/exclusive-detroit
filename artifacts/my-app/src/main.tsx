@@ -6,7 +6,7 @@ import "leaflet/dist/leaflet.css";
 createRoot(document.getElementById("root")!).render(<App />);
 
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+  navigator.serviceWorker.getRegistrations().then(registrations => {
+    for (const reg of registrations) reg.unregister();
   });
 }
