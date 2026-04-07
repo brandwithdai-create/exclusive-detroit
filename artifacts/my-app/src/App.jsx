@@ -653,7 +653,6 @@ function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+ve
 
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i }) {
 const [hov, setHov] = useState(false);
-const heartRef = useRef(null);
 const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
 return React.createElement("div", {
 onClick:()=>onOpen(String(venue.id)),
@@ -675,7 +674,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { ref:heartRef, onClick:e=>{e.stopPropagation();onFav(String(venue.id));const b=heartRef.current;if(b){b.style.animation='none';void b.offsetHeight;b.style.animation='heartPop 0.3s ease';}}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", display:"inline-block", transformOrigin:"center" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", display:"inline-block" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -683,7 +682,6 @@ React.createElement("button", { ref:heartRef, onClick:e=>{e.stopPropagation();on
 
 const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav }) {
 const [hov, setHov] = useState(false);
-const heartRef = useRef(null);
 const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
 const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
@@ -709,7 +707,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { ref:heartRef, onClick:e=>{e.stopPropagation();onFav(String(venue.id));const b=heartRef.current;if(b){b.style.animation='none';void b.offsetHeight;b.style.animation='heartPop 0.3s ease';}}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto", display:"inline-block", transformOrigin:"center" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto", display:"inline-block" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -848,7 +846,7 @@ const gridTopRef = useRef(null);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
-s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes heartPop{0%{transform:scale(1)}25%{transform:scale(0.82)}55%{transform:scale(1.28)}80%{transform:scale(0.94)}100%{transform:scale(1)}}';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}';
 document.head.appendChild(s);
 return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
 },[]);
@@ -1018,21 +1016,21 @@ shown.length===0
 )
 );
 
-const Favs=()=>React.createElement("div",null,
+const Favs=({savedVenues})=>React.createElement("div",null,
 React.createElement("div",{style:{background:"linear-gradient(160deg,#110D07 0%,"+C.deep+" 100%)",padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Your Collection"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Saved Spots"),
 React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Your personal insider list.")
 ),
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"24px 22px 56px"}},
-favVenues.length===0
+savedVenues.length===0
 ?React.createElement("div",{style:{textAlign:"center",padding:"56px 20px"}},
 React.createElement("div",{style:{fontSize:"2rem",color:C.goldD,marginBottom:16}},"◈"),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.6rem",fontWeight:400,color:C.white,marginBottom:9}},"Nothing saved yet"),
 React.createElement("p",{style:{color:C.smoke,fontSize:"0.82rem",marginBottom:20}},"Browse spots and tap the heart to build your list."),
 React.createElement("button",{onClick:()=>navTo("explore"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,border:"1px solid "+C.goldD,padding:"9px 20px",borderRadius:6,background:"transparent",cursor:"pointer"}},"Back to Explore")
 )
-:grid(favVenues,setModalId)
+:grid(savedVenues,setModalId)
 )
 );
 
@@ -1096,7 +1094,7 @@ React.createElement(NavBar),
 React.createElement("div",{style:{marginTop:"calc(60px + env(safe-area-inset-top))"}},
 section==="explore"       && React.createElement(Explore),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId}),
-section==="favorites"     && React.createElement(Favs),
+section==="favorites"     && React.createElement(Favs,{savedVenues:favVenues}),
 section==="neighborhoods" && React.createElement(Areas),
 section==="about"         && React.createElement(About)
 ),
