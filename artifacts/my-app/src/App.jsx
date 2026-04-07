@@ -778,11 +778,52 @@ return()=>{document.body.style.overflow=prev;};
 },[]);
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
+const zs=document.createElement('style');zs.id='ed-zoom-css';
+zs.textContent=`
+.leaflet-control-zoom{
+  border:1px solid rgba(201,168,76,0.32)!important;
+  border-radius:10px!important;
+  overflow:hidden!important;
+  box-shadow:0 4px 28px rgba(0,0,0,0.55),0 0 10px rgba(201,168,76,0.07)!important;
+  background:rgba(10,9,14,0.90)!important;
+  backdrop-filter:blur(12px)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+  margin-left:12px!important;
+  margin-top:12px!important;
+}
+.leaflet-control-zoom a{
+  background:transparent!important;
+  color:rgba(201,168,76,0.82)!important;
+  border:none!important;
+  border-bottom:1px solid rgba(201,168,76,0.14)!important;
+  width:38px!important;
+  height:38px!important;
+  line-height:38px!important;
+  font-size:1.05rem!important;
+  font-weight:300!important;
+  font-family:'DM Sans',sans-serif!important;
+  display:block!important;
+  text-align:center!important;
+  text-decoration:none!important;
+  transition:background 0.18s,color 0.18s!important;
+}
+.leaflet-control-zoom a:last-child{
+  border-bottom:none!important;
+}
+.leaflet-control-zoom a:hover{
+  background:rgba(201,168,76,0.10)!important;
+  color:rgba(201,168,76,1)!important;
+}
+.leaflet-control-zoom a:active{
+  background:rgba(201,168,76,0.18)!important;
+}
+`;
+document.head.appendChild(zs);
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false});
 L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",{attribution:"\u00a9 OSM \u00a9 CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
 const zc=L.control.zoom({position:"topleft"});zc.addTo(map);zoomCtrlRef.current=zc;
 mapRef.current=map;setMapReady(true);
-return()=>{map.remove();mapRef.current=null;zoomCtrlRef.current=null;};
+return()=>{map.remove();mapRef.current=null;zoomCtrlRef.current=null;const el=document.getElementById('ed-zoom-css');if(el)el.remove();};
 },[]);
 React.useEffect(()=>{
 const hide=(selected||modalId!==null)?'none':'';
