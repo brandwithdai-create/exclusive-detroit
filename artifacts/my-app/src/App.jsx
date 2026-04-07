@@ -19,7 +19,7 @@ comingsoon:{ bg:"rgba(110,75,195,0.28)", color:"#C8AEFF", border:"rgba(110,75,19
 };
 
 const CUTOFF = new Date("2025-12-05");
-const TODAY  = new Date("2026-04-05");
+const TODAY  = new Date();
 function calcStatus(d) {
 if (!d) return "comingsoon";
 const dt = new Date(d);
@@ -725,7 +725,7 @@ React.createElement("div", { style:{ display:"flex", justifyContent:"space-betwe
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
 React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:10 }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood),
-React.createElement("button", { onClick:onClose, style:{ width:30, height:30, borderRadius:"50%", background:"rgba(10,10,10,0.85)", border:"1px solid "+C.border, color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.9rem", flexShrink:0 }}, "×")
+React.createElement("button", { onClick:onClose, style:{ width:44, height:44, borderRadius:"50%", background:"rgba(10,10,10,0.85)", border:"1px solid "+C.border, color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1rem", flexShrink:0 }}, "×")
 )),
 badges.length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:6 }}, badges.map(b=>React.createElement(Chip,{key:b,type:b}))),
 venue.status && (venue.status==="justopened"||venue.status==="comingsoon") && React.createElement("div", null, React.createElement(Chip,{type:venue.status})),
@@ -984,7 +984,7 @@ React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mo
 )
 );
 
-const GeoModal=()=>!geoModal?null:React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.88)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 24px"},onClick:()=>setGeoModal(false)},
+const GeoModal=()=>!geoModal?null:React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.88)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 24px"},onClick:()=>{setGeoModal(false);setGeoError(null);}},
 React.createElement("div",{style:{background:"#0E0D14",border:"1px solid rgba(201,168,76,0.28)",borderRadius:22,padding:"44px 32px 36px",maxWidth:360,width:"100%",textAlign:"center",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.7)"},onClick:e=>e.stopPropagation()},
 React.createElement("div",{style:{width:44,height:44,borderRadius:"50%",border:"1px solid rgba(201,168,76,0.35)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 22px",color:C.gold,fontSize:"1.1rem"}},"◎"),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.4rem",fontWeight:400,color:C.white,lineHeight:1.3,marginBottom:14}},"Allow Exclusive Detroit to use your location?"),

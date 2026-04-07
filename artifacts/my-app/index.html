@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover" />
-    <title>ExclusiveDetroit</title>
+    <title>Exclusive Detroit</title>
+    <meta name="description" content="The insider's guide to Detroit's hidden bars, speakeasies, rooftops, and nightlife. If you know, you know." />
 
     <!-- PWA manifest -->
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -14,25 +15,31 @@
     <!-- iOS / Apple PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Exclusive" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Exclusive Detroit" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
+
+    <!-- Fonts — loaded in <head> to eliminate flash of unstyled text on iOS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
     <!-- Safe-area padding for iPhone notch / Dynamic Island -->
     <style>
+      *, *::before, *::after { box-sizing: border-box; }
       html, body {
         margin: 0;
         padding: 0;
         background: #0A0A0A;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-text-size-adjust: 100%;
       }
+      body { overscroll-behavior-y: none; }
     </style>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="root"></div>

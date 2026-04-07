@@ -1,24 +1,40 @@
 {
-  "name": "ExclusiveDetroit",
+  "name": "Exclusive Detroit",
   "short_name": "Exclusive",
-  "description": "The insider's guide to Detroit's hidden nightlife, bars, lounges, and experiences.",
+  "description": "The insider's guide to Detroit's hidden bars, speakeasies, rooftops, and nightlife. If you know, you know.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
   "theme_color": "#0A0A0A",
   "background_color": "#0A0A0A",
+  "lang": "en-US",
+  "categories": ["food", "lifestyle", "travel"],
   "icons": [
     {
       "src": "/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

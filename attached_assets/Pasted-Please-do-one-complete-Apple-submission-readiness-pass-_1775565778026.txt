@@ -1,0 +1,109 @@
+Please do one complete Apple-submission readiness pass for this app. I want this prepared for App Store submission, not just web preview. Do not leave partial work. Audit, implement, and give me a final checklist of what is done, what still needs my account info, and what is still required outside the codebase.
+
+Goals:
+- Make the app stable, polished, and review-ready for Apple
+- Remove anything that feels broken, fake, placeholder, or unfinished
+- Prepare the app so it can be wrapped/submitted for iPhone with the least chance of rejection
+
+Build / platform requirements:
+1. Prepare this project for iOS app wrapping using Capacitor
+- Add Capacitor in a clean way
+- Set up the iOS platform structure
+- Make sure the app can be opened in Xcode for final submission work
+- Use current Apple requirements for tooling/SDK compatibility
+
+2. Use current Apple minimum submission standards
+- The iOS app must be ready to build with the current required Xcode/iOS SDK versions for App Store Connect
+- Do not set this up using outdated tooling
+
+Core product quality:
+3. Review every visible screen and remove weak points
+- No dead buttons
+- No broken links
+- No fake search
+- No placeholder copy
+- No overlapping UI
+- No glitchy save behavior
+- No confusing location behavior
+- No empty states without explanation
+- No preview-only hacks that will break in production
+
+4. Make the app feel complete
+- Add proper loading states
+- Add proper empty states
+- Add friendly error states
+- Make map/detail/save/location flows feel intentional and premium
+- Test mobile layout thoroughly on iPhone-sized screens
+
+Location permission:
+5. Fix and finalize location behavior for App Store review
+- Request location only from a clear user action like Near Me / Continue
+- “Not now” should dismiss only, not permanently block
+- If browser/system permission is denied, show a clean recovery message
+- Do not auto-mark location as blocked from a soft dismissal
+- Keep the custom pre-permission screen
+- Add helper text telling the user the system prompt is next
+- Make sure the app still works even if location is denied
+
+Saved spots / persistence:
+6. Implement real persistence for saved spots
+- Saved spots should survive app close/reopen
+- Recommend the best approach for production:
+  a) local persistence if no login
+  b) account-based persistence if login is added
+- If login is needed for best long-term user experience, outline the cleanest implementation path
+
+Approval / compliance items:
+7. Prepare all Apple-required permission and privacy items in the app config
+- Add the proper iOS location permission usage description
+- Write a clean, human explanation for why the app needs location
+- Review whether any other permissions are actually used and remove any unnecessary ones
+- Do not request any permission the app does not truly need
+
+8. Prepare App Store compliance assets and metadata requirements
+Please create or prepare placeholders/checklists for:
+- App name
+- Subtitle
+- App description
+- Keywords
+- App category recommendation
+- Age rating recommendation
+- Privacy policy URL requirement
+- Support URL requirement
+- Marketing URL if helpful
+- App icon requirements
+- Launch/splash screen requirements
+- Screenshot list needed for App Store submission
+
+9. Privacy / data handling review
+- Audit what data the app collects, stores, or sends
+- Tell me exactly what will need to be disclosed in App Store privacy details
+- Include third-party services, analytics, maps, auth, storage, or anything else used
+- If anything is being collected that is unnecessary, remove it
+
+10. Accessibility / polish pass
+- Check contrast, tap target sizes, readable font sizing, scroll behavior, and basic accessibility
+- Make sure key controls are usable and legible
+- Avoid tiny close buttons or overlapping labels
+- Make sure the app feels intentional, not fragile
+
+11. Content / legal / trust pass
+- Make sure venue links work
+- Make sure copy does not overclaim
+- Flag any content that could create trust or legal issues
+- Make sure external links open correctly
+- Make sure location language is honest and non-misleading
+
+12. Review-mode checklist for me
+At the end, give me:
+- What is fully done in code
+- What still requires my Apple Developer account / App Store Connect account
+- What requires my domain / privacy policy / support page
+- What screenshots I need to capture
+- Any blockers that could stop Apple approval
+
+Important:
+- Do not just tell me what already exists
+- Actually implement the fixes
+- Then give me a concise final report in plain English
+- Flag anything that could realistically cause App Store rejection
