@@ -674,7 +674,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", display:"inline-block" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", display:"inline-block", outline:"none" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -707,7 +707,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto", display:"inline-block" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto", display:"inline-block", outline:"none" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -1097,11 +1097,11 @@ React.createElement("span",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300
 return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100vh",fontSize:15,lineHeight:1.6}},
 NavBar(),
 React.createElement("div",{style:{marginTop:"calc(60px + env(safe-area-inset-top))"}},
-section==="explore"       && React.createElement(Explore),
+section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId}),
 section==="favorites"     && Favs({savedVenues:favVenues}),
-section==="neighborhoods" && React.createElement(Areas),
-section==="about"         && React.createElement(About)
+section==="neighborhoods" && Areas(),
+section==="about"         && About()
 ),
 section!=="map"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},
@@ -1123,7 +1123,7 @@ React.createElement("span",null,"Detroit Edition v5.0")
 )
 )
 ),
-React.createElement(GeoModal),
+GeoModal(),
 modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null)}),
 React.createElement(Toast,{msg:toast.msg,vis:toast.vis})
 );
