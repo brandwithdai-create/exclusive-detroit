@@ -832,7 +832,7 @@ React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSe
 
 export default function App() {
 const [section, setSection]   = useState("explore");
-const [favs,    setFavs]      = useState([]);
+const [favs,    setFavs]      = useState(()=>{try{return JSON.parse(localStorage.getItem("savedSpots")||"[]");}catch{return[];}});
 const [cat,     setCat]       = useState("all");
 const [sort,    setSort]      = useState("default");
 const [modalId, setModalId]   = useState(null);
@@ -848,7 +848,7 @@ const gridTopRef = useRef(null);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
-s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes heartPop{0%{transform:scale(1)}40%{transform:scale(1.5)}70%{transform:scale(0.85)}100%{transform:scale(1)}}';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes heartPop{0%{transform:scale(1)}25%{transform:scale(0.82)}55%{transform:scale(1.28)}80%{transform:scale(0.94)}100%{transform:scale(1)}}';
 document.head.appendChild(s);
 return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
 },[]);
@@ -872,13 +872,14 @@ s.textContent="*{box-sizing:border-box;margin:0;padding:0}a{text-decoration:none
 document.head.appendChild(s);
 }
 },[]);
+useEffect(()=>{localStorage.setItem("savedSpots",JSON.stringify(favs));},[favs]);
 
 const isFav = id=>favs.includes(String(id));
 let tTimer;
 const showToast=msg=>{setToast({msg,vis:true});clearTimeout(tTimer);tTimer=setTimeout(()=>setToast(t=>({...t,vis:false})),2200);};
 const toggleFav=useCallback(id=>{
-const sid=String(id);const v=ALL.find(x=>String(x.id)===sid);
-setFavs(prev=>{const next=prev.includes(sid)?prev.filter(f=>f!==sid):[...prev,sid];showToast(prev.includes(sid)?"Removed: "+(v?v.name:""):"Saved: "+(v?v.name:""));return next;});
+const sid=String(id);const v=[...ALL,...RECENTLY].find(x=>String(x.id)===sid);
+setFavs(prev=>{const next=prev.includes(sid)?prev.filter(f=>f!==sid):[...prev,sid];showToast(prev.includes(sid)?"Removed from saves":"♥ Saved to your list");return next;});
 },[]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},60);},[]);
 const switchCat=useCallback(c=>{const savedLeft=chipRowRef.current?.scrollLeft??0;setCat(c);requestAnimationFrame(()=>{if(chipRowRef.current)chipRowRef.current.scrollLeft=savedLeft;gridTopRef.current?.scrollIntoView({behavior:"instant",block:"start"});});},[]);
@@ -891,7 +892,7 @@ if(cat!=="all")shown=shown.filter(v=>v.cat===cat||(v.cats||[]).includes(cat)||v.
 if(nearMe&&userCoords){shown=shown.map(v=>{const coord=COORDS[String(v.id)];if(coord){const d=haversine(userCoords.lat,userCoords.lng,coord[0],coord[1]);return{...v,distMi:d};}return v;}).sort((a,b)=>(a.distMi??999)-(b.distMi??999));}
 else{if(sort==="name")shown.sort((a,b)=>a.name.localeCompare(b.name));if(sort==="hood")shown.sort((a,b)=>a.hood.localeCompare(b.hood));if(sort==="cat")shown.sort((a,b)=>a.cat.localeCompare(b.cat));}
 
-const favVenues=ALL.filter(v=>isFav(v.id));
+const favVenues=[...ALL,...RECENTLY].filter(v=>isFav(v.id));
 const modalVenue=findItem(modalId);
 const navTo=s=>{setSection(s);window.scrollTo({top:0,behavior:"smooth"});};
 
@@ -907,9 +908,9 @@ React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSi
 ),
 React.createElement("div",{style:{display:"flex",gap:22,alignItems:"center"}},
 [["explore","Explore"],["map","Map"],["favorites","Saves"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
-React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1px solid "+C.gold:"1px solid transparent",display:"flex",alignItems:"center",gap:4}},
+React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1px solid "+C.gold:"1px solid transparent",display:"flex",alignItems:"center",gap:4,position:"relative"}},
 l,
-s==="favorites"&&favs.length>0&&React.createElement("span",{style:{background:C.gold,color:C.black,borderRadius:100,padding:"1px 5px",fontSize:"0.48rem",fontWeight:600}},favs.length)
+s==="favorites"&&favs.length>0&&React.createElement("span",{style:{position:"absolute",top:-6,right:-10,background:C.gold,color:C.black,borderRadius:100,padding:"0 4px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",pointerEvents:"none",minWidth:14,textAlign:"center"}},favs.length)
 )
 )
 )
