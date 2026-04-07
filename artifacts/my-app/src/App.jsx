@@ -842,6 +842,9 @@ const [geoError,setGeoError]  = useState(null);
 const [geoModal,setGeoModal]  = useState(false);
 const filtersRef = useRef(null);
 const chipRowRef = useRef(null);
+const favsRef = useRef(favs);
+favsRef.current = favs;
+const toastTimer = useRef(null);
 const gridTopRef = useRef(null);
 
 useEffect(()=>{
@@ -873,12 +876,14 @@ document.head.appendChild(s);
 useEffect(()=>{localStorage.setItem("savedSpots",JSON.stringify(favs));},[favs]);
 
 const isFav = id=>favs.includes(String(id));
-let tTimer;
-const showToast=msg=>{setToast({msg,vis:true});clearTimeout(tTimer);tTimer=setTimeout(()=>setToast(t=>({...t,vis:false})),2200);};
+const showToast=useCallback(msg=>{setToast({msg,vis:true});clearTimeout(toastTimer.current);toastTimer.current=setTimeout(()=>setToast(t=>({...t,vis:false})),2200);},[]);
 const toggleFav=useCallback(id=>{
-const sid=String(id);const v=[...ALL,...RECENTLY].find(x=>String(x.id)===sid);
-setFavs(prev=>{const next=prev.includes(sid)?prev.filter(f=>f!==sid):[...prev,sid];showToast(prev.includes(sid)?"Removed from saves":"♥ Saved to your list");return next;});
-},[]);
+const sid=String(id);
+const cur=favsRef.current;
+const removing=cur.includes(sid);
+setFavs(removing?cur.filter(f=>f!==sid):[...cur,sid]);
+showToast(removing?"Removed from saves":"♥ Saved to your list");
+},[showToast]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},60);},[]);
 const switchCat=useCallback(c=>{const savedLeft=chipRowRef.current?.scrollLeft??0;setCat(c);requestAnimationFrame(()=>{if(chipRowRef.current)chipRowRef.current.scrollLeft=savedLeft;gridTopRef.current?.scrollIntoView({behavior:"instant",block:"start"});});},[]);
 const doGetLocation=()=>{navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{filtersRef.current?.scrollIntoView({behavior:"smooth",block:"start"});},120);},err=>{if(err.code===1)setGeoError("Location access is blocked. To enable it, go to your device Settings → Browser → Location and allow this site.");else setGeoError("Couldn't get your location — please try again.");});};

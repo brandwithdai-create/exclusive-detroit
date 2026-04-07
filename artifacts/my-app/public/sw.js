@@ -1,4 +1,4 @@
-const CACHE = "exclusive-detroit-v1";
+const CACHE = "exclusive-detroit-v3";
 
 self.addEventListener("install", e => {
   self.skipWaiting();
