@@ -1,0 +1,36 @@
+Please do a full audit of every single venue on the site and standardize the booking/link logic across the app.
+
+Required link priority for every venue:
+	1.	Use the OpenTable link first if the restaurant is on OpenTable.
+	2.	If the venue is not on OpenTable, use the venue’s official website only if the website allows users to actually book or reserve from there.
+	3.	If there is no OpenTable listing and no official booking-enabled website, then use Resy.
+	4.	Do not use a generic homepage unless it clearly gives the user a real path to make a reservation.
+	5.	Do not leave broken, dead, duplicate, or weak links.
+
+What I need you to do:
+	•	Review every venue currently on my site
+	•	Check whether the venue is on OpenTable
+	•	If yes, attach the correct OpenTable booking link
+	•	If no, check whether the official website has actual reservation/booking functionality
+	•	If the website does not let the user book, do not use that site just because it exists
+	•	In that case, use Resy if available
+	•	Make sure the final link for each venue takes the user somewhere useful for actually making a reservation or booking
+
+Important rules:
+	•	We only want to use a regular website if we have to
+	•	OpenTable should be the first choice whenever available
+	•	If the website exists but is just informational and not bookable, switch to Resy
+	•	Make sure every link is the correct venue-specific link, not a generic platform homepage
+	•	Make sure there are no duplicate venues
+	•	Make sure each venue card/detail page is using the best booking-ready link available
+
+Final QA pass:
+	•	Click through and verify every link works
+	•	Confirm the link opens the correct venue
+	•	Confirm the user can actually reserve/book from that destination or immediately continue to booking
+	•	Fix any inconsistent logic across the site so all venues follow the same priority order
+
+Priority order again for clarity:
+OpenTable → official booking-enabled website → Resy
+
+Please do this in one clean pass and make the linking system fully consistent across the entire app.

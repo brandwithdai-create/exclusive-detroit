@@ -110,21 +110,21 @@ desc:"A glass-enclosed bar connecting the AC Hotel Detroit to the restored Bonst
 vibes:["Glass Conservatory","Spanish Tapas","Gin Cocktails"], addr:"10 Eliot St (corner Woodward and Eliot), Detroit, MI 48201",
 hours:"Daily 3pm-11pm (verify before visiting)", best:"Pre-Show / Weeknight",
 exclusive:"A glass conservatory connecting a modern hotel to a 115-year-old theatre. Gin cocktails, Spanish tapas, and architecture no other hotel bar here can match.",
-badges:["firsttimer"], websiteUrl:"https://www.marriott.com/en-us/hotels/dtwac-ac-hotel-detroit-at-the-bonstelle/overview/" },
+badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/the-conservatory-detroit" },
 
 { id:11, name:"I|O Rooftop - The Godfrey",        hood:"Corktown",           cat:"Rooftops",
 desc:"Detroit's largest indoor/outdoor rooftop lounge at the Godfrey Hotel. Retractable glass walls and ceiling, panoramic skyline views, and a craft cocktail program that matches the altitude.",
 vibes:["Retractable Roof","Skyline Views","Craft Cocktails"], addr:"1401 Michigan Ave (7th Floor), Detroit, MI 48216",
 hours:"Mon-Tue 5pm-12am | Wed 3pm-9pm | Thu 5pm-12am | Fri-Sat 5pm-2am | Sun 5pm-10pm", best:"Weekend / Sunset",
 exclusive:"Detroit's most expansive rooftop. The glass ceiling retracts. The skyline from Corktown is rawer, more honest.",
-badges:["firsttimer"], websiteUrl:"https://www.godfreyhoteldetroit.com" },
+badges:["firsttimer"], reservationUrl:"https://www.exploretock.com/godfrey-detroit" },
 
 { id:12, name:"Kamper's Rooftop Lounge",           hood:"Downtown",           cat:"Rooftops",
 desc:"A Spanish-inspired tapas and cocktail lounge on the 14th floor of the beautifully restored Book Tower. Basque pintxos, gin and tonics, negronis, sangria, and panoramic views of downtown Detroit.",
 vibes:["14th Floor","Book Tower","Spanish Tapas"], addr:"1265 Washington Blvd (14th Floor), Detroit, MI 48226",
 hours:"Tue-Thu 5pm-11pm | Fri 5pm-12am | Sat 3pm-12am | Sun 3pm-10pm | Mon Closed", best:"Date Night / Weekend",
 exclusive:"Inside one of Detroit's most beautifully restored historic towers. The Basque tapas and Spanish cocktail program feel completely out of place in the best possible way.",
-badges:["firsttimer","locals"], websiteUrl:"https://www.kampersrooftop.com" },
+badges:["firsttimer","locals"], reservationUrl:"https://resy.com/cities/detroit-mi/venues/kampers" },
 
 { id:13, name:"Johnny Noodle King Rooftop",        hood:"Corktown",           cat:"Rooftops",
 desc:"The hidden rooftop deck above Detroit's beloved ramen institution. Cocktails, sake, and sweeping views of Corktown, Michigan Central Station, and the Ambassador Bridge.",
@@ -142,7 +142,7 @@ badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/the-mona
 
 { id:67, name:"Tin Roof Detroit",                 hood:"Downtown",           cat:"Rooftops",
 desc:"A lively rooftop bar and live music venue steps from Campus Martius. Outdoor terrace with sweeping views of Woodward Ave, craft cocktails, cold beer on draft, and live performances most nights.",
-vibes:["Live Music","Rooftop Terrace","Craft Cocktails"], addr:"1 Woodward Ave, Detroit, MI 48226",
+vibes:["Live Music","Rooftop Terrace","Craft Cocktails"], addr:"47 E Adams Ave, Detroit, MI 48226",
 hours:"Mon-Fri 4pm-2am | Sat-Sun 12pm-2am", best:"Evening / Live Music Nights",
 exclusive:"Detroit's most social rooftop — the energy here on a weekend night is unlike anywhere else in the city. Combine with a walk through Campus Martius.",
 badges:["firsttimer"], websiteUrl:"https://tinroofbar.com/detroit" },
@@ -331,7 +331,7 @@ desc:"A Cass Corridor cocktail bar and kitchen with contemporary Chinese-America
 vibes:["Chinese-American","Craft Cocktails","Late Night"], addr:"420 Peterboro St, Detroit, MI 48201",
 hours:"Wed-Thu 5pm-9pm | Fri 5pm-11pm | Sat 12pm-11pm | Sun 4:30pm-9pm | Mon-Tue Closed", best:"Weekend / Date Night",
 exclusive:"Most people eat dinner and leave. The people who stay for the back bar after 10pm know something most visitors don't.",
-badges:["firsttimer","locals"], websiteUrl:"https://www.thepeterboro.com" },
+badges:["firsttimer","locals"], reservationUrl:"https://www.exploretock.com/the-peterboro-detroit" },
 
 { id:31, name:"Batch Brewing Company",            hood:"Corktown",           cat:"Corktown",
 desc:"Detroit's first nano-brewery and Corktown's communal anchor. Small-batch craft beer brewed on-site, rotating food, live music on stage.",
@@ -474,7 +474,7 @@ hours:"Mon-Thu 11am-10pm | Fri 11am-11pm | Sat 12pm-11pm | Sun 12pm-10pm | Happy
 best:"Happy Hour / Dinner",
 exclusive:"Flat-rate happy hour pricing on the full food and drink menu, Monday through Friday 3-6pm (verify current pricing). James Beard nominated. One of the best restaurants in the city running one of the most generous happy hours in the city.",
 badges:["firsttimer","locals"],
-websiteUrl:"https://www.imaizakaya.com" },
+reservationUrl:"https://www.exploretock.com/imaizakaya" },
 
 { id:53, name:"Experience Zuzu",                   hood:"Downtown",           cat:"Happy Hour",
 desc:"A two-story Asian fusion restaurant and social lounge on Woodward Ave adjacent to the Guardian Building. Happy Hour Monday through Friday from 4-6pm with discounted cocktails and small plates. Bold sushi, wok-fired dishes, omakase towers, and a rooftop-adjacent outdoor bar. One of Downtown Detroit's most visually striking dining rooms.",
@@ -639,7 +639,7 @@ hours:"Tue-Thu 11am-10pm | Fri-Sat 11am-11pm | Sun 11am-8pm | Mon Closed | Happy
 best:"Lunch / Happy Hour",
 exclusive:"One of the Cass Corridor's most reliable lunch spots. The quesabirria and fish tacos are both standouts. The double happy hour on weeknights is a neighborhood open secret.",
 badges:["locals"],
-websiteUrl:"https://mezcaldetroit.com" },
+reservationUrl:"https://www.opentable.com/r/mezcal-mexican-bar-and-kitchen-detroit" },
 
 { id:78, name:"Condado Tacos",                      hood:"Midtown",            cat:"Lunch",
 desc:"A build-your-own taco restaurant in Midtown Detroit's Selden corridor with hand-painted murals by local Detroit artists. Craft margaritas, frozen drinks, and a fully customizable taco menu. Open 7 days, from 11am.",
