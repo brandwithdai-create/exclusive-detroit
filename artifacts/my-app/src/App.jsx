@@ -920,7 +920,7 @@ React.createElement("div", { style:{ display:"flex", justifyContent:"space-betwe
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
 React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:10 }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood),
-React.createElement("button", { onClick:onClose, style:{ width:44, height:44, borderRadius:"50%", background:"rgba(10,10,10,0.85)", border:"1px solid "+C.border, color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1rem", flexShrink:0 }}, "×")
+React.createElement("button", { onClick:onClose, style:{ width:44, height:44, borderRadius:"50%", background:"var(--c-close-bg)", border:"1px solid var(--c-close-bdr)", color:"var(--c-close-txt)", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.1rem", fontWeight:400, flexShrink:0, transition:"background 0.18s,color 0.18s" }}, "×")
 )),
 badges.length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:6 }}, badges.map(b=>React.createElement(Chip,{key:b,type:b}))),
 venue.status && (venue.status==="justopened"||venue.status==="comingsoon") && React.createElement("div", null, React.createElement(Chip,{type:venue.status})),
