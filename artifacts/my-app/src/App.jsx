@@ -916,6 +916,7 @@ document.head.appendChild(s);
 }
 },[]);
 useEffect(()=>{localStorage.setItem("savedSpots",JSON.stringify(favs));},[favs]);
+useEffect(()=>{if(geoError){const t=setTimeout(()=>setGeoError(null),10000);return()=>clearTimeout(t);}},[geoError]);
 
 const isFav = id=>favs.includes(String(id));
 const showToast=useCallback(msg=>{setToast({msg,vis:true});clearTimeout(toastTimer.current);toastTimer.current=setTimeout(()=>setToast(t=>({...t,vis:false})),2200);},[]);
