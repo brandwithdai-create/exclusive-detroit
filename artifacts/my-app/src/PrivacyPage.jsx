@@ -33,7 +33,7 @@ const SECTIONS = [
   },
   {
     heading: "Contact Us",
-    body: "If you have any questions about this Privacy Policy, please contact us at: brandwithdai@gmail.com",
+    body: "If you have any questions about this Privacy Policy, please contact us at: hello@exclusivedetroitapp.com",
   },
 ];
 
