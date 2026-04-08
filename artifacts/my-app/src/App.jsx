@@ -1170,7 +1170,12 @@ l,
 s==="favorites"&&favs.length>0&&React.createElement("span",{style:{position:"absolute",top:-6,right:-10,background:C.gold,color:C.black,borderRadius:100,padding:"0 4px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",pointerEvents:"none",minWidth:14,textAlign:"center"}},favs.length)
 )
 ),
-React.createElement("button",{onClick:()=>navTo("settings"),title:"Settings",style:{background:"none",border:"1px solid "+(section==="settings"?C.gold:C.border),borderRadius:8,cursor:"pointer",padding:"5px 8px",color:section==="settings"?C.gold:C.smoke,fontSize:"0.95rem",display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1,transition:"color 0.18s,border-color 0.18s",flexShrink:0,marginLeft:4}},"⚙")
+React.createElement("button",{onClick:()=>navTo("settings"),title:"Settings",style:{background:"none",border:"1px solid "+(section==="settings"?C.gold:C.border),borderRadius:8,cursor:"pointer",padding:0,width:34,height:34,color:section==="settings"?C.gold:C.smoke,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1,transition:"color 0.18s,border-color 0.18s",flexShrink:0,marginLeft:4}},
+React.createElement("svg",{width:16,height:16,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.6,strokeLinecap:"round",strokeLinejoin:"round"},
+React.createElement("circle",{cx:12,cy:12,r:3}),
+React.createElement("path",{d:"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"})
+)
+)
 )
 );
 
@@ -1364,7 +1369,7 @@ React.createElement("div",{style:{maxWidth:560,margin:"0 auto",padding:"32px 22p
 settingsCard(React.createElement(React.Fragment,null,
 settingsHeader("Appearance"),
 React.createElement("div",{style:{padding:"16px 20px 20px"}},
-React.createElement("p",{style:{fontSize:"0.8rem",color:C.smoke,fontWeight:300,lineHeight:1.6,marginBottom:14,margin:"0 0 14px"}},"Choose how the app looks. Auto follows your device setting."),
+React.createElement("p",{style:{fontSize:"0.8rem",color:C.ash,fontWeight:300,lineHeight:1.6,marginBottom:14,margin:"0 0 14px"}},"Choose how the app looks. Auto follows your device setting."),
 React.createElement("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
 [["system","◑  Auto"],["light","☀  Light"],["dark","◉  Dark"]].map(function(pair){
 var val=pair[0],lbl=pair[1];
@@ -1383,7 +1388,7 @@ React.createElement("button",{onClick:function(){setSuggestSent(false);setSugges
 :settingsCard(React.createElement(React.Fragment,null,
 settingsHeader("Suggest a Spot"),
 React.createElement("div",{style:{padding:"16px 20px 20px",display:"flex",flexDirection:"column",gap:12}},
-React.createElement("p",{style:{fontSize:"0.8rem",color:C.smoke,fontWeight:300,lineHeight:1.6,margin:0}},"Know a hidden gem we're missing? Tell us about it."),
+React.createElement("p",{style:{fontSize:"0.8rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:0}},"Know a hidden gem we're missing? Tell us about it."),
 React.createElement("input",{type:"text",placeholder:"Venue name",value:suggestName,onChange:function(e){setSuggestName(e.target.value);},style:inputStyle}),
 React.createElement("input",{type:"text",placeholder:"Neighborhood (optional)",value:suggestHood,onChange:function(e){setSuggestHood(e.target.value);},style:inputStyle}),
 React.createElement("textarea",{placeholder:"Why should it be on the list?",value:suggestNote,onChange:function(e){setSuggestNote(e.target.value);},rows:3,style:Object.assign({},inputStyle,{resize:"vertical",lineHeight:1.6})}),
@@ -1402,7 +1407,7 @@ style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em
 settingsCard(React.createElement(React.Fragment,null,
 settingsHeader("Share the App"),
 React.createElement("div",{style:{padding:"16px 20px 20px"}},
-React.createElement("p",{style:{fontSize:"0.8rem",color:C.smoke,fontWeight:300,lineHeight:1.6,margin:"0 0 16px"}},"If you know, you know — pass the guide to someone who deserves it."),
+React.createElement("p",{style:{fontSize:"0.8rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:"0 0 16px"}},"If you know, you know — pass the guide to someone who deserves it."),
 React.createElement("button",{
 onClick:function(){
 var d={title:"Exclusive Detroit",text:"The insider's guide to Detroit's hidden bars, rooftops & nightlife.",url:"https://www.exclusivedetroitapp.com"};
