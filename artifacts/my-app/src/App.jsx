@@ -869,7 +869,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"var(--c-tip-txt)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"1.5px solid "+(isFav?C.gold:"var(--c-filter-bdr)"), borderRadius:8, cursor:"pointer", color:isFav?C.gold:C.ash, fontSize:"1.1rem", padding:"8px 10px", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44, transition:"color 0.18s,border-color 0.18s" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.bone, fontSize:"1.1rem", padding:"10px 12px", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44, transition:"color 0.18s" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -902,7 +902,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"var(--c-tip-txt)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"1.5px solid "+(isFav?C.gold:"var(--c-filter-bdr)"), borderRadius:8, cursor:"pointer", color:isFav?C.gold:C.ash, fontSize:"1.1rem", padding:"8px 10px", marginLeft:"auto", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44, transition:"color 0.18s,border-color 0.18s" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.bone, fontSize:"1.1rem", padding:"10px 12px", marginLeft:"auto", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44, transition:"color 0.18s" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -944,7 +944,7 @@ React.createElement("span", { style:{ fontSize:"0.81rem", color:C.ash, fontWeigh
 ),
 React.createElement("div", { style:{ display:"flex", gap:10, alignItems:"center" }},
 React.createElement(CTA, { venue, full:true }),
-React.createElement("button", { onClick:()=>onFav(String(venue.id)), style:{ padding:"12px 14px", background:isFav?"rgba(201,168,76,0.15)":"transparent", border:"1px solid "+(isFav?C.gold:C.border), color:isFav?C.gold:C.smoke, fontFamily:"'DM Mono',monospace", fontSize:"0.58rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:6, cursor:"pointer" }}, isFav?"\u2665 Saved":"\u2661 Save")
+React.createElement("button", { onClick:()=>onFav(String(venue.id)), style:{ padding:"12px 14px", background:isFav?"rgba(201,168,76,0.15)":"transparent", border:"1px solid "+(isFav?C.gold:C.border), color:isFav?C.gold:C.bone, fontFamily:"'DM Mono',monospace", fontSize:"0.58rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:6, cursor:"pointer" }}, isFav?"\u2665 Saved":"\u2661 Save")
 )
 )
 )
@@ -1064,7 +1064,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:600,color:C.white,lineHeight:1.1,marginBottom:7}},selected.name),
 React.createElement("p",{style:{fontSize:"0.77rem",color:C.ash,fontWeight:300,lineHeight:1.6,marginBottom:14}},selected.desc.length>160?selected.desc.slice(0,160)+"\u2026":selected.desc),
 React.createElement("div",{style:{display:"flex",gap:10}},
-React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),style:{flex:"0 0 auto",padding:"10px 14px",background:isFav(selected.id)?"rgba(201,168,76,0.15)":"transparent",border:"1px solid "+(isFav(selected.id)?C.gold:C.border),color:isFav(selected.id)?C.gold:C.smoke,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:6,cursor:"pointer"}},isFav(selected.id)?"\u2665 Saved":"\u2661 Save"),
+React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),style:{flex:"0 0 auto",padding:"10px 14px",background:isFav(selected.id)?"rgba(201,168,76,0.15)":"transparent",border:"1px solid "+(isFav(selected.id)?C.gold:C.border),color:isFav(selected.id)?C.gold:C.bone,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:6,cursor:"pointer"}},isFav(selected.id)?"\u2665 Saved":"\u2661 Save"),
 React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"10px",background:C.gold,border:"none",color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:6,cursor:"pointer",fontWeight:500}},"View Details"))
 ))
 );}
