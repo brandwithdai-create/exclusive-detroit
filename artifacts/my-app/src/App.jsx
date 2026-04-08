@@ -1170,7 +1170,7 @@ l,
 s==="favorites"&&favs.length>0&&React.createElement("span",{style:{position:"absolute",top:-6,right:-10,background:C.gold,color:C.black,borderRadius:100,padding:"0 4px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",pointerEvents:"none",minWidth:14,textAlign:"center"}},favs.length)
 )
 ),
-React.createElement("button",{onClick:()=>navTo("settings"),title:"Settings",style:{background:"none",border:"1px solid "+(section==="settings"?C.gold:C.border),borderRadius:8,cursor:"pointer",padding:0,width:34,height:34,color:section==="settings"?C.gold:C.smoke,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1,transition:"color 0.18s,border-color 0.18s",flexShrink:0,marginLeft:4}},
+React.createElement("button",{onClick:()=>navTo("settings"),title:"Settings",style:{background:"none",border:"none",cursor:"pointer",padding:6,color:section==="settings"?C.gold:C.smoke,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1,transition:"color 0.18s,opacity 0.18s",flexShrink:0,marginLeft:6,opacity:section==="settings"?1:0.72}},
 React.createElement("svg",{width:16,height:16,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.6,strokeLinecap:"round",strokeLinejoin:"round"},
 React.createElement("circle",{cx:12,cy:12,r:3}),
 React.createElement("path",{d:"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"})
@@ -1355,10 +1355,10 @@ React.createElement("span",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300
 )
 );
 
-const inputStyle={background:"transparent",border:"1px solid "+C.border,borderRadius:8,padding:"11px 14px",fontSize:"0.88rem",color:C.white,outline:"none",fontFamily:"'DM Sans',sans-serif",width:"100%",boxSizing:"border-box"};
+const inputStyle={background:"transparent",border:"1px solid var(--c-input-bdr)",borderRadius:8,padding:"11px 14px",fontSize:"0.88rem",color:C.white,outline:"none",fontFamily:"'DM Sans',sans-serif",width:"100%",boxSizing:"border-box"};
 const settingsCard=(children)=>React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:12,overflow:"hidden"}},children);
 const settingsHeader=(label)=>React.createElement("div",{style:{padding:"16px 20px",borderBottom:"1px solid "+C.borderS}},
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.gold,margin:0}},label)
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.51rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldL,fontWeight:500,margin:0}},label)
 );
 const Settings=()=>React.createElement("div",null,
 React.createElement("div",{style:{background:C.deep,padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
@@ -1400,7 +1400,7 @@ var body="Venue: "+suggestName.trim()+"\nNeighborhood: "+(suggestHood.trim()||"�
 window.open("mailto:hello@exclusivedetroitapp.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body));
 setSuggestSent(true);
 },
-style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"10px 22px",borderRadius:100,border:"1px solid "+C.gold,background:"rgba(201,168,76,0.10)",color:C.gold,cursor:"pointer",transition:"all 0.2s",alignSelf:"flex-start"}
+style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"10px 22px",borderRadius:100,border:"none",background:C.gold,color:C.black,cursor:"pointer",transition:"all 0.2s",alignSelf:"flex-start",fontWeight:500}
 },"Send Suggestion →")
 )
 )),
@@ -1414,7 +1414,7 @@ var d={title:"Exclusive Detroit",text:"The insider's guide to Detroit's hidden b
 if(navigator.share){navigator.share(d);}
 else{navigator.clipboard.writeText("https://www.exclusivedetroitapp.com").then(function(){showToast("Link copied!");});}
 },
-style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"10px 22px",borderRadius:100,border:"1px solid "+C.gold,background:"rgba(201,168,76,0.10)",color:C.gold,cursor:"pointer",transition:"all 0.2s",display:"inline-flex",alignItems:"center",gap:10}
+style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"10px 22px",borderRadius:100,border:"none",background:C.gold,color:C.black,cursor:"pointer",transition:"all 0.2s",display:"inline-flex",alignItems:"center",gap:10,fontWeight:500}
 },
 React.createElement("span",{style:{fontSize:"1rem",lineHeight:1}},"↑"),
 React.createElement("span",null,"Share Exclusive Detroit")
