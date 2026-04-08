@@ -1,9 +1,9 @@
 import React from "react";
 
 const C = {
-  black: "#0A0A0A", deep: "#111111", card: "#161616", border: "#242424",
-  gold: "#C9A84C", goldL: "#E2C97E", goldD: "#8A6F30",
-  smoke: "#6A6A6A", ash: "#9A9A9A", bone: "#E8E0D4", white: "#F5F2EE",
+  black: "var(--c-black)", deep: "var(--c-deep)", card: "var(--c-card)", border: "var(--c-border)",
+  gold: "var(--c-gold)", goldL: "var(--c-goldL)", goldD: "var(--c-goldD)",
+  smoke: "var(--c-smoke)", ash: "var(--c-ash)", bone: "var(--c-bone)", white: "var(--c-white)",
 };
 
 const SECTIONS = [
