@@ -345,7 +345,7 @@ desc:"A lively modern Italian restaurant on Michigan Ave. Wood-fired pizzas, fre
 vibes:["Italian","Wood-Fired Pizza","Bocce Ball"], addr:"1400 Michigan Ave, Detroit, MI 48216",
 hours:"Sun-Thu 11am-10pm | Fri-Sat 11am-11pm", best:"Date Night / Weekend",
 exclusive:"Outdoor fireplace, bocce ball, wood-fired pizza. In summer this patio is one of the best tables in the city.",
-cats:["Corktown","Dinner"],badges:["locals"], reservationUrl:"https://ottavaviadetroit.com/reservations" },
+cats:["Corktown","Dinner"],badges:["locals"], reservationUrl:"https://resy.com/cities/detroit-mi/venues/ottava-via" },
 
 { id:33, name:"Lager House",                      hood:"Corktown",           cat:"Corktown",
 desc:"A beloved live music dive bar in the heart of Corktown. Original rock, punk, blues, and metal most nights. The bar top is inlaid with signed guitar picks.",
@@ -659,7 +659,7 @@ hours:"Mon-Thu 4pm-11pm | Fri-Sat 11am-12am | Sun 11am-10pm",
 best:"Lunch / Late Night / Tuesdays",
 exclusive:"The bone marrow taco is one of the most discussed bites in Midtown. The whiskey and agave list is serious. Tuesday shot specials make it a neighborhood fixture mid-week.",
 badges:["locals","firsttimer"],
-websiteUrl:"https://www.bakersfieldtacos.com" },
+reservationUrl:"https://www.opentable.com/r/bakersfield-detroit-2" },
 
 { id:80, name:"La Lanterna",                        hood:"Downtown",           cat:"Lunch",
 desc:"An Italian family restaurant in the Albert Building in Capitol Park serving Neapolitan brick oven pizzas, pastas, salads, and paninis daily from noon. The family has been rooted in Capitol Park since 1956. Full bar with a selection of California and Italian wines.",
