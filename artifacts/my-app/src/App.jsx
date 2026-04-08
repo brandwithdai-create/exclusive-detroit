@@ -1201,11 +1201,11 @@ const GeoModal=()=>!geoModal?null:React.createElement("div",{style:{position:"fi
 React.createElement("div",{style:{background:C.deep,border:"1px solid rgba(201,168,76,0.28)",borderRadius:22,padding:"44px 32px 36px",maxWidth:360,width:"100%",textAlign:"center",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.7)"},onClick:e=>e.stopPropagation()},
 React.createElement("div",{style:{width:44,height:44,borderRadius:"50%",border:"1px solid rgba(201,168,76,0.35)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 22px",color:C.gold,fontSize:"1.1rem"}},"◎"),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.4rem",fontWeight:400,color:C.white,lineHeight:1.3,marginBottom:14}},"Allow Exclusive Detroit to use your location?"),
-React.createElement("p",{style:{fontSize:"0.84rem",fontWeight:300,color:"rgba(232,224,212,0.58)",lineHeight:1.78,marginBottom:18}},"We use your location to show the best nearby spots and sort results closest to you."),
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.09em",textTransform:"uppercase",color:"rgba(201,168,76,0.55)",lineHeight:1.7,marginBottom:26}},"Next, your browser will ask to confirm access."),
+React.createElement("p",{style:{fontSize:"0.84rem",fontWeight:300,color:C.ash,lineHeight:1.78,marginBottom:18}},"We use your location to show the best nearby spots and sort results closest to you."),
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.09em",textTransform:"uppercase",color:"var(--c-geo-hint)",lineHeight:1.7,marginBottom:26}},"Next, your browser will ask to confirm access."),
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:10}},
 React.createElement("button",{onClick:()=>{setGeoModal(false);doGetLocation();},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:C.gold,color:"#0A0808",border:"none",borderRadius:100,padding:"14px 0",cursor:"pointer",width:"100%",fontWeight:600}},"Continue"),
-React.createElement("button",{onClick:()=>{setGeoModal(false);setGeoError(null);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"transparent",color:"rgba(232,224,212,0.38)",border:"1px solid rgba(232,224,212,0.12)",borderRadius:100,padding:"13px 0",cursor:"pointer",width:"100%"}},"Not Now")
+React.createElement("button",{onClick:()=>{setGeoModal(false);setGeoError(null);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"transparent",color:C.smoke,border:"1px solid "+C.border,borderRadius:100,padding:"13px 0",cursor:"pointer",width:"100%"}},"Not Now")
 )
 )
 );
