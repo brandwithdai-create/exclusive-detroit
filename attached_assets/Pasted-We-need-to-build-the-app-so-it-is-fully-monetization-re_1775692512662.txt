@@ -1,0 +1,78 @@
+We need to build the app so it is fully monetization-ready now, even before affiliate links are added later.
+
+Please use this strategy:
+
+For ticketed content, use Ticketmaster Discovery API and Eventbrite API only as data sources to auto-populate listings. Do not build the ticket flow around Ticketmaster checkout. We want the future monetization path for ticket purchases to route through StubHub, since that is the easier affiliate direction for us later.
+
+For hotels, build the section so future booking links can be swapped to Booking.com affiliate links easily.
+
+Please add these new sections to the app in a clean way:
+
+1. Things To Do  
+Inside this section, create:
+- Games This Week
+- Events This Week
+- Concerts
+
+2. Stay  
+Inside this section, create:
+- Hotels
+
+Location rules:
+Only include Detroit and the close core areas we care about, especially Downtown Detroit, Midtown, Corktown, and nearby central Detroit areas. Do not pull in broad metro Detroit unless it clearly fits the core city experience.
+
+Auto-population rules:
+
+Games This Week:
+- Auto-populate weekly
+- Only Detroit home games
+- Prioritize Pistons, Tigers, Red Wings, Lions
+- Each card should show team/opponent, date, time, image if available, and CTA button
+- Future monetized CTA should be able to point to StubHub easily
+
+Events This Week:
+- Auto-populate weekly
+- Pull Detroit-area events from Eventbrite API
+- Each card should show title, date, time, image, and CTA button
+
+Concerts:
+- Auto-populate upcoming Detroit concerts
+- Use Ticketmaster Discovery API for listings
+- Each card should show artist/title, date, time, image, and CTA button
+
+Hotels:
+- Create a dedicated Hotels section
+- Use a curated Detroit hotel list for now if needed
+- Each card should match the app style and include hotel name, area, image, short description, and CTA button
+- Structure links so Booking.com affiliate links can be dropped in later without changing UI
+
+CTA/button rules across the app:
+- Restaurants with reservation flow: Book Now
+- Events, concerts, games: Get Tickets
+- Hotels: View Rooms
+- Only use Visit Website as a fallback if there is no stronger CTA
+- Make button labels fully consistent everywhere
+
+Most important technical requirement:
+Please make all links dynamic and affiliate-ready. Do not hardcode button destinations directly in UI components.
+
+Each item should support fields like:
+- booking_url
+- ticket_url
+- hotel_url
+- website_url
+- affiliate_booking_url
+- affiliate_ticket_url
+- affiliate_hotel_url
+
+The UI should use the normal URL for now, but the structure must make it easy to swap later to affiliate links globally with minimal work.
+
+Also make sure:
+- no duplicate listings
+- all cards match the same design system
+- save button works the same everywhere
+- all details are verified and accurate
+- weekly sections refresh automatically
+- this feels like a true one-stop Detroit app for dining, events, games, concerts, and hotels
+
+Please build it in a scalable way so adding affiliate links later is a simple data update, not a redesign.
