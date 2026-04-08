@@ -674,7 +674,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", display:"inline-block", outline:"none" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"10px 12px", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44 }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -707,7 +707,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"rgba(232,224,212,0.38)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"4px 6px", marginLeft:"auto", display:"inline-block", outline:"none" }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"10px 12px", marginLeft:"auto", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44 }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -860,7 +860,7 @@ React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,ba
 selected&&React.createElement("div",{style:{padding:"18px 20px calc(24px + env(safe-area-inset-bottom))"}},
 React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:5}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},selected.cat),
-React.createElement("button",{onClick:()=>setSelected(null),style:{background:"none",border:"none",color:C.smoke,fontSize:"1.3rem",cursor:"pointer",padding:"0 0 0 14px",lineHeight:1,flexShrink:0}},"×")),
+React.createElement("button",{onClick:()=>setSelected(null),style:{background:"none",border:"none",color:C.smoke,fontSize:"1.3rem",cursor:"pointer",width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,lineHeight:1}},"×")),
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke,display:"block",marginBottom:7}},selected.hood),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:600,color:C.white,lineHeight:1.1,marginBottom:7}},selected.name),
 React.createElement("p",{style:{fontSize:"0.77rem",color:C.ash,fontWeight:300,lineHeight:1.6,marginBottom:14}},selected.desc.length>160?selected.desc.slice(0,160)+"\u2026":selected.desc),
@@ -1161,9 +1161,12 @@ React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5
 ),
 React.createElement("p",{style:{fontSize:"0.73rem",color:C.smoke,fontWeight:300,lineHeight:1.7,fontStyle:"italic"}},"All venue info should be verified before visiting. Hours and availability change.")
 ),
-React.createElement("div",{style:{display:"flex",justifyContent:"space-between",paddingTop:16,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke}},
+React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:16,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke}},
 React.createElement("span",null,"2026 Exclusive City Guides"),
+React.createElement("div",{style:{display:"flex",gap:18,alignItems:"center"}},
+React.createElement("a",{href:"/privacy",style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke,textDecoration:"none"}},"Privacy Policy"),
 React.createElement("span",null,"Detroit Edition v5.0")
+)
 )
 )
 ),

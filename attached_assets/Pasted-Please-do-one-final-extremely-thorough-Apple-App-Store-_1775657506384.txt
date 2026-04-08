@@ -1,0 +1,83 @@
+Please do one final, extremely thorough Apple App Store readiness audit of this app before submission.
+
+I want you to review the entire project against Apple’s current App Review expectations and fix anything that could realistically cause rejection. This needs to be a true pre-submission quality check, not a quick scan.
+
+Please specifically check and verify all of the following:
+
+1. App completeness  
+Make sure the app feels finished and production-ready. No placeholder sections, no dead ends, no unfinished screens, no misleading buttons, no empty states that look broken, and no features that appear to work but actually do nothing. If something is not fully functional, either complete it properly or remove it before submission.
+
+2. Broken or misleading functionality  
+Test every major path in the app:
+- Home / browse flow
+- Category chips and filters
+- Venue cards
+- Detail pages
+- Save / unsave
+- Saved section
+- Map view
+- Open website buttons
+- Near me / location-related flows
+- Back navigation
+- Any modal, overlay, drawer, or tab behavior
+
+I need you to confirm there are no fake interactions, dead taps, stuck states, hidden overlapping UI, or glitches that make the app feel unreliable.
+
+3. Stability and performance  
+Check for anything that could look unstable during review:
+- screen jumps
+- duplicate renders
+- broken scroll behavior
+- buttons shifting position
+- cards overlapping
+- map controls covering content
+- content getting stuck off screen
+- tabs disappearing
+- crashes, console errors, warnings, or unhandled exceptions
+
+Please fix these completely, not partially.
+
+4. Link integrity  
+Verify every external link opens properly and goes somewhere legitimate. No broken websites, no missing URLs, no buttons that appear clickable but fail.
+
+5. Permission and privacy handling  
+Audit any use of location carefully. If the app requests location, make sure:
+- it only asks when actually needed
+- the permission explanation is clear and accurate
+- the app still behaves reasonably if permission is denied
+- we are not claiming anything in the privacy policy that conflicts with actual behavior
+
+Also confirm saved spots are stored exactly how we say they are stored. If data is local only, make sure that is true in implementation.
+
+6. Privacy policy alignment  
+Cross-check the real app behavior against the privacy policy line by line. If the app does not collect personal data, transmit user data, or require login, make sure that is actually true in code and dependencies. Flag any mismatch immediately.
+
+7. Metadata and content honesty  
+Make sure the app’s content and UI do not overpromise. No wording that suggests features we do not actually provide. No misleading labels, exaggerated claims, or inaccurate category descriptions.
+
+8. UI consistency and polish  
+Check for anything Apple reviewers would see as poor quality:
+- inconsistent button placement
+- mismatched save icons
+- random spacing issues
+- awkward text truncation
+- unreadable text
+- broken alignment
+- incorrect emojis or badges
+- duplicate venues
+- categories that don’t match the actual venue type
+
+9. Reviewer experience  
+Pretend you are the Apple reviewer opening this app for the first time. Make sure the app is easy to understand immediately. The first-run experience should be clean, intuitive, and trustworthy. If there is anything confusing, simplify it.
+
+10. Final submission checklist  
+At the end, give me:
+- a list of every issue you found
+- what you fixed
+- what still needs manual review from me
+- anything that could still be risky for App Review
+- any App Store submission notes I should prepare for Apple
+
+Most importantly: do not just say “everything looks good.” I want a real audit and real verification.
+
+Also, please use Apple App Review standards as the benchmark, especially around app completeness, reliable functionality, accurate metadata, privacy, and polished user experience.
