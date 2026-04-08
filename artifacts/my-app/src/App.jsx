@@ -823,7 +823,7 @@ return [...VENUES, ...RECENTLY, ...UPCOMING].find(v => String(v.id) === String(i
 function Chip({ type }) {
 const b = BD[type]; if (!b) return null;
 return React.createElement("span", {
-style:{ background:b.bg, color:b.color, border:"1px solid "+b.border, borderRadius:100, padding:"3px 9px", fontSize:"0.49rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase", whiteSpace:"nowrap" }
+style:{ background:b.bg, color:b.color, border:"1.5px solid "+b.border, borderRadius:100, padding:"3px 9px", fontSize:"0.49rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase", whiteSpace:"nowrap" }
 }, b.label);
 }
 function Vibe({ label }) {
@@ -869,7 +869,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"var(--c-tip-txt)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"10px 12px", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44 }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"1.5px solid "+(isFav?C.gold:"var(--c-filter-bdr)"), borderRadius:8, cursor:"pointer", color:isFav?C.gold:C.ash, fontSize:"1.1rem", padding:"8px 10px", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44, transition:"color 0.18s,border-color 0.18s" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -902,7 +902,7 @@ tip&&React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,paddingT
 React.createElement("p",{style:{fontSize:"0.67rem",color:"var(--c-tip-txt)",fontWeight:300,lineHeight:1.5,margin:0}},tip)),
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
 React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.smoke, fontSize:"1.1rem", padding:"10px 12px", marginLeft:"auto", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44 }}, isFav?"\u2665":"\u2661")
+React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"1.5px solid "+(isFav?C.gold:"var(--c-filter-bdr)"), borderRadius:8, cursor:"pointer", color:isFav?C.gold:C.ash, fontSize:"1.1rem", padding:"8px 10px", marginLeft:"auto", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44, transition:"color 0.18s,border-color 0.18s" }}, isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -1249,7 +1249,7 @@ React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"
 React.createElement("div",{ref:chipRowRef,style:{display:"flex",gap:7,overflowX:"auto",paddingBottom:12,scrollbarWidth:"none"}},
 CATS.map(c=>{
 const active=c===cat;
-return React.createElement("button",{key:c,onClick:()=>switchCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1px solid "+(active?C.gold:C.border),background:active?C.gold:"transparent",color:active?C.black:C.smoke,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Spots":c);
+return React.createElement("button",{key:c,onClick:()=>switchCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1.5px solid "+(active?C.gold:"var(--c-filter-bdr)"),background:active?C.gold:"transparent",color:active?C.black:C.ash,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Spots":c);
 })),
 React.createElement("div",{style:{paddingBottom:10,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}},
 nearMe?React.createElement("button",{onClick:deactivateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.black,background:C.purple,padding:"5px 12px",borderRadius:100,cursor:"pointer"}},"◉ Near Me ×"):React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",border:"1px solid "+C.border,color:C.smoke,background:"transparent",padding:"5px 12px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
