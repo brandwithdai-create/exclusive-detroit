@@ -1082,6 +1082,10 @@ const [userCoords,setUserCoords]=useState(null);
 const [geoError,setGeoError]  = useState(null);
 const [geoModal,setGeoModal]  = useState(false);
 const [theme,   setTheme]     = useState(()=>localStorage.getItem("ed-theme")||"system");
+const [suggestName,setSuggestName]=useState("");
+const [suggestHood,setSuggestHood]=useState("");
+const [suggestNote,setSuggestNote]=useState("");
+const [suggestSent,setSuggestSent]=useState(false);
 const filtersRef = useRef(null);
 const chipRowRef = useRef(null);
 const favsRef = useRef(favs);
@@ -1165,7 +1169,8 @@ React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM 
 l,
 s==="favorites"&&favs.length>0&&React.createElement("span",{style:{position:"absolute",top:-6,right:-10,background:C.gold,color:C.black,borderRadius:100,padding:"0 4px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",pointerEvents:"none",minWidth:14,textAlign:"center"}},favs.length)
 )
-)
+),
+React.createElement("button",{onClick:()=>navTo("settings"),title:"Settings",style:{background:"none",border:"1px solid "+(section==="settings"?C.gold:C.border),borderRadius:8,cursor:"pointer",padding:"5px 8px",color:section==="settings"?C.gold:C.smoke,fontSize:"0.95rem",display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1,transition:"color 0.18s,border-color 0.18s",flexShrink:0,marginLeft:4}},"⚙")
 )
 );
 
@@ -1323,16 +1328,6 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53r
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"About Detroit")
 ),
 React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"40px 22px 56px",display:"flex",flexDirection:"column",gap:36}},
-React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:12,padding:"22px 22px 24px"}},
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Appearance"),
-React.createElement("p",{style:{fontSize:"0.78rem",color:C.smoke,fontWeight:300,lineHeight:1.6,marginBottom:16}},"Choose how the app looks. System Default follows your device setting."),
-React.createElement("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
-[["system","◑  System Default"],["light","☀  Light Mode"],["dark","◉  Dark Mode"]].map(function(pair){
-var val=pair[0],label=pair[1];
-return React.createElement("button",{key:val,onClick:function(){setTheme(val);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"9px 16px",borderRadius:100,border:"1px solid "+(theme===val?C.gold:C.border),background:theme===val?"rgba(201,168,76,0.12)":"transparent",color:theme===val?C.gold:C.smoke,cursor:"pointer",transition:"all 0.2s"}},label);
-})
-)
-),
 [["Detroit Is Not What You Think","Forget the headlines. Detroit has quietly become one of the most interesting cities in America for food, nightlife, art, and architecture. The people who know, know."],
 ["When to Visit","Late May through October is peak season. Summer rooftops are unmatched. Winter has its own moody energy - the speakeasies hit different when it's snowing outside. Jazz Fest in September. Movement Electronic Music Festival in May."],
 ["Getting Around","Downtown is walkable. Midtown is a short Uber from Downtown. Corktown is 10 minutes west. The QLine connects Midtown to Downtown."],
@@ -1355,6 +1350,76 @@ React.createElement("span",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300
 )
 );
 
+const inputStyle={background:"transparent",border:"1px solid "+C.border,borderRadius:8,padding:"11px 14px",fontSize:"0.88rem",color:C.white,outline:"none",fontFamily:"'DM Sans',sans-serif",width:"100%",boxSizing:"border-box"};
+const settingsCard=(children)=>React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:12,overflow:"hidden"}},children);
+const settingsHeader=(label)=>React.createElement("div",{style:{padding:"16px 20px",borderBottom:"1px solid "+C.borderS}},
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.gold,margin:0}},label)
+);
+const Settings=()=>React.createElement("div",null,
+React.createElement("div",{style:{background:C.deep,padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Preferences"),
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,margin:0}},"Settings")
+),
+React.createElement("div",{style:{maxWidth:560,margin:"0 auto",padding:"32px 22px 64px",display:"flex",flexDirection:"column",gap:12}},
+settingsCard(React.createElement(React.Fragment,null,
+settingsHeader("Appearance"),
+React.createElement("div",{style:{padding:"16px 20px 20px"}},
+React.createElement("p",{style:{fontSize:"0.8rem",color:C.smoke,fontWeight:300,lineHeight:1.6,marginBottom:14,margin:"0 0 14px"}},"Choose how the app looks. Auto follows your device setting."),
+React.createElement("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
+[["system","◑  Auto"],["light","☀  Light"],["dark","◉  Dark"]].map(function(pair){
+var val=pair[0],lbl=pair[1];
+return React.createElement("button",{key:val,onClick:function(){setTheme(val);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"9px 18px",borderRadius:100,border:"1px solid "+(theme===val?C.gold:C.border),background:theme===val?"rgba(201,168,76,0.12)":"transparent",color:theme===val?C.gold:C.smoke,cursor:"pointer",transition:"all 0.2s"}},lbl);
+})
+)
+)
+)),
+suggestSent
+?settingsCard(React.createElement("div",{style:{padding:"32px 20px",textAlign:"center"}},
+React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.8rem",color:C.gold,marginBottom:8}},"✓"),
+React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.2rem",fontWeight:400,color:C.white,marginBottom:6,margin:"0 0 6px"}},"Thanks for the tip."),
+React.createElement("p",{style:{fontSize:"0.8rem",color:C.smoke,fontWeight:300,margin:"0 0 18px"}},"We'll look into it and add the best ones."),
+React.createElement("button",{onClick:function(){setSuggestSent(false);setSuggestName("");setSuggestHood("");setSuggestNote("");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"8px 18px",borderRadius:100,border:"1px solid "+C.border,color:C.smoke,background:"transparent",cursor:"pointer"}},"Submit Another")
+))
+:settingsCard(React.createElement(React.Fragment,null,
+settingsHeader("Suggest a Spot"),
+React.createElement("div",{style:{padding:"16px 20px 20px",display:"flex",flexDirection:"column",gap:12}},
+React.createElement("p",{style:{fontSize:"0.8rem",color:C.smoke,fontWeight:300,lineHeight:1.6,margin:0}},"Know a hidden gem we're missing? Tell us about it."),
+React.createElement("input",{type:"text",placeholder:"Venue name",value:suggestName,onChange:function(e){setSuggestName(e.target.value);},style:inputStyle}),
+React.createElement("input",{type:"text",placeholder:"Neighborhood (optional)",value:suggestHood,onChange:function(e){setSuggestHood(e.target.value);},style:inputStyle}),
+React.createElement("textarea",{placeholder:"Why should it be on the list?",value:suggestNote,onChange:function(e){setSuggestNote(e.target.value);},rows:3,style:Object.assign({},inputStyle,{resize:"vertical",lineHeight:1.6})}),
+React.createElement("button",{
+onClick:function(){
+if(!suggestName.trim())return;
+var subj="Spot Suggestion: "+suggestName.trim();
+var body="Venue: "+suggestName.trim()+"\nNeighborhood: "+(suggestHood.trim()||"—")+"\nNotes: "+(suggestNote.trim()||"—");
+window.open("mailto:hello@exclusivedetroitapp.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body));
+setSuggestSent(true);
+},
+style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"10px 22px",borderRadius:100,border:"1px solid "+C.gold,background:"rgba(201,168,76,0.10)",color:C.gold,cursor:"pointer",transition:"all 0.2s",alignSelf:"flex-start"}
+},"Send Suggestion →")
+)
+)),
+settingsCard(React.createElement(React.Fragment,null,
+settingsHeader("Share the App"),
+React.createElement("div",{style:{padding:"16px 20px 20px"}},
+React.createElement("p",{style:{fontSize:"0.8rem",color:C.smoke,fontWeight:300,lineHeight:1.6,margin:"0 0 16px"}},"If you know, you know — pass the guide to someone who deserves it."),
+React.createElement("button",{
+onClick:function(){
+var d={title:"Exclusive Detroit",text:"The insider's guide to Detroit's hidden bars, rooftops & nightlife.",url:"https://www.exclusivedetroitapp.com"};
+if(navigator.share){navigator.share(d);}
+else{navigator.clipboard.writeText("https://www.exclusivedetroitapp.com").then(function(){showToast("Link copied!");});}
+},
+style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"10px 22px",borderRadius:100,border:"1px solid "+C.gold,background:"rgba(201,168,76,0.10)",color:C.gold,cursor:"pointer",transition:"all 0.2s",display:"inline-flex",alignItems:"center",gap:10}
+},
+React.createElement("span",{style:{fontSize:"1rem",lineHeight:1}},"↑"),
+React.createElement("span",null,"Share Exclusive Detroit")
+)
+)
+)),
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke,textAlign:"center",paddingTop:8}},"Detroit Edition v5.0")
+)
+);
+
 return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100vh",fontSize:15,lineHeight:1.6}},
 NavBar(),
 React.createElement("div",{style:{marginTop:"calc(60px + env(safe-area-inset-top))"}},
@@ -1362,9 +1427,10 @@ section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId}),
 section==="favorites"     && Favs({savedVenues:favVenues}),
 section==="neighborhoods" && Areas(),
-section==="about"         && About()
+section==="about"         && About(),
+section==="settings"      && Settings()
 ),
-section!=="map"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
+section!=="map"&&section!=="settings"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},
 React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:28,paddingBottom:24,borderBottom:"1px solid "+C.border}},
 React.createElement("div",null,
