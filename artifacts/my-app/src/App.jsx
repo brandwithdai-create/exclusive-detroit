@@ -1025,9 +1025,28 @@ const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
 useEffect(() => {
 fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
 }, [venue.id]);
+useEffect(() => {
+const scrollY = window.scrollY;
+const body = document.body;
+const prevPos = body.style.position;
+const prevTop = body.style.top;
+const prevWidth = body.style.width;
+const prevOverflow = body.style.overflow;
+body.style.overflow = "hidden";
+body.style.position = "fixed";
+body.style.top = `-${scrollY}px`;
+body.style.width = "100%";
+return () => {
+body.style.overflow = prevOverflow;
+body.style.position = prevPos;
+body.style.top = prevTop;
+body.style.width = prevWidth;
+window.scrollTo(0, scrollY);
+};
+}, []);
 return React.createElement(React.Fragment, null,
-React.createElement("div", { onClick:onClose, style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)" }}),
-React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
+React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)" }}),
+React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92dvh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
 React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
 React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name, height:240 })
 ),

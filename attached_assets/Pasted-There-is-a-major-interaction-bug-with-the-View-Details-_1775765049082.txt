@@ -1,0 +1,50 @@
+There is a major interaction bug with the View Details modal/card on the Explore page.
+
+ISSUE:
+When a user opens a View Details card, the background page behind the modal is still scrollable.
+
+Right now:
+- if the user scrolls too low on the screen, it starts scrolling the page behind the card
+- the modal/card itself is not fully capturing scroll
+- this makes the experience feel broken and confusing
+- the user should only be scrolling inside the open detail card until they close it
+
+EXPECTED BEHAVIOR:
+When a View Details card/modal is open:
+- all scrolling should be locked to the modal/card content only
+- the page behind it should NOT move at all
+- the background should stay fixed in place
+- the user should be able to scroll the modal/card all the way down to the CTA (“Book Now,” “Visit Website,” etc.) without accidentally scrolling the page behind it
+
+WHAT TO FIX:
+- lock background/body/page scroll whenever a detail modal is open
+- make the modal content area the only scrollable container
+- ensure touch scrolling on mobile is captured by the modal, not the page underneath
+- prevent scroll chaining / scroll bleed through to the background
+
+PLEASE CHECK FOR:
+- missing body scroll lock when modal opens
+- modal container not having its own proper overflow-y behavior
+- iOS Safari touch scrolling passing through to the page behind
+- overscroll behavior not being contained
+- background page still receiving touchmove events
+- modal height / max-height not set correctly
+
+IMPLEMENTATION GOAL:
+When the detail card opens:
+1. background page freezes in place
+2. only the modal/card content scrolls
+3. user can scroll all the way to the bottom of the card smoothly
+4. closing the modal returns the user to the exact same page position behind it
+
+IMPORTANT:
+This needs to work cleanly on mobile Safari.
+The background should never shift or scroll while the detail card is open.
+
+FINAL QA:
+Test on mobile:
+- open a View Details card from Explore
+- try scrolling from the middle, bottom, and edges of the screen
+- confirm ONLY the card scrolls
+- confirm the page behind stays fixed
+- confirm user can reach the bottom CTA without accidental background movement
