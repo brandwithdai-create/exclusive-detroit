@@ -1048,7 +1048,7 @@ const m=L.marker(coord,{icon}).addTo(map).on("click",()=>setSelected(v));
 markersRef.current.push(m);
 });
 },[mapCat,mapReady]);
-const navH="calc(82px + env(safe-area-inset-top))";
+const navH="calc(68px + env(safe-area-inset-top))";
 return React.createElement("div",{style:{height:"calc(100dvh - "+navH+")",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}},
 React.createElement("div",{style:{background:C.black,borderBottom:"1px solid "+C.border,padding:"10px 16px",display:"flex",gap:7,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",position:"relative",zIndex:500},onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()},
 MAP_FILTER_CATS.map(c=>React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(mapCat===c?C.gold:C.border),color:mapCat===c?C.black:C.goldL,background:mapCat===c?C.gold:"transparent",padding:"6px 12px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}},c==="all"?"All Venues":c))),
@@ -1170,23 +1170,25 @@ const row=(children,extra={})=>React.createElement("div",{style:{display:"flex",
 const mono=(text,color,size="0.52rem",extra={})=>React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:size,letterSpacing:"0.14em",textTransform:"uppercase",color,...extra}},text);
 const serif=(tag,text,size,extra={})=>React.createElement(tag,{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:size,color:C.white,...extra}},text);
 
-const NavBar=()=>React.createElement("nav",{style:{position:"fixed",top:0,left:0,right:0,zIndex:500,height:"calc(82px + env(safe-area-inset-top))",display:"flex",alignItems:"center",justifyContent:"space-between",paddingTop:"calc(env(safe-area-inset-top) + 16px)",paddingLeft:"24px",paddingRight:"24px",background:scrolled?"var(--c-nav-bgS)":"var(--c-nav-bg)",backdropFilter:"blur(14px)",borderBottom:"1px solid "+C.border}},
-React.createElement("div",{onClick:()=>navTo("explore"),style:{cursor:"pointer"}},
+const NavBar=()=>React.createElement("nav",{style:{position:"fixed",top:0,left:0,right:0,zIndex:500,paddingTop:"env(safe-area-inset-top)",background:scrolled?"var(--c-nav-bgS)":"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{height:68,display:"flex",alignItems:"center",justifyContent:"space-between",paddingLeft:24,paddingRight:24}},
+React.createElement("div",{onClick:()=>navTo("explore"),style:{cursor:"pointer",flexShrink:0}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.22em",color:C.gold,textTransform:"uppercase"}},"EXCLUSIVE"),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:C.white,lineHeight:1.1}},"Detroit")
 ),
-React.createElement("div",{style:{display:"flex",gap:8,alignItems:"center"}},
-React.createElement("div",{style:{display:"flex",gap:16,alignItems:"center",overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch"}},
+React.createElement("div",{style:{display:"flex",gap:8,alignItems:"center",overflow:"visible"}},
+React.createElement("div",{style:{display:"flex",gap:16,alignItems:"center",overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",overflow:"visible"}},
 [["explore","Explore"],["map","Map"],["favorites","Saves"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
-React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1px solid "+C.gold:"1px solid transparent",display:"flex",alignItems:"center",gap:4,position:"relative",whiteSpace:"nowrap",flexShrink:0}},
+React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1px solid "+C.gold:"1px solid transparent",display:"inline-flex",alignItems:"center",gap:5,whiteSpace:"nowrap",flexShrink:0}},
 l,
-s==="favorites"&&favs.length>0&&React.createElement("span",{style:{position:"absolute",top:-6,right:-10,background:C.gold,color:C.black,borderRadius:100,padding:"0 4px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",pointerEvents:"none",minWidth:14,textAlign:"center"}},favs.length)
+s==="favorites"&&favs.length>0&&React.createElement("span",{style:{background:C.gold,color:C.black,borderRadius:100,padding:"1px 5px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",minWidth:14,textAlign:"center",display:"inline-block"}},favs.length)
 )
 )),
 React.createElement("button",{onClick:()=>navTo("settings"),title:"Settings",style:{background:"none",border:"none",cursor:"pointer",padding:6,color:section==="settings"?C.gold:C.smoke,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1,transition:"color 0.18s,opacity 0.18s",flexShrink:0,marginLeft:6,opacity:section==="settings"?1:0.72}},
 React.createElement("svg",{width:16,height:16,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.6,strokeLinecap:"round",strokeLinejoin:"round"},
 React.createElement("circle",{cx:12,cy:12,r:3}),
 React.createElement("path",{d:"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"})
+)
 )
 )
 )
@@ -1262,7 +1264,7 @@ UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModa
 )
 )
 ),
-React.createElement("div",{ref:filtersRef,style:{position:"sticky",top:"calc(82px + env(safe-area-inset-top))",zIndex:200,background:C.black,borderBottom:"1px solid "+C.border,padding:"12px 0 0"}},
+React.createElement("div",{ref:filtersRef,style:{position:"sticky",top:"calc(68px + env(safe-area-inset-top))",zIndex:200,background:C.black,borderBottom:"1px solid "+C.border,padding:"12px 0 0"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"}},
 React.createElement("div",{ref:chipRowRef,style:{display:"flex",gap:7,overflowX:"auto",paddingBottom:12,scrollbarWidth:"none"}},
 CATS.map(c=>{
@@ -1445,7 +1447,7 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44r
 
 return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100vh",fontSize:15,lineHeight:1.6}},
 NavBar(),
-React.createElement("div",{style:{marginTop:"calc(82px + env(safe-area-inset-top))"}},
+React.createElement("div",{style:{marginTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId}),
 section==="favorites"     && Favs({savedVenues:favVenues}),
