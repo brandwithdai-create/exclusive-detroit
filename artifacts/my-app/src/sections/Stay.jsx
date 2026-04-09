@@ -20,13 +20,15 @@ function SaveBtn({ saved, onSave }) {
 
 function CardImage({ src, alt }) {
   const [err, setErr] = React.useState(false);
+  const [loaded, setLoaded] = React.useState(false);
   if (!src || err) return null;
   return (
-    <div style={{ height:180, overflow:"hidden", background:"#0e0d11", flexShrink:0 }}>
+    <div style={{ height:180, overflow:"hidden", flexShrink:0, position:"relative", background:"linear-gradient(90deg,#1a1820 25%,#232030 50%,#1a1820 75%)", backgroundSize:"200% 100%", animation: loaded ? "none" : "shimmer 1.4s infinite" }}>
       <img
         src={src} alt={alt}
         onError={() => setErr(true)}
-        style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
+        onLoad={() => setLoaded(true)}
+        style={{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity: loaded ? 1 : 0, transition:"opacity 0.3s ease" }}
       />
     </div>
   );

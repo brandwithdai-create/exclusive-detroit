@@ -52,9 +52,11 @@ function CardImage({ src, alt, logo, height=180 }) {
         style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
       />
       {logo && !logoErr && (
-        <div style={{ position:"absolute", bottom:10, right:10, width:44, height:44, background:"rgba(6,5,10,0.80)", borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center", padding:6, backdropFilter:"blur(8px)", WebkitBackdropFilter:"blur(8px)", boxShadow:"0 2px 12px rgba(0,0,0,0.5)" }}>
-          <img src={logo} alt="" onError={() => setLogoErr(true)} style={{ width:"100%", height:"100%", objectFit:"contain", display:"block" }} />
-        </div>
+        <img
+          src={logo} alt=""
+          onError={() => setLogoErr(true)}
+          style={{ position:"absolute", bottom:10, right:10, width:44, height:44, objectFit:"contain", display:"block", filter:"drop-shadow(0 1px 4px rgba(0,0,0,0.55))" }}
+        />
       )}
     </div>
   );

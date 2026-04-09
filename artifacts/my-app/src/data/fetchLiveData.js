@@ -53,7 +53,7 @@ const SPORT_LOGOS = {
 // provides no image for a live game, or for curated static entries.
 const SPORT_ACTION_IMAGES = {
   MLB: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=85",
-  NBA: "https://images.unsplash.com/photo-1546519638405-a9d1e19a8e54?w=800&q=85",
+  NBA: "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&q=85",
   NHL: "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=85",
   NFL: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=85",
 };
