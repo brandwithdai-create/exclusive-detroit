@@ -29,9 +29,9 @@ function StarRating({ rating, ratingCount }) {
     return "☆";
   });
   return (
-    <div style={{ display:"flex", alignItems:"center", gap:4 }}>
-      <span style={{ color:C.gold, fontSize:"0.72rem", letterSpacing:"0.02em" }}>{stars.join("")}</span>
-      <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.47rem", color:C.smoke, letterSpacing:"0.06em" }}>
+    <div style={{ display:"flex", alignItems:"center", gap:6 }}>
+      <span style={{ color:C.gold, fontSize:"0.85rem", letterSpacing:"0.02em" }}>{stars.join("")}</span>
+      <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", color:C.smoke, letterSpacing:"0.06em" }}>
         {rating.toFixed(1)}{ratingCount ? ` · ${ratingCount.toLocaleString()} reviews` : ""}
       </span>
     </div>
@@ -42,13 +42,12 @@ function CardImage({ localSrc, placesPhoto, alt }) {
   const [err, setErr] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
 
-  // Use the real Places photo once available; fall back to local file
   const src = (!err && placesPhoto) ? placesPhoto : localSrc;
 
   if (!src) return null;
   return (
     <div style={{
-      height: 200,
+      height: 210,
       overflow: "hidden",
       flexShrink: 0,
       position: "relative",
@@ -68,14 +67,13 @@ function CardImage({ localSrc, placesPhoto, alt }) {
           transition: "opacity 0.35s ease",
         }}
       />
-      {/* "Real photo" badge shown when using a Places photo */}
       {placesPhoto && loaded && !err && (
         <div style={{
           position: "absolute", bottom: 8, left: 8,
           background: "rgba(6,5,10,0.65)", backdropFilter: "blur(6px)",
-          borderRadius: 4, padding: "2px 6px",
+          borderRadius: 4, padding: "2px 7px",
         }}>
-          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.38rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(255,255,255,0.6)" }}>
+          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.42rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(255,255,255,0.6)" }}>
             Google Photos
           </span>
         </div>
@@ -110,38 +108,46 @@ function HotelCard({ hotel, saved, onSave }) {
         placesPhoto={places?.photos?.[0] || null}
         alt={hotel.name}
       />
-      <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }}>
+      <div style={{ padding:"18px 20px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
+        {/* Hood + price on same row */}
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}>
+          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}>
             {hotel.hood}
           </span>
-          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.08em", color:C.gold, fontWeight:500 }}>
+          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", letterSpacing:"0.06em", color:C.goldL, fontWeight:500 }}>
             {hotel.price_from}
           </span>
         </div>
-        <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}>
+
+        {/* Hotel name */}
+        <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.35rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}>
           {hotel.name}
         </h3>
-        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.06em", color:C.smoke, margin:0 }}>
+
+        {/* Address — more readable */}
+        <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.78rem", color:C.ash, fontWeight:300 }}>
           {hotel.addr}
-        </p>
+        </span>
+
         <StarRating rating={places?.rating} ratingCount={places?.ratingCount} />
-        <p style={{ fontSize:"0.78rem", color:C.ash, fontWeight:300, lineHeight:1.65, margin:0, flex:1 }}>
+
+        <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.82rem", color:C.ash, fontWeight:300, lineHeight:1.65, margin:0, flex:1 }}>
           {hotel.desc}
         </p>
-        <div style={{ display:"flex", flexWrap:"wrap", gap:4 }}>
+
+        <div style={{ display:"flex", flexWrap:"wrap", gap:5 }}>
           {hotel.features.map(f => (
-            <span key={f} style={{ border:"1.5px solid var(--c-filter-bdr)", color:C.ash, borderRadius:100, padding:"3px 9px", fontSize:"0.49rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase", whiteSpace:"nowrap" }}>
+            <span key={f} style={{ border:"1.5px solid var(--c-filter-bdr)", color:C.ash, borderRadius:100, padding:"3px 10px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase", whiteSpace:"nowrap" }}>
               {f}
             </span>
           ))}
         </div>
       </div>
-      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"10px 18px 14px", borderTop:"1px solid "+C.borderS }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"10px 20px 14px", borderTop:"1px solid "+C.borderS }}>
         {cta ? (
           <a
             href={cta.url} target="_blank" rel="noopener noreferrer"
-            style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"8px 14px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer" }}
+            style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"9px 16px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer" }}
           >
             {cta.label}
           </a>
@@ -155,29 +161,27 @@ function HotelCard({ hotel, saved, onSave }) {
 export default function Stay({ isSavedHotel, toggleSavedHotel }) {
   return (
     <div>
-      {/* Section header */}
       <div style={{ background:C.deep, padding:"64px 22px 40px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
-          <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.53rem", letterSpacing:"0.22em", textTransform:"uppercase", color:C.gold, marginBottom:8 }}>
+          <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.22em", textTransform:"uppercase", color:C.gold, marginBottom:8 }}>
             Detroit
           </p>
           <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.8rem,5vw,3rem)", fontWeight:400, color:C.white, margin:0 }}>
             Where to Stay
           </h2>
-          <p style={{ fontSize:"0.82rem", color:C.ash, fontWeight:300, lineHeight:1.7, marginTop:12, maxWidth:560 }}>
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.88rem", color:C.ash, fontWeight:300, lineHeight:1.7, marginTop:12, maxWidth:560 }}>
             Curated hotels in Downtown, Midtown, and Corktown — chosen for character, location, and the full Detroit experience.
           </p>
         </div>
       </div>
 
-      {/* Hotel grid */}
       <div style={{ maxWidth:1200, margin:"0 auto", padding:"32px 22px 64px" }}>
         <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:15 }}>
           {HOTELS.map(h => (
             <HotelCard key={h.id} hotel={h} saved={isSavedHotel(h.id)} onSave={toggleSavedHotel} />
           ))}
         </div>
-        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.44rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke, textAlign:"center", paddingTop:32 }}>
+        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.47rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke, textAlign:"center", paddingTop:32 }}>
           Prices are indicative · Always verify availability before booking
         </p>
       </div>

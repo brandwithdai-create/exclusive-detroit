@@ -33,14 +33,14 @@ function CTABtn({ item }) {
     <a
       href={cta.url} target="_blank" rel="noopener noreferrer"
       onClick={e => e.stopPropagation()}
-      style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"8px 14px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", flexShrink:0 }}
+      style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"9px 16px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", flexShrink:0 }}
     >
       {cta.label}
     </a>
   );
 }
 
-function CardImage({ src, alt, logo, height=180 }) {
+function CardImage({ src, alt, logo, height=200 }) {
   const [err, setErr] = useState(false);
   const [logoErr, setLogoErr] = useState(false);
   if (!src || err) return null;
@@ -55,9 +55,22 @@ function CardImage({ src, alt, logo, height=180 }) {
         <img
           src={logo} alt=""
           onError={() => setLogoErr(true)}
-          style={{ position:"absolute", bottom:10, right:10, width:44, height:44, objectFit:"contain", display:"block", filter:"drop-shadow(0 1px 4px rgba(0,0,0,0.55))" }}
+          style={{ position:"absolute", bottom:12, right:12, width:48, height:48, objectFit:"contain", display:"block", filter:"drop-shadow(0 2px 6px rgba(0,0,0,0.7))" }}
         />
       )}
+    </div>
+  );
+}
+
+function MetaRow({ date, time, venue }) {
+  return (
+    <div style={{ display:"flex", flexDirection:"column", gap:4 }}>
+      <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.72rem", letterSpacing:"0.07em", color:C.goldL, fontWeight:500 }}>
+        {date ? fmtDate(date) : "Date TBA"} · {time}
+      </span>
+      <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.78rem", color:C.ash, fontWeight:300 }}>
+        {venue}
+      </span>
     </div>
   );
 }
@@ -66,30 +79,26 @@ function GameCard({ game, saved, onSave }) {
   const sc = SPORT_COLORS[game.sport] || SPORT_COLORS.MLB;
   return (
     <div style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both" }}>
-      <CardImage src={game.image} alt={game.team} logo={game.logo_url} />
-      <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }}>
+      <CardImage src={game.image} alt={game.team} logo={game.logo_url} height={200} />
+      <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-          <span style={{ background:sc.bg, color:sc.color, border:"1.5px solid "+sc.border, borderRadius:100, padding:"3px 9px", fontSize:"0.49rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase" }}>
+          <span style={{ background:sc.bg, color:sc.color, border:"1.5px solid "+sc.border, borderRadius:100, padding:"3px 10px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase" }}>
             {game.sport}
           </span>
-          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}>
+          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}>
             {game.hood}
           </span>
         </div>
-        <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.35rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}>
-          {game.team}
+
+        {/* Matchup on one line */}
+        <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.25rem", fontWeight:600, color:C.white, lineHeight:1.2, margin:0 }}>
+          {game.team} <span style={{ color:C.smoke, fontWeight:400 }}>vs.</span> {game.opponent}
         </h3>
-        <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.2rem", fontWeight:600, color:C.white, margin:0, lineHeight:1.2 }}>
-          vs. {game.opponent}
-        </p>
-        <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.72rem", letterSpacing:"0.08em", color:C.goldL, fontWeight:500 }}>
-          {game.date ? fmtDate(game.date) : "Date TBA"} · {game.time}
-        </span>
-        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.07em", color:C.ash, margin:0 }}>
-          {game.venue}
-        </p>
+
+        <MetaRow date={game.date} time={game.time} venue={game.venue} />
+
         {game.note && (
-          <span style={{ alignSelf:"flex-start", background:"rgba(201,168,76,0.08)", border:"1px solid rgba(201,168,76,0.22)", borderRadius:100, padding:"2px 9px", fontSize:"0.47rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase", color:C.goldL }}>
+          <span style={{ alignSelf:"flex-start", background:"rgba(201,168,76,0.08)", border:"1px solid rgba(201,168,76,0.22)", borderRadius:100, padding:"3px 10px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase", color:C.goldL }}>
             {game.note}
           </span>
         )}
@@ -106,24 +115,22 @@ function EventCard({ event, saved, onSave, titleKey = "title" }) {
   const title = event[titleKey] || event.title || event.artist || "";
   return (
     <div style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both" }}>
-      <CardImage src={event.image} alt={title} />
-      <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }}>
+      <CardImage src={event.image} alt={title} height={200} />
+      <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}>
+          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.14em", textTransform:"uppercase", color:C.gold }}>
             {event.category}
           </span>
-          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}>
+          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}>
             {event.hood}
           </span>
         </div>
         <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}>
           {title}
         </h3>
-        <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.5rem", letterSpacing:"0.08em", color:C.ash }}>
-          {event.venue} · {event.date ? fmtDate(event.date) : "Date TBA"} · {event.time}
-        </span>
+        <MetaRow date={event.date} time={event.time} venue={event.venue} />
         {event.desc && (
-          <p style={{ fontSize:"0.78rem", color:C.ash, fontWeight:300, lineHeight:1.65, margin:0, flex:1 }}>
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.82rem", color:C.ash, fontWeight:300, lineHeight:1.65, margin:0, flex:1 }}>
             {event.desc}
           </p>
         )}
@@ -138,9 +145,9 @@ function EventCard({ event, saved, onSave, titleKey = "title" }) {
 
 function LoadingGrid() {
   return (
-    <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:15 }}>
+    <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:15 }}>
       {[1,2,3].map(i => (
-        <div key={i} style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, height:260, animation:"fadeSlideIn 0.28s ease both", opacity:0.5 }} />
+        <div key={i} style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, height:320, animation:"fadeSlideIn 0.28s ease both", opacity:0.5 }} />
       ))}
     </div>
   );
@@ -152,7 +159,6 @@ const TABS = [
   { key:"concerts", label:"Concerts" },
 ];
 
-// Cache so we don't re-fetch on every tab switch within a session
 const _cache = { games:null, events:null, concerts:null };
 
 export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab = "games" }) {
@@ -181,15 +187,14 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
     load("concerts", fetchLiveConcerts, setConcerts);
   }, [load]);
 
-  // Keep tab in sync if parent navigates here with a specific tab
   useEffect(() => { setTab(initialTab); }, [initialTab]);
 
   const tabBtnStyle = (active) => ({
     fontFamily:"'DM Mono',monospace",
-    fontSize:"0.52rem",
+    fontSize:"0.55rem",
     letterSpacing:"0.11em",
     textTransform:"uppercase",
-    padding:"7px 16px",
+    padding:"8px 18px",
     border:"1.5px solid " + (active ? C.gold : "var(--c-filter-bdr)"),
     background: active ? C.gold : "transparent",
     color: active ? C.black : C.ash,
@@ -202,7 +207,7 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
 
   const emptyMsg = (label) => (
     <div style={{ textAlign:"center", padding:"60px 22px", color:C.smoke }}>
-      <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.12em", textTransform:"uppercase" }}>
+      <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.12em", textTransform:"uppercase" }}>
         No upcoming {label} right now — check back soon.
       </p>
     </div>
@@ -210,7 +215,7 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
 
   const grid = (items, renderCard) => (
     items.length === 0 ? emptyMsg(tab) : (
-      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:15 }}>
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:15 }}>
         {items.map(renderCard)}
       </div>
     )
@@ -220,13 +225,13 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
     <div>
       <div style={{ background:C.deep, padding:"64px 22px 40px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
-          <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.53rem", letterSpacing:"0.22em", textTransform:"uppercase", color:C.gold, marginBottom:8 }}>
+          <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.22em", textTransform:"uppercase", color:C.gold, marginBottom:8 }}>
             Detroit
           </p>
           <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.8rem,5vw,3rem)", fontWeight:400, color:C.white, margin:0 }}>
             Things To Do
           </h2>
-          <p style={{ fontSize:"0.82rem", color:C.ash, fontWeight:300, lineHeight:1.7, marginTop:12, maxWidth:560 }}>
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.88rem", color:C.ash, fontWeight:300, lineHeight:1.7, marginTop:12, maxWidth:560 }}>
             Detroit games, local events, and concerts — everything happening in the city right now.
           </p>
         </div>
@@ -262,7 +267,7 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
           ))
         )}
 
-        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.44rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke, textAlign:"center", paddingTop:32 }}>
+        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.47rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke, textAlign:"center", paddingTop:32 }}>
           Dates and times subject to change · Always verify before attending
         </p>
       </div>

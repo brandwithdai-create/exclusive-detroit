@@ -1,0 +1,60 @@
+Here’s one clean message you can copy and send to Replit:
+
+⸻
+
+Please make the following updates across the app, especially in Things To Do, Sports, Events, Concerts, and Hotels. I want everything to feel more polished, premium, and consistent:
+	1.	Sports matchup layout
+For sports cards, the matchup should be on one line/same row when possible.
+Example: Detroit Red Wings vs. Philadelphia Flyers
+It should not be split onto two separate lines unless absolutely necessary.
+	2.	Date, time, and venue visibility
+The current styling for date, time, and venue is too small and hard to read.
+Please:
+
+	•	increase font size
+	•	improve spacing and hierarchy
+	•	make it easier to scan quickly
+Apply this across Sports, Events, and Concerts.
+
+	3.	Add images to Events
+Events cards currently feel too text-heavy.
+Please add a relevant image section to each event card and keep the layout consistent with other tabs.
+	4.	Add images to Sports
+Sports cards should use real, relevant images instead of generic ones.
+Examples:
+
+	•	Red Wings → hockey image
+	•	Tigers → baseball image
+	•	Pistons → basketball image
+	•	Lions → football image
+Make them feel visually exciting and tied to the actual game.
+
+	5.	Font consistency across the entire app
+Make sure all typography updates are consistent across ALL sections:
+
+	•	Events
+	•	Sports
+	•	Hotels
+	•	Things To Do
+	•	and any other tabs
+
+Right now it feels inconsistent. I want one cohesive typography system throughout.
+	6.	Hotel address and pricing visibility
+On hotel cards, the address and price per night are too small.
+Please:
+
+	•	increase their size
+	•	improve readability
+	•	make them easier to notice at a glance
+They should not feel like tiny secondary text.
+
+	7.	Overall design consistency
+Review all tabs together and make sure everything follows the same design system:
+
+	•	consistent typography
+	•	consistent image sizing
+	•	consistent hierarchy
+	•	consistent spacing and padding
+	•	consistent button placement
+
+The goal is for the entire app to feel elevated, cohesive, and easy to scan.
