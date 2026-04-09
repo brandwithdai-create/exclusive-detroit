@@ -1073,6 +1073,7 @@ React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSe
 
 export default function App() {
 const [section, setSection]   = useState("explore");
+const [doTab,   setDoTab]     = useState("games");
 const [favs,    setFavs]      = useState(()=>{try{const stored=JSON.parse(localStorage.getItem("savedSpots")||"[]");if(!Array.isArray(stored))return[];const validIds=new Set([...ALL,...UPCOMING].map(v=>String(v.id)));return stored.filter(id=>validIds.has(String(id)));}catch{return[];}});
 const [cat,     setCat]       = useState("all");
 const [sort,    setSort]      = useState("default");
@@ -1176,7 +1177,7 @@ React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSi
 ),
 React.createElement("div",{style:{display:"flex",gap:8,alignItems:"center"}},
 React.createElement("div",{style:{display:"flex",gap:16,alignItems:"center",overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch"}},
-[["explore","Explore"],["map","Map"],["things-to-do","Do"],["stay","Stay"],["favorites","Saves"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
+[["explore","Explore"],["map","Map"],["favorites","Saves"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
 React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1px solid "+C.gold:"1px solid transparent",display:"flex",alignItems:"center",gap:4,position:"relative",whiteSpace:"nowrap",flexShrink:0}},
 l,
 s==="favorites"&&favs.length>0&&React.createElement("span",{style:{position:"absolute",top:-6,right:-10,background:C.gold,color:C.black,borderRadius:100,padding:"0 4px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",pointerEvents:"none",minWidth:14,textAlign:"center"}},favs.length)
@@ -1210,6 +1211,11 @@ React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:20,flexWrap:"wrap"}},
 React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
 React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"transparent",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
+),
+React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:12,flexWrap:"wrap"}},
+React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"rgba(201,168,76,0.07)",padding:"9px 20px",borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",gap:7}},"🏟 Sports Tickets"),
+React.createElement("button",{onClick:()=>{setDoTab("events");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"rgba(201,168,76,0.07)",padding:"9px 20px",borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",gap:7}},"✦ Events"),
+React.createElement("button",{onClick:()=>navTo("stay"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"rgba(201,168,76,0.07)",padding:"9px 20px",borderRadius:100,cursor:"pointer",display:"flex",alignItems:"center",gap:7}},"◈ Hotel Stays")
 )
 )
 );
@@ -1446,7 +1452,7 @@ section==="favorites"     && Favs({savedVenues:favVenues}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About(),
 section==="settings"      && Settings(),
-section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent}),
+section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab}),
 section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel})
 ),
 section!=="map"&&section!=="settings"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
