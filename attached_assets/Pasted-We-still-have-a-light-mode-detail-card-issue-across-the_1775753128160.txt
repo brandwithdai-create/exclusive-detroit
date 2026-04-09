@@ -1,0 +1,68 @@
+We still have a light mode detail-card issue across the app, and I want this cleaned up everywhere, not just in one section.
+
+MAIN ISSUES:
+
+1. Back button needed
+On the Things To Do page and Where To Stay page, add a small back button above the title/heading so users can go back easily without tapping Explore in the top nav.
+
+Requirements:
+- Place it above the page title
+- Keep it minimal and on-brand (clean, subtle)
+- Must work properly on mobile
+- Should not mess up spacing or layout
+
+2. Detail cards too dark (light mode bug)
+The sports detail cards are still too dark and hard to read.
+It also looks like ALL detail cards in light mode may be affected.
+
+This includes:
+- sports cards
+- event cards
+- concert cards
+- hotel cards
+- venue cards
+- map detail cards
+- any modal/detail view
+
+What needs to be fixed:
+- Reduce/remove overly dark overlays
+- Improve text contrast
+- Make titles clearly readable
+- Fix tags/pills visibility
+- Fix body text brightness
+- Ensure close (X) button is visible
+- Hero image should not be overly dark
+- Buttons should remain crisp and readable
+
+This looks like a LIGHT MODE styling issue where dark-mode styles are bleeding into light mode.
+
+Please verify:
+- Light mode cards are styled correctly for light backgrounds
+- Dark mode cards are styled correctly for dark backgrounds
+- No overlap of styles between themes
+- Opening any card shows correct readable styling
+
+3. Sports detail cards (priority fix)
+The sports “View Details” cards are clearly broken and too dark to read.
+Fix these first, then apply the same fixes across all other cards.
+
+FINAL QA (IMPORTANT):
+
+Test on mobile:
+- Things To Do page
+- Where To Stay page
+- sports detail cards
+- hotel detail cards
+- venue detail cards
+- map detail cards
+
+Confirm:
+- Back button appears above titles
+- All detail cards are readable in light mode
+- All detail cards are readable in dark mode
+- No overly dark overlays
+- No unreadable text
+- Close buttons are visible
+- No opacity/layering bugs
+
+This needs a full consistency pass across the entire app, not a one-off fix.

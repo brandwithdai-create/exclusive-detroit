@@ -1141,9 +1141,13 @@ const m=L.marker(coord,{icon}).addTo(map).on("click",()=>setSelected(v));
 markersRef.current.push(m);
 });
 },[mapCat,mapReady]);
-const navH="calc(68px + env(safe-area-inset-top))";
-return React.createElement("div",{style:{height:"calc(100dvh - 68px - env(safe-area-inset-top) - env(safe-area-inset-bottom))",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}},
-React.createElement("div",{style:{background:C.black,borderBottom:"1px solid "+C.border,padding:"10px 16px",display:"flex",gap:7,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",position:"relative",zIndex:500},onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()},
+React.useEffect(()=>{
+const map=mapRef.current;if(!map)return;
+const t=setTimeout(()=>{map.invalidateSize();},360);
+return()=>clearTimeout(t);
+},[selected]);
+return React.createElement("div",{style:{position:"fixed",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,bottom:0,display:"flex",flexDirection:"column",overflow:"hidden",zIndex:400}},
+React.createElement("div",{style:{background:C.black,borderBottom:"1px solid "+C.border,padding:"10px 16px",display:"flex",gap:7,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",position:"relative",zIndex:600},onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()},
 MAP_FILTER_CATS.map(c=>React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(mapCat===c?C.gold:C.border),color:mapCat===c?C.black:C.goldL,background:mapCat===c?C.gold:"transparent",padding:"6px 12px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}},c==="all"?"All Venues":c))),
 React.createElement("div",{ref:containerRef,style:{flex:1,background:C.deep,minHeight:0}}),
 React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(238px + env(safe-area-inset-bottom))":"calc(16px + env(safe-area-inset-bottom))",left:12,display:"flex",flexDirection:"column",gap:5,background:"var(--c-ovl-bg)",border:"1px solid "+C.border,borderRadius:8,padding:"8px 12px",backdropFilter:"blur(8px)",WebkitBackdropFilter:"blur(8px)",transition:"bottom 0.3s",zIndex:800}},
