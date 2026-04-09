@@ -75,13 +75,15 @@ function useHotelPlaces(hotel) {
   const [placesData, setPlacesData] = React.useState(null);
 
   React.useEffect(() => {
+    // Only call the API for hotels that have no local image (avoids unnecessary charges)
+    if (hotel.image) return;
     const query = `${hotel.name} ${hotel.addr} Detroit`;
     fetchPlacePhotos(query).then(data => {
       if (data?.photos?.length || data?.rating) {
         setPlacesData(data);
       }
     });
-  }, [hotel.id]);
+  }, [hotel.id, hotel.image]);
 
   return placesData;
 }

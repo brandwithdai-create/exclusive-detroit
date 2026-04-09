@@ -6,6 +6,22 @@ const router = Router();
 const KEY = process.env.GOOGLE_PLACES_KEY;
 const BASE = "https://places.googleapis.com/v1";
 
+// ── Server-side cache (24-hour TTL) ─────────────────────────────────────────
+// Prevents duplicate Google API charges when the same query is made
+// multiple times within a day (e.g. multiple users requesting the same hotel).
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+const _cache = new Map<string, { ts: number; data: unknown }>();
+
+function cacheGet(key: string): unknown | null {
+  const entry = _cache.get(key);
+  if (!entry) return null;
+  if (Date.now() - entry.ts > CACHE_TTL_MS) { _cache.delete(key); return null; }
+  return entry.data;
+}
+function cacheSet(key: string, data: unknown): void {
+  _cache.set(key, { ts: Date.now(), data });
+}
+
 type PhotoRef = {
   name: string;
   authorAttributions?: { displayName: string }[];
@@ -47,11 +63,12 @@ async function resolvePhotoUrl(photoName: string): Promise<string | null> {
   );
   if (!res.ok) return null;
   const data = await res.json() as { photoUri?: string };
-    return data.photoUri || null;
+  return data.photoUri || null;
 }
 
 // GET /api/places/photos?query=Shinola Hotel Detroit
-// Returns real photo URLs (CDN links — no API key embedded) + place metadata
+// Returns 1 photo URL + place metadata.
+// NOTE: Only called for hotels without a local image — see Stay.jsx useHotelPlaces.
 router.get("/places/photos", async (req, res) => {
   if (!KEY) {
     logger.warn("GOOGLE_PLACES_KEY not set");
@@ -60,6 +77,13 @@ router.get("/places/photos", async (req, res) => {
 
   const query = req.query["query"] as string | undefined;
   if (!query) return res.status(400).json({ error: "query param required" });
+
+  // Check server-side cache first — saves Google API charges
+  const cached = cacheGet(`photos:${query}`);
+  if (cached) {
+    logger.info({ query }, "Places photos served from server cache");
+    return res.json(cached);
+  }
 
   try {
     const fields = [
@@ -73,39 +97,48 @@ router.get("/places/photos", async (req, res) => {
 
     const places = await textSearch(query, fields);
     const place = places[0];
-    if (!place) return res.json({ photos: [], rating: null, ratingCount: null });
+    if (!place) {
+      const empty = { photos: [], rating: null, ratingCount: null };
+      cacheSet(`photos:${query}`, empty);
+      return res.json(empty);
+    }
 
-    // Resolve up to 3 photo CDN URLs (no API key in the returned URLs)
-    const photoRefs = (place.photos || []).slice(0, 3);
-    const photoUrls = await Promise.all(
-      photoRefs.map((p) => resolvePhotoUrl(p.name))
-    );
-    const photos = photoUrls.filter(Boolean) as string[];
+    // Only resolve 1 photo (was 3 — this cuts photo media API calls by 66%)
+    const photoRef = place.photos?.[0];
+    const photoUrl = photoRef ? await resolvePhotoUrl(photoRef.name) : null;
+    const photos = photoUrl ? [photoUrl] : [];
 
-    logger.info({ query, placeId: place.id, photoCount: photos.length }, "Places photos fetched");
-
-    res.json({
+    const result = {
       photos,
       placeId: place.id,
       rating: place.rating ?? null,
       ratingCount: place.userRatingCount ?? null,
       name: place.displayName?.text ?? null,
       address: place.formattedAddress ?? null,
-    });
+    };
+
+    cacheSet(`photos:${query}`, result);
+    logger.info({ query, placeId: place.id, photoCount: photos.length }, "Places photos fetched from Google");
+
+    return res.json(result);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error({ query, err: msg }, "Places photos error");
-    res.status(500).json({ error: msg });
+    return res.status(500).json({ error: msg });
   }
 });
 
 // GET /api/places/search?query=hidden+bars+detroit
-// Returns list of places with metadata + first photo CDN URL
+// Returns list of places with metadata + first photo CDN URL.
+// NOTE: Not currently called by the app — kept for future use.
 router.get("/places/search", async (req, res) => {
   if (!KEY) return res.json({ results: [] });
 
   const query = req.query["query"] as string | undefined;
   if (!query) return res.status(400).json({ error: "query param required" });
+
+  const cached = cacheGet(`search:${query}`);
+  if (cached) return res.json(cached);
 
   try {
     const fields = [
@@ -138,11 +171,13 @@ router.get("/places/search", async (req, res) => {
       })
     );
 
-    res.json({ results });
+    const result = { results };
+    cacheSet(`search:${query}`, result);
+    return res.json(result);
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
     logger.error({ query, err: msg }, "Places search error");
-    res.status(500).json({ error: msg });
+    return res.status(500).json({ error: msg });
   }
 });
 

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { getTicketCTA, fmtDate } from "../data/eventsData.js";
 import { fetchLiveGames, fetchLiveConcerts, fetchLiveEvents } from "../data/fetchLiveData.js";
-import { fetchPlacePhotos } from "../data/fetchPlaces.js";
 
 const C = {
   black:"var(--c-black)", deep:"var(--c-deep)", card:"var(--c-card)", border:"var(--c-border)", borderS:"var(--c-borders)",
@@ -219,12 +218,7 @@ function EventCard({ event, saved, onSave, onOpen, type = "event" }) {
   const [venueSrc, setVenueSrc] = useState(event.image);
   const title = event.artist || event.title || "";
 
-  useEffect(() => {
-    if (!event.places_query) return;
-    fetchPlacePhotos(event.places_query).then(d => {
-      if (d?.photos?.[0]) setVenueSrc(d.photos[0]);
-    });
-  }, [event.places_query]);
+  // No API call — events have curated images in eventsData.js
 
   return (
     <div

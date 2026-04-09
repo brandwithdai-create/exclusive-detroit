@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import L from "leaflet";
 import ThingsToDo from "./sections/ThingsToDo.jsx";
 import Stay from "./sections/Stay.jsx";
-import { fetchPlacePhotos } from "./data/fetchPlaces.js";
+// fetchPlacePhotos intentionally NOT imported here — venue cards use static images only
 import { GAMES, DETROIT_EVENTS, CONCERTS, HOTELS, fmtDate, getTicketCTA, getBookingCTA } from "./data/eventsData.js";
 
 const FONT_URL = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap";
@@ -949,20 +949,13 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i }) {
 const [hov, setHov] = useState(false);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
-const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
 const vibeLine=getVibeLine(venue);
-useEffect(() => {
-setPhotoSrc(fallbackSrc);
-let active=true;
-fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (active && d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
-return () => { active=false; };
-}, [venue.id]);
 return React.createElement("div", {
 onClick:()=>onOpen(String(venue.id)),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
-React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name }),
+React.createElement(VenueImg, { src:fallbackSrc, fallbackSrc, alt:venue.name }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
@@ -988,19 +981,12 @@ const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
 const vibeLine=getVibeLine(venue);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
-const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
-useEffect(() => {
-setPhotoSrc(fallbackSrc);
-let active=true;
-fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (active && d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
-return () => { active=false; };
-}, [venue.id]);
 return React.createElement("div", {
 onClick:()=>onOpen(venue.id),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+(hov?(just?C.goldD:"rgba(110,75,195,0.5)"):C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 8px 36px rgba(0,0,0,0.55)":"0 2px 14px rgba(0,0,0,0.4)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
-React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name }),
+React.createElement(VenueImg, { src:fallbackSrc, fallbackSrc, alt:venue.name }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:acc }}, venue.cat),
@@ -1027,13 +1013,6 @@ if (!venue) return null;
 const isV = typeof venue.id === "number";
 const badges = venue.badges||[];
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
-const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
-useEffect(() => {
-setPhotoSrc(fallbackSrc);
-let active=true;
-fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (active && d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
-return () => { active=false; };
-}, [venue.id]);
 useEffect(() => {
 const scrollY = window.scrollY;
 const body = document.body;
@@ -1057,7 +1036,7 @@ return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92dvh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
 React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
-React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name, height:240 })
+React.createElement(VenueImg, { src:fallbackSrc, fallbackSrc, alt:venue.name, height:240 })
 ),
 React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
