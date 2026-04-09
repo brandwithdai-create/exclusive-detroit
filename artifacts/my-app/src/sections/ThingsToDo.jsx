@@ -47,7 +47,7 @@ function CTABtnFull({ item }) {
   return (
     <a
       href={cta.url} target="_blank" rel="noopener noreferrer"
-      style={{ flex:1, display:"block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"13px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", textAlign:"center" }}
+      style={{ flex:1, display:"block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"16px 18px", borderRadius:8, fontWeight:600, textDecoration:"none", cursor:"pointer", textAlign:"center" }}
     >
       {cta.label}
     </a>
@@ -92,8 +92,9 @@ function MetaRow({ date, time, venue }) {
 function DetailModal({ item, type, saved, onSave, onClose }) {
   if (!item) return null;
   const isGame = type === "game";
-  const title = isGame ? `${item.team} vs. ${item.opponent}` : (item.artist || item.title || "");
+  const title = isGame ? null : (item.artist || item.title || "");
   const categoryLabel = isGame ? item.sport : item.category;
+  const sc = isGame ? (SPORT_COLORS[item.sport] || SPORT_COLORS.MLB) : null;
 
   useEffect(() => {
     const fn = e => { if (e.key === "Escape") onClose(); };
@@ -101,74 +102,75 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
     return () => document.removeEventListener("keydown", fn);
   }, [onClose]);
 
+  const curatedLine = isGame && item.note
+    ? `${item.note} at ${item.venue}.`
+    : (!isGame && item.desc ? item.desc.split(/\.\s/)[0] + "." : null);
+
   return (
     <>
       <div
         onClick={onClose}
-        style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.88)", zIndex:800, backdropFilter:"blur(4px)", WebkitBackdropFilter:"blur(4px)" }}
+        style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.9)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}
       />
-      <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(640px,93vw)", maxHeight:"90vh", overflowY:"auto", background:C.deep, border:"1px solid "+C.border, borderRadius:12, zIndex:900 }}>
-        {isGame ? (
-          <CardImage src={item.resolvedImage || item.image} alt={item.team} logo={item.logo_url} height={240} />
-        ) : (
-          <CardImage src={item.resolvedImage || item.image} alt={title} height={240} />
-        )}
-        <div style={{ padding:"20px 24px 28px", display:"flex", flexDirection:"column", gap:12 }}>
+      <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(600px,93vw)", maxHeight:"92vh", overflowY:"auto", background:"#0e0d10", border:"1px solid rgba(201,168,76,0.18)", borderRadius:16, zIndex:900 }}>
+
+        <div style={{ position:"relative", flexShrink:0 }}>
+          {isGame
+            ? <CardImage src={item.resolvedImage || item.image} alt={item.team} logo={item.logo_url} height={290} />
+            : <CardImage src={item.resolvedImage || item.image} alt={title} height={290} />
+          }
+          <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"72%", background:"linear-gradient(to bottom, transparent, #0e0d10)", pointerEvents:"none" }} />
+        </div>
+
+        <div style={{ padding:"16px 22px 28px", display:"flex", flexDirection:"column", gap:14 }}>
+
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
             {isGame ? (
-              <span style={{ background: SPORT_COLORS[item.sport]?.bg || "rgba(201,168,76,0.12)", color: SPORT_COLORS[item.sport]?.color || C.goldL, border:"1.5px solid "+(SPORT_COLORS[item.sport]?.border || "rgba(201,168,76,0.35)"), borderRadius:100, padding:"3px 10px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase" }}>
+              <span style={{ background:sc.bg, color:sc.color, border:"1.5px solid "+sc.border, borderRadius:100, padding:"4px 13px", fontSize:"0.51rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.14em", textTransform:"uppercase", fontWeight:600 }}>
                 {categoryLabel}
               </span>
             ) : (
-              <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.15em", textTransform:"uppercase", color:C.gold }}>
+              <span style={{ background:"rgba(201,168,76,0.14)", color:C.gold, border:"1.5px solid rgba(201,168,76,0.5)", borderRadius:100, padding:"4px 13px", fontSize:"0.51rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.14em", textTransform:"uppercase", fontWeight:600 }}>
                 {categoryLabel}
               </span>
             )}
-            <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-              <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}>
+            <div style={{ display:"flex", alignItems:"center", gap:14 }}>
+              <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"rgba(255,255,255,0.35)" }}>
                 {item.hood}
               </span>
               <button
                 onClick={e => { e.stopPropagation(); onClose(); }}
-                style={{ background:"none", border:"none", color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.05rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:40, minHeight:40, padding:"6px 8px", lineHeight:1 }}
+                style={{ background:"none", border:"none", color:"rgba(255,255,255,0.4)", cursor:"pointer", fontSize:"1.15rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:36, minHeight:36, display:"flex", alignItems:"center", justifyContent:"center", lineHeight:1, padding:0 }}
               >✕</button>
             </div>
           </div>
 
-          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.4rem,4vw,1.9rem)", fontWeight:600, color:C.white, lineHeight:1.1, margin:0 }}>
+          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.65rem,5vw,2.3rem)", fontWeight:600, color:"#ffffff", lineHeight:1.07, margin:0, letterSpacing:"-0.01em" }}>
             {isGame ? (
-              <>{item.team} <span style={{ color:C.smoke, fontWeight:400 }}>vs.</span> {item.opponent}</>
+              <>{item.team} <span style={{ color:"rgba(255,255,255,0.36)", fontWeight:400 }}>vs.</span> {item.opponent}</>
             ) : title}
           </h2>
 
-          <MetaRow date={item.date} time={item.time} venue={item.venue} />
-
-          {isGame && item.note && (
-            <span style={{ alignSelf:"flex-start", background:"rgba(201,168,76,0.08)", border:"1px solid rgba(201,168,76,0.22)", borderRadius:100, padding:"4px 12px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase", color:C.goldL }}>
-              {item.note}
+          <div style={{ display:"flex", flexDirection:"column", gap:5 }}>
+            <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.75rem", letterSpacing:"0.04em", color:C.goldL, fontWeight:500 }}>
+              {item.date ? fmtDate(item.date) : "Date TBA"} · {item.time}
             </span>
-          )}
+            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.82rem", color:"rgba(255,255,255,0.5)", fontWeight:300 }}>
+              {item.venue} · Detroit, MI
+            </span>
+          </div>
 
-          {!isGame && item.desc && (
-            <p style={{ fontSize:"0.84rem", color:C.ash, fontWeight:300, lineHeight:1.72, margin:0 }}>
-              {item.desc}
+          {curatedLine && (
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.08rem", fontStyle:"italic", color:"rgba(255,255,255,0.62)", fontWeight:400, lineHeight:1.5, margin:0 }}>
+              {curatedLine}
             </p>
           )}
 
-          <div style={{ background:C.card, border:"1px solid "+C.borderS, borderRadius:6, padding:"12px 16px", display:"flex", flexDirection:"column", gap:8 }}>
-            {[["Venue", item.venue], ["Date", item.date ? fmtDate(item.date) : null], ["Time", item.time]].filter(p => p[1]).map(p => (
-              <div key={p[0]} style={{ display:"flex", gap:12, alignItems:"flex-start" }}>
-                <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke, minWidth:52, paddingTop:2, flexShrink:0 }}>{p[0]}</span>
-                <span style={{ fontSize:"0.81rem", color:C.ash, fontWeight:300, lineHeight:1.5 }}>{p[1]}</span>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ display:"flex", gap:10, alignItems:"center" }}>
+          <div style={{ display:"flex", gap:10, alignItems:"stretch", marginTop:4 }}>
             <CTABtnFull item={item} />
             <button
               onClick={() => onSave(item.id)}
-              style={{ padding:"12px 14px", background:saved?"rgba(201,168,76,0.15)":"transparent", border:"1px solid "+(saved?C.gold:"rgba(232,224,212,0.28)"), color:saved?C.gold:C.bone, fontFamily:"'DM Mono',monospace", fontSize:"0.58rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:6, cursor:"pointer", transition:"all 0.18s", flexShrink:0 }}
+              style={{ padding:"0 18px", background:saved?"rgba(201,168,76,0.15)":"transparent", border:"1.5px solid "+(saved?"rgba(201,168,76,0.7)":"rgba(255,255,255,0.15)"), color:saved?C.gold:"rgba(255,255,255,0.5)", fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:8, cursor:"pointer", transition:"all 0.18s", flexShrink:0, whiteSpace:"nowrap" }}
             >
               {saved ? "\u2665 Saved" : "\u2661 Save"}
             </button>
