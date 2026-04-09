@@ -40,6 +40,24 @@ const DETROIT_TEAMS = {
   "red wings": { name:"Detroit Red Wings", sport:"NHL", short:"Red Wings" },
 };
 
+// ESPN CDN team logo URLs — used as badge overlay on game card images
+const SPORT_LOGOS = {
+  MLB: "https://a.espncdn.com/i/teamlogos/mlb/500/det.png",
+  NBA: "https://a.espncdn.com/i/teamlogos/nba/500/det.png",
+  NHL: "https://a.espncdn.com/i/teamlogos/nhl/500/det.png",
+  NFL: "https://a.espncdn.com/i/teamlogos/nfl/500/det.png",
+
+};
+
+// Sport-specific action photography fallback (Unsplash) used when Ticketmaster
+// provides no image for a live game, or for curated static entries.
+const SPORT_ACTION_IMAGES = {
+  MLB: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800&q=85",
+  NBA: "https://images.unsplash.com/photo-1546519638405-a9d1e19a8e54?w=800&q=85",
+  NHL: "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=85",
+  NFL: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=85",
+};
+
 function detectSport(attraction) {
   const name = (attraction?.name || "").toLowerCase();
   if (name.includes("lion"))      return "NFL";
@@ -119,7 +137,8 @@ export async function fetchLiveGames() {
       const timeStr  = formatTMTime(dateObj?.dateTime, dateObj?.localTime);
       const venue    = ev._embedded?.venues?.[0];
       const venueName = venue?.name || "Detroit";
-      const img      = tmImageUrl(ev.images);
+      const tmImg    = tmImageUrl(ev.images);
+      const img      = tmImg || SPORT_ACTION_IMAGES[teamInfo.sport] || null;
 
       games.push({
         id:                `tm-game-${ev.id}`,
@@ -134,6 +153,8 @@ export async function fetchLiveGames() {
         hood:              "Downtown",
         note:              null,
         image:             img,
+        logo_url:          SPORT_LOGOS[teamInfo.sport] || null,
+        images:            [],
         ticket_url:        ev.url || `https://www.stubhub.com/search/?q=${encodeURIComponent(teamInfo.name)}`,
         affiliate_ticket_url: null,
         website_url:       ev.url || null,

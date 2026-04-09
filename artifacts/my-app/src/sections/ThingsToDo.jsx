@@ -40,16 +40,22 @@ function CTABtn({ item }) {
   );
 }
 
-function CardImage({ src, alt }) {
+function CardImage({ src, alt, logo, height=180 }) {
   const [err, setErr] = useState(false);
+  const [logoErr, setLogoErr] = useState(false);
   if (!src || err) return null;
   return (
-    <div style={{ height:140, overflow:"hidden", background:C.deep, flexShrink:0 }}>
+    <div style={{ height, overflow:"hidden", background:C.deep, flexShrink:0, position:"relative" }}>
       <img
         src={src} alt={alt}
         onError={() => setErr(true)}
         style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
       />
+      {logo && !logoErr && (
+        <div style={{ position:"absolute", bottom:10, right:10, width:44, height:44, background:"rgba(6,5,10,0.80)", borderRadius:10, display:"flex", alignItems:"center", justifyContent:"center", padding:6, backdropFilter:"blur(8px)", WebkitBackdropFilter:"blur(8px)", boxShadow:"0 2px 12px rgba(0,0,0,0.5)" }}>
+          <img src={logo} alt="" onError={() => setLogoErr(true)} style={{ width:"100%", height:"100%", objectFit:"contain", display:"block" }} />
+        </div>
+      )}
     </div>
   );
 }
@@ -58,7 +64,7 @@ function GameCard({ game, saved, onSave }) {
   const sc = SPORT_COLORS[game.sport] || SPORT_COLORS.MLB;
   return (
     <div style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both" }}>
-      <CardImage src={game.image} alt={game.team} />
+      <CardImage src={game.image} alt={game.team} logo={game.logo_url} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
           <span style={{ background:sc.bg, color:sc.color, border:"1.5px solid "+sc.border, borderRadius:100, padding:"3px 9px", fontSize:"0.49rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase" }}>
