@@ -19,6 +19,15 @@ function dedupeById(arr) {
   });
 }
 
+// ── Date sort helper ─────────────────────────────────────────────────────────
+function sortByDate(arr) {
+  return [...arr].sort((a, b) => {
+    const da = a.date || "9999-99-99";
+    const db = b.date || "9999-99-99";
+    return da.localeCompare(db);
+  });
+}
+
 // ── Week range helpers ───────────────────────────────────────────────────────
 function getWeekRange() {
   const now  = new Date();
@@ -128,7 +137,7 @@ function tmImageUrl(images, preferRatio = "16_9") {
 
 // ── Fetch Games from Ticketmaster ─────────────────────────────────────────────
 export async function fetchLiveGames() {
-  if (!TM_KEY) return GAMES.filter(g => isUpcoming(g.date));
+  if (!TM_KEY) return sortByDate(GAMES.filter(g => isUpcoming(g.date)));
 
   const { startDateTime, endDateTime } = getWeekRange();
   const url = new URL("https://app.ticketmaster.com/discovery/v2/events.json");
@@ -209,16 +218,16 @@ export async function fetchLiveGames() {
       .filter(g => isUpcoming(g.date) && !liveSports.has(g.sport))
       .slice(0, 4);
 
-    return dedupeById([...live, ...curatedFill]);
+    return sortByDate(dedupeById([...live, ...curatedFill]));
   } catch (err) {
     console.warn("[ExclusiveDetroit] Games fetch failed, using curated:", err.message);
-    return GAMES.filter(g => isUpcoming(g.date));
+    return sortByDate(GAMES.filter(g => isUpcoming(g.date)));
   }
 }
 
 // ── Fetch Concerts from Ticketmaster ─────────────────────────────────────────
 export async function fetchLiveConcerts() {
-  if (!TM_KEY) return CONCERTS.filter(c => isUpcoming(c.date));
+  if (!TM_KEY) return sortByDate(CONCERTS.filter(c => isUpcoming(c.date)));
 
   const { startDateTime, endDateTime } = getWeekRange();
   const url = new URL("https://app.ticketmaster.com/discovery/v2/events.json");
@@ -268,17 +277,17 @@ export async function fetchLiveConcerts() {
     }).filter(c => c.date && isUpcoming(c.date));
 
     const live = dedupeById(concerts);
-    if (live.length >= 3) return live;
+    if (live.length >= 3) return sortByDate(live);
 
     // Supplement with curated if sparse
     const liveIds = new Set(live.map(c => c.artist?.toLowerCase()));
     const extra   = CONCERTS
       .filter(c => isUpcoming(c.date) && !liveIds.has(c.artist?.toLowerCase()))
       .slice(0, 6 - live.length);
-    return dedupeById([...live, ...extra]);
+    return sortByDate(dedupeById([...live, ...extra]));
   } catch (err) {
     console.warn("[ExclusiveDetroit] Concerts fetch failed, using curated:", err.message);
-    return CONCERTS.filter(c => isUpcoming(c.date));
+    return sortByDate(CONCERTS.filter(c => isUpcoming(c.date)));
   }
 }
 
@@ -296,7 +305,7 @@ function normalizeHood(city, venueName) {
 }
 
 export async function fetchLiveEvents() {
-  if (!EB_TOKEN) return DETROIT_EVENTS.filter(e => isUpcoming(e.date));
+  if (!EB_TOKEN) return sortByDate(DETROIT_EVENTS.filter(e => isUpcoming(e.date)));
 
   const { startDateTime, endDateTime } = getWeekRange();
   // Eventbrite: search Detroit-area events
@@ -361,16 +370,16 @@ export async function fetchLiveEvents() {
       .filter(e => e.date && isUpcoming(e.date));
 
     const live = dedupeById(events);
-    if (live.length >= 3) return live;
+    if (live.length >= 3) return sortByDate(live);
 
     // Supplement with curated if sparse
     const liveTitles = new Set(live.map(e => e.title.toLowerCase()));
     const extra      = DETROIT_EVENTS
       .filter(e => isUpcoming(e.date) && !liveTitles.has(e.title.toLowerCase()))
       .slice(0, 8 - live.length);
-    return dedupeById([...live, ...extra]);
+    return sortByDate(dedupeById([...live, ...extra]));
   } catch (err) {
     console.warn("[ExclusiveDetroit] Events fetch failed, using curated:", err.message);
-    return DETROIT_EVENTS.filter(e => isUpcoming(e.date));
+    return sortByDate(DETROIT_EVENTS.filter(e => isUpcoming(e.date)));
   }
 }
