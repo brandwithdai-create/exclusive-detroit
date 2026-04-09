@@ -253,9 +253,9 @@ export default function Stay({ isSavedHotel, toggleSavedHotel, onBack }) {
       <div style={{ background:C.deep, padding:"64px 22px 40px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
           {onBack && (
-            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.smoke, fontFamily:"'DM Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.14em", textTransform:"uppercase", padding:0, marginBottom:16, display:"inline-flex", alignItems:"center", gap:5, opacity:0.7, transition:"opacity 0.18s" }}
-              onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=0.7}>
-              ← Explore
+            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.ash, fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.18em", textTransform:"uppercase", padding:"6px 0", marginBottom:28, display:"inline-flex", alignItems:"center", gap:9, transition:"color 0.18s", minHeight:40 }}
+              onMouseEnter={e=>e.currentTarget.style.color=C.goldL} onMouseLeave={e=>e.currentTarget.style.color=C.ash}>
+              <span style={{ fontSize:"1.1rem", lineHeight:1, fontWeight:300, letterSpacing:0 }}>←</span>Back
             </button>
           )}
           <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.22em", textTransform:"uppercase", color:C.gold, marginBottom:8 }}>
