@@ -918,17 +918,30 @@ const id=pool[seed%pool.length];
 return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=75`;
 }
 
-const VenueImg = React.memo(function VenueImg({ src, alt, height=190 }) {
+const VenueImg = React.memo(function VenueImg({ src, fallbackSrc, alt, height=190 }) {
+const [activeSrc, setActiveSrc] = useState(src || fallbackSrc || null);
 const [loaded, setLoaded] = useState(false);
-const [err, setErr] = useState(false);
-return React.createElement("div", { style:{ height, overflow:"hidden", background:"linear-gradient(160deg,#1a1410 0%,#0d0b08 100%)", flexShrink:0, position:"relative" } },
-src && !err && React.createElement("img", { src, alt:alt||"", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:"opacity 0.5s ease", position:"absolute", inset:0 }, onLoad:()=>setLoaded(true), onError:()=>setErr(true) })
+const [failed, setFailed] = useState(false);
+useEffect(() => {
+if (src && src !== activeSrc) { setActiveSrc(src); setLoaded(false); setFailed(false); }
+}, [src]);
+const handleError = () => {
+if (activeSrc !== fallbackSrc && fallbackSrc) { setActiveSrc(fallbackSrc); setLoaded(false); }
+else { setFailed(true); }
+};
+return React.createElement("div", { style:{ height, overflow:"hidden", background:"linear-gradient(160deg,#2a1f14 0%,#1c150e 100%)", flexShrink:0, position:"relative" } },
+activeSrc && !failed && React.createElement("img", { src:activeSrc, alt:alt||"", loading:"lazy", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:"opacity 0.5s ease", position:"absolute", inset:0 }, onLoad:()=>setLoaded(true), onError:handleError }),
+failed && React.createElement("div", { style:{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:8 } },
+React.createElement("span", { style:{ fontSize:"2rem", opacity:0.35 } }, "🥃"),
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.38rem", letterSpacing:"0.18em", color:"rgba(201,168,76,0.38)", textTransform:"uppercase" } }, "Detroit")
+)
 );
 });
 
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i }) {
 const [hov, setHov] = useState(false);
-const [photoSrc, setPhotoSrc] = useState(()=>getVenueFallbackImage(venue));
+const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
+const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
 const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
 useEffect(() => {
 fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
@@ -938,7 +951,7 @@ onClick:()=>onOpen(String(venue.id)),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
-React.createElement(VenueImg, { src:photoSrc, alt:venue.name }),
+React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
@@ -997,15 +1010,16 @@ function Modal({ venue, isFav, onFav, onClose }) {
 if (!venue) return null;
 const isV = typeof venue.id === "number";
 const badges = venue.badges||[];
-const [photoSrc, setPhotoSrc] = useState(()=>isV?getVenueFallbackImage(venue):null);
+const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
+const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
 useEffect(() => {
 fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
 }, [venue.id]);
 return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
-photoSrc && React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
-React.createElement(VenueImg, { src:photoSrc, alt:venue.name, height:240 }),
+React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
+React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name, height:240 }),
 React.createElement("div", { style:{ position:"absolute", bottom:0, left:0, right:0, height:"50%", background:"linear-gradient(to bottom, transparent, var(--c-modal-grad))", pointerEvents:"none" } })
 ),
 React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
