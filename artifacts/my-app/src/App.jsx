@@ -1082,9 +1082,11 @@ const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
 const zoomCtrlRef=React.useRef(null);
 React.useEffect(()=>{
-const prev=document.body.style.overflow;
+const prevBody=document.body.style.overflow;
+const prevHtml=document.documentElement.style.overflow;
 document.body.style.overflow="hidden";
-return()=>{document.body.style.overflow=prev;};
+document.documentElement.style.overflow="hidden";
+return()=>{document.body.style.overflow=prevBody;document.documentElement.style.overflow=prevHtml;};
 },[]);
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
@@ -1568,7 +1570,7 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44r
 
 return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100dvh",fontSize:15,lineHeight:1.6}},
 NavBar(),
-React.createElement("div",{style:{marginTop:"calc(68px + env(safe-area-inset-top))"}},
+React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId}),
 section==="favorites"     && Favs({savedVenues:favVenues}),

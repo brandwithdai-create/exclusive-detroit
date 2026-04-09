@@ -1,0 +1,77 @@
+-----------------------------------
+16. PIXEL-PERFECT VISUAL MATCH (FINAL LOCK)
+-----------------------------------
+
+This redesign should match the mockup VERY closely visually.
+
+Please match these exact UI details:
+
+TYPOGRAPHY:
+- “Detroit” uses elegant serif (high contrast, editorial)
+- Section labels like “EXCLUSIVE” use spaced small caps
+- Venue titles use serif, not sans-serif
+- Supporting text uses clean sans-serif
+
+FILTER CHIPS:
+- Height should be consistent across all pills
+- Rounded (not too oval, not too square)
+- Gold selected state (#A6782A range)
+- Icons are LEFT of text with tight spacing
+- Text vertically centered perfectly
+
+MAP MARKERS:
+- Gold markers are soft, not flat
+- Selected marker uses a STAR icon inside a larger circle
+- Slight glow / emphasis on selected marker (very subtle)
+
+FLOATING VENUE CARD:
+- Image is EXACTLY left-aligned with rounded corners
+- Card has soft shadow (not harsh)
+- “Locals know” appears as a small subtle label, not bold
+- Arrow on right is minimal and aligned center vertically
+
+MAP CONTROLS:
+- Plus/minus stacked in one container
+- Near-me button is a separate button below
+- All controls share same radius + shadow style
+- No default Leaflet styling visible
+
+BOTTOM LEGEND:
+- Centered capsule with:
+  - gold dot + “Venues”
+  - purple dot + “New / Soon”
+- Soft rounded container with light shadow
+
+BOTTOM SHEET:
+- Has a small centered handle
+- Image LEFT, content RIGHT
+- Title large and serif
+- Distance (e.g. “0.4 MI”) aligned top-right
+- Save icon right side, vertically centered
+- Padding must feel balanced (not cramped)
+
+SPACING:
+- Consistent vertical rhythm between sections
+- No tight or uneven padding
+- Everything should “breathe”
+
+SHADOWS:
+- Soft, diffused shadows only
+- No harsh drop shadows
+- Keep everything light and premium
+
+COLORS (LIGHT MODE):
+- Background: warm ivory (#F7F3ED range)
+- Gold: muted luxury gold (not bright yellow)
+- Text: deep charcoal, not pure black
+- Borders: very subtle, almost invisible
+
+-----------------------------------
+IMPORTANT
+-----------------------------------
+
+If anything conflicts:
+- PRIORITIZE MATCHING THE MOCKUP VISUALLY
+
+Do not approximate.
+Match spacing, sizing, and alignment as closely as possible.

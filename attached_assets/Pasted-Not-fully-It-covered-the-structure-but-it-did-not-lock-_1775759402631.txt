@@ -1,0 +1,426 @@
+Not fully. It covered the structure, but it did not lock down enough of the tiny visual details to make Replit recreate it closely.
+
+Use this instead:
+
+Redesign the MAP page to match the attached mockup as closely as possible in both LIGHT MODE and DARK MODE.
+
+This should not be treated as a loose inspiration.
+It should be treated as the visual blueprint.
+
+====================================
+OVERALL DESIGN DIRECTION
+====================================
+
+The Map page should feel:
+- premium
+- soft
+- editorial
+- luxurious
+- clean
+- intentional
+- highly polished on mobile
+
+The light mode version should closely match the attached mockup.
+The dark mode version should use the exact same layout, spacing, hierarchy, and interactions, but translated into our established dark mode palette.
+
+Do not keep the old map UI structure and just recolor it.
+Actually redesign the page to match the mockup.
+
+====================================
+1. HEADER / TOP NAV
+====================================
+
+Rebuild the top header to match the mockup layout and spacing:
+
+Left:
+- “EXCLUSIVE” in small spaced caps
+- “Detroit” below it in elegant serif
+- same visual hierarchy as mockup
+
+Center / nav area:
+- EXPLORE
+- MAP
+- SAVES
+- AREAS
+- ABOUT
+
+MAP should be the active tab:
+- gold text/accent
+- subtle underline / active indicator exactly like mockup
+
+Right:
+- circular settings button
+- thin outline
+- centered gear icon
+- soft premium shadow/border treatment
+
+Header requirements:
+- generous horizontal spacing
+- clean top/bottom padding
+- refined luxury alignment
+- no cramped feeling
+- identical structure in dark mode, just theme-adjusted
+
+====================================
+2. TYPOGRAPHY
+====================================
+
+Typography should match the mockup style as closely as possible:
+
+Brand/title:
+- elegant serif for “Detroit”
+
+Navigation / filters / utility labels:
+- clean sans serif
+- uppercase or small caps where shown
+- slightly spaced lettering
+
+Venue titles:
+- elegant serif
+- high contrast
+- premium editorial look
+
+Supporting metadata:
+- clean sans serif
+- lighter weight
+- subtle neutral tone
+
+Do not use random font swaps per section.
+Keep the typography system cohesive and consistent.
+
+====================================
+3. FILTER CHIP ROW
+====================================
+
+The category chip row needs to match the mockup much more closely.
+
+Light mode:
+- warm ivory background behind the row
+- horizontally aligned premium rounded pills
+- selected pill filled in soft gold
+- unselected pills white/ivory with subtle border
+- icon on left, text on right where shown
+- spacing between pills should be generous and even
+
+Categories should visually resemble the mockup:
+- ALL VENUES
+- HIDDEN BARS
+- ROOFTOPS
+- DINNER
+- LUNCH
+- HAPPY HOUR
+(and any others in the same style)
+
+Chip details:
+- rounded pill shape
+- medium weight text
+- centered vertically
+- subtle shadow or depth if needed
+- icon size and text spacing should feel balanced
+
+Important:
+- selected chip should feel rich and premium, not flat mustard
+- unselected chips should still feel elegant and intentional
+- dark mode should use the same chip system, adapted to dark colors
+
+====================================
+4. MAP CONTROLS (LEFT SIDE)
+====================================
+
+The floating controls on the left side of the map should match the mockup:
+
+Top control stack:
+- plus button
+- minus button
+
+Below that:
+- a separate “near me / location” button
+- not hidden
+- not default Leaflet
+- custom styled to match the mockup
+
+Control styling:
+- rounded rectangle / soft container
+- ivory/light surface in light mode
+- subtle border
+- premium shadow
+- icon centered
+- spacing between control groups should match mockup
+- sizing should feel custom and clean, not default map controls
+
+Important:
+The near-me button under the plus/minus is part of the design and should be included.
+
+Dark mode:
+- same layout
+- same sizing
+- same positions
+- adapted dark colors
+
+====================================
+5. MAP ITSELF
+====================================
+
+The map should feel soft and branded:
+- cleaner looking map presentation
+- markers should stand out elegantly
+- no bottom gap
+- no blank area below the map
+- no leftover default Leaflet feel
+- map should fill the usable space correctly
+
+Please also preserve:
+- smooth interaction
+- no layout jump
+- no top bar disappearance
+- no blank cap at bottom
+
+====================================
+6. MARKERS / PINS
+====================================
+
+Markers need to match the mockup direction more closely.
+
+Marker system:
+- warm gold markers for regular venues
+- distinct purple markers for new/soon
+- selected marker should feel special
+- one highlighted marker can use a star treatment like the mockup
+
+Important:
+- markers should not feel generic or cheap
+- use better visual hierarchy
+- selected state should be obvious
+- cluster of pins should still feel clean and readable
+
+Please include:
+- star-style highlighted marker when a venue is selected / featured
+- glow or emphasis very subtle, not cartoonish
+- dark mode should preserve the same hierarchy
+
+====================================
+7. MINI FLOATING VENUE TAB ON MAP
+====================================
+
+This is very important.
+
+When a marker is selected, show the small floating venue tab/card on the map just like the mockup.
+
+It should include:
+- small venue photo thumbnail on the LEFT
+- venue title on the RIGHT
+- small sub-label/tag line under title
+- optional tiny icon/tag like “Locals know”
+- small arrow / chevron affordance on the far right if needed
+
+Visual style:
+- compact floating card
+- rounded corners
+- premium shadow
+- ivory/light surface in light mode
+- positioned above the selected marker
+- elegant and lightweight
+
+Layout requirements:
+- image left
+- text right
+- title prominent
+- tag/subtext underneath
+- no clutter
+- should feel “cute” and polished like the mockup
+
+This small floating selected-location tab is part of the redesign and needs to be included.
+
+Dark mode:
+- same exact layout and behavior
+- dark styling adapted appropriately
+
+====================================
+8. BOTTOM LEGEND / MAP LABELS
+====================================
+
+The map legend at the bottom should be redesigned to match the mockup direction:
+- soft floating capsule/container
+- VENUES marker legend
+- NEW / SOON marker legend
+- centered and premium
+
+Also include:
+- “LIST VIEW” button bottom left
+- “RE-CENTER” button bottom right
+
+These should look like light floating controls, not default buttons.
+
+Style:
+- rounded pills
+- subtle border/shadow
+- clean typography
+- exact placement intention from mockup
+
+====================================
+9. BOTTOM SHEET / VENUE PREVIEW PANEL
+====================================
+
+This is one of the most important parts.
+
+Redesign the bottom sheet to match the mockup closely:
+
+Structure:
+- floating bottom sheet with rounded top corners
+- small handle centered at top
+- venue preview card inside
+
+Venue preview card layout:
+- image thumbnail on LEFT
+- content on RIGHT
+- title large and elegant
+- supporting text below
+- small tag/pill above title if shown
+- distance or metadata on upper/right area
+- save icon on the right
+
+Bottom sheet should feel:
+- curated
+- premium
+- editorial
+- soft
+- luxurious
+
+It should not feel:
+- clunky
+- generic
+- like a default drawer
+- like a heavy modal
+
+Spacing:
+- generous padding
+- clean card rhythm
+- visually identical structure in dark mode
+
+====================================
+10. BUTTON STYLING
+====================================
+
+All map-related buttons and pills in this redesign should be visually consistent.
+
+Includes:
+- filter chips
+- list view
+- re-center
+- small floating venue tab elements
+- any sheet actions
+
+Button styling should match mockup:
+- rounded
+- soft premium borders
+- subtle shadows
+- gold accent for selected/primary
+- neutral ivory for secondary
+- no oversized buttons
+- no inconsistent heights
+
+====================================
+11. COLOR SYSTEM — LIGHT MODE
+====================================
+
+Light mode should match the mockup closely:
+
+Use:
+- warm ivory / soft cream background
+- soft gold accent
+- muted taupe / warm gray text for secondary labels
+- high contrast dark charcoal / black for titles
+- very subtle borders
+- soft shadows
+- map pins in warm gold and purple
+
+Avoid:
+- cold gray UI
+- harsh black outlines
+- flat generic white app styling
+- overly bright yellow gold
+
+This should feel warm, refined, and luxury.
+
+====================================
+12. COLOR SYSTEM — DARK MODE
+====================================
+
+Dark mode should use the SAME redesigned structure, but translated into our existing dark-mode design language.
+
+Requirements:
+- same layout
+- same interactions
+- same marker hierarchy
+- same chip system
+- same bottom sheet structure
+- same floating selected venue tab
+
+Dark mode should feel:
+- moody
+- rich
+- elegant
+- readable
+- premium
+
+Do not revert dark mode to the old design.
+Dark mode should be the same product, same redesign, just theme-adapted.
+
+====================================
+13. MICRO DETAILS THAT MUST MATCH
+====================================
+
+Please include these details from the mockup:
+- near-me/location button under plus/minus
+- icon + text filter pills
+- active MAP tab styling
+- selected venue mini floating tab with photo left / text right
+- star-style highlighted selected marker
+- floating legend capsule at bottom
+- list view button
+- re-center button
+- rounded bottom sheet with handle
+- image-left venue preview in bottom sheet
+- elegant serif titles
+- soft small caps / spaced utility labels
+- premium shadow treatment
+- cleaner custom controls instead of default Leaflet feel
+
+====================================
+14. FUNCTIONAL REQUIREMENTS
+====================================
+
+While redesigning, also fix these bugs:
+- remove bottom gap under map completely
+- no blank/cream space at bottom
+- no disappearing top bar
+- no layout shift after tapping markers
+- no glitchy overlay behavior
+- no inconsistent control placement
+- no broken spacing in mobile Safari
+- no default Leaflet visual leftovers
+
+====================================
+15. FINAL QA
+====================================
+
+Please test in mobile preview and confirm:
+
+LIGHT MODE:
+- closely matches attached mockup
+- header matches
+- chips match
+- controls match
+- markers feel premium
+- selected floating venue tab appears correctly
+- bottom legend matches
+- bottom sheet matches
+- no bottom gap
+
+DARK MODE:
+- same redesigned structure
+- same hierarchy and spacing
+- theme adapted properly
+- nothing falls back to the old design
+
+This redesign should feel as close to the mockup as possible, not just “inspired by it.”
