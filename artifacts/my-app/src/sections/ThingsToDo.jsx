@@ -110,16 +110,16 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
     <>
       <div
         onClick={onClose}
-        style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.9)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}
+        style={{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}
       />
-      <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(600px,93vw)", maxHeight:"92vh", overflowY:"auto", background:"#0e0d10", border:"1px solid rgba(201,168,76,0.18)", borderRadius:16, zIndex:900 }}>
+      <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(600px,93vw)", maxHeight:"92vh", overflowY:"auto", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }}>
 
         <div style={{ position:"relative", flexShrink:0 }}>
           {isGame
             ? <CardImage src={item.resolvedImage || item.image} alt={item.team} logo={item.logo_url} height={290} />
             : <CardImage src={item.resolvedImage || item.image} alt={title} height={290} />
           }
-          <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"72%", background:"linear-gradient(to bottom, transparent, #0e0d10)", pointerEvents:"none" }} />
+          <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"55%", background:"linear-gradient(to bottom, transparent, var(--c-modal-grad))", pointerEvents:"none" }} />
         </div>
 
         <div style={{ padding:"16px 22px 28px", display:"flex", flexDirection:"column", gap:14 }}>
@@ -135,19 +135,19 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
               </span>
             )}
             <div style={{ display:"flex", alignItems:"center", gap:14 }}>
-              <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"rgba(255,255,255,0.35)" }}>
+              <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--c-modal-hood)" }}>
                 {item.hood}
               </span>
               <button
                 onClick={e => { e.stopPropagation(); onClose(); }}
-                style={{ background:"none", border:"none", color:"rgba(255,255,255,0.4)", cursor:"pointer", fontSize:"1.15rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:36, minHeight:36, display:"flex", alignItems:"center", justifyContent:"center", lineHeight:1, padding:0 }}
+                style={{ background:"none", border:"none", color:"var(--c-modal-close)", cursor:"pointer", fontSize:"1.15rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:36, minHeight:36, display:"flex", alignItems:"center", justifyContent:"center", lineHeight:1, padding:0 }}
               >✕</button>
             </div>
           </div>
 
-          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.65rem,5vw,2.3rem)", fontWeight:600, color:"#ffffff", lineHeight:1.07, margin:0, letterSpacing:"-0.01em" }}>
+          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.65rem,5vw,2.3rem)", fontWeight:600, color:"var(--c-modal-title)", lineHeight:1.07, margin:0, letterSpacing:"-0.01em" }}>
             {isGame ? (
-              <>{item.team} <span style={{ color:"rgba(255,255,255,0.36)", fontWeight:400 }}>vs.</span> {item.opponent}</>
+              <>{item.team} <span style={{ color:"var(--c-modal-vs)", fontWeight:400 }}>vs.</span> {item.opponent}</>
             ) : title}
           </h2>
 
@@ -155,13 +155,13 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
             <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.75rem", letterSpacing:"0.04em", color:C.goldL, fontWeight:500 }}>
               {item.date ? fmtDate(item.date) : "Date TBA"} · {item.time}
             </span>
-            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.82rem", color:"rgba(255,255,255,0.5)", fontWeight:300 }}>
+            <span style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.82rem", color:"var(--c-modal-meta)", fontWeight:300 }}>
               {item.venue} · Detroit, MI
             </span>
           </div>
 
           {curatedLine && (
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.08rem", fontStyle:"italic", color:"rgba(255,255,255,0.62)", fontWeight:400, lineHeight:1.5, margin:0 }}>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.08rem", fontStyle:"italic", color:"var(--c-modal-quote)", fontWeight:400, lineHeight:1.5, margin:0 }}>
               {curatedLine}
             </p>
           )}
@@ -170,7 +170,7 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
             <CTABtnFull item={item} />
             <button
               onClick={() => onSave(item.id)}
-              style={{ padding:"0 18px", background:saved?"rgba(201,168,76,0.15)":"transparent", border:"1.5px solid "+(saved?"rgba(201,168,76,0.7)":"rgba(255,255,255,0.15)"), color:saved?C.gold:"rgba(255,255,255,0.5)", fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:8, cursor:"pointer", transition:"all 0.18s", flexShrink:0, whiteSpace:"nowrap" }}
+              style={{ padding:"0 18px", background:saved?"rgba(201,168,76,0.15)":"var(--c-modal-save-bg)", border:"1.5px solid "+(saved?"rgba(201,168,76,0.7)":"var(--c-modal-save-bdr)"), color:saved?C.gold:"var(--c-modal-save-clr)", fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:8, cursor:"pointer", transition:"all 0.18s", flexShrink:0, whiteSpace:"nowrap" }}
             >
               {saved ? "\u2665 Saved" : "\u2661 Save"}
             </button>
