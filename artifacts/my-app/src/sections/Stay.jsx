@@ -114,7 +114,7 @@ function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
               </span>
               <button
                 onClick={e => { e.stopPropagation(); onClose(); }}
-                style={{ width:30, height:30, borderRadius:"50%", background:"rgba(128,128,128,0.12)", border:"1px solid rgba(128,128,128,0.30)", color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.82rem", fontWeight:400, flexShrink:0, transition:"all 0.18s", lineHeight:1 }}
+                style={{ background:"none", border:"none", color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.05rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:40, minHeight:40, padding:"6px 8px", lineHeight:1 }}
               >✕</button>
             </div>
           </div>

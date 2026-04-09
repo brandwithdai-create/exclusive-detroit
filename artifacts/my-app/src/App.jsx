@@ -1212,7 +1212,7 @@ React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:20,flexWrap:"wrap"}},
 React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
-React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"transparent",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
+React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:C.black,background:C.gold,padding:"9px 20px",borderRadius:100,cursor:"pointer",fontWeight:500}},"View Map →")
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:48,flexWrap:"wrap"}},
 React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"rgba(201,168,76,0.07)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"🏟 Sports Tickets"),

@@ -9,10 +9,10 @@ const C = {
 };
 
 const SPORT_COLORS = {
-  MLB: { bg:"rgba(201,168,76,0.15)",  color:"var(--c-goldL)",  border:"rgba(201,168,76,0.50)" },
-  NBA: { bg:"rgba(30,80,200,0.15)",   color:"#8AACFF",         border:"rgba(30,80,200,0.50)" },
-  NHL: { bg:"rgba(210,30,30,0.16)",   color:"#FF7878",         border:"rgba(210,30,30,0.55)" },
-  NFL: { bg:"rgba(0,118,182,0.15)",   color:"#7DC8F5",         border:"rgba(0,118,182,0.50)" },
+  MLB: { bg:"rgba(201,168,76,0.24)",  color:"var(--c-gold)",   border:"rgba(201,168,76,0.72)" },
+  NBA: { bg:"rgba(30,80,200,0.18)",   color:"#8AACFF",         border:"rgba(30,80,200,0.58)" },
+  NHL: { bg:"rgba(210,30,30,0.22)",   color:"#FF5A5A",         border:"rgba(210,30,30,0.72)" },
+  NFL: { bg:"rgba(0,118,182,0.18)",   color:"#7DC8F5",         border:"rgba(0,118,182,0.58)" },
 };
 
 function SaveBtn({ saved, onSave }) {
@@ -129,7 +129,7 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
               </span>
               <button
                 onClick={e => { e.stopPropagation(); onClose(); }}
-                style={{ width:30, height:30, borderRadius:"50%", background:"rgba(128,128,128,0.12)", border:"1px solid rgba(128,128,128,0.30)", color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.82rem", fontWeight:400, flexShrink:0, transition:"all 0.18s", lineHeight:1 }}
+                style={{ background:"none", border:"none", color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.05rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:40, minHeight:40, padding:"6px 8px", lineHeight:1 }}
               >✕</button>
             </div>
           </div>
