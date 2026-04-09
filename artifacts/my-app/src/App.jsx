@@ -952,7 +952,10 @@ const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]
 const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
 const vibeLine=getVibeLine(venue);
 useEffect(() => {
-fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
+setPhotoSrc(fallbackSrc);
+let active=true;
+fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (active && d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
+return () => { active=false; };
 }, [venue.id]);
 return React.createElement("div", {
 onClick:()=>onOpen(String(venue.id)),
@@ -987,7 +990,10 @@ const vibeLine=getVibeLine(venue);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
 useEffect(() => {
-fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
+setPhotoSrc(fallbackSrc);
+let active=true;
+fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (active && d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
+return () => { active=false; };
 }, [venue.id]);
 return React.createElement("div", {
 onClick:()=>onOpen(venue.id),
@@ -1023,7 +1029,10 @@ const badges = venue.badges||[];
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const [photoSrc, setPhotoSrc] = useState(fallbackSrc);
 useEffect(() => {
-fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
+setPhotoSrc(fallbackSrc);
+let active=true;
+fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (active && d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
+return () => { active=false; };
 }, [venue.id]);
 useEffect(() => {
 const scrollY = window.scrollY;

@@ -1,0 +1,169 @@
+We need to make a few final fixes and then do a full quality-control pass across the entire app.
+
+==================================================
+1. BACK BUTTON PLACEMENT FIX
+==================================================
+
+The back button on:
+- Things To Do
+- Where To Stay / Hotel Stays
+
+is still awkwardly placed.
+
+What to change:
+- Move the back button to the TOP LEFT of the content area
+- Place it underneath the main header / underneath “Exclusive Detroit”
+- Do NOT place it too close to the “Exclusive Detroit” branding
+- It should sit naturally at the top left of the page content and feel intentional
+- Right now it feels floating and misplaced
+
+Design requirements:
+- arrow slightly larger than before
+- label can remain “Back”
+- keep it clean, minimal, premium
+- align it properly with the content column below
+- it should feel like part of the layout, not an afterthought
+
+Goal:
+A clear top-left back button that feels polished, aligned, and easy to use on mobile.
+
+==================================================
+2. FULL IMAGE ACCURACY + GLITCH AUDIT
+==================================================
+
+We need a full audit of ALL images across the app.
+
+Main concern:
+Sometimes a venue image is correct, and then later it appears wrong or switches to an incorrect image. That cannot happen.
+
+I need you to check and fix image behavior across the ENTIRE site so images are always stable, correct, and mapped to the right venue.
+
+What to audit:
+- hotels
+- restaurants
+- bars
+- rooftops
+- hidden bars
+- sports
+- events
+- concerts
+- explore cards
+- map cards
+- detail cards
+- saved section
+- anything else that displays venue images
+
+Requirements:
+- each venue must always show the correct image
+- images should never swap to another venue’s image
+- images should never randomly change
+- images should never appear black, blank, or broken
+- no wrong fallback image should ever show
+- no duplicated incorrect images
+- no stale cache issue causing old image mapping
+- no race condition / async loading issue causing one venue’s image to appear on another venue
+- no state reuse bug causing image bleed between cards
+
+If there is any bug related to:
+- lazy loading
+- image caching
+- fallback logic
+- preloading
+- reused components
+- incorrect image keying
+- asynchronous data hydration
+- stale state
+please fix it fully.
+
+Goal:
+Once the image for a venue is set, it should always remain the correct image everywhere in the app.
+
+==================================================
+3. FULL CONTENT ACCURACY AUDIT
+==================================================
+
+I need a full data/content review across the entire site.
+
+Please verify everywhere:
+- venue names
+- addresses
+- hours
+- descriptions
+- category placement
+- booking links / website links
+- OpenTable / reservation links if applicable
+- hotel pricing text if shown
+- event dates/times if shown
+- sports matchups if shown
+- “coming soon” labels if shown
+
+I need everything to be correct and consistent throughout the app.
+
+If you find:
+- incorrect address
+- wrong hours
+- outdated description
+- misleading text
+- wrong booking link
+- wrong category
+- duplicated venue
+- old data still appearing
+fix it.
+
+Goal:
+I should not have to worry about accuracy issues anywhere on the site.
+
+==================================================
+4. FULL IOS / APP STORE READINESS CHECK
+==================================================
+
+I need a full iOS quality-control / Apple App Store readiness review.
+
+Please do a full pass on the app from a code and UX standpoint to catch anything that could cause issues on iPhone or during App Store review.
+
+Check for:
+- layout bugs on iPhone
+- safe area issues
+- cut-off buttons or content
+- broken scrolling
+- hidden elements behind browser chrome or bottom bars
+- touch target size issues
+- modal behavior issues
+- background scroll bleed
+- image loading issues
+- performance issues
+- broken links
+- placeholder content
+- inconsistent privacy/contact info
+- anything that looks unfinished
+- any obvious App Store rejection risk caused by incomplete UX, broken navigation, or unstable behavior
+
+Also check:
+- consistency in light mode and dark mode
+- stability of map interactions
+- stability of detail cards
+- stability of save behavior
+- stability of buttons and links
+- mobile Safari behavior specifically
+
+Goal:
+The app should feel stable, polished, accurate, and iPhone-ready.
+
+==================================================
+5. FINAL QA DELIVERABLE
+==================================================
+
+After all fixes and checks are complete, I need confirmation that you reviewed and verified:
+
+- back button placement fixed
+- all images mapped correctly and stable
+- no image glitches anywhere
+- all addresses correct
+- all hours correct
+- all descriptions correct
+- all links correct
+- no duplicated or incorrect venue data
+- iOS/mobile layout checked
+- Apple App Store readiness issues reviewed and cleaned up
+
+This needs to be a true full-site audit and cleanup, not a surface-level pass.
