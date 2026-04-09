@@ -1,0 +1,408 @@
+Send this exact message to Replit:
+
+⸻
+
+Please redesign the detail cards / modal views for Sports, Events, Concerts, and Hotels to match the attached reference exactly in layout, hierarchy, and visual feel. This is a strict UI direction, not a suggestion. Please do not freestyle or loosely interpret it.
+
+Core design direction
+
+The detail cards should feel:
+	•	dark, cinematic, editorial, luxury
+	•	near-black background
+	•	warm gold accents
+	•	off-white / white text
+	•	immersive hero image
+	•	minimal clutter
+	•	no extra boxes or outdated card sections inside the modal
+
+This should look like a high-end curated city guide, not a generic app card.
+
+⸻
+
+EXACT LAYOUT STRUCTURE
+
+Use this exact structure for all 4 categories:
+
+[Large hero image]
+
+[TAG]         [AREA / LOCATION]         [X]
+
+[LARGE TITLE]
+
+[DATE + TIME line]
+[VENUE / ADDRESS line]
+
+[OPTIONAL curated one-line description]
+
+[PRIMARY CTA BUTTON]   [SAVE BUTTON]
+
+Do not add extra containers, gray info boxes, or extra panels inside the detail view.
+
+⸻
+
+1. HERO IMAGE
+
+For every detail card:
+	•	use a large immersive hero image at the top
+	•	image should be taller than the current version
+	•	keep rounded corners
+	•	image must feel cinematic and premium
+	•	use a subtle dark gradient overlay at the bottom of the image
+	•	the content below should feel visually connected to the image, not like a separate block
+
+Important:
+	•	Sports images must be real and specific to the actual sport/team
+	•	Hotel images must be real photos of the actual hotel
+	•	Event/concert images must be real and relevant to the actual event/artist/venue
+	•	no generic placeholders
+	•	no fake-looking images
+	•	no duplicate images when avoidable
+
+⸻
+
+2. DARK CARD BACKGROUND
+
+The detail card/modal itself should use:
+	•	near-black / very dark background
+	•	not beige
+	•	not light cream
+	•	not medium gray
+
+Text and accents should be:
+	•	off-white / white for primary text
+	•	muted light gray for secondary text
+	•	gold for important accents and the main CTA
+
+This dark theme should apply consistently to:
+	•	Sports detail cards
+	•	Events detail cards
+	•	Concert detail cards
+	•	Hotel detail cards
+
+⸻
+
+3. TOP UTILITY ROW
+
+Directly below or slightly overlapping the image, use this row:
+	•	left: category tag
+	•	middle/right: area/location label
+	•	far right: close X
+
+Category tag
+
+Examples:
+	•	MLB
+	•	NHL
+	•	NBA
+	•	NFL
+	•	EVENT
+	•	CONCERT
+	•	HOTEL
+
+The tag should be:
+	•	small but clearly legible
+	•	more filled / brighter than before
+	•	premium, clean, and easy to read
+	•	not dull or washed out
+
+Area/location
+
+Examples:
+	•	Downtown
+	•	Midtown
+	•	Corktown
+
+This should be:
+	•	smaller than the title
+	•	lighter/subtle
+	•	aligned cleanly on the same row
+
+Close button
+
+The close control should be:
+	•	just a clean X
+	•	no big circle around it
+	•	no bulky container
+	•	refined, minimal, easy to tap
+	•	aligned cleanly with the rest of the row
+
+⸻
+
+4. LARGE EDITORIAL TITLE
+
+The main title should be one of the visual focal points.
+
+Use a larger, high-end editorial style:
+	•	elegant typography
+	•	luxury feel
+	•	tighter line spacing
+	•	stronger visual presence
+
+Content by category:
+
+Sports
+	•	title = matchup
+	•	example: Detroit Tigers vs. Miami Marlins
+
+Events
+	•	title = event name
+
+Concerts
+	•	title = artist / concert name
+
+Hotels
+	•	title = hotel name
+
+The title should feel like a fashion/editorial headline, not default app text.
+
+⸻
+
+5. PRIMARY INFO UNDER TITLE
+
+Immediately under the title, show the main details in a flat inline layout.
+
+DO NOT USE:
+	•	gray info box
+	•	white info box
+	•	inset container
+	•	mini card
+	•	any boxed detail section
+
+USE INSTEAD:
+
+A clean text hierarchy like this:
+
+Sports / Events / Concerts
+	•	first line: date + time
+	•	second line: venue/location
+
+Example:
+	•	Fri, Apr 10 · 6:40 PM ET
+	•	Comerica Park · Detroit, MI
+
+Hotels
+	•	first line: price
+	•	second line: address/location
+
+Example:
+	•	From $279/night
+	•	1400 Woodward Ave · Detroit, MI
+
+Make this section:
+	•	easy to scan
+	•	lighter and more elevated
+	•	clean and flat
+	•	no redundant repeated labels like “Venue / Date / Time”
+
+⸻
+
+6. OPTIONAL CURATED SUB-LINE
+
+Under the primary details, add one short curated line when appropriate.
+
+This should feel editorial and premium, not generic.
+
+Examples:
+	•	Friday night at Comerica Park.
+	•	Boutique luxury in the heart of downtown.
+	•	An intimate cultural evening in the city.
+	•	One-night-only live performance.
+
+This line should be:
+	•	subtle
+	•	elegant
+	•	one line only if possible
+	•	not bulky paragraph copy
+
+⸻
+
+7. CTA AREA
+
+At the bottom of the card, use exactly this interaction style:
+
+Primary CTA
+
+The main action button should be:
+	•	full-width feeling
+	•	gold
+	•	taller than the current buttons
+	•	soft rounded corners
+	•	centered text
+	•	the strongest visual button in the card
+
+Examples:
+	•	Get Tickets
+	•	View Rooms
+	•	Book Now
+
+Save button
+
+Place the Save button:
+	•	to the right of the main CTA
+	•	smaller than the primary button
+	•	secondary style
+	•	subtle and not competing with the main CTA
+
+The bottom should visually feel like:
+	•	one strong main action
+	•	one quieter secondary save action
+
+⸻
+
+8. NO INNER BOXES OR CLUNKY UI
+
+This is important.
+
+Please remove:
+	•	gray information boxes
+	•	white info panels
+	•	nested mini-cards
+	•	bulky close button circles
+	•	unnecessary outlines
+	•	redundant labels
+
+The detail card should feel:
+	•	flat
+	•	elegant
+	•	premium
+	•	minimal
+
+Everything should breathe more.
+
+⸻
+
+9. TYPOGRAPHY HIERARCHY
+
+Please match this hierarchy exactly:
+
+Title
+	•	largest text in the content area
+	•	editorial/luxury look
+	•	strong presence
+
+Date/time or price line
+	•	second most prominent
+	•	clearly legible
+	•	slightly emphasized
+
+Venue/address line
+	•	lighter / secondary
+	•	still readable
+
+Optional curated line
+	•	subtle and stylish
+	•	elegant secondary treatment
+
+Tags and utility labels
+	•	small but clearly legible
+	•	not washed out
+
+Do not let any important text feel too faint.
+
+⸻
+
+10. CONSISTENCY ACROSS ALL 4 CATEGORIES
+
+Sports, Events, Concerts, and Hotels must all use the same design system.
+
+That means matching:
+	•	modal/card background
+	•	image height and treatment
+	•	title hierarchy
+	•	spacing and padding
+	•	tag styling
+	•	close X styling
+	•	CTA style
+	•	Save button placement
+	•	typography behavior
+
+I do not want Sports to look one way and Hotels another way.
+I want all 4 to feel like the same luxury detail-card family.
+
+⸻
+
+11. CATEGORY-SPECIFIC MAPPING
+
+Sports
+	•	tag = league (MLB, NHL, NBA, NFL)
+	•	title = matchup
+	•	details = date/time + venue
+	•	CTA = Get Tickets
+	•	image = real sport/team-specific image
+
+Events
+	•	tag = event type
+	•	title = event name
+	•	details = date/time + venue
+	•	CTA = Get Tickets
+	•	image = real event-relevant image
+
+Concerts
+	•	tag = genre or concert label
+	•	title = artist/show name
+	•	details = date/time + venue
+	•	CTA = Get Tickets
+	•	image = real artist/concert/venue-relevant image
+
+Hotels
+	•	tag = HOTEL or area/hotel type
+	•	title = hotel name
+	•	details = price + address/location
+	•	CTA = View Rooms / Book Now
+	•	image = real hotel image
+
+⸻
+
+12. IMAGE ACCURACY REQUIREMENT
+
+Please verify image accuracy across all redesigned detail cards:
+	•	all sports must use real sport/team-relevant images
+	•	all hotels must use real hotel images
+	•	all venues/restaurants/bars elsewhere in the app should use real venue images too
+	•	no mismatched photos
+	•	no duplicate sports images if possible
+	•	no fake placeholders
+
+⸻
+
+13. LINK + DATA ACCURACY
+
+While redesigning, also triple check that:
+	•	sports links go to the correct ticket page for that exact game
+	•	event links are correct
+	•	concert links are correct
+	•	hotel links go to the correct official booking/website page
+	•	hotel pricing is correct if shown
+	•	hotel star ratings are correct
+	•	hotel review counts are correct
+
+⸻
+
+14. STRICT EXECUTION NOTE
+
+Do not reinterpret this loosely.
+Do not redesign this in a different direction.
+Please follow this layout and hierarchy as closely as possible to the reference.
+
+This is a strict UI direction and I want the final result to visually match the reference image as closely as possible.
+
+⸻
+
+15. FINAL GOAL
+
+The result should feel:
+	•	luxury
+	•	editorial
+	•	dramatic
+	•	immersive
+	•	premium
+	•	clean
+	•	modern
+	•	easy to read
+	•	visually unified
+
+It should look like a high-end curated Detroit guide app, not a standard listing app.
+
+⸻
+
+If you want, I can also turn this into a shorter designer-style version that sounds more direct and commanding for Replit.
