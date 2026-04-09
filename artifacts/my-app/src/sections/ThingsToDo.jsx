@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { getTicketCTA, fmtDate } from "../data/eventsData.js";
 import { fetchLiveGames, fetchLiveConcerts, fetchLiveEvents } from "../data/fetchLiveData.js";
+import { fetchPlacePhotos } from "../data/fetchPlaces.js";
 
 const C = {
   black:"var(--c-black)", deep:"var(--c-deep)", card:"var(--c-card)", border:"var(--c-border)", borderS:"var(--c-borders)",
@@ -108,9 +109,9 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
       />
       <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(640px,93vw)", maxHeight:"90vh", overflowY:"auto", background:C.deep, border:"1px solid "+C.border, borderRadius:12, zIndex:900 }}>
         {isGame ? (
-          <CardImage src={item.image} alt={item.team} logo={item.logo_url} height={240} />
+          <CardImage src={item.resolvedImage || item.image} alt={item.team} logo={item.logo_url} height={240} />
         ) : (
-          <CardImage src={item.image} alt={title} height={240} />
+          <CardImage src={item.resolvedImage || item.image} alt={title} height={240} />
         )}
         <div style={{ padding:"20px 24px 28px", display:"flex", flexDirection:"column", gap:12 }}>
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
@@ -180,15 +181,24 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
 
 function GameCard({ game, saved, onSave, onOpen }) {
   const [hov, setHov] = useState(false);
+  const [venueSrc, setVenueSrc] = useState(game.image);
   const sc = SPORT_COLORS[game.sport] || SPORT_COLORS.MLB;
+
+  useEffect(() => {
+    if (!game.places_query) return;
+    fetchPlacePhotos(game.places_query).then(d => {
+      if (d?.photos?.[0]) setVenueSrc(d.photos[0]);
+    });
+  }, [game.places_query]);
+
   return (
     <div
-      onClick={() => onOpen(game, "game")}
+      onClick={() => onOpen({ ...game, resolvedImage: venueSrc }, "game")}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.22s" }}
     >
-      <CardImage src={game.image} alt={game.team} logo={game.logo_url} height={200} />
+      <CardImage src={venueSrc} alt={game.team} logo={game.logo_url} height={200} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
           <span style={{ background:sc.bg, color:sc.color, border:"1.5px solid "+sc.border, borderRadius:100, padding:"3px 10px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase" }}>
@@ -218,15 +228,24 @@ function GameCard({ game, saved, onSave, onOpen }) {
 
 function EventCard({ event, saved, onSave, onOpen, type = "event" }) {
   const [hov, setHov] = useState(false);
+  const [venueSrc, setVenueSrc] = useState(event.image);
   const title = event.artist || event.title || "";
+
+  useEffect(() => {
+    if (!event.places_query) return;
+    fetchPlacePhotos(event.places_query).then(d => {
+      if (d?.photos?.[0]) setVenueSrc(d.photos[0]);
+    });
+  }, [event.places_query]);
+
   return (
     <div
-      onClick={() => onOpen(event, type)}
+      onClick={() => onOpen({ ...event, resolvedImage: venueSrc }, type)}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.22s" }}
     >
-      <CardImage src={event.image} alt={title} height={200} />
+      <CardImage src={venueSrc} alt={title} height={200} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
           <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.14em", textTransform:"uppercase", color:C.gold }}>
