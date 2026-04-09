@@ -1,0 +1,97 @@
+We need to fix a few critical UI + data issues. Please complete ALL items fully and test before marking done.
+
+⸻
+
+1. 📸 REAL PHOTOS (NO GENERIC IMAGES)
+	•	Replace images for:
+	•	Monarch Club rooftop terrace
+	•	Kamper’s rooftop
+	•	
+
+⸻
+
+2. 🎨 BUTTON CONSISTENCY (VIEW MAP)
+	•	The “View Map” button must match the “Near Me” button style exactly
+
+Match:
+	•	Same background color
+	•	Same border style
+	•	Same text color
+	•	Same hover/active state
+	•	Same softness / highlight effect
+
+Right now they look mismatched — fix for full UI consistency.
+
+⸻
+
+3. 🗺️ MAP GLITCH (CRITICAL)
+	•	There is a white space / gap at the bottom of the map screen
+
+Fix this completely:
+	•	Map must extend FULL height of screen
+	•	No white/blank area visible at bottom
+	•	Must work on:
+	•	iPhone viewport
+	•	Scroll + no scroll states
+
+Also:
+	•	Check safe areas / container height / overflow issues
+	•	Ensure map resizes correctly on load AND after interactions
+
+👉 Do NOT mark complete until this is 100% gone.
+
+⸻
+
+4. ❤️ SAVES BUG (VERY IMPORTANT)
+
+We need to confirm data separation is working correctly.
+
+🚫 CURRENT ISSUE:
+Items from:
+	•	“Things To Do” (events, games, concerts)
+	•	“Hotel Stays”
+
+…should NOT appear in saved spots unless the user taps the heart.
+
+✅ REQUIRED BEHAVIOR:
+	•	Only items the user explicitly taps ❤️ on should appear in Saved
+	•	No automatic saving
+	•	No cross-category leakage
+
+⸻
+
+5. 🧪 TESTING REQUIRED (DO NOT SKIP)
+
+Before marking done, test ALL of this:
+
+Saves:
+	•	Save a venue → appears in Saved
+	•	Refresh → still saved
+	•	Do NOT save → does NOT appear
+
+Categories:
+	•	Save from:
+	•	Explore
+	•	Map
+	•	Things To Do
+	•	Ensure no duplication or auto-saving
+
+Map:
+	•	Scroll
+	•	Tap pins
+	•	Open/close cards
+	•	Confirm NO white space at bottom ever
+
+⸻
+
+6. ⚠️ FINAL REQUIREMENT
+
+Do NOT mark this task complete until:
+	•	All images are real + correct
+	•	Buttons match perfectly
+	•	Map has ZERO layout issues
+	•	Saved section behaves 100% correctly
+
+⸻
+
+If anything is unclear, ask BEFORE implementing.

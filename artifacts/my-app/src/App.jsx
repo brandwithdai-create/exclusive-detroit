@@ -127,6 +127,7 @@ desc:"A Spanish-inspired tapas and cocktail lounge on the 14th floor of the beau
 vibes:["14th Floor","Book Tower","Spanish Tapas"], addr:"1265 Washington Blvd (14th Floor), Detroit, MI 48226",
 hours:"Tue-Thu 5pm-11pm | Fri 5pm-12am | Sat 3pm-12am | Sun 3pm-10pm | Mon Closed", best:"Date Night / Weekend",
 exclusive:"Inside one of Detroit's most beautifully restored historic towers. The Basque tapas and Spanish cocktail program feel completely out of place in the best possible way.",
+image:"https://images.unsplash.com/photo-1587899897387-091ebd01a6b2?auto=format&fit=crop&w=800&q=75",
 badges:["firsttimer","locals"], reservationUrl:"https://resy.com/cities/detroit-mi/venues/kampers" },
 
 { id:13, name:"Johnny Noodle King Rooftop",        hood:"Corktown",           cat:"Rooftops",
@@ -141,6 +142,7 @@ desc:"Two private outdoor fire pit terraces at the top of the Metropolitan Build
 vibes:["Fire Pit Terraces","Intimate","Skyline"], addr:"33 John R St, Penthouse, Detroit, MI 48226",
 hours:"Mon-Thu 5pm-11pm | Fri 5pm-12am | Sat 4pm-12am | Sun 2pm-8pm", best:"Weeknight / Sunset",
 exclusive:"Two private fire pit terraces overlooking the entire city. The quieter, more refined side of Detroit rooftop culture.",
+image:"https://images.unsplash.com/photo-1510798831971-3eb53ba1e07c?auto=format&fit=crop&w=800&q=75",
 badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/the-monarch-club-detroit" },
 
 { id:67, name:"Tin Roof Detroit",                 hood:"Downtown",           cat:"Rooftops",
@@ -872,6 +874,7 @@ const CATEGORY_IMG_POOL = {
 };
 const DEFAULT_IMG_POOL=["1470337458703-46ad1756a187","1414235077428-338989a2e8c0","1477959858617-67f85cf4f1df","1513558161293-cdaf765ed2fd","1492684223066-81342ee5ff30"];
 function getVenueFallbackImage(venue){
+if(venue.image)return venue.image;
 const pool=CATEGORY_IMG_POOL[venue.cat]||DEFAULT_IMG_POOL;
 const seed=String(venue.id).split("").reduce((a,c)=>a+c.charCodeAt(0),0);
 const id=pool[seed%pool.length];
@@ -1075,7 +1078,9 @@ const _useDark=_th==="dark"||(_th!=="light"&&_sysDark);
 const _tile=_useDark?"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png":"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
 L.tileLayer(_tile,{attribution:"\u00a9 OSM \u00a9 CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
 const zc=L.control.zoom({position:"topleft"});zc.addTo(map);zoomCtrlRef.current=zc;
-mapRef.current=map;setMapReady(true);
+mapRef.current=map;
+setTimeout(()=>{map.invalidateSize();},100);
+setMapReady(true);
 return()=>{map.remove();mapRef.current=null;zoomCtrlRef.current=null;const el=document.getElementById('ed-zoom-css');if(el)el.remove();};
 },[]);
 React.useEffect(()=>{
@@ -1101,7 +1106,7 @@ markersRef.current.push(m);
 });
 },[mapCat,mapReady]);
 const navH="calc(68px + env(safe-area-inset-top))";
-return React.createElement("div",{style:{height:"calc(100dvh - "+navH+")",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}},
+return React.createElement("div",{style:{height:"calc(100dvh - 68px - env(safe-area-inset-top) - env(safe-area-inset-bottom))",display:"flex",flexDirection:"column",position:"relative",overflow:"hidden"}},
 React.createElement("div",{style:{background:C.black,borderBottom:"1px solid "+C.border,padding:"10px 16px",display:"flex",gap:7,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",position:"relative",zIndex:500},onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()},
 MAP_FILTER_CATS.map(c=>React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(mapCat===c?C.gold:C.border),color:mapCat===c?C.black:C.goldL,background:mapCat===c?C.gold:"transparent",padding:"6px 12px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}},c==="all"?"All Venues":c))),
 React.createElement("div",{ref:containerRef,style:{flex:1,background:C.deep,minHeight:0}}),
@@ -1264,7 +1269,7 @@ React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:20,flexWrap:"wrap"}},
 React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
-React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.goldD,color:C.goldL,background:"rgba(201,168,76,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
+React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:48,flexWrap:"wrap"}},
 React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid rgba(201,168,76,0.45)",color:C.goldL,background:"rgba(201,168,76,0.09)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"🏟 Sports Tickets"),
