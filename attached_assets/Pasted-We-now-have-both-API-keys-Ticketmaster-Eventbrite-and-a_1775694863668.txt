@@ -1,0 +1,108 @@
+We now have both API keys (Ticketmaster + Eventbrite) and are ready to connect live data, but we also need to fix some UI issues at the same time.
+
+API + DATA INTEGRATION:
+
+Ticketmaster API key and Eventbrite API token will be added securely. Please set them up as environment variables (not hardcoded).
+
+We need the following sections fully connected to live data:
+
+1. Things To Do section:
+- Games This Week
+- Events This Week
+- Concerts
+
+2. Stay section:
+- Hotels (keep current curated list, but structure for future Booking.com integration)
+
+Ticketmaster (Discovery API):
+Games This Week:
+- Detroit home games only
+- Teams: Lions, Tigers, Pistons, Red Wings
+- Filter by Detroit + current week
+- Show:
+  - Teams (home vs opponent)
+  - Date
+  - Time
+  - Image if available
+  - “Get Tickets” button
+
+Concerts:
+- Music events only
+- Detroit area only
+- Sorted by upcoming
+- Include artist, date, time, image, and “Get Tickets”
+
+Eventbrite:
+Events This Week:
+- Detroit, Midtown, Corktown, and surrounding central areas only
+- Current week only
+- Show title, date, time, image, and “Get Tickets”
+
+Technical:
+- Dynamic fetching (auto-refresh weekly)
+- No duplicates
+- Fast loading
+- Keep everything consistent with current card design + save button
+
+CTA rules:
+- Events / games / concerts → “Get Tickets”
+- Hotels → “View Rooms”
+
+---
+
+UI / NAVIGATION FIXES (VERY IMPORTANT):
+
+1. Top navigation bar is too crowded:
+- The row with Explore, Map, Do, Stay, Saves, Areas, About is getting cut off
+- Remove “Do” and “Stay” from the top navigation
+- Keep the top bar clean and not squished
+
+2. Add new primary action buttons under the hero section:
+
+Right now:
+- “Near Me”
+- “View Map”
+
+We want to ADD a row of buttons directly under those (above the divider line):
+
+New buttons:
+- Sports Tickets
+- Events
+- Hotel Stays
+
+These should:
+- Match the style of the current buttons
+- Be evenly spaced
+- Feel like primary actions
+
+3. Button behavior:
+
+- “Sports Tickets” → scroll or navigate to Games section
+- “Events” → scroll or navigate to Events section
+- “Hotel Stays” → scroll or navigate to Hotels section
+
+4. Layout priority:
+- This should feel like a clean, luxury app
+- Avoid clutter at the top
+- Move actions closer to the user (under Near Me)
+
+---
+
+STRUCTURE (IMPORTANT FOR FUTURE MONETIZATION):
+
+Each item should support:
+- ticket_url
+- website_url
+- future affiliate_ticket_url
+
+Do not hardcode links into UI — keep everything dynamic so we can swap to affiliate links later without redesign.
+
+---
+
+Goal:
+This should feel like a clean, high-end, real-time Detroit app where users can instantly:
+- See what’s happening
+- Get tickets
+- Book stays
+
+Everything should be accurate, auto-updating, and visually consistent.
