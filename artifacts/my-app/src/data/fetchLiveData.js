@@ -51,55 +51,43 @@ const SPORT_LOGOS = {
 
 // Sport-specific action photography pools — unique images per sport.
 // Rotated by index so every game card gets a different photo.
-// 14+ images per sport — enough for a full 2-week MLB schedule without repeats.
-// Each image is a different angle/moment so cards look distinct even for the same team.
+// Every image below was VISUALLY VERIFIED via screenshot — no guessing.
+// All broken 404s and mis-labeled images (boots, book, volleyball, etc.) removed.
+// Pexels images use the crop format for consistent 16:9 card aspect ratio.
+const PX = (id) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop`;
+
 const SPORT_IMAGE_POOLS = {
+  // Verified: all show baseball (stadium aerial, home-plate play, baseballs)
   MLB: [
-    "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=800&q=85", // batter swing
-    "https://images.unsplash.com/photo-1562077772-3bd90403f7f0?w=800&q=85",    // outfield action
-    "https://images.unsplash.com/photo-1509773896068-7fd415d91e2e?w=800&q=85", // stadium crowd
-    "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=800&q=85", // night game
-    "https://images.unsplash.com/photo-1541963463532-d68292c34b19?w=800&q=85", // baseball glove
-    "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=85", // stadium overview
-    "https://images.unsplash.com/photo-1585149764328-9b1cd98c0bb0?w=800&q=85", // play at base
-    "https://images.unsplash.com/photo-1547347298-4074fc3086f0?w=800&q=85",    // dugout/stadium
-    "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=85", // arena lights
-    "https://images.unsplash.com/photo-1622548697893-d4f5aaf7e9f4?w=800&q=85", // baseball pitch
-    "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800&q=85", // ballpark aerial
-    "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=85",    // sports crowd
-    "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?w=800&q=85", // sports arena
-    "https://images.unsplash.com/photo-1587280501635-68a0ef0ccb13?w=800&q=85", // baseball game
-    "https://images.unsplash.com/photo-1489459237519-2a17a20fe071?w=800&q=85", // baseball field
+    "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=800&q=85", // baseball stadium from above
+    "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=85", // slide play at home plate
+    PX(1308713),                                                                 // baseballs close-up
   ],
+  // Verified: all show basketball court, arena, or player action
   NBA: [
-    "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=85",    // court/arena
-    "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&q=85", // game action
-    "https://images.unsplash.com/photo-1485395578879-6ba4a42d7383?w=800&q=85", // hoop close-up
-    "https://images.unsplash.com/photo-1460542683952-17fa7eb0f769?w=800&q=85", // arena lights
-    "https://images.unsplash.com/photo-1556804335-2fa563e93aae?w=800&q=85",    // dunk/action
-    "https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?w=800&q=85", // player/ball
-    "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?w=800&q=85", // arena crowd
-    "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&q=85", // basketball game
+    "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=85",    // ball through hoop
+    "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&q=85", // arena wide shot
+    "https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?w=800&q=85", // player dunking
+    "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&q=85", // basketballs close-up
+    "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?w=800&q=85", // hoop net close-up
+    "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?w=800&q=85", // Spalding NBA ball
+    PX(945471),                                                                  // basketball court
   ],
+  // Verified: all show ice hockey — goal post, game action, rink
   NHL: [
-    "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=85", // ice action
-    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=85", // hockey game
-    "https://images.unsplash.com/photo-1535591273668-578e31182c4f?w=800&q=85", // rink overhead
-    "https://images.unsplash.com/photo-1612966797534-ef0d7de9fa47?w=800&q=85", // hockey match
-    "https://images.unsplash.com/photo-1548445929-4f60a497f851?w=800&q=85",    // stadium seats
-    "https://images.unsplash.com/photo-1569097656579-b1be2d88bb72?w=800&q=85", // rink/ice
-    "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800&q=85", // arena aerial
-    "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=85",    // arena crowd
+    "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=85", // hockey goal post
+    "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800&q=85", // hockey game action
+    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=85", // empty ice rink
   ],
+  // Verified: all show American football
   NFL: [
-    "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=85", // game action
-    "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&q=85", // football action
-    "https://images.unsplash.com/photo-1461896836234-19f36d1b8e0f?w=800&q=85", // stadium aerial
-    "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=85", // crowd energy
-    "https://images.unsplash.com/photo-1575428652377-a2d80e2277fc?w=800&q=85", // play in action
-    "https://images.unsplash.com/photo-1460518451285-97b6aa326961?w=800&q=85", // stadium lights
-    "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&q=85", // arena night
-    "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?w=800&q=85", // sports arena
+    "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=85", // football on field
+    PX(1618200),                                                                 // scrimmage line
+    PX(2570139),                                                                 // football on grass
+    PX(209956),                                                                  // football on turf
+    PX(1618294),                                                                 // game action
+    PX(1618305),                                                                 // game action 2
   ],
 };
 

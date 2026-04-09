@@ -1,0 +1,76 @@
+Send this to Replit:
+
+Please fix these image/content issues on the app and triple check before marking done.
+	1.	Detroit Jazz Festival card image glitch
+
+	•	The Detroit Jazz Festival card is switching between an old image and the new image when clicked/opened.
+	•	This needs to stop completely.
+	•	Pick one image only and keep it permanently attached to that card.
+	•	You can use either:
+	•	the DIA photo, or
+	•	a real Detroit Jazz Festival / jazz performance photo
+	•	But it must be one single image source only with no flicker, no swapping, no old cached image showing, and no alternating state on click.
+	•	Make sure the card uses one stable image in all states:
+	•	list view
+	•	detail/opened state
+	•	after refresh
+	•	after navigation away/back
+	•	after publish
+
+	2.	“Explore” button text is too small
+
+	•	On the Things To Do page and the Hotel Stays page, the EXPLORE button text you added is too small.
+	•	Increase the text size so it matches the visual weight/style of the rest of the app navigation and feels intentional.
+	•	Keep it elegant and on-brand, but make it more readable and noticeable.
+
+	3.	Sports card images are wrong and need to match the actual sport/team
+The sports tab overall looks good now, but these specific cards have terrible mismatched images and need to be corrected immediately.
+
+Right now there are images like:
+	•	boots
+	•	an open book
+	•	a lake/water scene
+	•	girls playing volleyball
+	•	one card with no image at all
+
+Those do not belong on Detroit sports cards.
+
+Please replace the incorrect images so every sports card image clearly matches the event/team/sport. Examples:
+	•	Detroit Tigers vs. Kansas City Royals → use a baseball photo
+	•	Detroit Tigers vs. Miami Marlins → use a baseball photo
+	•	Detroit Tigers vs. Milwaukee Brewers → use a baseball photo
+	•	Detroit Red Wings vs. New Jersey Devils → use a Red Wings / hockey photo
+	•	Any Tigers game should visually read as Detroit baseball
+	•	Any Red Wings game should visually read as Detroit hockey
+
+	4.	Rules for all sports images going forward
+
+	•	Every sports card must use a real, relevant sports image
+	•	No random stock images that have nothing to do with the sport
+	•	No scenic filler images
+	•	No lifestyle filler images
+	•	No duplicate nonsense
+	•	No blank image areas
+	•	Images should clearly match:
+	•	the team
+	•	the league
+	•	the sport
+	•	the event type
+
+	5.	Please fix the root cause, not just one screen
+I need you to check:
+
+	•	list card view
+	•	clicked/opened card view
+	•	mobile preview
+	•	published version
+	•	cached version
+	•	any fallback image logic
+	•	any old seeded/mock data that may still be appearing
+	•	any image mapping bug causing old or unrelated images to load
+
+	6.	Important
+Do not just patch one screenshot.
+Audit the entire sports section and make sure every single sports card has a relevant Detroit sports image and that the Detroit Jazz Festival image no longer switches between old and new.
+
+Please verify everything visually before saying done.

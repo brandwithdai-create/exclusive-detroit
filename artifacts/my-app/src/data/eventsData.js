@@ -246,7 +246,6 @@ export const DETROIT_EVENTS = [
     time: "7:00 PM",
     category: "Jazz & Music",
     image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=85",
-    places_query: "Detroit Institute of Arts Michigan",
     desc: "An intimate spring preview of Detroit's legendary jazz tradition inside the DIA's Rivera Court. Live performances from local and national artists inside one of the city's most stunning architectural spaces.",
     ticket_url: "https://www.eventbrite.com/d/mi--detroit/detroit-jazz/",
     affiliate_ticket_url: null,

@@ -355,7 +355,7 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
       <div style={{ background:C.deep, padding:"64px 22px 40px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
           {onBack && (
-            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.smoke, fontFamily:"'DM Mono',monospace", fontSize:"0.48rem", letterSpacing:"0.14em", textTransform:"uppercase", padding:0, marginBottom:16, display:"inline-flex", alignItems:"center", gap:5, opacity:0.7, transition:"opacity 0.18s" }}
+            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.smoke, fontFamily:"'DM Mono',monospace", fontSize:"0.65rem", letterSpacing:"0.14em", textTransform:"uppercase", padding:0, marginBottom:16, display:"inline-flex", alignItems:"center", gap:5, opacity:0.7, transition:"opacity 0.18s" }}
               onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=0.7}>
               ← Explore
             </button>
