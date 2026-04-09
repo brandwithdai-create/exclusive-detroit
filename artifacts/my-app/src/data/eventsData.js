@@ -416,8 +416,7 @@ export const HOTELS = [
     desc: "Detroit's premier luxury boutique hotel, built by the watchmaker that put the city back on the map. Hand-crafted interiors, curated retail, and a collection of acclaimed restaurants.",
     price_from: "From $279/night",
     features: ["Boutique Luxury", "Woodward Ave", "Award-Winning Dining"],
-    // No verified free-use exterior photo found — left blank per accuracy policy
-    image: null,
+    image: "/hotels/shinola.jpg",
     images: [],
     booking_url: "https://www.theshinolahotel.com/rooms",
     affiliate_booking_url: null,
@@ -431,8 +430,7 @@ export const HOTELS = [
     desc: "A lovingly restored 1926 art deco gem in the heart of downtown Detroit. Home to Bar Chenin, Candy Bar, and Rebelle — one of the city's best restaurant collections under one historic roof.",
     price_from: "From $169/night",
     features: ["Art Deco", "Boutique", "Bar Chenin"],
-    // Real exterior photo — Wurlitzer Building (The Siren Hotel), 1509 Broadway St (Wikimedia Commons)
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Wurlitzer_Building_Detroit.jpg/800px-Wurlitzer_Building_Detroit.jpg",
+    image: "/hotels/siren.jpg",
     images: [],
     booking_url: "https://www.thesirenhotel.com/rooms",
     affiliate_booking_url: null,
@@ -446,8 +444,7 @@ export const HOTELS = [
     desc: "Housed in a restored 1929 fire department headquarters, the Foundation Hotel fuses industrial heritage with refined Detroit hospitality. Rooftop views and a bar worth staying in town for.",
     price_from: "From $189/night",
     features: ["Historic Building", "Rooftop Bar", "Riverwalk Adjacent"],
-    // Real exterior photo — Detroit Fire Department Headquarters building (Wikimedia Commons, photo: Andrew Jameson)
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Detroit_Fire_Department_Headquarters.jpg/800px-Detroit_Fire_Department_Headquarters.jpg",
+    image: "/hotels/foundation.jpg",
     images: [],
     booking_url: "https://www.foundationhotel.com/detroit/rooms",
     affiliate_booking_url: null,
@@ -461,8 +458,7 @@ export const HOTELS = [
     desc: "A 1924 masterpiece — once the tallest hotel in the world. Meticulously restored to its original grandeur, the Book Cadillac remains one of Detroit's most iconic and finest stays.",
     price_from: "From $199/night",
     features: ["Historic Landmark", "Full Service", "Luxury Spa"],
-    // Real facade photo — Book-Cadillac (Westin) Hotel facade detail (Wikimedia Commons)
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Book-Cadillac_%28Westin%29_Hotel_facade_detail..jpg/800px-Book-Cadillac_%28Westin%29_Hotel_facade_detail..jpg",
+    image: "/hotels/book-cadillac.jpg",
     images: [],
     booking_url: "https://www.marriott.com/hotels/travel/dtwwi-the-westin-book-cadillac-detroit/",
     affiliate_booking_url: null,
@@ -476,8 +472,7 @@ export const HOTELS = [
     desc: "Detroit's Corktown hotel with an artsy soul. Boutique rooms, a lively courtyard, and deep ties to the neighborhood that put Detroit's revival on the map. Steps from Michigan Ave's best bars and restaurants.",
     price_from: "From $109/night",
     features: ["Corktown", "Boutique", "Courtyard Bar"],
-    // No verified free-use image available — left blank per accuracy policy
-    image: null,
+    image: "/hotels/trumbull.jpg",
     images: [],
     booking_url: "https://www.trumbullandporterhotel.com/rooms/",
     affiliate_booking_url: null,
@@ -491,8 +486,7 @@ export const HOTELS = [
     desc: "Perched inside Detroit's iconic Renaissance Center with sweeping views of the Detroit River and Windsor skyline. Steps from the Riverwalk — the city's most scenic wake-up call.",
     price_from: "From $149/night",
     features: ["Riverfront Views", "Full Service", "Renaissance Center"],
-    // Real exterior photo — GM Renaissance Center (Marriott hotel within), Detroit riverfront (Wikimedia Commons)
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/GM_Renaissance_Center.jpg/800px-GM_Renaissance_Center.jpg",
+    image: "/hotels/rencen.jpg",
     images: [],
     booking_url: "https://www.marriott.com/hotels/travel/dtwdt-detroit-marriott-at-the-renaissance-center/",
     affiliate_booking_url: null,
@@ -506,8 +500,7 @@ export const HOTELS = [
     desc: "Art-forward interiors, a rooftop bar (Cielo) with skyline views, and a prime location between Corktown and the heart of downtown. Detroit's most stylish mid-range stay.",
     price_from: "From $139/night",
     features: ["Rooftop Bar Cielo", "Art-Forward", "Corktown Adjacent"],
-    // No verified free-use image available — left blank per accuracy policy
-    image: null,
+    image: "/hotels/cambria.jpg",
     images: [],
     booking_url: "https://www.choicehotels.com/michigan/detroit/cambria-hotels/mi517",
     affiliate_booking_url: null,
