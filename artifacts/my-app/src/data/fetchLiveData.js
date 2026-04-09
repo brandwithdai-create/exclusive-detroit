@@ -158,7 +158,7 @@ export async function fetchLiveGames() {
         image:             img,
         logo_url:          SPORT_LOGOS[teamInfo.sport] || null,
         images:            tmImg ? [tmImg] : [],
-        ticket_url:        ev.url || `https://www.stubhub.com/search/?q=${encodeURIComponent(teamInfo.name)}`,
+        ticket_url:        ev.url || (teamInfo.sport === "MLB" ? "https://www.stubhub.com/detroit-tigers-tickets/category/138300332" : teamInfo.sport === "NBA" ? "https://www.stubhub.com/detroit-pistons-tickets/performer/2862" : teamInfo.sport === "NHL" ? "https://www.stubhub.com/detroit-red-wings-tickets/performer/2767" : "https://www.stubhub.com/detroit-lions-tickets/performer/6048"),
         affiliate_ticket_url: null,
         website_url:       ev.url || null,
         _source:           "ticketmaster",
