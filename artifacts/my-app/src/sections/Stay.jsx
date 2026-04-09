@@ -1,5 +1,6 @@
 import React from "react";
 import { HOTELS, getBookingCTA } from "../data/eventsData.js";
+import { fetchPlacePhotos } from "../data/fetchPlaces.js";
 
 const C = {
   black:"var(--c-black)", deep:"var(--c-deep)", card:"var(--c-card)", border:"var(--c-border)", borderS:"var(--c-borders)",
@@ -18,27 +19,97 @@ function SaveBtn({ saved, onSave }) {
   );
 }
 
-function CardImage({ src, alt }) {
-  const [err, setErr] = React.useState(false);
-  const [loaded, setLoaded] = React.useState(false);
-  if (!src || err) return null;
+function StarRating({ rating, ratingCount }) {
+  if (!rating) return null;
+  const full = Math.floor(rating);
+  const half = rating - full >= 0.5;
+  const stars = Array.from({ length: 5 }, (_, i) => {
+    if (i < full) return "★";
+    if (i === full && half) return "½";
+    return "☆";
+  });
   return (
-    <div style={{ height:180, overflow:"hidden", flexShrink:0, position:"relative", background:"linear-gradient(90deg,#1a1820 25%,#232030 50%,#1a1820 75%)", backgroundSize:"200% 100%", animation: loaded ? "none" : "shimmer 1.4s infinite" }}>
-      <img
-        src={src} alt={alt}
-        onError={() => setErr(true)}
-        onLoad={() => setLoaded(true)}
-        style={{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity: loaded ? 1 : 0, transition:"opacity 0.3s ease" }}
-      />
+    <div style={{ display:"flex", alignItems:"center", gap:4 }}>
+      <span style={{ color:C.gold, fontSize:"0.72rem", letterSpacing:"0.02em" }}>{stars.join("")}</span>
+      <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.47rem", color:C.smoke, letterSpacing:"0.06em" }}>
+        {rating.toFixed(1)}{ratingCount ? ` · ${ratingCount.toLocaleString()} reviews` : ""}
+      </span>
     </div>
   );
 }
 
+function CardImage({ localSrc, placesPhoto, alt }) {
+  const [err, setErr] = React.useState(false);
+  const [loaded, setLoaded] = React.useState(false);
+
+  // Use the real Places photo once available; fall back to local file
+  const src = (!err && placesPhoto) ? placesPhoto : localSrc;
+
+  if (!src) return null;
+  return (
+    <div style={{
+      height: 200,
+      overflow: "hidden",
+      flexShrink: 0,
+      position: "relative",
+      background: "linear-gradient(90deg,#1a1820 25%,#232030 50%,#1a1820 75%)",
+      backgroundSize: "200% 100%",
+      animation: loaded ? "none" : "shimmer 1.4s infinite",
+    }}>
+      <img
+        key={src}
+        src={src}
+        alt={alt}
+        onError={() => { setErr(true); setLoaded(true); }}
+        onLoad={() => setLoaded(true)}
+        style={{
+          width: "100%", height: "100%", objectFit: "cover", display: "block",
+          opacity: loaded ? 1 : 0,
+          transition: "opacity 0.35s ease",
+        }}
+      />
+      {/* "Real photo" badge shown when using a Places photo */}
+      {placesPhoto && loaded && !err && (
+        <div style={{
+          position: "absolute", bottom: 8, left: 8,
+          background: "rgba(6,5,10,0.65)", backdropFilter: "blur(6px)",
+          borderRadius: 4, padding: "2px 6px",
+        }}>
+          <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.38rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"rgba(255,255,255,0.6)" }}>
+            Google Photos
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function useHotelPlaces(hotel) {
+  const [placesData, setPlacesData] = React.useState(null);
+
+  React.useEffect(() => {
+    const query = `${hotel.name} ${hotel.addr} Detroit`;
+    fetchPlacePhotos(query).then(data => {
+      if (data?.photos?.length || data?.rating) {
+        setPlacesData(data);
+      }
+    });
+  }, [hotel.id]);
+
+  return placesData;
+}
+
 function HotelCard({ hotel, saved, onSave }) {
   const cta = getBookingCTA(hotel);
+  const places = useHotelPlaces(hotel);
+
   return (
     <div style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both" }}>
-      <CardImage src={hotel.image} alt={hotel.name} />
+      <CardImage
+        localSrc={hotel.image}
+        placesPhoto={places?.photos?.[0] || null}
+        alt={hotel.name}
+      />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
           <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}>
@@ -54,6 +125,7 @@ function HotelCard({ hotel, saved, onSave }) {
         <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.06em", color:C.smoke, margin:0 }}>
           {hotel.addr}
         </p>
+        <StarRating rating={places?.rating} ratingCount={places?.ratingCount} />
         <p style={{ fontSize:"0.78rem", color:C.ash, fontWeight:300, lineHeight:1.65, margin:0, flex:1 }}>
           {hotel.desc}
         </p>
