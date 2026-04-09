@@ -138,7 +138,10 @@ export async function fetchLiveGames() {
       const venue    = ev._embedded?.venues?.[0];
       const venueName = venue?.name || "Detroit";
       const tmImg    = tmImageUrl(ev.images);
-      const img      = tmImg || SPORT_ACTION_IMAGES[teamInfo.sport] || null;
+      // Always use sport-specific action photography as the primary card image.
+      // Ticketmaster images are usually team-branded graphics/logos, not action shots.
+      // The Ticketmaster image is stored in images[] for future use (gallery, etc.).
+      const img      = SPORT_ACTION_IMAGES[teamInfo.sport] || null;
 
       games.push({
         id:                `tm-game-${ev.id}`,
@@ -154,7 +157,7 @@ export async function fetchLiveGames() {
         note:              null,
         image:             img,
         logo_url:          SPORT_LOGOS[teamInfo.sport] || null,
-        images:            [],
+        images:            tmImg ? [tmImg] : [],
         ticket_url:        ev.url || `https://www.stubhub.com/search/?q=${encodeURIComponent(teamInfo.name)}`,
         affiliate_ticket_url: null,
         website_url:       ev.url || null,
