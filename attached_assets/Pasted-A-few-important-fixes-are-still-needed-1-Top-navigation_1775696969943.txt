@@ -1,0 +1,43 @@
+A few important fixes are still needed.
+
+1. Top navigation spacing:
+The top navigation still sits too close to the top of the screen. The Saves bubble/count in the top right is still getting cut off. We need more top padding so the full navigation row sits lower and has enough breathing room on mobile. This has been mentioned a few times already and still needs to be fully fixed.
+
+2. Hero shortcut button placement:
+The Sports Tickets, Events, and Hotel Stays buttons need to sit LOWER and closer to the divider line below them. Right now they are still too close to the Near Me and View Map buttons. There should be more spacing between the first row and second row, and less empty space between the second row and the line below.
+
+3. Button icon consistency:
+Please put the small emoji/icon back in front of Sports Tickets, and also add matching small icons/emojis to Events and Hotel Stays so all three buttons feel visually consistent.
+
+4. Sports card readability:
+The date, time, location, and opponent all still need to be bigger and more noticeable. They are too hard to read right now.
+
+Please improve the visual hierarchy on sports cards so it feels more like:
+- Team name
+- Opponent
+- Date and time
+- Location / venue
+
+The opponent, date, time, and venue should all be easier to scan at a glance.
+
+5. Sports ticket behavior:
+When clicking a sports card or the Get Tickets button, it should go directly to that exact game/event listing, not to a broader team results page. If I click a Detroit Red Wings game, it should open that exact Red Wings game.
+
+6. Concert section:
+The concert tab looks amazing. The pictures look great. Please keep that same visual quality and overall structure.
+
+7. Hotel section:
+The hotel tab still looks boring compared to concerts and sports. Please add high-quality images to the hotel cards the same way the other sections use strong visuals.
+
+Hotel card update:
+- Add a large image at the top of each hotel card
+- Use high-quality, aesthetic, luxury-feeling images
+- Keep image sizing and spacing consistent
+- Keep View Rooms and save heart at the bottom
+- Make the hotel section feel just as immersive as concerts and sports
+
+8. Mobile polish:
+Please review all of this in mobile view specifically. The app should feel balanced, premium, easy to scan, and visually consistent across sections.
+
+Goal:
+The app should feel clean, luxury, and intentional, with strong visual hierarchy and a polished mobile layout.

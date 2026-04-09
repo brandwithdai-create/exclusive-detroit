@@ -18,10 +18,25 @@ function SaveBtn({ saved, onSave }) {
   );
 }
 
+function CardImage({ src, alt }) {
+  const [err, setErr] = React.useState(false);
+  if (!src || err) return null;
+  return (
+    <div style={{ height:180, overflow:"hidden", background:"#0e0d11", flexShrink:0 }}>
+      <img
+        src={src} alt={alt}
+        onError={() => setErr(true)}
+        style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
+      />
+    </div>
+  );
+}
+
 function HotelCard({ hotel, saved, onSave }) {
   const cta = getBookingCTA(hotel);
   return (
     <div style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both" }}>
+      <CardImage src={hotel.image} alt={hotel.name} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
           <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}>
