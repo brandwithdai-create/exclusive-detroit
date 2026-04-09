@@ -1028,8 +1028,7 @@ return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
 React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
-React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name, height:240 }),
-React.createElement("div", { style:{ position:"absolute", bottom:0, left:0, right:0, height:"38%", background:"linear-gradient(to bottom, transparent, var(--c-modal-grad))", pointerEvents:"none" } })
+React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name, height:240 })
 ),
 React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
