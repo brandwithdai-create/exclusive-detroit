@@ -1,0 +1,88 @@
+Please make these updates across the app and do a full consistency + functionality check:
+	1.	Darken the text on the first half of the Explore page
+The font on the upper part of the Explore page is too light and washed out. Please darken it so it has better contrast and is easier to read while still keeping the premium look.
+	2.	Fix Map page bugs/glitches on first load
+Carefully test the Map tab when it first opens. Make sure there are no:
+
+	•	layout issues
+	•	loading glitches
+	•	empty spacing
+	•	broken overlays
+Everything should load clean and smooth immediately.
+
+	3.	CRITICAL: Cards are currently unclickable (fix this)
+Right now, the cards under Events, Sports, and Hotels are not clickable and do not open anything.
+This is a major issue.
+
+Please fix so that:
+	•	EVERY card (sports, events, concerts, hotels, etc.) is clickable
+	•	Clicking a card opens a detail view/page with more information
+
+	4.	Every card must open to a detail view
+Once fixed, make sure all cards consistently open a detail screen with full info. No dead clicks anywhere in the app.
+	5.	Consistent buttons on all detail views
+Every detail page should include:
+
+	•	a Save button
+	•	a Book Now / Get Tickets / View Rooms / Visit Website button depending on the category
+
+Examples:
+	•	Hotels → View Rooms / Book Now
+	•	Sports/Events/Concerts → Get Tickets
+	•	Restaurants → Reserve / Visit Website
+
+Everything should feel consistent across categories.
+	6.	Remove Google Photos logo if possible
+If the Google Photos overlay is not required, remove it from all images. It is distracting and looks messy.
+	7.	Sports card layout fix
+Keep matchups on one line when possible:
+Detroit Red Wings vs. Philadelphia Flyers
+Do not split awkwardly across lines unless necessary.
+	8.	Improve readability for Sports / Events / Concerts
+The date, time, and venue are too small.
+Please:
+
+	•	increase font size
+	•	improve spacing
+	•	make them easier to scan
+	•	keep styling consistent across all tabs
+
+	9.	Add images where missing
+
+	•	Events need images (currently too text-heavy)
+	•	Sports need real, relevant images (hockey, basketball, etc.)
+	•	Keep image sizing consistent across all sections
+
+	10.	Typography consistency across the entire app
+Make sure fonts are consistent across:
+
+	•	Explore
+	•	Map
+	•	Sports
+	•	Events
+	•	Concerts
+	•	Hotels
+	•	Things To Do
+
+Right now it feels inconsistent. I want one cohesive typography system.
+	11.	Hotel details visibility
+On hotel cards:
+
+	•	address is too small
+	•	pricing is too small
+
+Please increase size and improve readability so they stand out more.
+	12.	Full app consistency pass
+Review the entire app as one system and ensure consistency in:
+
+	•	typography
+	•	text contrast
+	•	spacing and padding
+	•	button placement
+	•	image treatment
+	•	card layout
+	•	detail page behavior
+	•	save + action buttons
+	•	card → detail flow
+
+The goal is for the app to feel polished, premium, fully functional, and consistent everywhere.

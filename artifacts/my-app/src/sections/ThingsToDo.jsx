@@ -26,14 +26,27 @@ function SaveBtn({ saved, onSave }) {
   );
 }
 
-function CTABtn({ item }) {
+function CTABtn({ item, stopProp = true }) {
   const cta = getTicketCTA(item);
   if (!cta) return null;
   return (
     <a
       href={cta.url} target="_blank" rel="noopener noreferrer"
-      onClick={e => e.stopPropagation()}
+      onClick={e => { if (stopProp) e.stopPropagation(); }}
       style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"9px 16px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", flexShrink:0 }}
+    >
+      {cta.label}
+    </a>
+  );
+}
+
+function CTABtnFull({ item }) {
+  const cta = getTicketCTA(item);
+  if (!cta) return null;
+  return (
+    <a
+      href={cta.url} target="_blank" rel="noopener noreferrer"
+      style={{ flex:1, display:"block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"13px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", textAlign:"center" }}
     >
       {cta.label}
     </a>
@@ -75,10 +88,106 @@ function MetaRow({ date, time, venue }) {
   );
 }
 
-function GameCard({ game, saved, onSave }) {
+function DetailModal({ item, type, saved, onSave, onClose }) {
+  if (!item) return null;
+  const isGame = type === "game";
+  const title = isGame ? `${item.team} vs. ${item.opponent}` : (item.artist || item.title || "");
+  const categoryLabel = isGame ? item.sport : item.category;
+
+  useEffect(() => {
+    const fn = e => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", fn);
+    return () => document.removeEventListener("keydown", fn);
+  }, [onClose]);
+
+  return (
+    <>
+      <div
+        onClick={onClose}
+        style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.88)", zIndex:800, backdropFilter:"blur(4px)", WebkitBackdropFilter:"blur(4px)" }}
+      />
+      <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(640px,93vw)", maxHeight:"90vh", overflowY:"auto", background:C.deep, border:"1px solid "+C.border, borderRadius:12, zIndex:900 }}>
+        {isGame ? (
+          <CardImage src={item.image} alt={item.team} logo={item.logo_url} height={240} />
+        ) : (
+          <CardImage src={item.image} alt={title} height={240} />
+        )}
+        <div style={{ padding:"20px 24px 28px", display:"flex", flexDirection:"column", gap:12 }}>
+          <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+            {isGame ? (
+              <span style={{ background: SPORT_COLORS[item.sport]?.bg || "rgba(201,168,76,0.12)", color: SPORT_COLORS[item.sport]?.color || C.goldL, border:"1.5px solid "+(SPORT_COLORS[item.sport]?.border || "rgba(201,168,76,0.35)"), borderRadius:100, padding:"3px 10px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase" }}>
+                {categoryLabel}
+              </span>
+            ) : (
+              <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.15em", textTransform:"uppercase", color:C.gold }}>
+                {categoryLabel}
+              </span>
+            )}
+            <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+              <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}>
+                {item.hood}
+              </span>
+              <button
+                onClick={onClose}
+                style={{ width:44, height:44, borderRadius:"50%", background:"var(--c-close-bg)", border:"1px solid var(--c-close-bdr)", color:"var(--c-close-txt)", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.1rem", fontWeight:400, flexShrink:0, transition:"background 0.18s" }}
+              >×</button>
+            </div>
+          </div>
+
+          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.4rem,4vw,1.9rem)", fontWeight:600, color:C.white, lineHeight:1.1, margin:0 }}>
+            {isGame ? (
+              <>{item.team} <span style={{ color:C.smoke, fontWeight:400 }}>vs.</span> {item.opponent}</>
+            ) : title}
+          </h2>
+
+          <MetaRow date={item.date} time={item.time} venue={item.venue} />
+
+          {isGame && item.note && (
+            <span style={{ alignSelf:"flex-start", background:"rgba(201,168,76,0.08)", border:"1px solid rgba(201,168,76,0.22)", borderRadius:100, padding:"4px 12px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase", color:C.goldL }}>
+              {item.note}
+            </span>
+          )}
+
+          {!isGame && item.desc && (
+            <p style={{ fontSize:"0.84rem", color:C.ash, fontWeight:300, lineHeight:1.72, margin:0 }}>
+              {item.desc}
+            </p>
+          )}
+
+          <div style={{ background:C.card, border:"1px solid "+C.borderS, borderRadius:6, padding:"12px 16px", display:"flex", flexDirection:"column", gap:8 }}>
+            {[["Venue", item.venue], ["Date", item.date ? fmtDate(item.date) : null], ["Time", item.time]].filter(p => p[1]).map(p => (
+              <div key={p[0]} style={{ display:"flex", gap:12, alignItems:"flex-start" }}>
+                <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke, minWidth:52, paddingTop:2, flexShrink:0 }}>{p[0]}</span>
+                <span style={{ fontSize:"0.81rem", color:C.ash, fontWeight:300, lineHeight:1.5 }}>{p[1]}</span>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display:"flex", gap:10, alignItems:"center" }}>
+            <CTABtnFull item={item} />
+            <button
+              onClick={() => onSave(item.id)}
+              style={{ padding:"12px 14px", background:saved?"rgba(201,168,76,0.15)":"transparent", border:"1px solid "+(saved?C.gold:C.border), color:saved?C.gold:C.bone, fontFamily:"'DM Mono',monospace", fontSize:"0.58rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:6, cursor:"pointer", transition:"all 0.18s", flexShrink:0 }}
+            >
+              {saved ? "\u2665 Saved" : "\u2661 Save"}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+function GameCard({ game, saved, onSave, onOpen }) {
+  const [hov, setHov] = useState(false);
   const sc = SPORT_COLORS[game.sport] || SPORT_COLORS.MLB;
   return (
-    <div style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both" }}>
+    <div
+      onClick={() => onOpen(game, "game")}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.22s" }}
+    >
       <CardImage src={game.image} alt={game.team} logo={game.logo_url} height={200} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
@@ -89,14 +198,10 @@ function GameCard({ game, saved, onSave }) {
             {game.hood}
           </span>
         </div>
-
-        {/* Matchup on one line */}
         <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.25rem", fontWeight:600, color:C.white, lineHeight:1.2, margin:0 }}>
           {game.team} <span style={{ color:C.smoke, fontWeight:400 }}>vs.</span> {game.opponent}
         </h3>
-
         <MetaRow date={game.date} time={game.time} venue={game.venue} />
-
         {game.note && (
           <span style={{ alignSelf:"flex-start", background:"rgba(201,168,76,0.08)", border:"1px solid rgba(201,168,76,0.22)", borderRadius:100, padding:"3px 10px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.1em", textTransform:"uppercase", color:C.goldL }}>
             {game.note}
@@ -111,10 +216,16 @@ function GameCard({ game, saved, onSave }) {
   );
 }
 
-function EventCard({ event, saved, onSave, titleKey = "title" }) {
-  const title = event[titleKey] || event.title || event.artist || "";
+function EventCard({ event, saved, onSave, onOpen, type = "event" }) {
+  const [hov, setHov] = useState(false);
+  const title = event.artist || event.title || "";
   return (
-    <div style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both" }}>
+    <div
+      onClick={() => onOpen(event, type)}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.22s" }}
+    >
       <CardImage src={event.image} alt={title} height={200} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
@@ -167,6 +278,8 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
   const [events,   setEvents]   = useState(_cache.events   || []);
   const [concerts, setConcerts] = useState(_cache.concerts || []);
   const [loading,  setLoading]  = useState({ games:!_cache.games, events:!_cache.events, concerts:!_cache.concerts });
+  const [activeItem, setActiveItem] = useState(null);
+  const [activeType, setActiveType] = useState(null);
 
   const load = useCallback(async (key, fetcher, setter) => {
     if (_cache[key]) return;
@@ -175,7 +288,6 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
       _cache[key] = data;
       setter(data);
     } catch {
-      // fetcher already falls back internally
     } finally {
       setLoading(l => ({ ...l, [key]: false }));
     }
@@ -188,6 +300,16 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
   }, [load]);
 
   useEffect(() => { setTab(initialTab); }, [initialTab]);
+
+  const handleOpen = useCallback((item, type) => {
+    setActiveItem(item);
+    setActiveType(type);
+  }, []);
+
+  const handleClose = useCallback(() => {
+    setActiveItem(null);
+    setActiveType(null);
+  }, []);
 
   const tabBtnStyle = (active) => ({
     fontFamily:"'DM Mono',monospace",
@@ -251,19 +373,19 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
         {tab === "games" && (
           loading.games ? <LoadingGrid /> :
           grid(games, g => (
-            <GameCard key={g.id} game={g} saved={isSavedEvent(g.id)} onSave={toggleSavedEvent} />
+            <GameCard key={g.id} game={g} saved={isSavedEvent(g.id)} onSave={toggleSavedEvent} onOpen={handleOpen} />
           ))
         )}
         {tab === "events" && (
           loading.events ? <LoadingGrid /> :
           grid(events, e => (
-            <EventCard key={e.id} event={e} saved={isSavedEvent(e.id)} onSave={toggleSavedEvent} />
+            <EventCard key={e.id} event={e} saved={isSavedEvent(e.id)} onSave={toggleSavedEvent} onOpen={handleOpen} type="event" />
           ))
         )}
         {tab === "concerts" && (
           loading.concerts ? <LoadingGrid /> :
           grid(concerts, c => (
-            <EventCard key={c.id} event={{ ...c, title: c.artist || c.title }} saved={isSavedEvent(c.id)} onSave={toggleSavedEvent} />
+            <EventCard key={c.id} event={{ ...c, title: c.artist || c.title }} saved={isSavedEvent(c.id)} onSave={toggleSavedEvent} onOpen={handleOpen} type="concert" />
           ))
         )}
 
@@ -271,6 +393,16 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
           Dates and times subject to change · Always verify before attending
         </p>
       </div>
+
+      {activeItem && (
+        <DetailModal
+          item={activeItem}
+          type={activeType}
+          saved={isSavedEvent(activeItem.id)}
+          onSave={toggleSavedEvent}
+          onClose={handleClose}
+        />
+      )}
     </div>
   );
 }
