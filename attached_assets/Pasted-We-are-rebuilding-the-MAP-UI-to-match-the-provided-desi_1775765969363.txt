@@ -1,0 +1,212 @@
+We are rebuilding the MAP UI to match the provided design EXACTLY.
+
+This is NOT a general redesign. It must match the reference visually, structurally, and stylistically.
+
+----------------------------------
+OVERALL STYLE
+----------------------------------
+- Light luxury theme
+- Background: soft ivory (#F8F6F2 range)
+- Primary accent: warm gold (#A67C2E range)
+- Secondary accent: muted purple (for “new / soon”)
+- Typography:
+  - Titles: elegant serif
+  - Body: clean sans-serif
+- Everything should feel:
+  - minimal
+  - premium
+  - soft
+  - editorial (NOT techy)
+
+----------------------------------
+TOP CATEGORY PILLS (VERY IMPORTANT)
+----------------------------------
+- Horizontal scroll row
+- Each pill includes:
+  [small emoji/icon] + label
+
+Examples:
+🍸 Hidden Bars  
+🏙 Rooftops  
+🍽 Dinner  
+🍔 Lunch  
+🥂 Happy Hour  
+⚾ Sports  
+
+Design:
+- Height: small and tight (not bulky)
+- Padding: balanced horizontally
+- Border: soft gold outline
+- Background:
+  - inactive: very light ivory
+  - active: filled gold
+- Text:
+  - inactive: dark charcoal
+  - active: white or very dark
+
+Spacing:
+- Even spacing between pills
+- Do NOT overcrowd
+
+----------------------------------
+MAP MARKERS
+----------------------------------
+Two types ONLY:
+
+1. Standard venues:
+- Solid gold circles
+
+2. New / coming soon:
+- Muted purple circles
+
+Selected marker:
+- Slightly larger
+- Add glow or halo effect
+- Optional star icon inside (gold/white)
+
+Cluster area:
+- Slight glow around dense group (subtle)
+
+----------------------------------
+LEFT MAP CONTROLS
+----------------------------------
+Stack vertically:
+
+[ + ]
+[ − ]
+[ 📍 near me ]
+
+Design:
+- Rounded square buttons
+- Soft ivory background
+- Light shadow
+- Icon centered
+- Even spacing between buttons
+
+Near Me:
+- Must include small location icon
+- Same width as + / −
+- Not floating randomly
+
+----------------------------------
+FLOATING VENUE PREVIEW CARD (TOP CARD)
+----------------------------------
+This is CRITICAL.
+
+This is NOT a full modal.
+
+Layout:
+[ IMAGE ]  Title
+           Locals know badge
+           Subtitle (Midtown • Dive Bar)
+           Chevron arrow →
+
+Details:
+- Image:
+  - Left side
+  - Size: ~64–80px
+  - Rounded corners
+- Card:
+  - White / ivory background
+  - Soft shadow
+  - Rounded corners
+  - Compact height
+
+“Locals know”:
+- Small pill
+- Soft gold tint
+- ABOVE or next to title (tight alignment)
+
+Chevron:
+- Small arrow on right
+- Subtle gold
+
+----------------------------------
+BOTTOM FLOATING PANEL (MAIN CARD)
+----------------------------------
+This is a draggable panel.
+
+Top:
+- Small drag handle centered
+
+Content layout:
+LEFT: image (larger than top card)
+RIGHT:
+- “Locals know” pill
+- Title (Grey Ghost Detroit)
+- Subtext (Modern American • $$ • West Village)
+
+Below:
+- Tags (Hidden Gem, Great Cocktails)
+
+Bottom nav inside app:
+- Keep separate from this panel
+
+Panel behavior:
+- Scroll ONLY inside panel
+- Background map MUST NOT scroll
+
+----------------------------------
+BOTTOM CONTROLS
+----------------------------------
+3 elements:
+
+LEFT:
+[ List View ]
+- small pill button
+- icon + text
+
+CENTER:
+[ ● Venues   ● New / Soon ]
+- legend style
+- gold dot + purple dot
+
+RIGHT:
+[ Re-center ]
+- small pill button
+- icon + text
+
+Design:
+- Small
+- Subtle
+- NOT primary buttons
+
+----------------------------------
+BOTTOM NAV BAR
+----------------------------------
+- Fixed at bottom
+- Icons:
+  Explore | Map | + | Saves | Profile
+
+Active:
+- Map highlighted in gold
+
+Center (+):
+- circular gold button
+- slightly elevated
+
+----------------------------------
+SPACING + ALIGNMENT RULES
+----------------------------------
+- Everything must align to a consistent grid
+- Equal padding inside all cards
+- No floating or misaligned text
+- Tight vertical rhythm
+
+----------------------------------
+INTERACTIONS (IMPORTANT)
+----------------------------------
+- Tap marker → small floating preview appears
+- Tap preview → expands bottom panel
+- Smooth animation (no flicker)
+- No opacity flashes
+- No gradient glitches
+
+----------------------------------
+FINAL QA CHECK
+----------------------------------
+- Does it match the reference layout exactly? → YES
+- Are emojis present in category pills? → YES
+- Are colors (gold + purple) visible? → YES
+- Is the top preview card compact and horizontal? → YES
+- Does the UI feel premium, not default? → YES

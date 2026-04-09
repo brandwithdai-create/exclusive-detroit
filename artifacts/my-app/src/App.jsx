@@ -1093,7 +1093,7 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }
 
 const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports","Speakeasies","Cocktail Lounges"];
-const MAP_CAT_ICONS={"all":"◈","Hidden Bars":"◉","Rooftops":"▲","Dinner":"◎","Lunch":"○","Happy Hour":"◐","Sports":"◇","Speakeasies":"◈","Cocktail Lounges":"◌"};
+const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports":"⚾","Speakeasies":"🥃","Cocktail Lounges":"🍹"};
 function MapView({isFav,toggleFav,setModalId,modalId,navTo}){
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
@@ -1113,7 +1113,7 @@ const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomCont
 const _th=document.documentElement.getAttribute("data-theme");
 const _sysDark=typeof window!=="undefined"&&window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)").matches:true;
 const _useDark=_th==="dark"||(_th!=="light"&&_sysDark);
-const _tile=_useDark?"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png":"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
+const _tile=_useDark?"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png":"https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
 L.tileLayer(_tile,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
 setTimeout(()=>{map.invalidateSize();},100);
