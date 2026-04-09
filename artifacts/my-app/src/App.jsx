@@ -841,7 +841,7 @@ const cta = getCTA(venue); if (!cta) return null;
 return React.createElement("a", {
 href:cta.url, target:"_blank", rel:"noopener noreferrer",
 onClick:e=>e.stopPropagation(),
-style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:full?"12px 18px":"8px 14px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", width:full?"100%":undefined, textAlign:full?"center":undefined }
+style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"10px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", width:full?"100%":undefined, textAlign:full?"center":undefined }
 }, cta.label);
 }
 
@@ -1575,8 +1575,8 @@ section==="favorites"     && Favs({savedVenues:favVenues}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About(),
 section==="settings"      && Settings(),
-section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab}),
-section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel})
+section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),
+section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")})
 ),
 section!=="map"&&section!=="settings"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},

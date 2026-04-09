@@ -34,7 +34,7 @@ function CTABtn({ item, stopProp = true }) {
     <a
       href={cta.url} target="_blank" rel="noopener noreferrer"
       onClick={e => { if (stopProp) e.stopPropagation(); }}
-      style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"9px 16px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", flexShrink:0 }}
+      style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"10px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", flexShrink:0 }}
     >
       {cta.label}
     </a>
@@ -47,7 +47,7 @@ function CTABtnFull({ item }) {
   return (
     <a
       href={cta.url} target="_blank" rel="noopener noreferrer"
-      style={{ flex:1, display:"block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"16px 18px", borderRadius:8, fontWeight:600, textDecoration:"none", cursor:"pointer", textAlign:"center" }}
+      style={{ flex:1, display:"block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"10px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", textAlign:"center" }}
     >
       {cta.label}
     </a>
@@ -287,7 +287,7 @@ const TABS = [
 
 const _cache = { games:null, events:null, concerts:null };
 
-export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab = "games" }) {
+export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab = "games", onBack }) {
   const [tab, setTab] = useState(initialTab);
   const [games,    setGames]    = useState(_cache.games    || []);
   const [events,   setEvents]   = useState(_cache.events   || []);
@@ -362,6 +362,12 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
     <div>
       <div style={{ background:C.deep, padding:"64px 22px 40px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          {onBack && (
+            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.smoke, fontFamily:"'DM Mono',monospace", fontSize:"0.48rem", letterSpacing:"0.14em", textTransform:"uppercase", padding:0, marginBottom:16, display:"inline-flex", alignItems:"center", gap:5, opacity:0.7, transition:"opacity 0.18s" }}
+              onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=0.7}>
+              ← Explore
+            </button>
+          )}
           <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.22em", textTransform:"uppercase", color:C.gold, marginBottom:8 }}>
             Detroit
           </p>

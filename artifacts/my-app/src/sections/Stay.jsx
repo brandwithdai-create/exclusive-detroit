@@ -151,7 +151,7 @@ function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
             {cta ? (
               <a
                 href={cta.url} target="_blank" rel="noopener noreferrer"
-                style={{ flex:1, display:"block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"16px 18px", borderRadius:8, fontWeight:600, textDecoration:"none", cursor:"pointer", textAlign:"center" }}
+                style={{ flex:1, display:"block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"10px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", textAlign:"center" }}
               >
                 {cta.label}
               </a>
@@ -223,7 +223,7 @@ function HotelCard({ hotel, saved, onSave, onOpen }) {
           <a
             href={cta.url} target="_blank" rel="noopener noreferrer"
             onClick={e => e.stopPropagation()}
-            style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"9px 16px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer" }}
+            style={{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"10px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer" }}
           >
             {cta.label}
           </a>
@@ -234,7 +234,7 @@ function HotelCard({ hotel, saved, onSave, onOpen }) {
   );
 }
 
-export default function Stay({ isSavedHotel, toggleSavedHotel }) {
+export default function Stay({ isSavedHotel, toggleSavedHotel, onBack }) {
   const [activeHotel, setActiveHotel] = React.useState(null);
   const [activePlaces, setActivePlaces] = React.useState(null);
 
@@ -252,6 +252,12 @@ export default function Stay({ isSavedHotel, toggleSavedHotel }) {
     <div>
       <div style={{ background:C.deep, padding:"64px 22px 40px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
+          {onBack && (
+            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.smoke, fontFamily:"'DM Mono',monospace", fontSize:"0.48rem", letterSpacing:"0.14em", textTransform:"uppercase", padding:0, marginBottom:16, display:"inline-flex", alignItems:"center", gap:5, opacity:0.7, transition:"opacity 0.18s" }}
+              onMouseEnter={e=>e.currentTarget.style.opacity=1} onMouseLeave={e=>e.currentTarget.style.opacity=0.7}>
+              ← Explore
+            </button>
+          )}
           <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.22em", textTransform:"uppercase", color:C.gold, marginBottom:8 }}>
             Detroit
           </p>
