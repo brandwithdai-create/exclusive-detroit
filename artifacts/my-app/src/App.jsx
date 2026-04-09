@@ -1173,13 +1173,13 @@ const serif=(tag,text,size,extra={})=>React.createElement(tag,{style:{fontFamily
 const NavBar=()=>React.createElement("nav",{style:{position:"fixed",top:0,left:0,right:0,zIndex:500,paddingTop:"env(safe-area-inset-top)",background:scrolled?"var(--c-nav-bgS)":"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid "+C.border}},
 React.createElement("div",{style:{height:68,display:"flex",alignItems:"center",justifyContent:"space-between",paddingLeft:24,paddingRight:24}},
 React.createElement("div",{onClick:()=>navTo("explore"),style:{cursor:"pointer",flexShrink:0}},
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.22em",color:C.gold,textTransform:"uppercase"}},"EXCLUSIVE"),
-React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:C.white,lineHeight:1.1}},"Detroit")
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.58rem",letterSpacing:"0.22em",color:C.gold,textTransform:"uppercase"}},"EXCLUSIVE"),
+React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:600,color:C.white,lineHeight:1.1}},"Detroit")
 ),
 React.createElement("div",{style:{display:"flex",gap:8,alignItems:"center",overflow:"visible"}},
 React.createElement("div",{style:{display:"flex",gap:16,alignItems:"center",overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",overflow:"visible"}},
 [["explore","Explore"],["map","Map"],["favorites","Saves"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
-React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1px solid "+C.gold:"1px solid transparent",display:"inline-flex",alignItems:"center",gap:5,whiteSpace:"nowrap",flexShrink:0}},
+React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.66rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1.5px solid "+C.gold:"1.5px solid transparent",display:"inline-flex",alignItems:"center",gap:5,whiteSpace:"nowrap",flexShrink:0}},
 l,
 s==="favorites"&&favs.length>0&&React.createElement("span",{style:{background:C.gold,color:C.black,borderRadius:100,padding:"1px 5px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",minWidth:14,textAlign:"center",display:"inline-block"}},favs.length)
 )
@@ -1215,9 +1215,9 @@ React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono
 React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:C.black,background:C.gold,padding:"9px 20px",borderRadius:100,cursor:"pointer",fontWeight:500}},"View Map →")
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:48,flexWrap:"wrap"}},
-React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"rgba(201,168,76,0.07)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"🏟 Sports Tickets"),
-React.createElement("button",{onClick:()=>{setDoTab("events");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"rgba(201,168,76,0.07)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"🎟 Events"),
-React.createElement("button",{onClick:()=>navTo("stay"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid rgba(201,168,76,0.4)",color:C.goldL,background:"rgba(201,168,76,0.07)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"🏨 Hotel Stays")
+React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.64rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid rgba(201,168,76,0.45)",color:C.goldL,background:"rgba(201,168,76,0.09)",padding:"12px 26px",borderRadius:100,cursor:"pointer"}},"🏟 Sports Tickets"),
+React.createElement("button",{onClick:()=>{setDoTab("events");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.64rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid rgba(201,168,76,0.45)",color:C.goldL,background:"rgba(201,168,76,0.09)",padding:"12px 26px",borderRadius:100,cursor:"pointer"}},"🎟 Events"),
+React.createElement("button",{onClick:()=>navTo("stay"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.64rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid rgba(201,168,76,0.45)",color:C.goldL,background:"rgba(201,168,76,0.09)",padding:"12px 26px",borderRadius:100,cursor:"pointer"}},"🏨 Hotel Stays")
 )
 )
 );
@@ -1445,7 +1445,7 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44r
 )
 );
 
-return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100vh",fontSize:15,lineHeight:1.6}},
+return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100dvh",fontSize:15,lineHeight:1.6}},
 NavBar(),
 React.createElement("div",{style:{marginTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
