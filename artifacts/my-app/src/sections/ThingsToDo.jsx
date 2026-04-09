@@ -163,7 +163,7 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
           <div style={{ display:"flex", gap:10, alignItems:"stretch", marginTop:4 }}>
             <CTABtnFull item={item} />
             <button
-              onClick={() => onSave(item.id)}
+              onClick={() => onSave(item.id, item)}
               style={{ padding:"0 18px", background:saved?"rgba(201,168,76,0.15)":"var(--c-modal-save-bg)", border:"1.5px solid "+(saved?"rgba(201,168,76,0.7)":"var(--c-modal-save-bdr)"), color:saved?C.gold:"var(--c-modal-save-clr)", fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:8, cursor:"pointer", transition:"all 0.18s", flexShrink:0, whiteSpace:"nowrap" }}
             >
               {saved ? "\u2665 Saved" : "\u2661 Save"}
@@ -208,7 +208,7 @@ function GameCard({ game, saved, onSave, onOpen }) {
       </div>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"10px 18px 14px", borderTop:"1px solid "+C.borderS }}>
         <CTABtn item={game} />
-        <SaveBtn saved={saved} onSave={() => onSave(game.id)} />
+        <SaveBtn saved={saved} onSave={() => onSave(game.id, game)} />
       </div>
     </div>
   );
@@ -255,7 +255,7 @@ function EventCard({ event, saved, onSave, onOpen, type = "event" }) {
       </div>
       <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", padding:"10px 18px 14px", borderTop:"1px solid "+C.borderS }}>
         <CTABtn item={event} />
-        <SaveBtn saved={saved} onSave={() => onSave(event.id)} />
+        <SaveBtn saved={saved} onSave={() => onSave(event.id, event)} />
       </div>
     </div>
   );
