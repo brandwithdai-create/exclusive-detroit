@@ -134,7 +134,7 @@ export async function fetchLiveGames() {
         hood:              "Downtown",
         note:              null,
         image:             img,
-        ticket_url:        `https://www.stubhub.com/search/?q=${encodeURIComponent(teamInfo.name)}`,
+        ticket_url:        ev.url || `https://www.stubhub.com/search/?q=${encodeURIComponent(teamInfo.name)}`,
         affiliate_ticket_url: null,
         website_url:       ev.url || null,
         _source:           "ticketmaster",

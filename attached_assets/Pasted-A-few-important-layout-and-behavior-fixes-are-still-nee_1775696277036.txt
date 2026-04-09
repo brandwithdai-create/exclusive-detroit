@@ -1,0 +1,37 @@
+A few important layout and behavior fixes are still needed.
+
+1. Hero shortcut buttons placement:
+The “Sports Tickets,” “Events,” and “Hotel Stays” buttons should be moved LOWER. Right now they are too close to the “Near Me” and “View Map” buttons. Please place them closer to the divider line below, so there is more breathing room between the two button rows.
+
+2. Top navigation spacing:
+The top navigation row is still too close to the top of the screen. It needs more top padding / spacing because items like Saves are still getting visually cut off and cramped near the device header area. Please bring that entire row down so it sits comfortably and looks intentional on mobile.
+
+3. Sports ticket behavior:
+When I click a sports card or the Get Tickets button, it should take the user directly to the specific game listing, not to a broader team results page. For example, if I click a Detroit Red Wings game, it should open that exact Red Wings game/event page directly.
+
+4. Sports card hierarchy / readability:
+On the sports cards, the date and time need to be much more visible.
+Who they are playing also needs to be much more visible.
+
+Please update the sports cards so the priority feels more like this:
+- Team name
+- Opponent (very clear and easy to see)
+- Date and time (more prominent)
+- Venue
+
+The opponent and date/time should stand out more at a glance.
+
+5. Button icon consistency:
+Right now the “Sports Tickets” button has a small emoji/icon, but the “Events” and “Hotel Stays” buttons only have dots.
+
+For consistency, all three buttons should follow the same style:
+- Either remove the emoji from Sports Tickets
+OR
+- Add matching small icons/emojis to Events and Hotel Stays
+
+Everything should feel visually consistent and intentional across all buttons.
+
+6. Overall mobile polish:
+Please review these changes in mobile view specifically and make sure spacing feels balanced, premium, and easy to scan.
+
+The app should feel clean and luxury, but also highly functional and obvious to use.

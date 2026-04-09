@@ -68,16 +68,16 @@ function GameCard({ game, saved, onSave }) {
             {game.hood}
           </span>
         </div>
-        <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.5rem", letterSpacing:"0.1em", color:C.ash }}>
-          {game.date ? fmtDate(game.date) : "Date TBA"} · {game.time}
-        </span>
-        <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}>
+        <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.35rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}>
           {game.team}
         </h3>
-        <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.9rem", fontStyle:"italic", color:C.ash, margin:0 }}>
+        <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.1rem", fontWeight:500, color:C.bone, margin:0, lineHeight:1.2 }}>
           vs. {game.opponent}
         </p>
-        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.08em", color:C.smoke, margin:0 }}>
+        <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.56rem", letterSpacing:"0.1em", color:C.bone, fontWeight:500 }}>
+          {game.date ? fmtDate(game.date) : "Date TBA"} · {game.time}
+        </span>
+        <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.47rem", letterSpacing:"0.08em", color:C.smoke, margin:0 }}>
           {game.venue}
         </p>
         {game.note && (
