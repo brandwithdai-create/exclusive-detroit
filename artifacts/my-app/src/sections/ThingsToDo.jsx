@@ -177,24 +177,16 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
 
 function GameCard({ game, saved, onSave, onOpen }) {
   const [hov, setHov] = useState(false);
-  const [venueSrc, setVenueSrc] = useState(game.image);
   const sc = SPORT_COLORS[game.sport] || SPORT_COLORS.MLB;
-
-  useEffect(() => {
-    if (!game.places_query) return;
-    fetchPlacePhotos(game.places_query).then(d => {
-      if (d?.photos?.[0]) setVenueSrc(d.photos[0]);
-    });
-  }, [game.places_query]);
 
   return (
     <div
-      onClick={() => onOpen({ ...game, resolvedImage: venueSrc }, "game")}
+      onClick={() => onOpen({ ...game, resolvedImage: game.image }, "game")}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.22s" }}
     >
-      <CardImage src={venueSrc} alt={game.team} logo={game.logo_url} height={200} />
+      <CardImage src={game.image} alt={game.team} logo={game.logo_url} height={200} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
           <span style={{ background:sc.bg, color:sc.color, border:"1.5px solid "+sc.border, borderRadius:100, padding:"3px 10px", fontSize:"0.52rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.12em", textTransform:"uppercase" }}>
