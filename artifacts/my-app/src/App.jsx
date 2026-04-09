@@ -1244,8 +1244,8 @@ React.createElement(Hero),
 React.createElement("div",{style:{background:C.deep,borderTop:"1px solid "+C.border,borderBottom:"1px solid "+C.border,padding:"20px 24px"}},
 React.createElement("div",{style:{maxWidth:800,margin:"0 auto",textAlign:"center",display:"flex",alignItems:"center",gap:16,justifyContent:"center",flexWrap:"wrap"}},
 React.createElement("span",{style:{color:C.goldD}},"◈"),
-React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1rem",fontStyle:"italic",color:C.ash,lineHeight:1.65}},
-"This is Detroit ",React.createElement("em",{style:{color:C.goldL}},"beyond")," the obvious. Every spot here rewards curiosity - the traveler who wanders off the main drag, asks the bartender for a real recommendation, and stays past midnight."
+React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1rem",fontStyle:"italic",color:C.bone,lineHeight:1.65}},
+"This is Detroit ",React.createElement("em",{style:{color:C.goldL,fontStyle:"normal"}},"beyond")," the obvious. Every spot here rewards curiosity — the traveler who wanders off the main drag, asks the bartender for a real recommendation, and stays past midnight."
 ),
 React.createElement("span",{style:{color:C.goldD}},"◈")
 )

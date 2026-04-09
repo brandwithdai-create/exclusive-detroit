@@ -9,10 +9,10 @@ const C = {
 };
 
 const SPORT_COLORS = {
-  MLB: { bg:"rgba(201,168,76,0.12)", color:"var(--c-goldL)", border:"rgba(201,168,76,0.35)" },
-  NBA: { bg:"rgba(200,40,40,0.12)",  color:"#E8A0A0",        border:"rgba(200,40,40,0.35)" },
-  NHL: { bg:"rgba(200,40,40,0.12)",  color:"#E8A0A0",        border:"rgba(200,40,40,0.35)" },
-  NFL: { bg:"rgba(40,80,180,0.12)",  color:"var(--c-purple)", border:"rgba(40,80,180,0.35)" },
+  MLB: { bg:"rgba(201,168,76,0.15)",  color:"var(--c-goldL)",  border:"rgba(201,168,76,0.50)" },
+  NBA: { bg:"rgba(30,80,200,0.15)",   color:"#8AACFF",         border:"rgba(30,80,200,0.50)" },
+  NHL: { bg:"rgba(210,30,30,0.16)",   color:"#FF7878",         border:"rgba(210,30,30,0.55)" },
+  NFL: { bg:"rgba(0,118,182,0.15)",   color:"#7DC8F5",         border:"rgba(0,118,182,0.50)" },
 };
 
 function SaveBtn({ saved, onSave }) {
@@ -128,9 +128,9 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
                 {item.hood}
               </span>
               <button
-                onClick={onClose}
-                style={{ width:44, height:44, borderRadius:"50%", background:"var(--c-close-bg)", border:"1px solid var(--c-close-bdr)", color:"var(--c-close-txt)", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.1rem", fontWeight:400, flexShrink:0, transition:"background 0.18s" }}
-              >×</button>
+                onClick={e => { e.stopPropagation(); onClose(); }}
+                style={{ width:30, height:30, borderRadius:"50%", background:"rgba(128,128,128,0.12)", border:"1px solid rgba(128,128,128,0.30)", color:C.ash, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"0.82rem", fontWeight:400, flexShrink:0, transition:"all 0.18s", lineHeight:1 }}
+              >✕</button>
             </div>
           </div>
 
@@ -167,7 +167,7 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
             <CTABtnFull item={item} />
             <button
               onClick={() => onSave(item.id)}
-              style={{ padding:"12px 14px", background:saved?"rgba(201,168,76,0.15)":"transparent", border:"1px solid "+(saved?C.gold:C.border), color:saved?C.gold:C.bone, fontFamily:"'DM Mono',monospace", fontSize:"0.58rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:6, cursor:"pointer", transition:"all 0.18s", flexShrink:0 }}
+              style={{ padding:"12px 14px", background:saved?"rgba(201,168,76,0.15)":"transparent", border:"1px solid "+(saved?C.gold:"rgba(232,224,212,0.28)"), color:saved?C.gold:C.bone, fontFamily:"'DM Mono',monospace", fontSize:"0.58rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:6, cursor:"pointer", transition:"all 0.18s", flexShrink:0 }}
             >
               {saved ? "\u2665 Saved" : "\u2661 Save"}
             </button>
@@ -353,7 +353,7 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
           <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.8rem,5vw,3rem)", fontWeight:400, color:C.white, margin:0 }}>
             Things To Do
           </h2>
-          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.88rem", color:C.ash, fontWeight:300, lineHeight:1.7, marginTop:12, maxWidth:560 }}>
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.88rem", color:C.bone, fontWeight:300, lineHeight:1.7, marginTop:12, maxWidth:560 }}>
             Detroit games, local events, and concerts — everything happening in the city right now.
           </p>
         </div>
