@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import L from "leaflet";
+import ThingsToDo from "./sections/ThingsToDo.jsx";
+import Stay from "./sections/Stay.jsx";
 
 const FONT_URL = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap";
 
@@ -1120,6 +1122,15 @@ document.head.appendChild(s);
 }
 },[]);
 useEffect(()=>{localStorage.setItem("savedSpots",JSON.stringify(favs));},[favs]);
+const [savedEvents,setSavedEvents]=useState(()=>{try{return JSON.parse(localStorage.getItem("savedEvents")||"[]");}catch{return [];}});
+const [savedHotels,setSavedHotels]=useState(()=>{try{return JSON.parse(localStorage.getItem("savedHotels")||"[]");}catch{return [];}});
+useEffect(()=>{localStorage.setItem("savedEvents",JSON.stringify(savedEvents));},[savedEvents]);
+useEffect(()=>{localStorage.setItem("savedHotels",JSON.stringify(savedHotels));},[savedHotels]);
+const isSavedEvent=id=>savedEvents.includes(String(id));
+const toggleSavedEvent=id=>{setSavedEvents(prev=>prev.includes(String(id))?prev.filter(x=>x!==String(id)):[...prev,String(id)]);};
+const isSavedHotel=id=>savedHotels.includes(String(id));
+const toggleSavedHotel=id=>{setSavedHotels(prev=>prev.includes(String(id))?prev.filter(x=>x!==String(id)):[...prev,String(id)]);};
+
 useEffect(()=>{
 const html=document.documentElement;
 if(theme==="dark")html.setAttribute("data-theme","dark");
@@ -1163,13 +1174,14 @@ React.createElement("div",{onClick:()=>navTo("explore"),style:{cursor:"pointer"}
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.22em",color:C.gold,textTransform:"uppercase"}},"EXCLUSIVE"),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:C.white,lineHeight:1.1}},"Detroit")
 ),
-React.createElement("div",{style:{display:"flex",gap:22,alignItems:"center"}},
-[["explore","Explore"],["map","Map"],["favorites","Saves"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
-React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1px solid "+C.gold:"1px solid transparent",display:"flex",alignItems:"center",gap:4,position:"relative"}},
+React.createElement("div",{style:{display:"flex",gap:8,alignItems:"center"}},
+React.createElement("div",{style:{display:"flex",gap:16,alignItems:"center",overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch"}},
+[["explore","Explore"],["map","Map"],["things-to-do","Do"],["stay","Stay"],["favorites","Saves"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
+React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1px solid "+C.gold:"1px solid transparent",display:"flex",alignItems:"center",gap:4,position:"relative",whiteSpace:"nowrap",flexShrink:0}},
 l,
 s==="favorites"&&favs.length>0&&React.createElement("span",{style:{position:"absolute",top:-6,right:-10,background:C.gold,color:C.black,borderRadius:100,padding:"0 4px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",pointerEvents:"none",minWidth:14,textAlign:"center"}},favs.length)
 )
-),
+)),
 React.createElement("button",{onClick:()=>navTo("settings"),title:"Settings",style:{background:"none",border:"none",cursor:"pointer",padding:6,color:section==="settings"?C.gold:C.smoke,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1,transition:"color 0.18s,opacity 0.18s",flexShrink:0,marginLeft:6,opacity:section==="settings"?1:0.72}},
 React.createElement("svg",{width:16,height:16,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.6,strokeLinecap:"round",strokeLinejoin:"round"},
 React.createElement("circle",{cx:12,cy:12,r:3}),
@@ -1433,7 +1445,9 @@ section==="map"           && React.createElement(MapView,{isFav,toggleFav,setMod
 section==="favorites"     && Favs({savedVenues:favVenues}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About(),
-section==="settings"      && Settings()
+section==="settings"      && Settings(),
+section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent}),
+section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel})
 ),
 section!=="map"&&section!=="settings"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},
