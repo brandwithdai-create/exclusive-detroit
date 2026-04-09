@@ -923,14 +923,21 @@ const [activeSrc, setActiveSrc] = useState(src || fallbackSrc || null);
 const [loaded, setLoaded] = useState(false);
 const [failed, setFailed] = useState(false);
 useEffect(() => {
-if (src && src !== activeSrc) { setActiveSrc(src); setLoaded(false); setFailed(false); }
+if (!src || src === activeSrc) return;
+if (!loaded) { setActiveSrc(src); return; }
+// Already showing an image — preload silently before swapping to avoid flash
+const img = new Image();
+img.onload = () => setActiveSrc(src);
+img.onerror = () => {};
+img.src = src;
+return () => { img.onload = null; img.onerror = null; };
 }, [src]);
 const handleError = () => {
 if (activeSrc !== fallbackSrc && fallbackSrc) { setActiveSrc(fallbackSrc); setLoaded(false); }
 else { setFailed(true); }
 };
 return React.createElement("div", { style:{ height, overflow:"hidden", background:"linear-gradient(160deg,#2a1f14 0%,#1c150e 100%)", flexShrink:0, position:"relative" } },
-activeSrc && !failed && React.createElement("img", { src:activeSrc, alt:alt||"", loading:"lazy", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:"opacity 0.5s ease", position:"absolute", inset:0 }, onLoad:()=>setLoaded(true), onError:handleError }),
+activeSrc && !failed && React.createElement("img", { src:activeSrc, alt:alt||"", loading:"lazy", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:"opacity 0.4s ease", position:"absolute", inset:0 }, onLoad:()=>setLoaded(true), onError:handleError }),
 failed && React.createElement("div", { style:{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:8 } },
 React.createElement("span", { style:{ fontSize:"2rem", opacity:0.35 } }, "🥃"),
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.38rem", letterSpacing:"0.18em", color:"rgba(201,168,76,0.38)", textTransform:"uppercase" } }, "Detroit")
@@ -1022,7 +1029,7 @@ React.createElement("div", { onClick:onClose, style:{ position:"fixed", inset:0,
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
 React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
 React.createElement(VenueImg, { src:photoSrc, fallbackSrc, alt:venue.name, height:240 }),
-React.createElement("div", { style:{ position:"absolute", bottom:0, left:0, right:0, height:"50%", background:"linear-gradient(to bottom, transparent, var(--c-modal-grad))", pointerEvents:"none" } })
+React.createElement("div", { style:{ position:"absolute", bottom:0, left:0, right:0, height:"38%", background:"linear-gradient(to bottom, transparent, var(--c-modal-grad))", pointerEvents:"none" } })
 ),
 React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
