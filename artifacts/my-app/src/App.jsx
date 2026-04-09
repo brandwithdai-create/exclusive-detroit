@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import L from "leaflet";
 import ThingsToDo from "./sections/ThingsToDo.jsx";
 import Stay from "./sections/Stay.jsx";
+import { fetchPlacePhotos } from "./data/fetchPlaces.js";
 
 const FONT_URL = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap";
 
@@ -848,14 +849,57 @@ function getEmojiForVenue(venue){const all=[venue.cat,...(venue.cats||[])];for(c
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
 
+const CATEGORY_IMG_POOL = {
+"Hidden Bars":["1470337458703-46ad1756a187","1566417713940-fe7c737a9ef2","1551634979-2e9bb8c7dd5d"],
+"Speakeasies":["1551634979-2e9bb8c7dd5d","1514362545857-3bc16c4c7d1b","1470337458703-46ad1756a187"],
+"Cocktail Lounges":["1513558161293-cdaf765ed2fd","1470337458703-46ad1756a187","1543007630-9359431a5a9d"],
+"Nightlife":["1492684223066-81342ee5ff30","1504701954957-2010ec3bcec1","1517457373958-b7bdd4587205"],
+"Hotel Lounges":["1542314831-068cd1dbfeeb","1571896349842-33c89424de2d","1513558161293-cdaf765ed2fd"],
+"Happy Hour":["1414235077428-338989a2e8c0","1517248135467-4c7edcad34c4","1470337458703-46ad1756a187"],
+"Lunch":["1414235077428-338989a2e8c0","1517248135467-4c7edcad34c4","1550966871-3ed3ccd8aede"],
+"Dinner":["1414235077428-338989a2e8c0","1550966871-3ed3ccd8aede","1517248135467-4c7edcad34c4"],
+"Date Night":["1559339352-11d035aa65de","1550966871-3ed3ccd8aede","1414235077428-338989a2e8c0"],
+"Rooftops":["1477959858617-67f85cf4f1df","1441974231531-c6227db76b6e","1558618666-fcd25c85cd64"],
+"Breakfast":["1533089860892-a7c6f0a88666","1525351484163-7529414f2171","1414235077428-338989a2e8c0"],
+"Coffee Shops & Bakeries":["1509042239860-f550ce710b93","1524350876685-274059332603","1525351484163-7529414f2171"],
+"Outdoor Activities":["1477959858617-67f85cf4f1df","1534224373688-37be267ede82","1507003211169-0a1dd7228f2d"],
+"Sports":["1579952363873-27f3bade9f55","1540747913346-19e5df342091","1568522271747-01fa3a0e3a57"],
+"Alley Spots":["1470337458703-46ad1756a187","1566417713940-fe7c737a9ef2","1551634979-2e9bb8c7dd5d"],
+"Comedy / Live Events":["1501281668745-26d60d196ba7","1517457373958-b7bdd4587205","1492684223066-81342ee5ff30"],
+"Immersive Entertainment":["1501281668745-26d60d196ba7","1517457373958-b7bdd4587205","1492684223066-81342ee5ff30"],
+"Pan-Asian Restaurant":["1414235077428-338989a2e8c0","1517248135467-4c7edcad34c4","1550966871-3ed3ccd8aede"],
+"African Restaurant":["1414235077428-338989a2e8c0","1517248135467-4c7edcad34c4","1550966871-3ed3ccd8aede"],
+};
+const DEFAULT_IMG_POOL=["1470337458703-46ad1756a187","1414235077428-338989a2e8c0","1477959858617-67f85cf4f1df","1513558161293-cdaf765ed2fd","1492684223066-81342ee5ff30"];
+function getVenueFallbackImage(venue){
+const pool=CATEGORY_IMG_POOL[venue.cat]||DEFAULT_IMG_POOL;
+const seed=String(venue.id).split("").reduce((a,c)=>a+c.charCodeAt(0),0);
+const id=pool[seed%pool.length];
+return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=75`;
+}
+
+const VenueImg = React.memo(function VenueImg({ src, alt, height=190 }) {
+const [loaded, setLoaded] = useState(false);
+const [err, setErr] = useState(false);
+if (!src || err) return null;
+return React.createElement("div", { style:{ height, overflow:"hidden", background:C.deep, flexShrink:0 } },
+React.createElement("img", { src, alt:alt||"", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:"opacity 0.4s ease" }, onLoad:()=>setLoaded(true), onError:()=>setErr(true) })
+);
+});
+
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i }) {
 const [hov, setHov] = useState(false);
+const [photoSrc, setPhotoSrc] = useState(()=>getVenueFallbackImage(venue));
 const vibeLine=getVibeLine(venue);const tip=getInsiderTip(venue);
+useEffect(() => {
+fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
+}, [venue.id]);
 return React.createElement("div", {
 onClick:()=>onOpen(String(venue.id)),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
-style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
+style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
+React.createElement(VenueImg, { src:photoSrc, alt:venue.name }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
@@ -914,15 +958,23 @@ function Modal({ venue, isFav, onFav, onClose }) {
 if (!venue) return null;
 const isV = typeof venue.id === "number";
 const badges = venue.badges||[];
+const [photoSrc, setPhotoSrc] = useState(()=>isV?getVenueFallbackImage(venue):null);
+useEffect(() => {
+fetchPlacePhotos(`${venue.name} Detroit`).then(d => { if (d?.photos?.[0]) setPhotoSrc(d.photos[0]); });
+}, [venue.id]);
 return React.createElement(React.Fragment, null,
-React.createElement("div", { onClick:onClose, style:{ position:"fixed", inset:0, background:"rgba(0,0,0,0.88)", zIndex:800, backdropFilter:"blur(4px)" }}),
-React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(660px,93vw)", maxHeight:"90vh", overflowY:"auto", background:C.deep, border:"1px solid "+C.border, borderRadius:12, zIndex:900 }},
-React.createElement("div", { style:{ padding:"24px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
+React.createElement("div", { onClick:onClose, style:{ position:"fixed", inset:0, background:"rgba(0,0,0,0.9)", zIndex:800, backdropFilter:"blur(6px)" }}),
+React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", background:"#0e0d10", border:"1px solid rgba(201,168,76,0.18)", borderRadius:16, zIndex:900 }},
+photoSrc && React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
+React.createElement(VenueImg, { src:photoSrc, alt:venue.name, height:240 }),
+React.createElement("div", { style:{ position:"absolute", bottom:0, left:0, right:0, height:"65%", background:"linear-gradient(to bottom, transparent, #0e0d10)", pointerEvents:"none" } })
+),
+React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
-React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:10 }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood),
-React.createElement("button", { onClick:onClose, style:{ width:44, height:44, borderRadius:"50%", background:"var(--c-close-bg)", border:"1px solid var(--c-close-bdr)", color:"var(--c-close-txt)", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.1rem", fontWeight:400, flexShrink:0, transition:"background 0.18s,color 0.18s" }}, "×")
+React.createElement("span", { style:{ background:"rgba(201,168,76,0.14)", color:C.gold, border:"1.5px solid rgba(201,168,76,0.5)", borderRadius:100, padding:"4px 13px", fontSize:"0.51rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.14em", textTransform:"uppercase", fontWeight:600 }}, venue.cat),
+React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:14 }},
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"rgba(255,255,255,0.35)" }}, venue.hood),
+React.createElement("button", { onClick:onClose, style:{ background:"none", border:"none", color:"rgba(255,255,255,0.4)", cursor:"pointer", fontSize:"1.15rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:36, minHeight:36, display:"flex", alignItems:"center", justifyContent:"center", lineHeight:1, padding:0 }}, "✕")
 )),
 badges.length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:6 }}, badges.map(b=>React.createElement(Chip,{key:b,type:b}))),
 venue.status && (venue.status==="justopened"||venue.status==="comingsoon") && React.createElement("div", null, React.createElement(Chip,{type:venue.status})),
@@ -1212,7 +1264,7 @@ React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:20,flexWrap:"wrap"}},
 React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
-React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:C.black,background:C.gold,padding:"9px 20px",borderRadius:100,cursor:"pointer",fontWeight:500}},"View Map →")
+React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.goldD,color:C.goldL,background:"rgba(201,168,76,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:48,flexWrap:"wrap"}},
 React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid rgba(201,168,76,0.45)",color:C.goldL,background:"rgba(201,168,76,0.09)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"🏟 Sports Tickets"),
