@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "gIp6mP0oHjto1x17Ybfay"
+uri = "file://artifacts/my-app/public/detroit-skyline.png"
+type = "image"
+title = "detroit skyline renaissance center dusk"
