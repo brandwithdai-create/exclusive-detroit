@@ -851,6 +851,38 @@ function getEmojiForVenue(venue){const all=[venue.cat,...(venue.cats||[])];for(c
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
 
+const VENUE_IMG_MAP = {
+1:"1470337458703-46ad1756a187",2:"1514362545857-3bc16c4c7d1b",3:"1566417713940-fe7c737a9ef2",
+4:"1513558161293-cdaf765ed2fd",5:"1551634979-2e9bb8c7dd5d",6:"1543007630-9359431a5a9d",
+7:"1470337458703-46ad1756a187",8:"1542314831-068cd1dbfeeb",9:"1571896349842-33c89424de2d",
+10:"1514362545857-3bc16c4c7d1b",11:"1477959858617-67f85cf4f1df",13:"1441974231531-c6227db76b6e",
+15:"1566417713940-fe7c737a9ef2",16:"1492684223066-81342ee5ff30",17:"1579952363873-27f3bade9f55",
+18:"1540747913346-19e5df342091",19:"1568522271747-01fa3a0e3a57",20:"1504701954957-2010ec3bcec1",
+21:"1517457373958-b7bdd4587205",22:"1501281668745-26d60d196ba7",23:"1501281668745-26d60d196ba7",
+24:"1559339352-11d035aa65de",25:"1550966871-3ed3ccd8aede",26:"1534224373688-37be267ede82",
+27:"1507003211169-0a1dd7228f2d",28:"1534224373688-37be267ede82",30:"1513558161293-cdaf765ed2fd",
+31:"1566417713940-fe7c737a9ef2",32:"1414235077428-338989a2e8c0",33:"1492684223066-81342ee5ff30",
+34:"1414235077428-338989a2e8c0",35:"1517248135467-4c7edcad34c4",36:"1559339352-11d035aa65de",
+37:"1550966871-3ed3ccd8aede",38:"1414235077428-338989a2e8c0",39:"1517248135467-4c7edcad34c4",
+40:"1559339352-11d035aa65de",41:"1551634979-2e9bb8c7dd5d",42:"1533089860892-a7c6f0a88666",
+43:"1525351484163-7529414f2171",44:"1533089860892-a7c6f0a88666",45:"1525351484163-7529414f2171",
+46:"1509042239860-f550ce710b93",47:"1524350876685-274059332603",48:"1509042239860-f550ce710b93",
+49:"1524350876685-274059332603",50:"1533089860892-a7c6f0a88666",51:"1550966871-3ed3ccd8aede",
+52:"1517248135467-4c7edcad34c4",53:"1513558161293-cdaf765ed2fd",55:"1414235077428-338989a2e8c0",
+56:"1517248135467-4c7edcad34c4",57:"1414235077428-338989a2e8c0",63:"1550966871-3ed3ccd8aede",
+64:"1414235077428-338989a2e8c0",65:"1550966871-3ed3ccd8aede",67:"1558618666-fcd25c85cd64",
+68:"1543007630-9359431a5a9d",69:"1414235077428-338989a2e8c0",70:"1517248135467-4c7edcad34c4",
+71:"1514362545857-3bc16c4c7d1b",72:"1550966871-3ed3ccd8aede",73:"1414235077428-338989a2e8c0",
+74:"1559339352-11d035aa65de",75:"1517248135467-4c7edcad34c4",76:"1550966871-3ed3ccd8aede",
+77:"1517248135467-4c7edcad34c4",78:"1414235077428-338989a2e8c0",79:"1543007630-9359431a5a9d",
+80:"1550966871-3ed3ccd8aede",81:"1470337458703-46ad1756a187",82:"1517248135467-4c7edcad34c4",
+83:"1533089860892-a7c6f0a88666",84:"1559339352-11d035aa65de",85:"1477959858617-67f85cf4f1df",
+86:"1525351484163-7529414f2171",87:"1579952363873-27f3bade9f55",
+r1:"1543007630-9359431a5a9d",r2:"1470337458703-46ad1756a187",r3:"1477959858617-67f85cf4f1df",
+r4:"1414235077428-338989a2e8c0",r5:"1543007630-9359431a5a9d",
+u1:"1517248135467-4c7edcad34c4",u2:"1492684223066-81342ee5ff30",
+u3:"1542314831-068cd1dbfeeb",u4:"1414235077428-338989a2e8c0",
+};
 const CATEGORY_IMG_POOL = {
 "Hidden Bars":["1470337458703-46ad1756a187","1566417713940-fe7c737a9ef2","1551634979-2e9bb8c7dd5d"],
 "Speakeasies":["1551634979-2e9bb8c7dd5d","1514362545857-3bc16c4c7d1b","1470337458703-46ad1756a187"],
@@ -864,17 +896,22 @@ const CATEGORY_IMG_POOL = {
 "Rooftops":["1477959858617-67f85cf4f1df","1441974231531-c6227db76b6e","1558618666-fcd25c85cd64"],
 "Breakfast":["1533089860892-a7c6f0a88666","1525351484163-7529414f2171","1414235077428-338989a2e8c0"],
 "Coffee Shops & Bakeries":["1509042239860-f550ce710b93","1524350876685-274059332603","1525351484163-7529414f2171"],
-"Outdoor Activities":["1477959858617-67f85cf4f1df","1534224373688-37be267ede82","1507003211169-0a1dd7228f2d"],
+"Outdoor Activities":["1534224373688-37be267ede82","1507003211169-0a1dd7228f2d","1477959858617-67f85cf4f1df"],
 "Sports":["1579952363873-27f3bade9f55","1540747913346-19e5df342091","1568522271747-01fa3a0e3a57"],
-"Alley Spots":["1470337458703-46ad1756a187","1566417713940-fe7c737a9ef2","1551634979-2e9bb8c7dd5d"],
+"Alley Spots":["1470337458703-46ad1756a187","1566417713940-fe7c737a9ef2","1492684223066-81342ee5ff30"],
 "Comedy / Live Events":["1501281668745-26d60d196ba7","1517457373958-b7bdd4587205","1492684223066-81342ee5ff30"],
-"Immersive Entertainment":["1501281668745-26d60d196ba7","1517457373958-b7bdd4587205","1492684223066-81342ee5ff30"],
+"Immersive Entertainment":["1501281668745-26d60d196ba7","1492684223066-81342ee5ff30","1517457373958-b7bdd4587205"],
 "Pan-Asian Restaurant":["1414235077428-338989a2e8c0","1517248135467-4c7edcad34c4","1550966871-3ed3ccd8aede"],
 "African Restaurant":["1414235077428-338989a2e8c0","1517248135467-4c7edcad34c4","1550966871-3ed3ccd8aede"],
+"Corktown":["1566417713940-fe7c737a9ef2","1492684223066-81342ee5ff30","1414235077428-338989a2e8c0"],
+"Midtown":["1543007630-9359431a5a9d","1470337458703-46ad1756a187","1513558161293-cdaf765ed2fd"],
+"Luxury Hotel":["1542314831-068cd1dbfeeb","1571896349842-33c89424de2d","1559339352-11d035aa65de"],
 };
 const DEFAULT_IMG_POOL=["1470337458703-46ad1756a187","1414235077428-338989a2e8c0","1477959858617-67f85cf4f1df","1513558161293-cdaf765ed2fd","1492684223066-81342ee5ff30"];
 function getVenueFallbackImage(venue){
 if(venue.image)return venue.image;
+const directId=VENUE_IMG_MAP[venue.id];
+if(directId)return `https://images.unsplash.com/photo-${directId}?auto=format&fit=crop&w=800&q=75`;
 const pool=CATEGORY_IMG_POOL[venue.cat]||DEFAULT_IMG_POOL;
 const seed=String(venue.id).split("").reduce((a,c)=>a+c.charCodeAt(0),0);
 const id=pool[seed%pool.length];
@@ -884,9 +921,8 @@ return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=75`
 const VenueImg = React.memo(function VenueImg({ src, alt, height=190 }) {
 const [loaded, setLoaded] = useState(false);
 const [err, setErr] = useState(false);
-if (!src || err) return null;
-return React.createElement("div", { style:{ height, overflow:"hidden", background:C.deep, flexShrink:0 } },
-React.createElement("img", { src, alt:alt||"", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:"opacity 0.4s ease" }, onLoad:()=>setLoaded(true), onError:()=>setErr(true) })
+return React.createElement("div", { style:{ height, overflow:"hidden", background:"linear-gradient(160deg,#1a1410 0%,#0d0b08 100%)", flexShrink:0, position:"relative" } },
+src && !err && React.createElement("img", { src, alt:alt||"", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:"opacity 0.5s ease", position:"absolute", inset:0 }, onLoad:()=>setLoaded(true), onError:()=>setErr(true) })
 );
 });
 

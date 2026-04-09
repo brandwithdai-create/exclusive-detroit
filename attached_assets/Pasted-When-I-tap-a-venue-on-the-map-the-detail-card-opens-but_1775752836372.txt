@@ -1,0 +1,34 @@
+When I tap a venue on the map, the detail card opens, but the content is so dark that you can barely see anything. The text, tags, section labels, and description are getting lost against the dark overlay/background. In some cases the whole card looks almost blacked out.
+
+What needs to be fixed:
+	1.	Increase readability across the entire map detail card.
+	2.	Remove or reduce the heavy dark overlay that is sitting over the image/content area.
+	3.	Make sure the venue title, tags, description, “Why It Feels Exclusive,” address, hours, and Best For sections are all clearly visible.
+	4.	Increase text contrast so text is easy to read on mobile without straining.
+	5.	Make sure the close X stays clearly visible.
+	6.	Keep the card styling luxurious, but do not sacrifice readability for mood.
+	7.	Test the full card in mobile preview, because right now it looks fine in theory but in practice you cannot read it.
+
+Please specifically fix:
+	•	hero image should be visible without a muddy black layer covering everything
+	•	title should stand out clearly
+	•	body copy needs stronger contrast
+	•	section labels and pills/tags need to be readable
+	•	white info box at the bottom should not feel cut off or hidden
+	•	buttons should remain clear and visible
+
+Most likely causes to check:
+	•	overlay opacity too high
+	•	text color too dark for the background
+	•	stacking or gradient layer covering content
+	•	card container background too dark against dark text
+	•	possible opacity being applied to the whole content wrapper instead of only the image
+
+Please test this exact flow:
+open Maps → tap venue → confirm the detail card is bright enough to read fully from top to bottom on mobile.
+
+Also fix the other related map issues at the same time:
+	•	the “Exploring Everything” top bar should never disappear after opening and closing a venue
+	•	the white blank cap at the bottom of the map screen should never come back
+
+This whole map experience needs to feel polished, readable, and stable after interaction.
