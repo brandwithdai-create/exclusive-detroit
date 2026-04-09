@@ -42,7 +42,7 @@ function CardImage({ localSrc, placesPhoto, alt, height = 210 }) {
   const [err, setErr] = React.useState(false);
   const [loaded, setLoaded] = React.useState(false);
 
-  const src = (!err && placesPhoto) ? placesPhoto : localSrc;
+  const src = localSrc || ((!err && placesPhoto) ? placesPhoto : null);
 
   if (!src) return null;
   return (
