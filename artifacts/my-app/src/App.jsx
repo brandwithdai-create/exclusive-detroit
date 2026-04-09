@@ -1074,125 +1074,148 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }
 
 const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports","Speakeasies","Cocktail Lounges"];
-function MapView({isFav,toggleFav,setModalId,modalId}){
+const MAP_CAT_ICONS={"all":"◈","Hidden Bars":"◉","Rooftops":"▲","Dinner":"◎","Lunch":"○","Happy Hour":"◐","Sports":"◇","Speakeasies":"◈","Cocktail Lounges":"◌"};
+function MapView({isFav,toggleFav,setModalId,modalId,navTo}){
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
+const [userPos,setUserPos]=React.useState(null);
 const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
-const zoomCtrlRef=React.useRef(null);
 React.useEffect(()=>{
-const prevBody=document.body.style.overflow;
-const prevHtml=document.documentElement.style.overflow;
-document.body.style.overflow="hidden";
-document.documentElement.style.overflow="hidden";
-return()=>{document.body.style.overflow=prevBody;document.documentElement.style.overflow=prevHtml;};
+const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
+document.body.style.overflow="hidden";document.documentElement.style.overflow="hidden";
+return()=>{document.body.style.overflow=pb;document.documentElement.style.overflow=ph;};
 },[]);
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
-const zs=document.createElement('style');zs.id='ed-zoom-css';
-zs.textContent=`
-.leaflet-control-zoom{
-  border:1px solid var(--c-mzoom-bdr)!important;
-  border-radius:10px!important;
-  overflow:hidden!important;
-  box-shadow:0 4px 28px rgba(0,0,0,0.45),0 0 10px rgba(201,168,76,0.07)!important;
-  background:var(--c-mzoom-bg)!important;
-  backdrop-filter:blur(12px)!important;
-  -webkit-backdrop-filter:blur(12px)!important;
-  margin-left:12px!important;
-  margin-top:12px!important;
-}
-.leaflet-control-zoom a{
-  background:transparent!important;
-  color:var(--c-mzoom-color)!important;
-  border:none!important;
-  border-bottom:1px solid var(--c-mzoom-sep)!important;
-  width:38px!important;
-  height:38px!important;
-  line-height:38px!important;
-  font-size:1.05rem!important;
-  font-weight:300!important;
-  font-family:'DM Sans',sans-serif!important;
-  display:block!important;
-  text-align:center!important;
-  text-decoration:none!important;
-  transition:background 0.18s,color 0.18s!important;
-}
-.leaflet-control-zoom a:last-child{
-  border-bottom:none!important;
-}
-.leaflet-control-zoom a:hover{
-  background:var(--c-mzoom-hover)!important;
-  color:var(--c-mzoom-color)!important;
-}
-.leaflet-control-zoom a:active{
-  background:var(--c-mzoom-active)!important;
-}
-`;
-document.head.appendChild(zs);
-const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false});
+const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 const _th=document.documentElement.getAttribute("data-theme");
 const _sysDark=typeof window!=="undefined"&&window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)").matches:true;
 const _useDark=_th==="dark"||(_th!=="light"&&_sysDark);
 const _tile=_useDark?"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png":"https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
-L.tileLayer(_tile,{attribution:"\u00a9 OSM \u00a9 CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
-const zc=L.control.zoom({position:"topleft"});zc.addTo(map);zoomCtrlRef.current=zc;
+L.tileLayer(_tile,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
 setTimeout(()=>{map.invalidateSize();},100);
 setMapReady(true);
-return()=>{map.remove();mapRef.current=null;zoomCtrlRef.current=null;const el=document.getElementById('ed-zoom-css');if(el)el.remove();};
+return()=>{map.remove();mapRef.current=null;};
 },[]);
-React.useEffect(()=>{
-const hide=(selected||modalId!==null)?'none':'';
-const zcEl=zoomCtrlRef.current?.getContainer?.();
-if(zcEl)zcEl.style.display=hide;
-const map=mapRef.current;if(!map)return;
-const attr=map.getContainer().querySelector('.leaflet-control-attribution');
-if(attr)attr.style.display=hide;
-},[selected,modalId]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 markersRef.current.forEach(m=>map.removeLayer(m));markersRef.current=[];
 [...ALL,...UPCOMING].forEach(v=>{
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return;
 const coord=COORDS[String(v.id)];if(!coord)return;
-const isNew=!!(v.status||(v.badges||[]).includes("recentopen"));
+const isNew=!!(v.status==="comingsoon"||v.status==="justopened"||(v.badges||[]).includes("recentopen"));
+const isSel=selected?.id===v.id;
 const pin=isNew?"#C8AEFF":"#C9A84C";
-const glow=isNew?"rgba(200,174,255,0.5)":"rgba(201,168,76,0.5)";
-const icon=L.divIcon({className:"",html:'<div style="width:13px;height:13px;background:'+pin+';border-radius:50%;border:2.5px solid rgba(255,255,255,0.75);box-shadow:0 0 8px '+glow+';cursor:pointer"></div>',iconSize:[13,13],iconAnchor:[6,6]});
+const glow=isNew?"rgba(200,174,255,0.45)":"rgba(201,168,76,0.45)";
+let mHtml;
+if(isSel){
+mHtml=`<div style="width:26px;height:26px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.9);box-shadow:0 0 0 4px ${glow},0 3px 14px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(10,8,4,0.85)">★</div>`;
+}else{
+mHtml=`<div style="width:13px;height:13px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.75);box-shadow:0 0 8px ${glow};cursor:pointer"></div>`;
+}
+const sz=isSel?[26,26]:[13,13];const anc=isSel?[13,13]:[6,6];
+const icon=L.divIcon({className:"",html:mHtml,iconSize:sz,iconAnchor:anc});
 const m=L.marker(coord,{icon}).addTo(map).on("click",()=>setSelected(v));
 markersRef.current.push(m);
 });
-},[mapCat,mapReady]);
+},[mapCat,mapReady,selected]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
+if(selected){const coord=COORDS[String(selected.id)];if(coord)map.panTo([coord[0]-0.002,coord[1]],{animate:true,duration:0.4});}
 const t=setTimeout(()=>{map.invalidateSize();},360);
 return()=>clearTimeout(t);
 },[selected]);
+const zoomMap=d=>{const m=mapRef.current;if(!m)return;d>0?m.zoomIn():m.zoomOut();};
+const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitude:lat,longitude:lng}=pos.coords;setUserPos({lat,lng});const m=mapRef.current;if(m)m.setView([lat,lng],15,{animate:true});});};
+const reCenter=()=>{const m=mapRef.current;if(!m)return;userPos?m.setView([userPos.lat,userPos.lng],15,{animate:true}):m.setView([42.3314,-83.0458],14,{animate:true});};
+const selImg=selected?getVenueFallbackImage(selected):null;
+const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
+const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"8px 15px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto"};
 return React.createElement("div",{style:{position:"fixed",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,bottom:0,display:"flex",flexDirection:"column",overflow:"hidden",zIndex:400}},
-React.createElement("div",{style:{background:C.black,borderBottom:"1px solid "+C.border,padding:"10px 16px",display:"flex",gap:7,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",position:"relative",zIndex:600},onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()},
-MAP_FILTER_CATS.map(c=>React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(mapCat===c?C.gold:C.border),color:mapCat===c?C.black:C.goldL,background:mapCat===c?C.gold:"transparent",padding:"6px 12px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0}},c==="all"?"All Venues":c))),
-React.createElement("div",{ref:containerRef,style:{flex:1,background:C.deep,minHeight:0}}),
-React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(238px + env(safe-area-inset-bottom))":"calc(16px + env(safe-area-inset-bottom))",left:12,display:"flex",flexDirection:"column",gap:5,background:"var(--c-ovl-bg)",border:"1px solid "+C.border,borderRadius:8,padding:"8px 12px",backdropFilter:"blur(8px)",WebkitBackdropFilter:"blur(8px)",transition:"bottom 0.3s",zIndex:800}},
-React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7}},React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:C.gold,boxShadow:"0 0 5px rgba(201,168,76,0.6)"}}),React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.45rem",letterSpacing:"0.1em",color:C.ash}},"VENUES")),
-React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7}},React.createElement("div",{style:{width:10,height:10,borderRadius:"50%",background:C.purple,boxShadow:"0 0 5px rgba(200,174,255,0.6)"}}),React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.45rem",letterSpacing:"0.1em",color:C.ash}},"NEW / SOON"))
+// ── Filter chip row ──
+React.createElement("div",{
+style:{background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
+onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()
+},
+MAP_FILTER_CATS.map(c=>{
+const active=mapCat===c;
+const ico=MAP_CAT_ICONS[c]||"·";
+return React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{display:"inline-flex",alignItems:"center",gap:5,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(active?"transparent":"var(--c-mzoom-bdr)"),color:active?"#0A0808":"var(--c-mzoom-color)",background:active?C.gold:"var(--c-mzoom-bg)",padding:"7px 13px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0,boxShadow:active?"0 2px 8px rgba(0,0,0,0.18)":"none",transition:"all 0.2s",fontWeight:active?500:400}},
+React.createElement("span",{style:{fontSize:"0.6rem",lineHeight:1}},ico),
+c==="all"?"All Venues":c
+);})
 ),
-React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:"var(--c-sheet-bg)",borderTop:"1px solid var(--c-sheet-bdr)",borderRadius:"14px 14px 0 0",maxHeight:"62dvh",overflowY:"auto",WebkitOverflowScrolling:"touch",zIndex:1100,transform:selected?"translateY(0)":"translateY(110%)",transition:"transform 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:selected?"auto":"none",willChange:"transform"}},
-React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:10,paddingBottom:2,flexShrink:0}},
-React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"var(--c-sheet-handle)"}})),
-selected&&React.createElement("div",{style:{padding:"12px 20px calc(24px + env(safe-area-inset-bottom))"}},
-React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},selected.cat),
-React.createElement("button",{onClick:()=>setSelected(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.3rem",cursor:"pointer",width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,lineHeight:1}},"×")),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)",display:"block",marginBottom:6}},selected.hood),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.1,marginBottom:8}},selected.name),
-React.createElement("p",{style:{fontSize:"0.78rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.65,marginBottom:14}},selected.desc.length>160?selected.desc.slice(0,160)+"\u2026":selected.desc),
+// ── Map tile area ──
+React.createElement("div",{ref:containerRef,style:{flex:1,background:"var(--c-deep)",minHeight:0}}),
+// ── Custom zoom + near-me controls ──
+React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
+React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRadius:10,overflow:"hidden",boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)"}},
+React.createElement("button",{onClick:()=>zoomMap(1),title:"Zoom in",style:{...CTRL,width:40,height:40,borderBottom:"1px solid var(--c-mzoom-sep)",borderRadius:0,fontSize:"1.3rem",fontWeight:300}},"+"),
+React.createElement("button",{onClick:()=>zoomMap(-1),title:"Zoom out",style:{...CTRL,width:40,height:40,borderRadius:0,fontSize:"1.5rem",fontWeight:300}},"−")
+),
+React.createElement("button",{onClick:goNearMe,title:"Near me",style:{...CTRL,width:40,height:40,borderRadius:10,boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)",fontSize:"1rem"}},"◎")
+),
+// ── Floating mini venue card ──
+selected&&React.createElement("div",{
+style:{position:"absolute",bottom:"calc(185px + env(safe-area-inset-bottom))",left:"50%",transform:"translateX(-50%)",zIndex:900,background:"var(--c-mzoom-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid var(--c-mzoom-bdr)",borderRadius:14,boxShadow:"0 8px 32px rgba(0,0,0,0.32)",display:"flex",alignItems:"center",padding:"10px 14px 10px 10px",gap:12,minWidth:240,maxWidth:"calc(100vw - 80px)",cursor:"pointer"},
+onClick:()=>{setModalId(String(selected.id));setSelected(null);}
+},
+React.createElement("div",{style:{width:52,height:52,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
+selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
+),
+React.createElement("div",{style:{flex:1,minWidth:0}},
+(selected.badges||[]).includes("locals")&&React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--c-mzoom-color)",marginBottom:2}},"Locals Know"),
+React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.95rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.1em",color:"var(--c-mzoom-color)",marginTop:2,textTransform:"uppercase"}},selected.cat)
+),
+React.createElement("span",{style:{color:"var(--c-mzoom-color)",fontSize:"0.9rem",flexShrink:0,opacity:0.6,lineHeight:1}},"›")
+),
+// ── Bottom bar: List | Legend | Re-center ──
+React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(192px + env(safe-area-inset-bottom))":"calc(18px + env(safe-area-inset-bottom))",left:0,right:0,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 14px",zIndex:800,transition:"bottom 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:"none"}},
+React.createElement("button",{onClick:()=>navTo&&navTo("explore"),style:{...PILL}},"≡  List"),
+React.createElement("div",{style:{display:"flex",alignItems:"center",gap:12,border:"1px solid var(--c-mzoom-bdr)",background:"var(--c-mzoom-bg)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",borderRadius:100,padding:"8px 16px",boxShadow:"0 2px 14px rgba(0,0,0,0.22)"}},
+React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
+React.createElement("div",{style:{width:8,height:8,borderRadius:"50%",background:C.gold,boxShadow:"0 0 6px rgba(201,168,76,0.55)"}}),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"Venues")
+),
+React.createElement("div",{style:{width:1,height:12,background:"var(--c-mzoom-sep)"}}),
+React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
+React.createElement("div",{style:{width:8,height:8,borderRadius:"50%",background:C.purple,boxShadow:"0 0 6px rgba(200,174,255,0.55)"}}),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"New / Soon")
+)
+),
+React.createElement("button",{onClick:reCenter,style:{...PILL}},"⊕  Re-center")
+),
+// ── Bottom sheet ──
+React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:"var(--c-sheet-bg)",borderTop:"1px solid var(--c-sheet-bdr)",borderRadius:"18px 18px 0 0",zIndex:1100,transform:selected?"translateY(0)":"translateY(110%)",transition:"transform 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:selected?"auto":"none",willChange:"transform",boxShadow:"0 -6px 40px rgba(0,0,0,0.25)"}},
+React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:4}},
+React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"var(--c-sheet-handle)"}})
+),
+selected&&React.createElement("div",{style:{padding:"12px 18px calc(28px + env(safe-area-inset-bottom))"}},
+React.createElement("div",{style:{display:"flex",gap:14,alignItems:"flex-start"}},
+React.createElement("div",{style:{width:82,height:82,borderRadius:10,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
+selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
+),
+React.createElement("div",{style:{flex:1,minWidth:0}},
+React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:3}},
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
+React.createElement("button",{onClick:()=>setSelected(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.1rem",cursor:"pointer",width:32,height:32,display:"flex",alignItems:"center",justifyContent:"center",padding:0,marginTop:-4,marginRight:-4,lineHeight:1,flexShrink:0}},"×")
+),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.2rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood)
+)
+),
+React.createElement("p",{style:{fontSize:"0.77rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.65,marginTop:12,marginBottom:14}},selected.desc.length>140?selected.desc.slice(0,140)+"\u2026":selected.desc),
 React.createElement("div",{style:{display:"flex",gap:10}},
-React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{flex:"0 0 auto",width:40,height:40,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:isFav(selected.id)?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(isFav(selected.id)?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:isFav(selected.id)?C.gold:"var(--c-modal-save-clr)",fontSize:"1.05rem",borderRadius:6,cursor:"pointer",transition:"all 0.18s"}},isFav(selected.id)?"\u2665":"\u2661"),
-React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"10px",background:C.gold,border:"none",color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:6,cursor:"pointer",fontWeight:500}},"View Details"))
-))
+React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{flex:"0 0 auto",width:40,height:40,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:isFav(selected.id)?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(isFav(selected.id)?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:isFav(selected.id)?C.gold:"var(--c-modal-save-clr)",fontSize:"1.05rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},isFav(selected.id)?"\u2665":"\u2661"),
+React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"10px",background:C.gold,border:"none",color:"#0A0808",fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details")
+)
+)
+)
 );}
 
 export default function App() {
@@ -1623,7 +1646,7 @@ return React.createElement("div",{style:{background:C.black,color:C.bone,fontFam
 NavBar(),
 React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
-section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId}),
+section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId,navTo}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About(),
