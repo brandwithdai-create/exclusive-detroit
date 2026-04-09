@@ -1024,7 +1024,7 @@ React.createElement("div", { style:{ position:"absolute", bottom:0, left:0, righ
 ),
 React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
-React.createElement("span", { style:{ background:"rgba(201,168,76,0.14)", color:C.gold, border:"1.5px solid rgba(201,168,76,0.5)", borderRadius:100, padding:"4px 13px", fontSize:"0.51rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.14em", textTransform:"uppercase", fontWeight:600 }}, venue.cat),
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold, fontWeight:400 }}, venue.cat),
 React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:14 }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--c-modal-hood)" }}, venue.hood),
 React.createElement("button", { onClick:onClose, style:{ background:"none", border:"none", color:"var(--c-modal-close)", cursor:"pointer", fontSize:"1.15rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:36, minHeight:36, display:"flex", alignItems:"center", justifyContent:"center", lineHeight:1, padding:0 }}, "✕")

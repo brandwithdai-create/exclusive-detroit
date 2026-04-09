@@ -112,7 +112,7 @@ function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
         <div style={{ padding:"16px 22px 28px", display:"flex", flexDirection:"column", gap:14 }}>
 
           <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-            <span style={{ background:"rgba(201,168,76,0.14)", color:C.gold, border:"1.5px solid rgba(201,168,76,0.5)", borderRadius:100, padding:"4px 13px", fontSize:"0.51rem", fontFamily:"'DM Mono',monospace", letterSpacing:"0.14em", textTransform:"uppercase", fontWeight:600 }}>
+            <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold, fontWeight:400 }}>
               Hotel
             </span>
             <div style={{ display:"flex", alignItems:"center", gap:14 }}>
