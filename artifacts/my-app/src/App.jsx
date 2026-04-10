@@ -1355,7 +1355,7 @@ React.createElement("path",{d:"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 
 );
 
 const Hero=()=>React.createElement("div",{style:{minHeight:"66vh",display:"flex",alignItems:"center",justifyContent:"center",paddingTop:0,background:"var(--c-hero-bg)",position:"relative",overflow:"hidden"}},
-React.createElement("div",{style:{position:"absolute",inset:0,backgroundImage:"url(/detroit-skyline.png)",backgroundSize:"cover",backgroundPosition:"center 40%",opacity:0.13,pointerEvents:"none"}}),
+React.createElement("div",{style:{position:"absolute",inset:0,backgroundImage:"url(/detroit-skyline.png)",backgroundSize:"cover",backgroundPosition:"center 40%",opacity:0.2,pointerEvents:"none",willChange:"transform",transform:"translateZ(0)"}}),
 React.createElement("div",{style:{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(4,3,7,0.35) 0%,transparent 40%,transparent 70%,rgba(4,3,7,0.55) 100%)",pointerEvents:"none"}}),
 React.createElement("div",{style:{position:"absolute",inset:0,opacity:0.35,pointerEvents:"none"}},
 React.createElement("div",{style:{position:"absolute",width:500,height:500,top:"10%",left:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(201,168,76,0.12) 0%,transparent 70%)"}}),
