@@ -1135,7 +1135,7 @@ markersRef.current.push(m);
 },[mapCat,mapReady,selected]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
-if(selected){const coord=COORDS[String(selected.id)];if(coord)map.panTo([coord[0]-0.002,coord[1]],{animate:true,duration:0.4});}
+if(selected){const coord=COORDS[String(selected.id)];if(coord){const zoom=map.getZoom();const markerPt=map.project([coord[0],coord[1]],zoom);const sheetH=190;const targetPt=L.point(markerPt.x,markerPt.y+sheetH/2);const targetLatLng=map.unproject(targetPt,zoom);map.panTo(targetLatLng,{animate:true,duration:0.4});}}
 const t=setTimeout(()=>{map.invalidateSize();},360);
 return()=>clearTimeout(t);
 },[selected]);
@@ -1173,21 +1173,6 @@ React.createElement("svg",{viewBox:"0 0 24 24",width:18,height:18,fill:"currentC
 React.createElement("path",{d:"M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"})
 )
 )
-),
-// ── Floating mini venue card ──
-selected&&React.createElement("div",{
-style:{position:"absolute",bottom:"calc(185px + env(safe-area-inset-bottom))",left:"50%",transform:"translateX(-50%)",zIndex:900,background:"var(--c-mzoom-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid var(--c-mzoom-bdr)",borderRadius:14,boxShadow:"0 8px 32px rgba(0,0,0,0.32)",display:"flex",alignItems:"center",padding:"10px 14px 10px 10px",gap:12,minWidth:240,maxWidth:"calc(100vw - 80px)",cursor:"pointer"},
-onClick:()=>{setModalId(String(selected.id));setSelected(null);}
-},
-React.createElement("div",{style:{width:52,height:52,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
-selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
-),
-React.createElement("div",{style:{flex:1,minWidth:0}},
-(selected.badges||[]).includes("locals")&&React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--c-mzoom-color)",marginBottom:2}},"Locals Know"),
-React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.95rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.1em",color:"var(--c-mzoom-color)",marginTop:2,textTransform:"uppercase"}},selected.cat)
-),
-React.createElement("span",{style:{color:"var(--c-mzoom-color)",fontSize:"0.9rem",flexShrink:0,opacity:0.6,lineHeight:1}},"›")
 ),
 // ── Bottom bar: List | Legend | Re-center ──
 React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(192px + env(safe-area-inset-bottom))":"calc(18px + env(safe-area-inset-bottom))",left:0,right:0,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 14px",zIndex:800,transition:"bottom 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:"none"}},
