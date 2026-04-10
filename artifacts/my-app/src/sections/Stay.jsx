@@ -108,7 +108,6 @@ function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
 
         <div style={{ position:"relative", flexShrink:0 }}>
           <CardImage localSrc={hotel.image} placesPhoto={places?.photos?.[0] || null} alt={hotel.name} height={290} />
-          <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"55%", background:"linear-gradient(to bottom, transparent, var(--c-modal-grad))", pointerEvents:"none" }} />
         </div>
 
         <div style={{ padding:"16px 22px 28px", display:"flex", flexDirection:"column", gap:14 }}>

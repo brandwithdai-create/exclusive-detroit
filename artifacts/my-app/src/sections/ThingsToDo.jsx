@@ -118,7 +118,6 @@ function DetailModal({ item, type, saved, onSave, onClose }) {
             ? <CardImage src={item.resolvedImage || item.image} alt={item.team} logo={item.logo_url} height={290} />
             : <CardImage src={item.resolvedImage || item.image} alt={title} height={290} />
           }
-          <div style={{ position:"absolute", bottom:0, left:0, right:0, height:"55%", background:"linear-gradient(to bottom, transparent, var(--c-modal-grad))", pointerEvents:"none" }} />
         </div>
 
         <div style={{ padding:"16px 22px 28px", display:"flex", flexDirection:"column", gap:14 }}>
