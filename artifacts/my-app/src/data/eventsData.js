@@ -265,7 +265,7 @@ export const DETROIT_EVENTS = [
     desc: "A curated evening celebrating Detroit's creative renaissance. Designers, architects, and makers gather for drinks, conversation, and a live showcase of Detroit-made goods.",
     ticket_url: "https://www.eventbrite.com/d/mi--detroit/",
     affiliate_ticket_url: null,
-    website_url: "https://www.theshinolahotel.com",
+    website_url: "https://www.shinolahotel.com",
   },
   {
     id: "event-3",
@@ -281,7 +281,7 @@ export const DETROIT_EVENTS = [
     desc: "Lin-Manuel Miranda's Pulitzer Prize-winning musical at one of America's most beautiful theatres. A night of unforgettable music, storytelling, and spectacle in Detroit's crown jewel.",
     ticket_url: "https://www.stubhub.com/hamilton-tickets/grouping/1500226",
     affiliate_ticket_url: null,
-    website_url: "https://www.olympiaentertainment.com/fox-theatre",
+    website_url: "https://www.foxtheatredetroit.com",
   },
   {
     id: "event-4",
@@ -351,7 +351,7 @@ export const CONCERTS = [
     desc: "Detroit's own Jack White returns home for a landmark solo show at the iconic Fox Theatre. Blues-infused rock, White Stripes classics, and a concert experience unlike any other.",
     ticket_url: "https://www.stubhub.com/jack-white-tickets/",
     affiliate_ticket_url: null,
-    website_url: "https://www.jackwhiteiii.com",
+    website_url: "https://jackwhite.com",
   },
   {
     id: "concert-2",
@@ -452,7 +452,7 @@ export const HOTELS = [
     images: [],
     booking_url: "https://www.booking.com/hotel/us/the-shinola.html",
     affiliate_booking_url: null,
-    website_url: "https://www.theshinolahotel.com",
+    website_url: "https://www.shinolahotel.com",
   },
   {
     id: "hotel-8",
@@ -578,6 +578,6 @@ export const HOTELS = [
     images: [],
     booking_url: "https://www.booking.com/hotel/us/cambria-hotel-detroit.html",
     affiliate_booking_url: null,
-    website_url: "https://www.choicehotels.com/michigan/detroit/cambria-hotels/mi517",
+    website_url: "https://www.cambriahotels.com/hotels/united-states/mi/detroit/mi517",
   },
 ];
