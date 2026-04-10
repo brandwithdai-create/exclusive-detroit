@@ -1373,8 +1373,8 @@ React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:
 )
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:20,flexWrap:"wrap"}},
-React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
-React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.purple,background:"rgba(200,174,255,0.08)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
+React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:C.gold,background:"rgba(201,168,76,0.12)",padding:"9px 20px",borderRadius:100,cursor:"pointer",boxShadow:"0 0 16px rgba(201,168,76,0.18)",transition:"all 0.2s"}},"◉ Near Me"),
+React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:C.gold,background:"rgba(201,168,76,0.12)",padding:"9px 20px",borderRadius:100,cursor:"pointer",boxShadow:"0 0 16px rgba(201,168,76,0.18)",transition:"all 0.2s"}},"View Map →")
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:56,flexWrap:"wrap"}},
 React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid rgba(232,224,212,0.65)",color:C.bone,background:"rgba(232,224,212,0.13)",padding:"10px 22px",borderRadius:100,cursor:"pointer",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",transition:"all 0.2s"}},"🏟 Sports Tickets"),
