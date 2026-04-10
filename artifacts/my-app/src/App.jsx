@@ -1168,7 +1168,11 @@ React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRa
 React.createElement("button",{onClick:()=>zoomMap(1),title:"Zoom in",style:{...CTRL,width:40,height:40,borderBottom:"1px solid var(--c-mzoom-sep)",borderRadius:0,fontSize:"1.3rem",fontWeight:300}},"+"),
 React.createElement("button",{onClick:()=>zoomMap(-1),title:"Zoom out",style:{...CTRL,width:40,height:40,borderRadius:0,fontSize:"1.5rem",fontWeight:300}},"−")
 ),
-React.createElement("button",{onClick:goNearMe,title:"Near me",style:{...CTRL,width:40,height:40,borderRadius:10,boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)",fontSize:"1rem"}},"◎")
+React.createElement("button",{onClick:goNearMe,title:"Near me",style:{...CTRL,width:40,height:40,borderRadius:10,boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)",display:"flex",alignItems:"center",justifyContent:"center"}},
+React.createElement("svg",{viewBox:"0 0 24 24",width:18,height:18,fill:"currentColor"},
+React.createElement("path",{d:"M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"})
+)
+)
 ),
 // ── Floating mini venue card ──
 selected&&React.createElement("div",{
@@ -1206,24 +1210,24 @@ React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,ba
 React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:4}},
 React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"var(--c-sheet-handle)"}})
 ),
-selected&&React.createElement("div",{style:{padding:"12px 18px calc(28px + env(safe-area-inset-bottom))"}},
-React.createElement("div",{style:{display:"flex",gap:14,alignItems:"flex-start"}},
-React.createElement("div",{style:{width:82,height:82,borderRadius:10,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
+selected&&React.createElement("div",{style:{padding:"10px 16px calc(14px + env(safe-area-inset-bottom))"}},
+React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start"}},
+React.createElement("div",{style:{width:64,height:64,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
 selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
 ),
 React.createElement("div",{style:{flex:1,minWidth:0}},
-React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:3}},
+React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:2}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
 React.createElement("button",{onClick:()=>setSelected(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.1rem",cursor:"pointer",width:32,height:32,display:"flex",alignItems:"center",justifyContent:"center",padding:0,marginTop:-4,marginRight:-4,lineHeight:1,flexShrink:0}},"×")
 ),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.2rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:3,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood)
 )
 ),
-React.createElement("p",{style:{fontSize:"0.77rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.65,marginTop:12,marginBottom:14}},selected.desc.length>140?selected.desc.slice(0,140)+"\u2026":selected.desc),
+React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:9,marginBottom:10}},selected.desc.length>90?selected.desc.slice(0,90)+"\u2026":selected.desc),
 React.createElement("div",{style:{display:"flex",gap:10}},
-React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{flex:"0 0 auto",width:40,height:40,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:isFav(selected.id)?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(isFav(selected.id)?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:isFav(selected.id)?C.gold:"var(--c-modal-save-clr)",fontSize:"1.05rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},isFav(selected.id)?"\u2665":"\u2661"),
-React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"10px",background:C.gold,border:"none",color:"#0A0808",fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details")
+React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{flex:"0 0 auto",width:38,height:38,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:isFav(selected.id)?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(isFav(selected.id)?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:isFav(selected.id)?C.gold:"var(--c-modal-save-clr)",fontSize:"1rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},isFav(selected.id)?"\u2665":"\u2661"),
+React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"9px",background:C.gold,border:"none",color:"#0A0808",fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details")
 )
 )
 )
