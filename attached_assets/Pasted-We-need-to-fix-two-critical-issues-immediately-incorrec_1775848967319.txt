@@ -1,0 +1,74 @@
+We need to fix two critical issues immediately: incorrect images across the app and preventing any future Google Cloud charges.
+
+### 1. Images are WRONG across the entire app
+Right now, venue images are either:
+- Incorrect (not matching the venue)
+- Random
+- Or missing entirely
+
+This is NOT acceptable.
+
+Requirements:
+- Every single venue (restaurants, hotels, sports, concerts, events) MUST have the correct, real image of that exact location
+- NO placeholders
+- NO random images
+- NO mismatched photos under any circumstances
+
+Action steps:
+- Audit EVERY venue in the app
+- Replace all images with accurate, verified images of the actual venue
+- If a correct image is not available → leave it blank temporarily (DO NOT substitute with a random image)
+- Ensure images stay permanently tied to the correct venue (no swapping/glitching)
+
+---
+
+### 2. REMOVE all risky Google Places API usage (critical)
+We previously had a billing issue ($796) due to excessive API calls.
+
+This cannot happen again.
+
+Requirements:
+- REMOVE Google Places API image fetching from ALL venue cards
+- NO automatic API calls on page load
+- NO repeated calls per venue
+- NO dynamic image fetching tied to scrolling or rendering
+
+Approved approach only:
+- Use static, locally stored images OR
+- Use pre-approved, cached image URLs stored in the database
+
+---
+
+### 3. If API is used anywhere (must be minimal)
+If ANY Google API remains:
+
+- Limit to ONLY essential use cases
+- Max 1 call per venue (only if absolutely necessary)
+- Implement:
+  - 24-hour caching (server-side)
+  - API key restrictions (HTTP referrer)
+  - Daily quota caps (strict)
+- Confirm that no page load can trigger multiple API calls
+
+---
+
+### 4. Add billing protection (non-negotiable)
+- Set a hard daily quota limit
+- Set budget alerts
+- Confirm there is NO way charges can scale unexpectedly again
+
+---
+
+### 5. Final QA checklist before marking complete
+Do NOT mark this done until:
+
+- Every venue has the correct image
+- No images are mismatched anywhere in the app
+- No image flickering or swapping
+- No Google API overuse risk
+- No repeated API calls on refresh
+- Billing protections are confirmed active
+
+---
+
+This needs to be handled with precision. Accuracy of images and zero billing risk are both mandatory.
