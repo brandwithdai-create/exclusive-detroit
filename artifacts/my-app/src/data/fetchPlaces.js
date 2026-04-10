@@ -11,6 +11,13 @@
 const LS_PREFIX = "excl_places_v1_";
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
+// One-time clear of all cached Places API data
+try {
+  Object.keys(localStorage)
+    .filter(k => k.startsWith(LS_PREFIX))
+    .forEach(k => localStorage.removeItem(k));
+} catch (_) {}
+
 function lsGet(key) {
   try {
     const raw = localStorage.getItem(LS_PREFIX + key);
