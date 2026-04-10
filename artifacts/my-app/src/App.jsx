@@ -919,14 +919,15 @@ const id=pool[seed%pool.length];
 return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=75`;
 }
 
+const _imgCache = new Set();
 const VenueImg = React.memo(function VenueImg({ src, fallbackSrc, alt, height=190 }) {
-const [activeSrc, setActiveSrc] = useState(src || fallbackSrc || null);
-const [loaded, setLoaded] = useState(false);
+const initialSrc = src || fallbackSrc || null;
+const [activeSrc, setActiveSrc] = useState(initialSrc);
+const [loaded, setLoaded] = useState(() => !!initialSrc && _imgCache.has(initialSrc));
 const [failed, setFailed] = useState(false);
 useEffect(() => {
 if (!src || src === activeSrc) return;
 if (!loaded) { setActiveSrc(src); return; }
-// Already showing an image — preload silently before swapping to avoid flash
 const img = new Image();
 img.onload = () => setActiveSrc(src);
 img.onerror = () => {};
@@ -937,8 +938,9 @@ const handleError = () => {
 if (activeSrc !== fallbackSrc && fallbackSrc) { setActiveSrc(fallbackSrc); setLoaded(false); }
 else { setFailed(true); }
 };
+const handleLoad = () => { if (activeSrc) _imgCache.add(activeSrc); setLoaded(true); };
 return React.createElement("div", { style:{ height, overflow:"hidden", background:"linear-gradient(160deg,#2a1f14 0%,#1c150e 100%)", flexShrink:0, position:"relative" } },
-activeSrc && !failed && React.createElement("img", { src:activeSrc, alt:alt||"", loading:"lazy", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:"opacity 0.4s ease", position:"absolute", inset:0 }, onLoad:()=>setLoaded(true), onError:handleError }),
+activeSrc && !failed && React.createElement("img", { src:activeSrc, alt:alt||"", loading:"lazy", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:loaded?"none":"opacity 0.4s ease", position:"absolute", inset:0 }, onLoad:handleLoad, onError:handleError }),
 failed && React.createElement("div", { style:{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:8 } },
 React.createElement("span", { style:{ fontSize:"2rem", opacity:0.35 } }, "🥃"),
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.38rem", letterSpacing:"0.18em", color:"rgba(201,168,76,0.38)", textTransform:"uppercase" } }, "Detroit")
