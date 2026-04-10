@@ -60,8 +60,9 @@ Photos for all 85 venues are permanently stored in PostgreSQL — zero Google AP
 
 **Cost protection rules** (critical — never remove):
 - Venue cards NEVER call Google API — always read from DB or Unsplash fallback
-- Only 3 hotels with `image:null` call the API (Stay.jsx, server-cached 24h)
+- ALL 10 hotels now have local images — Google API is NEVER called anywhere in the app
 - `fetchPlacePhotos` must NEVER be imported in App.jsx
+- Stay.jsx still has `if (hotel.image) return;` guard — keep it as protection for future hotels
 
 ## Stack
 
