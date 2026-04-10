@@ -1141,7 +1141,7 @@ return()=>clearTimeout(t);
 },[selected]);
 const zoomMap=d=>{const m=mapRef.current;if(!m)return;d>0?m.zoomIn():m.zoomOut();};
 const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitude:lat,longitude:lng}=pos.coords;setUserPos({lat,lng});const m=mapRef.current;if(m)m.setView([lat,lng],15,{animate:true});});};
-const reCenter=()=>{const m=mapRef.current;if(!m)return;userPos?m.setView([userPos.lat,userPos.lng],15,{animate:true}):m.setView([42.3314,-83.0458],14,{animate:true});};
+const reCenter=()=>{const m=mapRef.current;if(!m)return;m.setView([42.3314,-83.0458],14,{animate:true});};
 const selImgFallback=selected?getVenueFallbackImage(selected):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
