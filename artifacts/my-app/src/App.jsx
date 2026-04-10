@@ -946,16 +946,17 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 );
 });
 
-const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i }) {
+const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap }) {
 const [hov, setHov] = useState(false);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
+const dbSrc = photoMap?.[String(venue.id)] || null;
 const vibeLine=getVibeLine(venue);
 return React.createElement("div", {
 onClick:()=>onOpen(String(venue.id)),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
-React.createElement(VenueImg, { src:fallbackSrc, fallbackSrc, alt:venue.name }),
+React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
@@ -975,18 +976,19 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 });
 
-const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav }) {
+const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap }) {
 const [hov, setHov] = useState(false);
 const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
 const vibeLine=getVibeLine(venue);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
+const dbSrc = photoMap?.[String(venue.id)] || null;
 return React.createElement("div", {
 onClick:()=>onOpen(venue.id),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+(hov?(just?C.goldD:"rgba(110,75,195,0.5)"):C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 8px 36px rgba(0,0,0,0.55)":"0 2px 14px rgba(0,0,0,0.4)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
-React.createElement(VenueImg, { src:fallbackSrc, fallbackSrc, alt:venue.name }),
+React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:acc }}, venue.cat),
@@ -1008,11 +1010,12 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 });
 
-function Modal({ venue, isFav, onFav, onClose }) {
+function Modal({ venue, isFav, onFav, onClose, photoMap }) {
 if (!venue) return null;
 const isV = typeof venue.id === "number";
 const badges = venue.badges||[];
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
+const dbSrc = photoMap?.[String(venue.id)] || null;
 useEffect(() => {
 const scrollY = window.scrollY;
 const body = document.body;
@@ -1036,7 +1039,7 @@ return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92dvh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
 React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
-React.createElement(VenueImg, { src:fallbackSrc, fallbackSrc, alt:venue.name, height:240 })
+React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:240 })
 ),
 React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
@@ -1082,7 +1085,7 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 
 const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports","Speakeasies","Cocktail Lounges"];
 const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports":"⚾","Speakeasies":"🥃","Cocktail Lounges":"🍹"};
-function MapView({isFav,toggleFav,setModalId,modalId,navTo}){
+function MapView({isFav,toggleFav,setModalId,modalId,navTo,photoMap}){
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
@@ -1139,7 +1142,8 @@ return()=>clearTimeout(t);
 const zoomMap=d=>{const m=mapRef.current;if(!m)return;d>0?m.zoomIn():m.zoomOut();};
 const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitude:lat,longitude:lng}=pos.coords;setUserPos({lat,lng});const m=mapRef.current;if(m)m.setView([lat,lng],15,{animate:true});});};
 const reCenter=()=>{const m=mapRef.current;if(!m)return;userPos?m.setView([userPos.lat,userPos.lng],15,{animate:true}):m.setView([42.3314,-83.0458],14,{animate:true});};
-const selImg=selected?getVenueFallbackImage(selected):null;
+const selImgFallback=selected?getVenueFallbackImage(selected):null;
+const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
 const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"8px 15px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto"};
 return React.createElement("div",{style:{position:"fixed",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,bottom:0,display:"flex",flexDirection:"column",overflow:"hidden",zIndex:400}},
@@ -1243,6 +1247,13 @@ const [suggestName,setSuggestName]=useState("");
 const [suggestHood,setSuggestHood]=useState("");
 const [suggestNote,setSuggestNote]=useState("");
 const [suggestSent,setSuggestSent]=useState(false);
+const [photoMap,setPhotoMap]=useState({});
+useEffect(()=>{
+fetch("/api/places/venue-photos")
+.then(r=>r.ok?r.json():Promise.reject(r.status))
+.then(data=>{ if(data.photos&&typeof data.photos==="object") setPhotoMap(data.photos); })
+.catch(()=>{});
+},[]);
 const filtersRef = useRef(null);
 const chipRowRef = useRef(null);
 const favsRef = useRef(favs);
@@ -1398,7 +1409,7 @@ React.createElement("button",{onClick:()=>{setGeoModal(false);setGeoError(null);
 );
 
 const grid=(items,onOpen,animKey)=>React.createElement("div",{key:animKey,style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
-items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i}))
+items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i,photoMap}))
 );
 
 const Explore=()=>React.createElement("div",null,
@@ -1422,7 +1433,7 @@ React.createElement("div",{style:{flex:1,height:1,background:"rgba(110,75,195,0.
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.5rem)",fontWeight:400,color:C.white}},"Opening Soon in Detroit")
 ),
 React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
-UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav}))
+UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap}))
 )
 )
 ),
@@ -1653,7 +1664,7 @@ return React.createElement("div",{style:{background:C.black,color:C.bone,fontFam
 NavBar(),
 React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
-section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId,navTo}),
+section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId,navTo,photoMap}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About(),
@@ -1685,7 +1696,7 @@ React.createElement("span",null,"Detroit Edition v5.0")
 )
 ),
 GeoModal(),
-modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null)}),
+modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null),photoMap}),
 React.createElement(Toast,{msg:toast.msg,vis:toast.vis})
 );
 }

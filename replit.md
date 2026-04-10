@@ -42,6 +42,27 @@ pnpm workspace monorepo. **ExclusiveDetroit** is a Detroit nightlife + lifestyle
 - `savedHotels` — saved hotel IDs
 - `ed-theme` — appearance setting
 
+## Venue Photo System (Permanent DB Storage)
+
+Photos for all 85 venues are permanently stored in PostgreSQL — zero Google API calls on page load.
+
+**Database table**: `venue_photos` (venue_id TEXT PK, photo_url TEXT, place_id, rating, rating_count, search_query, fetched_at)
+
+**How it works**:
+1. On startup, App.jsx fetches `GET /api/places/venue-photos` once — returns `{photos: {venueId: photoUrl}}`
+2. VCard, UCard, Modal, MapView all use DB photo first, Unsplash fallback if missing
+3. Photos are real Google Places CDN URLs (lh3.googleusercontent.com)
+
+**Import endpoint**: `POST /api/places/import` with body `{"secret":"import-venues-2024"}`
+- Idempotent — skips venues already in DB
+- One-time cost: ~$4 for all 85 venues
+- Run when adding new venues or to refresh stale photos
+
+**Cost protection rules** (critical — never remove):
+- Venue cards NEVER call Google API — always read from DB or Unsplash fallback
+- Only 3 hotels with `image:null` call the API (Stay.jsx, server-cached 24h)
+- `fetchPlacePhotos` must NEVER be imported in App.jsx
+
 ## Stack
 
 - **Monorepo tool**: pnpm workspaces
@@ -49,7 +70,7 @@ pnpm workspace monorepo. **ExclusiveDetroit** is a Detroit nightlife + lifestyle
 - **Package manager**: pnpm
 - **TypeScript version**: 5.9
 - **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
+- **Database**: PostgreSQL + Drizzle ORM (venue_photos table for permanent photo storage)
 - **Validation**: Zod (`zod/v4`), `drizzle-zod`
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
