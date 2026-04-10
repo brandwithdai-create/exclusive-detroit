@@ -40,7 +40,8 @@ function StarRating({ rating, ratingCount }) {
 
 function CardImage({ localSrc, placesPhoto, alt, height = 210 }) {
   const [err, setErr] = React.useState(false);
-  const [loaded, setLoaded] = React.useState(false);
+  const isLocal = !!localSrc;
+  const [loaded, setLoaded] = React.useState(isLocal);
 
   const src = localSrc || ((!err && placesPhoto) ? placesPhoto : null);
 
@@ -51,9 +52,9 @@ function CardImage({ localSrc, placesPhoto, alt, height = 210 }) {
       overflow: "hidden",
       flexShrink: 0,
       position: "relative",
-      background: "linear-gradient(90deg,#1a1820 25%,#232030 50%,#1a1820 75%)",
+      background: isLocal ? "transparent" : "linear-gradient(90deg,#1a1820 25%,#232030 50%,#1a1820 75%)",
       backgroundSize: "200% 100%",
-      animation: loaded ? "none" : "shimmer 1.4s infinite",
+      animation: (isLocal || loaded) ? "none" : "shimmer 1.4s infinite",
     }}>
       <img
         key={src}
@@ -64,7 +65,7 @@ function CardImage({ localSrc, placesPhoto, alt, height = 210 }) {
         style={{
           width: "100%", height: "100%", objectFit: "cover", display: "block",
           opacity: loaded ? 1 : 0,
-          transition: "opacity 0.35s ease",
+          transition: isLocal ? "none" : "opacity 0.35s ease",
         }}
       />
     </div>
