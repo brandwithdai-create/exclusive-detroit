@@ -1276,7 +1276,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
-return React.createElement("div",{style:{position:"fixed",top:0,right:0,bottom:0,left:0,overflow:"hidden",overscrollBehavior:"none",zIndex:400,background:isDark?"#1a1a2e":"#f4f0e8"}},
+return React.createElement("div",{style:{position:"fixed",inset:0,width:"100%",height:"100dvh",minHeight:"100dvh",maxHeight:"100dvh",overflow:"hidden",overscrollBehavior:"none",zIndex:400,background:isDark?"#1a1a2e":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},

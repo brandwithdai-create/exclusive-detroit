@@ -217,15 +217,7 @@
         overflow-x: hidden;
       }
       /* ── Leaflet: transparent background so theme color shows through on tile load ── */
-      .leaflet-container { background: transparent !important; width: 100%; height: 100%; }
-
-      /* ── Leaflet internal panes: fill their container fully ── */
-      .leaflet-pane,
-      .leaflet-map-pane { width: 100%; height: 100%; }
-
-      /* ── Map shell: fixed full-screen (fallback for any class-based references) ── */
-      .map-page,
-      .map-container { position: fixed; inset: 0; }
+      .leaflet-container { background: transparent !important; }
 
       /* ── Safe-area bottom fill: covers whatever Safari exposes below the viewport ── */
       body::after {
