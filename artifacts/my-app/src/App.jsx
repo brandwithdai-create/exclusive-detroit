@@ -1008,7 +1008,7 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 });
 
-const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap }) {
+const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap, imgHeight }) {
 const [hov, setHov] = useState(false);
 const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
@@ -1020,7 +1020,7 @@ onClick:()=>onOpen(venue.id),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+(hov?(just?C.goldD:"rgba(110,75,195,0.5)"):C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 8px 36px rgba(0,0,0,0.55)":"0 2px 14px rgba(0,0,0,0.4)", transition:"all 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.04,0.4)+"s" }
 },
-React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name }),
+React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:imgHeight||190 }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:acc }}, venue.cat),
@@ -1522,8 +1522,10 @@ React.createElement("div",{style:{flex:1,height:1,background:"rgba(110,75,195,0.
 ),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.5rem)",fontWeight:400,color:C.white}},"Opening Soon in Detroit")
 ),
-React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
-UPCOMING.map((v,i)=>React.createElement(UCard,{key:v.id,venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap}))
+React.createElement("div",{style:{display:"flex",gap:14,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",paddingBottom:4,marginLeft:-22,marginRight:-22,paddingLeft:22,paddingRight:22}},
+UPCOMING.slice(0,4).map((v,i)=>React.createElement("div",{key:v.id,style:{flexShrink:0,width:260}},
+React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:148})
+))
 )
 )
 ),
