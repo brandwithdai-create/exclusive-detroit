@@ -214,19 +214,16 @@ function GameCard({ game, saved, onSave, onOpen }) {
 
 function EventCard({ event, saved, onSave, onOpen, type = "event" }) {
   const [hov, setHov] = useState(false);
-  const [venueSrc, setVenueSrc] = useState(event.image);
   const title = event.artist || event.title || "";
-
-  // No API call — events have curated images in eventsData.js
 
   return (
     <div
-      onClick={() => onOpen({ ...event, resolvedImage: venueSrc }, type)}
+      onClick={() => onOpen({ ...event, resolvedImage: event.image }, type)}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.22s" }}
     >
-      <CardImage src={venueSrc} alt={title} height={200} />
+      <CardImage src={event.image} alt={title} height={200} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
           <span style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.14em", textTransform:"uppercase", color:C.gold }}>
@@ -270,24 +267,37 @@ const TABS = [
   { key:"concerts", label:"Concerts" },
 ];
 
-const _cache = { games:null, events:null, concerts:null };
+// Cache with TTL — expires after 10 minutes so stale data is never shown indefinitely.
+const CACHE_TTL_MS = 10 * 60 * 1000;
+const _cache   = { games: null, events: null, concerts: null };
+const _cacheAt = { games: 0,    events: 0,    concerts: 0    };
+
+function isCacheValid(key) {
+  return _cache[key] !== null && (Date.now() - _cacheAt[key]) < CACHE_TTL_MS;
+}
 
 export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab = "games", onBack }) {
   const [tab, setTab] = useState(initialTab);
-  const [games,    setGames]    = useState(_cache.games    || []);
-  const [events,   setEvents]   = useState(_cache.events   || []);
-  const [concerts, setConcerts] = useState(_cache.concerts || []);
-  const [loading,  setLoading]  = useState({ games:!_cache.games, events:!_cache.events, concerts:!_cache.concerts });
+  const [games,    setGames]    = useState(isCacheValid("games")    ? _cache.games    : []);
+  const [events,   setEvents]   = useState(isCacheValid("events")   ? _cache.events   : []);
+  const [concerts, setConcerts] = useState(isCacheValid("concerts") ? _cache.concerts : []);
+  const [loading,  setLoading]  = useState({
+    games:    !isCacheValid("games"),
+    events:   !isCacheValid("events"),
+    concerts: !isCacheValid("concerts"),
+  });
   const [activeItem, setActiveItem] = useState(null);
   const [activeType, setActiveType] = useState(null);
 
   const load = useCallback(async (key, fetcher, setter) => {
-    if (_cache[key]) return;
+    if (isCacheValid(key)) return;
     try {
       const data = await fetcher();
-      _cache[key] = data;
+      _cache[key]   = data;
+      _cacheAt[key] = Date.now();
       setter(data);
-    } catch {
+    } catch (err) {
+      console.warn(`[ExclusiveDetroit] ThingsToDo load error for "${key}":`, err.message);
     } finally {
       setLoading(l => ({ ...l, [key]: false }));
     }
