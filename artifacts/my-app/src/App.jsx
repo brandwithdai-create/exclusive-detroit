@@ -39,7 +39,7 @@ if (v.websiteUrl)     return { label:"Visit Website", url:v.websiteUrl };
 return null;
 }
 
-const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happy Hour","Sports","Hidden Bars","Speakeasies","Cocktail Lounges","Rooftops","Hotel Lounges","Alley Spots","Nightlife","Comedy / Live Events","Date Night","Outdoor Activities","Midtown","Downtown","Corktown"];
+const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happy Hour","Sports Bars","Hidden Bars","Speakeasies","Cocktail Lounges","Rooftops","Hotel Lounges","Alley Spots","Nightlife","Comedy / Live Events","Date Night","Outdoor Activities","Midtown","Downtown","Corktown"];
 
 const COORDS={"1":[42.333022,-83.048681],"2":[42.329286,-83.04843],"3":[42.33344,-83.05055],"4":[42.334415,-83.046032],"5":[42.334706,-83.046706],"6":[42.328328,-83.048352],"7":[42.368716,-83.072034],"8":[42.334305,-83.048496],"9":[42.33543,-83.04888],"10":[42.346605,-83.056836],"11":[42.331026,-83.065425],"12":[42.332992,-83.05145],"13":[42.318863,-83.074382],"14":[42.33553,-83.04888],"15":[42.334927,-83.047252],"16":[42.334728,-83.047255],"17":[42.33354,-83.05055],"18":[42.335712,-83.049701],"19":[42.334812,-83.046189],"20":[42.338047,-83.062567],"21":[42.363047,-83.085201],"22":[42.34025,-83.05811],"23":[42.351443,-83.060108],"24":[42.360223,-83.066305],"25":[42.331413,-83.046563],"26":[42.342649,-82.998573],"27":[42.34905,-83.041898],"28":[42.343879,-83.03356],"30":[42.344337,-83.060694],"31":[42.328529,-83.063349],"32":[42.331703,-83.065774],"33":[42.331725,-83.063272],"34":[42.332288,-83.04931],"35":[42.330482,-83.045432],"36":[42.329041,-83.047737],"37":[42.348523,-83.087987],"38":[42.3478,-83.065018],"39":[42.333596,-83.051529],"40":[42.333539,-83.051369],"41":[42.33356,-83.051468],"42":[42.333418,-83.048503],"43":[42.330891,-83.047851],"44":[42.360592,-83.066499],"45":[42.369685,-83.073426],"46":[42.33382,-83.04991],"47":[42.333636,-83.049522],"48":[42.334558,-83.047888],"49":[42.332997,-83.048953],"50":[42.33276,-83.047963],"51":[42.3293,-83.04754],"52":[42.331607,-83.075355],"53":[42.329506,-83.045689],"55":[42.355812,-83.066356],"56":[42.33291,-83.049808],"57":[42.337947,-83.052997],"63":[42.334471,-83.047014],"64":[42.335598,-83.045963],"65":[42.345175,-83.05558],"67":[42.337576,-83.050024],"68":[42.33392,-83.04991],"69":[42.34833,-83.067366],"70":[42.330563,-83.048639],"71":[42.35302,-83.079447],"72":[42.337719,-83.052991],"73":[42.332809,-83.047436],"74":[42.335035,-83.054965],"75":[42.33316,-83.049848],"76":[42.334355,-83.048544],"77":[42.354211,-83.0638],"78":[42.347354,-83.065259],"79":[42.345162,-83.05608],"80":[42.333061,-83.049006],"81":[42.335307,-83.04877],"82":[42.338604,-83.020675],"83":[42.328973,-83.054509],"84":[42.32883,-83.03959],"85":[42.32893,-83.03959],"86":[42.33182,-83.049973],"87":[42.335008,-83.048556],"r1":[42.335775,-83.048593],"r2":[42.360358,-82.984843],"r3":[42.344168,-83.037879],"r4":[42.33164,-83.070831],"r5":[42.353007,-83.067043],"u1":[42.33806,-83.052108],"u2":[42.33224,-83.045413],"u3":[42.333525,-83.047582],"u4":[42.403741,-82.935302]};
 
@@ -180,21 +180,21 @@ hours:"Thu 9pm-2am | Fri-Sat 8pm-2am | Sun-Wed Closed", best:"Weekend / Late Nig
 exclusive:"Every inch of this place is a handmade art piece you can dance inside. There is nothing else like it in America.",
 cats:["Alley Spots","Nightlife"],badges:["firsttimer","locals"], websiteUrl:"https://www.deluxxfluxx.com" },
 
-{ id:17, name:"Parlay Detroit",                    hood:"Downtown",           cat:"Sports",
+{ id:17, name:"Parlay Detroit",                    hood:"Downtown",           cat:"Sports Bars",
 desc:"An 11,000-square-foot elevated sports bar within walking distance of Ford Field, Comerica Park, and Little Caesars Arena. Part-owned by former Detroit Lion Joique Bell. Cigar lounge, VIP areas, speakeasy on the lower level.",
 vibes:["Elevated Sports Bar","VIP Seating","Cigar Lounge"], addr:"1260 Washington Blvd, Detroit, MI 48226",
 hours:"Sun-Thu 11am-12am | Fri-Sat 11am-2am", best:"Game Day / Any Day",
 exclusive:"Part-owned by a Detroit Lion, walking distance from every major Detroit stadium. 11,000 sq ft, a cigar lounge, VIP areas, and a speakeasy downstairs.",
 badges:["locals"], websiteUrl:"https://www.parlaydetroit.com" },
 
-{ id:18, name:"Gilly's Clubhouse",                 hood:"Downtown",           cat:"Sports",
+{ id:18, name:"Gilly's Clubhouse",                 hood:"Downtown",           cat:"Sports Bars",
 desc:"A tribute sports bar on Woodward Ave honoring Nick 'Gilly' Gilbert. Two floors, the largest TV in downtown Detroit (120 sq ft), arcade games, a rooftop terrace, local Detroit art, and a menu that goes well beyond bar food.",
 vibes:["120 sq ft TV Wall","Rooftop Terrace","Local Detroit Art"], addr:"1550 Woodward Ave, Detroit, MI 48226",
 hours:"Mon-Thu 4pm-12am | Fri-Sat 11am-1am | Sun 11am-12am", best:"Game Day / Evenings",
 exclusive:"Named after Nick Gilbert. The largest TV in downtown Detroit, a rooftop, Detroit memorabilia on every wall. A tribute to a city, not just a sports bar.",
 badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/gillys-clubhouse-and-rooftop-detroit" },
 
-{ id:19, name:"Post Bar",                          hood:"Downtown",           cat:"Sports",
+{ id:19, name:"Post Bar",                          hood:"Downtown",           cat:"Sports Bars",
 desc:"Detroit's no-nonsense downtown sports bar anchor on Broadway, open every day from 11am to 2am. Consistent game-day energy in the heart of the city.",
 vibes:["Open Daily","Game Day Anchor","Downtown"], addr:"1325 Broadway St, Detroit, MI 48226",
 hours:"Mon-Sun 11am-2am", best:"Game Day / Any Day",
@@ -753,7 +753,7 @@ badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/haus-of-brunch-detroit" },
 
 /* ── NEW SPORTS ── */
-{ id:87, name:"The Brakeman",                       hood:"Downtown",           cat:"Sports",
+{ id:87, name:"The Brakeman",                       hood:"Downtown",           cat:"Sports Bars",
 desc:"A craft beer bar at 22 John R Street in downtown Detroit, open Wednesday through Sunday and steps from Little Caesars Arena, Comerica Park, and Ford Field. An extensive rotating draft list, no-frills atmosphere, and late-night hours on Fridays and Saturdays.",
 vibes:["Craft Beer","Near LCA","Late Night"],
 addr:"22 John R St, Detroit, MI 48226",
@@ -816,7 +816,7 @@ vibes:["Immersive Dome","Live Sports","12K LED"], addr:"Cadillac Square (near Ca
 hours:"Targeting Fall 2026 - confirm at cosm.com/detroit", best:"Game Night / Any Night",
 exclusive:"Nothing like this exists anywhere in the Midwest. When it opens Detroit will have the most immersive sports venue in the country outside LA and Dallas.",
 openDate:"2026-09-01", note:"Targeting Fall 2026 | Bedrock's Development at Cadillac Square",
-cats:["Immersive Entertainment","Sports"],websiteUrl:"https://cosm.com/detroit", ticketUrl:"https://cosm.com/detroit" },
+cats:["Immersive Entertainment","Sports Bars"],websiteUrl:"https://cosm.com/detroit", ticketUrl:"https://cosm.com/detroit" },
 { id:"u3", name:"The Detroit EDITION Hotel", hood:"Downtown",           cat:"Luxury Hotel",
 desc:"Detroit's first five-star hotel anchoring Hudson's Detroit - the city's tallest new skyscraper in 50 years. 227 rooms, four dining concepts, rooftop pool. Marriott EDITION brand's first Midwest property.",
 vibes:["Five-Star","Hudson's Tower","Marriott EDITION"], addr:"1208 Woodward Ave (Hudson's Detroit Tower), Detroit, MI 48226",
@@ -860,8 +860,8 @@ style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'D
 }, cta.label);
 }
 
-const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports":"⚾️","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🖤","Outdoor Activities":"🍃","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
-const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Speakeasies","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports","Rooftops","Comedy / Live Events","Nightlife","Date Night","Outdoor Activities","Alley Spots"];
+const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports Bars":"⚾️","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🖤","Outdoor Activities":"🍃","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
+const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Speakeasies","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports Bars","Rooftops","Comedy / Live Events","Nightlife","Date Night","Outdoor Activities","Alley Spots"];
 function getEmojiForVenue(venue){const all=[venue.cat,...(venue.cats||[])];for(const c of EMOJI_PRIORITY){if(all.includes(c)&&CAT_EMOJI[c])return CAT_EMOJI[c];}return CAT_EMOJI[venue.cat]||"✨";}
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
@@ -912,7 +912,7 @@ const CATEGORY_IMG_POOL = {
 "Breakfast":["1533089860892-a7c6f0a88666","1525351484163-7529414f2171","1414235077428-338989a2e8c0"],
 "Coffee Shops & Bakeries":["1509042239860-f550ce710b93","1524350876685-274059332603","1525351484163-7529414f2171"],
 "Outdoor Activities":["1534224373688-37be267ede82","1507003211169-0a1dd7228f2d","1477959858617-67f85cf4f1df"],
-"Sports":["1579952363873-27f3bade9f55","1540747913346-19e5df342091","1568522271747-01fa3a0e3a57"],
+"Sports Bars":["1579952363873-27f3bade9f55","1540747913346-19e5df342091","1568522271747-01fa3a0e3a57"],
 "Alley Spots":["1470337458703-46ad1756a187","1566417713940-fe7c737a9ef2","1492684223066-81342ee5ff30"],
 "Comedy / Live Events":["1501281668745-26d60d196ba7","1517457373958-b7bdd4587205","1492684223066-81342ee5ff30"],
 "Immersive Entertainment":["1501281668745-26d60d196ba7","1492684223066-81342ee5ff30","1517457373958-b7bdd4587205"],
@@ -1099,8 +1099,8 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }, msg);
 }
 
-const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports","Speakeasies","Cocktail Lounges"];
-const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports":"⚾","Speakeasies":"🥃","Cocktail Lounges":"🍹"};
+const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports Bars","Speakeasies","Cocktail Lounges"];
+const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports Bars":"⚾","Speakeasies":"🥃","Cocktail Lounges":"🍹"};
 const TILE_DARK="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
 const TILE_LIGHT="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
 function MapView({isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme}){
@@ -1440,7 +1440,7 @@ React.createElement("h1",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 ),
 React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:400,color:"var(--c-hero-sub)",maxWidth:480,margin:"0 auto 26px",lineHeight:1.82}},"The insider's guide to Detroit's most exclusive dining, cocktails, experiences, and hidden gems. Not for everyone — made for you."),
 React.createElement("div",{style:{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}},
-["Breakfast","Sports","Hidden Bars","Rooftops","Dinner","Happy Hour","Cocktail Lounges","Nightlife"].map(c=>
+["Breakfast","Sports Bars","Hidden Bars","Rooftops","Dinner","Happy Hour","Cocktail Lounges","Nightlife"].map(c=>
 React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"var(--c-hero-pill-bg)",backdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",WebkitBackdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",boxShadow:cat===c?"none":"var(--c-hero-btn-shadow)",padding:"7px 14px",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
 )
 ),
