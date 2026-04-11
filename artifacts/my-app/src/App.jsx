@@ -820,28 +820,28 @@ cats:["Midtown","Cocktail Lounges"],badges:["recentopen"], websiteUrl:"https://w
 
 const UPCOMING = [
 { id:"u1", name:"Sunda New Asian",           hood:"Downtown",           cat:"Pan-Asian Restaurant",
-desc:"A 6,000-square-foot pan-Asian experience in The District Detroit from Chicago restaurateur Billy Dec. Elevated sushi, dim sum, wagyu, robata. 200+ seats and a 1,400-square-foot patio.",
+desc:"Chicago restaurateur Billy Dec brings elevated sushi, dim sum, wagyu, and robata to The District Detroit.",
 vibes:["Pan-Asian","Elevated Sushi","Dim Sum"], addr:"33 W Columbia St, Detroit, MI 48201",
 hours:"Tue-Thu 5pm-10pm | Fri-Sat 5pm-11pm | Sun 5pm-10pm | Mon Closed", best:"Date Night / Pre-Show",
 exclusive:"Billy Dec built Sunda into a national brand over 15 years. Detroit has been ready for a restaurant at this level.",
 openDate:"2026-03-10", note:"Opened March 10, 2026 | Billy Dec / Rockit Ranch | 5th Sunda location",
 reservationUrl:"https://www.opentable.com/r/sunda-new-asian-detroit" },
 { id:"u2", name:"Cosm Detroit",              hood:"Downtown",           cat:"Immersive Entertainment",
-desc:"A 70,000 sq ft immersive sports and entertainment dome adjacent to Campus Martius. 87-ft 12K LED dome with Shared Reality technology. Capacity 1,500. Partners: NFL, NBA, UFC.",
+desc:"An 87-ft 12K LED dome at Campus Martius with Shared Reality technology. Capacity 1,500. Partners: NFL, NBA, UFC.",
 vibes:["Immersive Dome","Live Sports","12K LED"], addr:"Cadillac Square (near Campus Martius), Detroit, MI 48226",
 hours:"Targeting Fall 2026 - confirm at cosm.com/detroit", best:"Game Night / Any Night",
 exclusive:"Nothing like this exists anywhere in the Midwest. When it opens Detroit will have the most immersive sports venue in the country outside LA and Dallas.",
 openDate:"2026-09-01", note:"Targeting Fall 2026 | Bedrock's Development at Cadillac Square",
 cats:["Immersive Entertainment","Sports Bars"],websiteUrl:"https://cosm.com/detroit", ticketUrl:"https://cosm.com/detroit" },
 { id:"u3", name:"The Detroit EDITION Hotel", hood:"Downtown",           cat:"Luxury Hotel",
-desc:"Detroit's first five-star hotel anchoring Hudson's Detroit - the city's tallest new skyscraper in 50 years. 227 rooms, four dining concepts, rooftop pool. Marriott EDITION brand's first Midwest property.",
+desc:"Detroit's first five-star hotel inside Hudson's Detroit tower. 227 rooms, rooftop pool, four dining concepts.",
 vibes:["Five-Star","Hudson's Tower","Marriott EDITION"], addr:"1208 Woodward Ave (Hudson's Detroit Tower), Detroit, MI 48226",
 hours:"Opening 2027 - confirm at hudsons-detroit.com", best:"Hotel Stay / Special Occasion",
 exclusive:"Detroit's first five-star hotel inside its tallest new tower in 50 years.",
 openDate:"2027-01-01", note:"Opening 2027 | Detroit's first 5-star hotel | Hudson's Detroit Tower",
 websiteUrl:"https://www.hudsons-detroit.com" },
 { id:"u4", name:"Little Liberia",            hood:"East English Village", cat:"African Restaurant",
-desc:"Detroit's first Liberian restaurant from chef Ameneh Marhaba. A halal menu blending Liberian dishes with broader African influences, inside The Ribbon development on the east side.",
+desc:"Detroit's first Liberian restaurant. Halal menu from chef Ameneh Marhaba inside The Ribbon on the east side.",
 vibes:["Liberian Cuisine","Halal","Community-Led"], addr:"16530 E Warren Ave, Detroit, MI 48224 (The Ribbon development)",
 hours:"Opening date TBD - follow @littleliberiadetroit", best:"Dinner / Cultural Experience",
 exclusive:"Detroit's first Liberian restaurant. The kind of opening that matters beyond food.",
@@ -1517,17 +1517,15 @@ UPCOMING.length>0&&React.createElement("div",{style:{background:"var(--c-grad-ne
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"}},
 React.createElement("div",{style:{paddingTop:44,paddingBottom:24}},
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,marginBottom:10}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.72rem",fontWeight:600,letterSpacing:"0.22em",textTransform:"uppercase",color:C.purple}},"New & Noteworthy"),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.58rem",fontWeight:600,letterSpacing:"0.22em",textTransform:"uppercase",color:C.purple}},"New & Noteworthy"),
 React.createElement("div",{style:{flex:1,height:1,background:"rgba(110,75,195,0.25)"}})
 ),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.5rem)",fontWeight:400,color:C.white}},"Opening Soon in Detroit")
 ),
 React.createElement("div",{style:{display:"flex",gap:12,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",scrollSnapType:"x mandatory",paddingBottom:4,marginLeft:-22,marginRight:-22,paddingLeft:22,paddingRight:22}},
-[0,2].map(si=>
-React.createElement("div",{key:si,style:{flexShrink:0,width:"calc(100vw - 60px)",maxWidth:400,scrollSnapAlign:"start",display:"flex",flexDirection:"column",gap:10}},
-UPCOMING.slice(si,si+2).map((v,pi)=>React.createElement(UCard,{key:v.id,venue:v,i:si+pi,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:110,hideVibes:true}))
-)
-)
+UPCOMING.slice(0,4).map((v,i)=>React.createElement("div",{key:v.id,style:{flexShrink:0,width:"calc(100vw - 60px)",maxWidth:400,scrollSnapAlign:"start"}},
+React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:130,hideVibes:true})
+))
 )
 )
 ),
