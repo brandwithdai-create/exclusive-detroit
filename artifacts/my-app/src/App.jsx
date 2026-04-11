@@ -1160,11 +1160,9 @@ window.scrollTo(0,scrollY);
 },[]);
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
-const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:true});
+const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
-map.attributionControl.setPrefix(false);
-map.attributionControl.addAttribution("Exclusive Detroit • Map data © OpenStreetMap");
 map.invalidateSize();
 setMapReady(true);
 return()=>{map.remove();mapRef.current=null;};
@@ -1323,7 +1321,8 @@ React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSe
 )
 )
 ),
-listPanel
+listPanel,
+React.createElement("div",{className:"map-attribution"},"© OpenStreetMap")
 );}
 
 export default function App() {
