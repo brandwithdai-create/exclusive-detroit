@@ -1177,7 +1177,7 @@ React.createElement("path",{d:"M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"})
 )
 ),
 // ── Bottom bar: List | Legend | Re-center ──
-React.createElement("div",{style:{position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",left:0,right:0,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 14px",zIndex:800,opacity:selected?0:1,transition:"opacity 0.22s ease",pointerEvents:"none"}},
+React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(192px + env(safe-area-inset-bottom))":"calc(18px + env(safe-area-inset-bottom))",left:0,right:0,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 14px",zIndex:800,transition:"bottom 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:"none"}},
 React.createElement("button",{onClick:()=>navTo&&navTo("explore"),style:{...PILL}},"≡  List"),
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:12,border:"1px solid var(--c-mzoom-bdr)",background:"var(--c-mzoom-bg)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",borderRadius:100,padding:"8px 16px",boxShadow:"0 2px 14px rgba(0,0,0,0.22)"}},
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
