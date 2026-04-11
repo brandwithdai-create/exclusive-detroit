@@ -1,0 +1,74 @@
+Please make the following updates only.
+
+Priority update for “All Spots”:
+Set the featured order so these venues appear FIRST in this exact order, and all remaining venues appear after them:
+
+1. Sexy Steak
+2. Bad Luck Bar
+3. Cannelle
+4. Adelina
+5. Ima
+6. Selden Standard
+7. Babo
+8. Hiroki San
+9. SPKR Box
+10. Time Will Tell
+11. San Morello
+12. Barda
+13. The Aladdin Sane
+14. Bash
+15. The Skip
+16. Le Suprême
+17. Monarch Club
+18. Parc
+19. Prime and Proper
+20. Besa
+21. Parlay
+22. Johnny Noodle King Rooftop
+23. The Conservatory
+
+After these featured venues, keep all other venues after them.
+
+Map list ordering:
+- In the Maps list view only, sort venues in alphabetical order
+
+Image update request:
+Please look for better pictures for these venues only:
+- Ostrea
+- Kampers
+- Pocket Change
+- Haus of Brunch
+- Grey Ghost
+- Vecino
+- Brakeman
+- Highlands
+
+Image sourcing rules:
+- You are allowed to use Google Places API for a ONE-TIME image pull only if needed
+- This should be a one-time operation only and expected to cost very little
+- If you use Google Places API, save the final selected image reference permanently in local/static app data immediately
+- Do NOT leave any live API fetching in the app
+- Do NOT implement dynamic image fetching
+- Do NOT add background refresh, recurring pulls, or re-fetching
+- Do NOT call the API more than once per venue unless absolutely required to get a usable final image
+- Use the smallest possible scoped approach
+
+Important cost constraints:
+- Do not scan unrelated files
+- Do not run broad audits
+- Do not refactor the full data system
+- Do not introduce loops or bulk processing beyond these exact venues
+- Do not touch unrelated categories or sections
+- Make minimal scoped changes only
+
+Goal:
+- “All Spots” starts with the exact featured venues listed above in that exact order
+- Maps list view is alphabetical
+- The listed venues get better, more accurate photos saved permanently in local/static app data
+- No ongoing API costs are introduced
+
+After completion, confirm:
+- the featured order was applied exactly as listed
+- map list view is alphabetical
+- which of the listed venue images were replaced
+- whether Google Places API was used, and if so, confirm all final image references were saved locally with no live fetching left in the app
