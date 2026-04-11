@@ -1092,7 +1092,6 @@ const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
 const [userPos,setUserPos]=React.useState(null);
-const _mapDark=(()=>{const th=document.documentElement.getAttribute("data-theme");const sys=typeof window!=="undefined"&&window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)").matches:false;return th==="dark"||(th!=="light"&&sys);})();
 const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
@@ -1104,9 +1103,6 @@ return()=>{document.body.style.overflow=pb;document.documentElement.style.overfl
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
-const _th=document.documentElement.getAttribute("data-theme");
-const _sysDark=typeof window!=="undefined"&&window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)").matches:true;
-const _useDark=_th==="dark"||(_th!=="light"&&_sysDark);
 L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
 setTimeout(()=>{map.invalidateSize();},100);
@@ -1163,7 +1159,8 @@ c==="all"?"All Venues":c
 );})
 ),
 // ── Map tile area ──
-React.createElement("div",{ref:containerRef,style:{flex:1,background:"var(--c-deep)",minHeight:0,filter:_mapDark?"brightness(0.42) saturate(1.9) hue-rotate(5deg)":"none",transition:"filter 0.3s"}}),
+React.createElement("div",{style:{flex:1,position:"relative",minHeight:0,overflow:"hidden"}},
+React.createElement("div",{ref:containerRef,style:{position:"absolute",inset:0}})),
 // ── Custom zoom + near-me controls ──
 React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
 React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRadius:10,overflow:"hidden",boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)"}},
