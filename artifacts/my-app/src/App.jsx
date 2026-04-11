@@ -1092,6 +1092,7 @@ const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
 const [userPos,setUserPos]=React.useState(null);
+const _mapDark=(()=>{const th=document.documentElement.getAttribute("data-theme");const sys=typeof window!=="undefined"&&window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)").matches:false;return th==="dark"||(th!=="light"&&sys);})();
 const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
@@ -1106,8 +1107,7 @@ const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomCont
 const _th=document.documentElement.getAttribute("data-theme");
 const _sysDark=typeof window!=="undefined"&&window.matchMedia?window.matchMedia("(prefers-color-scheme: dark)").matches:true;
 const _useDark=_th==="dark"||(_th!=="light"&&_sysDark);
-const _tile=_useDark?"https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png":"https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
-L.tileLayer(_tile,{subdomains:"abcd",maxZoom:19}).addTo(map);
+L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
 setTimeout(()=>{map.invalidateSize();},100);
 setMapReady(true);
@@ -1163,7 +1163,7 @@ c==="all"?"All Venues":c
 );})
 ),
 // ── Map tile area ──
-React.createElement("div",{ref:containerRef,style:{flex:1,background:"var(--c-deep)",minHeight:0}}),
+React.createElement("div",{ref:containerRef,style:{flex:1,background:"var(--c-deep)",minHeight:0,filter:_mapDark?"brightness(0.42) saturate(1.9) hue-rotate(5deg)":"none",transition:"filter 0.3s"}}),
 // ── Custom zoom + near-me controls ──
 React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
 React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRadius:10,overflow:"hidden",boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)"}},
@@ -1177,7 +1177,7 @@ React.createElement("path",{d:"M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"})
 )
 ),
 // ── Bottom bar: List | Legend | Re-center ──
-React.createElement("div",{style:{position:"absolute",bottom:selected?"calc(192px + env(safe-area-inset-bottom))":"calc(18px + env(safe-area-inset-bottom))",left:0,right:0,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 14px",zIndex:800,transition:"bottom 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:"none"}},
+React.createElement("div",{style:{position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",left:0,right:0,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 14px",zIndex:800,pointerEvents:"none"}},
 React.createElement("button",{onClick:()=>navTo&&navTo("explore"),style:{...PILL}},"≡  List"),
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:12,border:"1px solid var(--c-mzoom-bdr)",background:"var(--c-mzoom-bg)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",borderRadius:100,padding:"8px 16px",boxShadow:"0 2px 14px rgba(0,0,0,0.22)"}},
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
@@ -1205,7 +1205,7 @@ selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"10
 React.createElement("div",{style:{flex:1,minWidth:0}},
 React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:2}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
-React.createElement("button",{onClick:()=>setSelected(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.1rem",cursor:"pointer",width:32,height:32,display:"flex",alignItems:"center",justifyContent:"center",padding:0,marginTop:-4,marginRight:-4,lineHeight:1,flexShrink:0}},"×")
+React.createElement("button",{onClick:()=>setSelected(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0,marginTop:-4,marginRight:-6,lineHeight:1,flexShrink:0}},"✕")
 ),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood)
