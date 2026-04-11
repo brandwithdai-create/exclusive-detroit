@@ -216,6 +216,17 @@
         overscroll-behavior: none;
         overflow-x: hidden;
       }
+      /* ── Safe-area bottom fill: covers whatever Safari exposes below the viewport ── */
+      body::after {
+        content: "";
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: env(safe-area-inset-bottom);
+        background: inherit;
+        z-index: 1;
+      }
     </style>
   </head>
   <body>
