@@ -1144,7 +1144,7 @@ const selImgFallback=selected?getVenueFallbackImage(selected):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
 const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"8px 15px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto"};
-return React.createElement("div",{style:{position:"fixed",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,bottom:0,display:"flex",flexDirection:"column",overflow:"hidden",zIndex:400}},
+return React.createElement("div",{style:{position:"fixed",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,height:"calc(100dvh - 68px - env(safe-area-inset-top))",display:"flex",flexDirection:"column",overflow:"hidden",zIndex:400}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},

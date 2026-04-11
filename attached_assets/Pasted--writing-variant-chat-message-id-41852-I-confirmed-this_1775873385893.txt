@@ -1,0 +1,46 @@
+:::writing{variant=“chat_message” id=“41852”}
+I confirmed this on the live website in Safari, not just Replit preview. The bottom gap is still there in both light mode and dark mode.
+
+This confirms it is a real layout bug and not a preview-only issue.
+
+Important observation:
+	•	the gap color matches the page theme in each mode
+	•	so this is not a map tile issue
+	•	it means the map container is too short, and the page background is showing underneath it
+
+Please debug the actual map page layout and fix the root cause.
+
+What to check:
+	1.	Inspect the map page container height on mobile Safari
+The map wrapper is ending early. Check for any use of:
+	•	100vh
+	•	h-screen
+	•	calc(100vh - ...)
+These are commonly wrong on iPhone Safari.
+	2.	Use 100dvh or a JS viewport height variable instead of 100vh
+I want the page to size correctly on real iPhones in Safari.
+	3.	Check the entire parent chain around the map
+Look for any extra:
+	•	padding-bottom
+	•	margin-bottom
+	•	min-height
+	•	safe-area inset usage
+	•	bottom spacer div
+that could be shortening the map or revealing background below it
+	4.	Verify the flex layout is correct
+The structure should behave like:
+	•	outer page/container = full viewport height
+	•	map section = flex: 1
+	•	map wrapper = height: 100%
+	•	include min-height: 0 where needed so the map can actually fill remaining space
+	5.	Check whether bottom safe-area is being added twice
+If env(safe-area-inset-bottom) is being applied to the page or map wrapper, it may be creating the visible gap.
+Safe-area spacing should only help floating controls, not shrink the actual map area.
+	6.	Do not “patch” this visually
+I do not want a fake fix like adding background or moving buttons.
+I want the map itself to fill all available space with no gap at the bottom.
+	7.	Test specifically on real iPhone Safari
+Since I already confirmed it on the live website, please test and verify the fix there before saying complete.
+
+This is the key point:
+The map is rendering, but the map container is too short. Please find the exact element causing that and correct the height logic at the layout level.
