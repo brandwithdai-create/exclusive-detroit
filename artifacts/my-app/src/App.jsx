@@ -1133,20 +1133,35 @@ const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
 React.useEffect(()=>{
+const mapBg=isDark?"#1a1a2e":"#f4f0e8";
+// ── Save existing values ──────────────────────────────────────────────────
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
 const pp=document.body.style.position,pw=document.body.style.width,pt=document.body.style.top;
+const pob=document.body.style.overscrollBehavior,poh=document.documentElement.style.overscrollBehavior;
+const pbb=document.body.style.background,pbh=document.documentElement.style.background;
 const scrollY=window.scrollY;
+// ── Root fix: lock body so page behind map cannot scroll or bounce ────────
 document.body.style.overflow="hidden";
 document.body.style.position="fixed";
 document.body.style.width="100%";
 document.body.style.top=-scrollY+"px";
 document.documentElement.style.overflow="hidden";
+// ── Root fix: kill elastic overscroll on both html and body ───────────────
+document.body.style.overscrollBehavior="none";
+document.documentElement.style.overscrollBehavior="none";
+// ── Visual fallback: if Safari exposes html/body during bounce, show map color ──
+document.body.style.background=mapBg;
+document.documentElement.style.background=mapBg;
 return()=>{
 document.body.style.overflow=pb;
 document.body.style.position=pp;
 document.body.style.width=pw;
 document.body.style.top=pt;
 document.documentElement.style.overflow=ph;
+document.body.style.overscrollBehavior=pob;
+document.documentElement.style.overscrollBehavior=poh;
+document.body.style.background=pbb;
+document.documentElement.style.background=pbh;
 window.scrollTo(0,scrollY);
 };
 },[]);
@@ -1255,7 +1270,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
-return React.createElement("div",{style:{position:"fixed",top:0,left:0,right:0,bottom:0,paddingTop:"calc(68px + env(safe-area-inset-top))",boxSizing:"border-box",display:"flex",flexDirection:"column",overflow:"hidden",zIndex:400,background:isDark?"#1a1a2e":"#f4f0e8"}},
+return React.createElement("div",{style:{position:"fixed",top:0,left:0,right:0,bottom:0,paddingTop:"calc(68px + env(safe-area-inset-top))",boxSizing:"border-box",display:"flex",flexDirection:"column",overflow:"hidden",overscrollBehavior:"none",zIndex:400,background:isDark?"#1a1a2e":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
@@ -1426,7 +1441,7 @@ const savedEventObjects=savedEvents.map(id=>savedEventMeta[id]||ALL_STATIC_EVENT
 const savedHotelObjects=savedHotels.map(id=>HOTELS.find(h=>String(h.id)===String(id))).filter(Boolean);
 const totalSaves=favs.length+savedEvents.length+savedHotels.length;
 const modalVenue=findItem(modalId);
-const navTo=s=>{setSection(s);window.scrollTo({top:0,behavior:"smooth"});};
+const navTo=s=>{if(s!=="explore")setCat("all");setSection(s);window.scrollTo({top:0,behavior:"smooth"});};
 
 const ss=(prop,val)=>({[prop]:val});
 const row=(children,extra={})=>React.createElement("div",{style:{display:"flex",...extra}},children);
