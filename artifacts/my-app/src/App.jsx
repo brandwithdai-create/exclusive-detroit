@@ -1108,9 +1108,16 @@ if(!containerRef.current||mapRef.current)return;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
-setTimeout(()=>{map.invalidateSize();},100);
+const inv=()=>{if(mapRef.current)mapRef.current.invalidateSize({animate:false});};
+const t1=setTimeout(inv,50);
+const t2=setTimeout(inv,250);
+const t3=setTimeout(inv,700);
+let ro;
+if(window.ResizeObserver&&containerRef.current){ro=new ResizeObserver(inv);ro.observe(containerRef.current);}
+const vvp=window.visualViewport;
+if(vvp)vvp.addEventListener("resize",inv);
 setMapReady(true);
-return()=>{map.remove();mapRef.current=null;};
+return()=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);if(ro)ro.disconnect();if(vvp)vvp.removeEventListener("resize",inv);map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
@@ -1152,7 +1159,7 @@ const selImgFallback=selected?getVenueFallbackImage(selected):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
 const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"8px 15px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto"};
-return React.createElement("div",{style:{position:"fixed",top:0,left:0,right:0,bottom:0,paddingTop:"calc(68px + env(safe-area-inset-top))",boxSizing:"border-box",display:"flex",flexDirection:"column",overflow:"hidden",zIndex:400}},
+return React.createElement("div",{style:{position:"fixed",top:0,left:0,right:0,bottom:0,paddingTop:"calc(68px + env(safe-area-inset-top))",boxSizing:"border-box",display:"flex",flexDirection:"column",overflow:"hidden",zIndex:400,background:isDark?"#1a1a2e":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
@@ -1167,8 +1174,8 @@ c==="all"?"All Venues":c
 );})
 ),
 // ── Map tile area ──
-React.createElement("div",{style:{flex:1,position:"relative",minHeight:0,overflow:"hidden"}},
-React.createElement("div",{ref:containerRef,style:{position:"absolute",inset:0}})),
+React.createElement("div",{style:{flex:1,position:"relative",minHeight:0,overflow:"hidden",background:isDark?"#1a1a2e":"#f4f0e8"}},
+React.createElement("div",{ref:containerRef,style:{position:"absolute",top:0,left:0,right:0,bottom:0,width:"100%",height:"100%"}})),
 // ── Custom zoom + near-me controls ──
 React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
 React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRadius:10,overflow:"hidden",boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)"}},
