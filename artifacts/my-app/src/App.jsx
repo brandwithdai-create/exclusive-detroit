@@ -1321,8 +1321,7 @@ React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSe
 )
 )
 ),
-listPanel,
-React.createElement("div",{className:"map-attribution"},"© OpenStreetMap")
+listPanel
 );}
 
 export default function App() {

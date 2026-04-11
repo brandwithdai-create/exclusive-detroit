@@ -215,30 +215,6 @@
         overscroll-behavior: none;
         overflow-x: hidden;
       }
-      /* ── Map attribution: custom branded, theme-aware ── */
-      .map-attribution {
-        position: fixed;
-        bottom: calc(env(safe-area-inset-bottom) + 4px);
-        left: 0;
-        right: 0;
-        text-align: center;
-        font-size: 11px;
-        line-height: 1;
-        letter-spacing: 0.2px;
-        padding: 0;
-        margin: 0;
-        pointer-events: none;
-        z-index: 3;
-        background: transparent;
-        display: block;
-        color: rgba(255,255,255,0.72);
-        text-shadow: 0 1px 2px rgba(0,0,0,0.45);
-      }
-      [data-theme="light"] .map-attribution { color: rgba(0,0,0,0.55); text-shadow: 0 1px 2px rgba(255,255,255,0.65); }
-      @media (prefers-color-scheme: light) {
-        html:not([data-theme="dark"]) .map-attribution { color: rgba(0,0,0,0.55); text-shadow: 0 1px 2px rgba(255,255,255,0.65); }
-      }
-
       /* ── Match Leaflet background to map theme ── */
       .leaflet-container { background: #000 !important; }
       [data-theme="light"] .leaflet-container { background: #f4f0e8 !important; }
