@@ -1,13 +1,12 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Exclusive Detroit — Live Data Fetcher
-// Ticketmaster Discovery API + Eventbrite API
-// Falls back to curated data if keys are missing or requests fail.
+// Ticketmaster Discovery API — powers games, concerts, and local events.
+// Falls back to curated data if the key is missing or requests fail.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { GAMES, DETROIT_EVENTS, CONCERTS, isUpcoming } from "./eventsData.js";
 
-const TM_KEY   = import.meta.env.VITE_TICKETMASTER_KEY;
-const EB_TOKEN = import.meta.env.VITE_EVENTBRITE_TOKEN;
+const TM_KEY = import.meta.env.VITE_TICKETMASTER_KEY;
 
 // ── Dedupe helper ────────────────────────────────────────────────────────────
 function dedupeById(arr) {
@@ -28,11 +27,11 @@ function sortByDate(arr) {
   });
 }
 
-// ── Week range helpers ───────────────────────────────────────────────────────
-function getWeekRange() {
+// ── Date range helpers ───────────────────────────────────────────────────────
+function getDateRange(daysAhead = 60) {
   const now  = new Date();
   const end  = new Date(now);
-  end.setDate(end.getDate() + 14); // look 2 weeks ahead for better coverage
+  end.setDate(end.getDate() + daysAhead);
   const pad  = n => String(n).padStart(2, "0");
   const fmt  = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
   return {
@@ -135,24 +134,29 @@ function tmImageUrl(images, preferRatio = "16_9") {
   return match?.url || images[0]?.url || null;
 }
 
-// ── Fetch Games from Ticketmaster ─────────────────────────────────────────────
-export async function fetchLiveGames() {
-  if (!TM_KEY) return sortByDate(GAMES.filter(g => isUpcoming(g.date)));
-
-  const { startDateTime, endDateTime } = getWeekRange();
+// ── Ticketmaster base URL builder ─────────────────────────────────────────────
+function tmUrl(extraParams, daysAhead = 60) {
+  const { startDateTime, endDateTime } = getDateRange(daysAhead);
   const url = new URL("https://app.ticketmaster.com/discovery/v2/events.json");
   url.searchParams.set("apikey", TM_KEY);
-  url.searchParams.set("classificationName", "sports");
   url.searchParams.set("city", "Detroit");
   url.searchParams.set("stateCode", "MI");
   url.searchParams.set("countryCode", "US");
   url.searchParams.set("startDateTime", startDateTime);
   url.searchParams.set("endDateTime", endDateTime);
-  url.searchParams.set("size", "50");
   url.searchParams.set("sort", "date,asc");
+  for (const [k, v] of Object.entries(extraParams)) url.searchParams.set(k, v);
+  return url.toString();
+}
+
+// ── Fetch Games from Ticketmaster ─────────────────────────────────────────────
+export async function fetchLiveGames() {
+  if (!TM_KEY) return sortByDate(GAMES.filter(g => isUpcoming(g.date)));
+
+  const url = tmUrl({ classificationName: "sports", size: "50" });
 
   try {
-    const res  = await fetch(url.toString());
+    const res  = await fetch(url);
     if (!res.ok) throw new Error(`TM API ${res.status}`);
     const data = await res.json();
     const events = data?._embedded?.events || [];
@@ -225,56 +229,65 @@ export async function fetchLiveGames() {
   }
 }
 
+// ── Shared: hood normalizer ───────────────────────────────────────────────────
+const DETROIT_HOODS = ["downtown detroit", "midtown", "corktown", "eastern market", "bricktown", "new center", "rivertown", "brush park"];
+function normalizeHood(city, venueName) {
+  const combined = `${city || ""} ${venueName || ""}`.toLowerCase();
+  for (const h of DETROIT_HOODS) {
+    if (combined.includes(h)) {
+      return h.split(" ").map(w => w[0].toUpperCase() + w.slice(1)).join(" ");
+    }
+  }
+  return "Detroit";
+}
+
+// ── Shared: map a Ticketmaster event to a concert/event object ────────────────
+function mapTmEvent(ev, type = "concert") {
+  const attraction = ev._embedded?.attractions?.[0];
+  const venue      = ev._embedded?.venues?.[0];
+  const dateObj    = ev.dates?.start;
+  const dateStr    = dateObj?.localDate || "";
+  const timeStr    = formatTMTime(dateObj?.dateTime, dateObj?.localTime);
+  const hood       = normalizeHood(venue?.city?.name, venue?.name);
+  const genre      = ev.classifications?.[0]?.genre?.name
+                   || ev.classifications?.[0]?.segment?.name
+                   || (type === "concert" ? "Music" : "Event");
+  const img        = tmImageUrl(ev.images);
+  const artistName = attraction?.name || ev.name;
+  const venueName  = venue?.name || "Detroit";
+
+  return {
+    id:                   `tm-${type}-${ev.id}`,
+    type,
+    artist:               type === "concert" ? artistName : undefined,
+    title:                artistName,
+    venue:                venueName,
+    hood,
+    date:                 dateStr,
+    time:                 timeStr,
+    category:             genre,
+    desc:                 `Live at ${venueName}. ${genre}. Doors open shortly before show time.`,
+    image:                img,
+    ticket_url:           ev.url || null,
+    affiliate_ticket_url: null,
+    website_url:          ev.url || null,
+    _source:              "ticketmaster",
+  };
+}
+
 // ── Fetch Concerts from Ticketmaster ─────────────────────────────────────────
 export async function fetchLiveConcerts() {
   if (!TM_KEY) return sortByDate(CONCERTS.filter(c => isUpcoming(c.date)));
 
-  const { startDateTime, endDateTime } = getWeekRange();
-  const url = new URL("https://app.ticketmaster.com/discovery/v2/events.json");
-  url.searchParams.set("apikey", TM_KEY);
-  url.searchParams.set("classificationName", "music");
-  url.searchParams.set("city", "Detroit");
-  url.searchParams.set("stateCode", "MI");
-  url.searchParams.set("countryCode", "US");
-  url.searchParams.set("startDateTime", startDateTime);
-  url.searchParams.set("endDateTime", endDateTime);
-  url.searchParams.set("size", "50");
-  url.searchParams.set("sort", "date,asc");
-
   try {
-    const res  = await fetch(url.toString());
+    const res  = await fetch(tmUrl({ classificationName: "music", size: "50" }));
     if (!res.ok) throw new Error(`TM API ${res.status}`);
     const data = await res.json();
     const events = data?._embedded?.events || [];
 
-    const concerts = events.map(ev => {
-      const attraction = ev._embedded?.attractions?.[0];
-      const venue      = ev._embedded?.venues?.[0];
-      const dateObj    = ev.dates?.start;
-      const dateStr    = dateObj?.localDate || "";
-      const timeStr    = formatTMTime(dateObj?.dateTime, dateObj?.localTime);
-      const hood       = normalizeHood(venue?.city?.name, venue?.name);
-      const genre      = ev.classifications?.[0]?.genre?.name || "Music";
-      const img        = tmImageUrl(ev.images);
-
-      return {
-        id:                `tm-concert-${ev.id}`,
-        type:              "concert",
-        artist:            attraction?.name || ev.name,
-        title:             attraction?.name || ev.name,
-        venue:             venue?.name || "Detroit",
-        hood,
-        date:              dateStr,
-        time:              timeStr,
-        category:          genre,
-        desc:              `Live at ${venue?.name || "Detroit"}. ${genre} event. Doors open shortly before show time.`,
-        image:             img,
-        ticket_url:        ev.url || null,
-        affiliate_ticket_url: null,
-        website_url:       ev.url || null,
-        _source:           "ticketmaster",
-      };
-    }).filter(c => c.date && isUpcoming(c.date));
+    const concerts = events
+      .map(ev => mapTmEvent(ev, "concert"))
+      .filter(c => c.date && isUpcoming(c.date));
 
     const live = dedupeById(concerts);
     if (live.length >= 3) return sortByDate(live);
@@ -291,82 +304,31 @@ export async function fetchLiveConcerts() {
   }
 }
 
-// ── Fetch Events from Eventbrite ──────────────────────────────────────────────
-const DETROIT_HOODS = ["downtown detroit", "midtown", "corktown", "eastern market", "bricktown", "new center", "rivertown", "brush park"];
-
-function normalizeHood(city, venueName) {
-  const combined = `${city || ""} ${venueName || ""}`.toLowerCase();
-  for (const h of DETROIT_HOODS) {
-    if (combined.includes(h)) {
-      return h.split(" ").map(w => w[0].toUpperCase() + w.slice(1)).join(" ");
-    }
-  }
-  return "Detroit";
-}
-
+// ── Fetch Events from Ticketmaster (Arts, Theatre, Comedy, Family, Misc) ──────
+// Pulls arts & theatre + family + comedy + miscellaneous categories from
+// Ticketmaster — replaces the deprecated Eventbrite public search API.
 export async function fetchLiveEvents() {
-  if (!EB_TOKEN) return sortByDate(DETROIT_EVENTS.filter(e => isUpcoming(e.date)));
-
-  const { startDateTime, endDateTime } = getWeekRange();
-  // Eventbrite: search Detroit-area events
-  const url = new URL("https://www.eventbriteapi.com/v3/events/search/");
-  url.searchParams.set("location.address", "Detroit, MI");
-  url.searchParams.set("location.within", "10mi");
-  url.searchParams.set("start_date.range_start", startDateTime);
-  url.searchParams.set("start_date.range_end", endDateTime);
-  url.searchParams.set("sort_by", "date");
-  url.searchParams.set("expand", "venue,organizer,ticket_classes,category");
-  url.searchParams.set("page_size", "50");
+  if (!TM_KEY) return sortByDate(DETROIT_EVENTS.filter(e => isUpcoming(e.date)));
 
   try {
-    const res = await fetch(url.toString(), {
-      headers: { Authorization: `Bearer ${EB_TOKEN}` },
-    });
-    if (!res.ok) throw new Error(`EB API ${res.status}`);
-    const data = await res.json();
-    const evts = data?.events || [];
+    // Fetch arts/theatre and family/comedy in parallel for broader coverage
+    const [r1, r2] = await Promise.all([
+      fetch(tmUrl({ classificationName: "arts & theatre", size: "50" })),
+      fetch(tmUrl({ classificationName: "family", size: "25" })),
+    ]);
 
-    const events = evts
-      .filter(ev => {
-        // Only free or ticketed events in central Detroit areas
-        const city   = (ev.venue?.city || "").toLowerCase();
-        const addr   = (ev.venue?.address?.city || "").toLowerCase();
-        return city.includes("detroit") || addr.includes("detroit");
-      })
-      .map(ev => {
-        const hood     = normalizeHood(ev.venue?.city, ev.venue?.name);
-        const dateStr  = ev.start?.local?.slice(0, 10) || "";
-        const timeRaw  = ev.start?.local?.slice(11, 16) || "";
-        const timeStr  = timeRaw
-          ? (() => {
-              const [h, m] = timeRaw.split(":").map(Number);
-              const ampm   = h >= 12 ? "PM" : "AM";
-              return `${h % 12 || 12}:${String(m).padStart(2,"0")} ${ampm}`;
-            })()
-          : "TBA";
+    const [d1, d2] = await Promise.all([
+      r1.ok ? r1.json() : Promise.resolve({}),
+      r2.ok ? r2.json() : Promise.resolve({}),
+    ]);
 
-        const rawDesc  = ev.description?.text || ev.summary || "";
-        const desc     = rawDesc.length > 180 ? rawDesc.slice(0, 177) + "…" : rawDesc || `${ev.name?.text || "Event"} in Detroit.`;
-        const img      = ev.logo?.url || null;
-        const ticketUrl = ev.url || null;
+    const allEvs = [
+      ...(d1?._embedded?.events || []),
+      ...(d2?._embedded?.events || []),
+    ];
 
-        return {
-          id:                `eb-event-${ev.id}`,
-          type:              "event",
-          title:             ev.name?.text || "Detroit Event",
-          venue:             ev.venue?.name || "Detroit",
-          hood,
-          date:              dateStr,
-          time:              timeStr,
-          category:          ev.category?.name || "Event",
-          desc,
-          image:             img,
-          ticket_url:        ticketUrl,
-          affiliate_ticket_url: null,
-          website_url:       ticketUrl,
-          _source:           "eventbrite",
-        };
-      })
+    const events = allEvs
+      .map(ev => mapTmEvent(ev, "event"))
       .filter(e => e.date && isUpcoming(e.date));
 
     const live = dedupeById(events);
