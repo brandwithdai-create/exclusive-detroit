@@ -1087,7 +1087,10 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 
 const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports","Speakeasies","Cocktail Lounges"];
 const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports":"⚾","Speakeasies":"🥃","Cocktail Lounges":"🍹"};
-function MapView({isFav,toggleFav,setModalId,modalId,navTo,photoMap}){
+const TILE_DARK="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
+const TILE_LIGHT="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
+function MapView({isFav,toggleFav,setModalId,modalId,navTo,photoMap,theme}){
+const isDark=theme==="dark"||(theme==="system"&&window.matchMedia("(prefers-color-scheme:dark)").matches);
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
@@ -1114,12 +1117,17 @@ return()=>{document.body.style.overflow=pb;document.documentElement.style.overfl
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
-L.tileLayer("https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",{subdomains:"abcd",maxZoom:19}).addTo(map);
+L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
 setTimeout(()=>{map.invalidateSize();},100);
 setMapReady(true);
 return()=>{map.remove();mapRef.current=null;};
 },[]);
+React.useEffect(()=>{
+const map=mapRef.current;if(!map)return;
+map.eachLayer(l=>{if(l instanceof L.TileLayer)map.removeLayer(l);});
+L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
+},[isDark]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 markersRef.current.forEach(m=>map.removeLayer(m));markersRef.current=[];
@@ -1657,7 +1665,7 @@ return React.createElement("div",{style:{background:C.black,color:C.bone,fontFam
 NavBar(),
 React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
-section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId,navTo,photoMap}),
+section==="map"           && React.createElement(MapView,{isFav,toggleFav,setModalId,modalId,navTo,photoMap,theme}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About(),
