@@ -1163,21 +1163,9 @@ if(!containerRef.current||mapRef.current)return;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
-const inv=()=>{if(mapRef.current)mapRef.current.invalidateSize({animate:false,pan:false});};
-requestAnimationFrame(()=>{inv();requestAnimationFrame(inv);});
-const t1=setTimeout(inv,80);
-const t2=setTimeout(inv,200);
-const t3=setTimeout(inv,500);
-const t4=setTimeout(inv,1000);
-const t5=setTimeout(inv,2000);
-map.on("tileload",inv);
-let ro;
-if(window.ResizeObserver&&containerRef.current){ro=new ResizeObserver(inv);ro.observe(containerRef.current);}
-const vvp=window.visualViewport;
-if(vvp)vvp.addEventListener("resize",inv);
-window.addEventListener("resize",inv);
+map.invalidateSize();
 setMapReady(true);
-return()=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);clearTimeout(t4);clearTimeout(t5);map.off("tileload",inv);if(ro)ro.disconnect();if(vvp)vvp.removeEventListener("resize",inv);window.removeEventListener("resize",inv);map.remove();mapRef.current=null;};
+return()=>{map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;

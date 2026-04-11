@@ -218,18 +218,6 @@
       /* ── Leaflet: transparent background so theme color shows through on tile load ── */
       .leaflet-container { background: transparent !important; }
 
-      /* ── Safe-area bottom fill: covers whatever Safari exposes below the viewport ── */
-      body::after {
-        content: "";
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: env(safe-area-inset-bottom);
-        background: inherit;
-        z-index: 0;
-        pointer-events: none;
-      }
     </style>
   </head>
   <body>
