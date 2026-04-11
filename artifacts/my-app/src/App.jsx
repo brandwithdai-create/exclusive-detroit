@@ -1367,7 +1367,7 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.55r
 React.createElement("h1",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(2.8rem,7vw,5.5rem)",fontWeight:300,lineHeight:0.92,color:C.white,marginBottom:20}},
 "Detroit",React.createElement("br"),React.createElement("em",{style:{fontStyle:"italic",color:C.goldL}},"Hidden Spots")
 ),
-React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:300,color:"var(--c-hero-sub)",maxWidth:480,margin:"0 auto 26px",lineHeight:1.82}},"The insider's guide to Detroit's most exclusive dining, cocktails, experiences, and hidden gems. Not for everyone — made for you."),
+React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:400,color:"var(--c-hero-sub)",maxWidth:480,margin:"0 auto 26px",lineHeight:1.82}},"The insider's guide to Detroit's most exclusive dining, cocktails, experiences, and hidden gems. Not for everyone — made for you."),
 React.createElement("div",{style:{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}},
 ["Breakfast","Sports","Hidden Bars","Rooftops","Dinner","Happy Hour","Cocktail Lounges","Nightlife"].map(c=>
 React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"var(--c-hero-pill-bg)",backdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",WebkitBackdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",boxShadow:cat===c?"none":"var(--c-hero-btn-shadow)",padding:"7px 14px",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
