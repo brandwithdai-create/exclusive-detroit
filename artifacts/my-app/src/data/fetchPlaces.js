@@ -11,13 +11,6 @@
 const LS_PREFIX = "excl_places_v1_";
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
-// One-time clear of all cached Places API data
-try {
-  Object.keys(localStorage)
-    .filter(k => k.startsWith(LS_PREFIX))
-    .forEach(k => localStorage.removeItem(k));
-} catch (_) {}
-
 function lsGet(key) {
   try {
     const raw = localStorage.getItem(LS_PREFIX + key);
@@ -34,6 +27,7 @@ function lsSet(key, data) {
 
 // Session-level cache (cleared on refresh — first line of defense)
 const _photoCache = new Map();
+const _searchCache = new Map();
 // In-flight dedup: prevents duplicate parallel requests for the same query
 const _inFlight = new Map();
 
