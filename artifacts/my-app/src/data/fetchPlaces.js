@@ -11,13 +11,6 @@
 const LS_PREFIX = "excl_places_v1_";
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
 
-// One-time clear of all cached Places API data
-try {
-  Object.keys(localStorage)
-    .filter(k => k.startsWith(LS_PREFIX))
-    .forEach(k => localStorage.removeItem(k));
-} catch (_) {}
-
 function lsGet(key) {
   try {
     const raw = localStorage.getItem(LS_PREFIX + key);
@@ -32,8 +25,9 @@ function lsSet(key, data) {
   try { localStorage.setItem(LS_PREFIX + key, JSON.stringify({ ts: Date.now(), data })); } catch {}
 }
 
-// Session-level cache (cleared on refresh — first line of defense)
+// Session-level cache (cleared on hard refresh — first line of defense)
 const _photoCache = new Map();
+const _searchCache = new Map();
 // In-flight dedup: prevents duplicate parallel requests for the same query
 const _inFlight = new Map();
 
@@ -46,7 +40,7 @@ export async function fetchPlacePhotos(query) {
   // 1. Session cache
   if (_photoCache.has(query)) return _photoCache.get(query);
 
-  // 2. Persistent localStorage cache (survives page refresh)
+  // 2. Persistent localStorage cache (survives page refresh, 24hr TTL)
   const persisted = lsGet(query);
   if (persisted) { _photoCache.set(query, persisted); return persisted; }
 
