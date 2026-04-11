@@ -51,14 +51,14 @@ desc:"An experiential cocktail bar tucked in a downtown alley. No signage, walk-
 vibes:["No Signage","Timed Seatings","Immersive"], addr:"1218 Griswold St, Detroit, MI 48226",
 hours:"Mon-Sat 5pm-1am | Sun Closed | Walk-ins only", best:"Weeknight / Weekend",
 exclusive:"No sign. No reservation. Walk in, get seated on a timer. The menu is whatever the bartender decides.",
-badges:["hidden","locals"], websiteUrl:"https://www.badluckbar.com" },
+cats:["Hidden Bars","Cocktail Lounges"],badges:["hidden","locals"], websiteUrl:"https://www.badluckbar.com" },
 
 { id:2,  name:"The Shelby",                       hood:"Downtown",           cat:"Speakeasies",
 desc:"A James Beard-nominated subterranean cocktail bar inside a restored 1925 bank vault. Blue door, down a staircase, and the cocktails are worth every step.",
 vibes:["Bank Vault","James Beard Nominated","Craft Cocktails"], addr:"607 Shelby St, Detroit, MI 48226 (blue door, downstairs)",
 hours:"Wed-Thu 5pm-12am | Fri-Sat 5pm-1am | Sun-Tue Closed", best:"Date Night / Weeknight",
 exclusive:"2022 James Beard semifinalist. NYT 36 Hours in Detroit. Hidden behind a blue door inside a century-old bank vault.",
-badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/shelby-detroit" },
+cats:["Speakeasies","Cocktail Lounges"],badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/shelby-detroit" },
 
 { id:3,  name:"Hidden at Parlay Detroit",         hood:"Downtown",           cat:"Speakeasies",
 desc:"A speakeasy in the lower level of Parlay Detroit sports bar. Curated cocktails, elevated bites, and a sultry atmosphere that has nothing to do with the sports bar above.",
