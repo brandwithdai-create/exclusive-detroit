@@ -1,7 +1,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Exclusive Detroit — Live Data Fetcher
 // Ticketmaster Discovery API — powers games, concerts, and local events.
-// Falls back to curated data if the key is missing or requests fail.
+//
+// INTEGRITY RULE: Every item returned by these functions MUST have a ticket_url.
+// No placeholder data, no fabricated events, no events without working ticket links.
+// If the API fails for concerts/events, an empty array is returned — never fake data.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { GAMES, DETROIT_EVENTS, CONCERTS, isUpcoming } from "./eventsData.js";
@@ -42,71 +45,53 @@ function getDateRange(daysAhead = 60) {
 
 // ─── DETROIT TEAM MAPPINGS ────────────────────────────────────────────────────
 const DETROIT_TEAMS = {
-  lions:    { name:"Detroit Lions",    sport:"NFL", short:"Lions"    },
-  tigers:   { name:"Detroit Tigers",   sport:"MLB", short:"Tigers"   },
-  pistons:  { name:"Detroit Pistons",  sport:"NBA", short:"Pistons"  },
+  lions:       { name:"Detroit Lions",    sport:"NFL", short:"Lions"    },
+  tigers:      { name:"Detroit Tigers",   sport:"MLB", short:"Tigers"   },
+  pistons:     { name:"Detroit Pistons",  sport:"NBA", short:"Pistons"  },
   "red wings": { name:"Detroit Red Wings", sport:"NHL", short:"Red Wings" },
 };
 
-// ESPN CDN team logo URLs — used as badge overlay on game card images
+// ESPN CDN team logo URLs
 const SPORT_LOGOS = {
   MLB: "https://a.espncdn.com/i/teamlogos/mlb/500/det.png",
   NBA: "https://a.espncdn.com/i/teamlogos/nba/500/det.png",
   NHL: "https://a.espncdn.com/i/teamlogos/nhl/500/det.png",
   NFL: "https://a.espncdn.com/i/teamlogos/nfl/500/det.png",
-
 };
 
-// Sport-specific action photography pools — unique images per sport.
-// Rotated by index so every game card gets a different photo.
-// Every image below was VISUALLY VERIFIED via screenshot — no guessing.
-// All broken 404s and mis-labeled images (boots, book, volleyball, etc.) removed.
-// Pexels images use the crop format for consistent 16:9 card aspect ratio.
+// Sport-specific action photography pools — rotated by index for card variety.
 const PX = (id) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=800&h=450&fit=crop`;
 
 const SPORT_IMAGE_POOLS = {
-  // Verified: all show baseball (stadium aerial, home-plate play, baseballs)
   MLB: [
-    "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=800&q=85", // baseball stadium from above
-    "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=85", // slide play at home plate
-    PX(1308713),                                                                 // baseballs close-up
+    "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=800&q=85",
+    "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=85",
+    PX(1308713),
   ],
-  // Verified: all show basketball court, arena, or player action
   NBA: [
-    "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=85",    // ball through hoop
-    "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&q=85", // arena wide shot
-    "https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?w=800&q=85", // player dunking
-    "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&q=85", // basketballs close-up
-    "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?w=800&q=85", // hoop net close-up
-    "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?w=800&q=85", // Spalding NBA ball
-    PX(945471),                                                                  // basketball court
+    "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=85",
+    "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&q=85",
+    "https://images.unsplash.com/photo-1608245449230-4ac19066d2d0?w=800&q=85",
+    "https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=800&q=85",
+    "https://images.unsplash.com/photo-1515523110800-9415d13b84a8?w=800&q=85",
+    "https://images.unsplash.com/photo-1516802273409-68526ee1bdd6?w=800&q=85",
+    PX(945471),
   ],
-  // Verified: all show ice hockey — goal post, game action, rink
   NHL: [
-    "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=85", // hockey goal post
-    "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800&q=85", // hockey game action
-    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=85", // empty ice rink
+    "https://images.unsplash.com/photo-1515703407324-5f753afd8be8?w=800&q=85",
+    "https://images.unsplash.com/photo-1580748141549-71748dbe0bdc?w=800&q=85",
+    "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&q=85",
   ],
-  // Verified: all show American football
   NFL: [
-    "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=85", // football on field
-    PX(1618200),                                                                 // scrimmage line
-    PX(2570139),                                                                 // football on grass
-    PX(209956),                                                                  // football on turf
-    PX(1618294),                                                                 // game action
-    PX(1618305),                                                                 // game action 2
+    "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=85",
+    PX(1618200),
+    PX(2570139),
+    PX(209956),
+    PX(1618294),
+    PX(1618305),
   ],
 };
-
-function detectSport(attraction) {
-  const name = (attraction?.name || "").toLowerCase();
-  if (name.includes("lion"))      return "NFL";
-  if (name.includes("tiger"))     return "MLB";
-  if (name.includes("piston"))    return "NBA";
-  if (name.includes("red wing"))  return "NHL";
-  return null;
-}
 
 function detectTeamInfo(name) {
   const n = (name || "").toLowerCase();
@@ -150,6 +135,8 @@ function tmUrl(extraParams, daysAhead = 60) {
 }
 
 // ── Fetch Games from Ticketmaster ─────────────────────────────────────────────
+// On API success: returns real Ticketmaster Detroit home games.
+// On API failure: falls back to static GAMES array (real venues, real team ticket pages).
 export async function fetchLiveGames() {
   if (!TM_KEY) return sortByDate(GAMES.filter(g => isUpcoming(g.date)));
 
@@ -164,7 +151,6 @@ export async function fetchLiveGames() {
     const games = [];
     const sportCounts = {};
     for (const ev of events) {
-      // Only Detroit home games for our four teams
       const attractions = ev?._embedded?.attractions || [];
       const name = (attractions[0]?.name || ev.name || "").toLowerCase();
 
@@ -174,55 +160,54 @@ export async function fetchLiveGames() {
       const teamInfo = detectTeamInfo(attractions[0]?.name || ev.name);
       if (!teamInfo) continue;
 
-      // Find opponent from the name (usually "Team vs Opponent")
+      // Only include events with a real Ticketmaster ticket URL
+      const ticketUrl = ev.url || null;
+      if (!ticketUrl) continue;
+
       const rawName  = ev.name || "";
       const vsParts  = rawName.split(/\s+vs\.?\s+/i);
       const opponent = vsParts.length > 1 ? vsParts[1].trim() : "TBA";
 
-      const dateObj  = ev.dates?.start;
-      const dateStr  = dateObj?.localDate || "";
-      const timeStr  = formatTMTime(dateObj?.dateTime, dateObj?.localTime);
-      const venue    = ev._embedded?.venues?.[0];
+      const dateObj   = ev.dates?.start;
+      const dateStr   = dateObj?.localDate || "";
+      const timeStr   = formatTMTime(dateObj?.dateTime, dateObj?.localTime);
+      const venue     = ev._embedded?.venues?.[0];
       const venueName = venue?.name || "Detroit";
-      const tmImg    = tmImageUrl(ev.images, "16_9");
-      // TM uses the SAME team-level promotional image for all home games of a team
-      // (not per-game unique images). Use our curated sport pool for guaranteed uniqueness.
-      // TM image is saved in images[] for gallery/reference use only.
-      const pool     = SPORT_IMAGE_POOLS[teamInfo.sport] || SPORT_IMAGE_POOLS.MLB;
-      const idx      = sportCounts[teamInfo.sport] || 0;
+      const tmImg     = tmImageUrl(ev.images, "16_9");
+      const pool      = SPORT_IMAGE_POOLS[teamInfo.sport] || SPORT_IMAGE_POOLS.MLB;
+      const idx       = sportCounts[teamInfo.sport] || 0;
       sportCounts[teamInfo.sport] = idx + 1;
-      const img      = pool[idx % pool.length];
+      const img       = pool[idx % pool.length];
 
       games.push({
-        id:                `tm-game-${ev.id}`,
-        sport:             teamInfo.sport,
-        team:              teamInfo.name,
-        teamShort:         teamInfo.short,
+        id:                   `tm-game-${ev.id}`,
+        sport:                teamInfo.sport,
+        team:                 teamInfo.name,
+        teamShort:            teamInfo.short,
         opponent,
-        home:              true,
-        date:              dateStr,
-        time:              timeStr,
-        venue:             venueName,
-        hood:              "Downtown",
-        note:              null,
-        image:             img,
-        logo_url:          SPORT_LOGOS[teamInfo.sport] || null,
-        images:            tmImg ? [tmImg] : [],
-        ticket_url:        ev.url || (teamInfo.sport === "MLB" ? "https://www.stubhub.com/detroit-tigers-tickets/category/138300332" : teamInfo.sport === "NBA" ? "https://www.stubhub.com/detroit-pistons-tickets/performer/2862" : teamInfo.sport === "NHL" ? "https://www.stubhub.com/detroit-red-wings-tickets/performer/2767" : "https://www.stubhub.com/detroit-lions-tickets/performer/6048"),
+        home:                 true,
+        date:                 dateStr,
+        time:                 timeStr,
+        venue:                venueName,
+        hood:                 "Downtown",
+        note:                 null,
+        image:                img,
+        logo_url:             SPORT_LOGOS[teamInfo.sport] || null,
+        images:               tmImg ? [tmImg] : [],
+        ticket_url:           ticketUrl,
         affiliate_ticket_url: null,
-        website_url:       ev.url || null,
-        _source:           "ticketmaster",
+        website_url:          ticketUrl,
+        _source:              "ticketmaster",
       });
     }
 
-    const live = dedupeById(games);
-    // Merge curated fallback for any team not found live
-    const liveSports = new Set(live.map(g => g.sport));
-    const curatedFill = GAMES
-      .filter(g => isUpcoming(g.date) && !liveSports.has(g.sport))
-      .slice(0, 4);
+    const live = sortByDate(dedupeById(games));
 
-    return sortByDate(dedupeById([...live, ...curatedFill]));
+    // If TM returned no Detroit games, fall back to static (real venues/team pages)
+    if (live.length === 0) {
+      return sortByDate(GAMES.filter(g => isUpcoming(g.date)));
+    }
+    return live;
   } catch (err) {
     console.warn("[ExclusiveDetroit] Games fetch failed, using curated:", err.message);
     return sortByDate(GAMES.filter(g => isUpcoming(g.date)));
@@ -241,7 +226,7 @@ function normalizeHood(city, venueName) {
   return "Detroit";
 }
 
-// ── Shared: map a Ticketmaster event to a concert/event object ────────────────
+// ── Shared: map a Ticketmaster event → concert/event object ──────────────────
 function mapTmEvent(ev, type = "concert") {
   const attraction = ev._embedded?.attractions?.[0];
   const venue      = ev._embedded?.venues?.[0];
@@ -255,6 +240,7 @@ function mapTmEvent(ev, type = "concert") {
   const img        = tmImageUrl(ev.images);
   const artistName = attraction?.name || ev.name;
   const venueName  = venue?.name || "Detroit";
+  const ticketUrl  = ev.url || null;
 
   return {
     id:                   `tm-${type}-${ev.id}`,
@@ -268,16 +254,18 @@ function mapTmEvent(ev, type = "concert") {
     category:             genre,
     desc:                 `Live at ${venueName}. ${genre}. Doors open shortly before show time.`,
     image:                img,
-    ticket_url:           ev.url || null,
+    ticket_url:           ticketUrl,
     affiliate_ticket_url: null,
-    website_url:          ev.url || null,
+    website_url:          ticketUrl,
     _source:              "ticketmaster",
   };
 }
 
 // ── Fetch Concerts from Ticketmaster ─────────────────────────────────────────
+// Returns only verified Ticketmaster events with real ticket URLs.
+// On API failure: returns [] — no fake fallback data.
 export async function fetchLiveConcerts() {
-  if (!TM_KEY) return sortByDate(CONCERTS.filter(c => isUpcoming(c.date)));
+  if (!TM_KEY) return [];
 
   try {
     const res  = await fetch(tmUrl({ classificationName: "music", size: "50" }));
@@ -287,31 +275,22 @@ export async function fetchLiveConcerts() {
 
     const concerts = events
       .map(ev => mapTmEvent(ev, "concert"))
-      .filter(c => c.date && isUpcoming(c.date));
+      .filter(c => c.date && isUpcoming(c.date) && c.ticket_url);
 
-    const live = dedupeById(concerts);
-    if (live.length >= 3) return sortByDate(live);
-
-    // Supplement with curated if sparse
-    const liveIds = new Set(live.map(c => c.artist?.toLowerCase()));
-    const extra   = CONCERTS
-      .filter(c => isUpcoming(c.date) && !liveIds.has(c.artist?.toLowerCase()))
-      .slice(0, 6 - live.length);
-    return sortByDate(dedupeById([...live, ...extra]));
+    return sortByDate(dedupeById(concerts));
   } catch (err) {
-    console.warn("[ExclusiveDetroit] Concerts fetch failed, using curated:", err.message);
-    return sortByDate(CONCERTS.filter(c => isUpcoming(c.date)));
+    console.warn("[ExclusiveDetroit] Concerts fetch failed:", err.message);
+    return [];
   }
 }
 
 // ── Fetch Events from Ticketmaster (Arts, Theatre, Comedy, Family, Misc) ──────
-// Pulls arts & theatre + family + comedy + miscellaneous categories from
-// Ticketmaster — replaces the deprecated Eventbrite public search API.
+// Returns only verified Ticketmaster events with real ticket URLs.
+// On API failure: returns [] — no fake fallback data.
 export async function fetchLiveEvents() {
-  if (!TM_KEY) return sortByDate(DETROIT_EVENTS.filter(e => isUpcoming(e.date)));
+  if (!TM_KEY) return [];
 
   try {
-    // Fetch arts/theatre and family/comedy in parallel for broader coverage
     const [r1, r2] = await Promise.all([
       fetch(tmUrl({ classificationName: "arts & theatre", size: "50" })),
       fetch(tmUrl({ classificationName: "family", size: "25" })),
@@ -329,19 +308,11 @@ export async function fetchLiveEvents() {
 
     const events = allEvs
       .map(ev => mapTmEvent(ev, "event"))
-      .filter(e => e.date && isUpcoming(e.date));
+      .filter(e => e.date && isUpcoming(e.date) && e.ticket_url);
 
-    const live = dedupeById(events);
-    if (live.length >= 3) return sortByDate(live);
-
-    // Supplement with curated if sparse
-    const liveTitles = new Set(live.map(e => e.title.toLowerCase()));
-    const extra      = DETROIT_EVENTS
-      .filter(e => isUpcoming(e.date) && !liveTitles.has(e.title.toLowerCase()))
-      .slice(0, 8 - live.length);
-    return sortByDate(dedupeById([...live, ...extra]));
+    return sortByDate(dedupeById(events));
   } catch (err) {
-    console.warn("[ExclusiveDetroit] Events fetch failed, using curated:", err.message);
-    return sortByDate(DETROIT_EVENTS.filter(e => isUpcoming(e.date)));
+    console.warn("[ExclusiveDetroit] Events fetch failed:", err.message);
+    return [];
   }
 }
