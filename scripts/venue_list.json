@@ -1,0 +1,442 @@
+[
+  {
+    "id": "1",
+    "name": "Bad Luck Bar",
+    "addr": "1218 Griswold St, Detroit, MI 48226"
+  },
+  {
+    "id": "2",
+    "name": "The Shelby",
+    "addr": "607 Shelby St, Detroit, MI 48226 (blue door, downstairs)"
+  },
+  {
+    "id": "3",
+    "name": "Hidden at Parlay Detroit",
+    "addr": "1260 Washington Blvd, Detroit, MI 48226"
+  },
+  {
+    "id": "4",
+    "name": "Standby",
+    "addr": "225 Gratiot Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "5",
+    "name": "The Skip",
+    "addr": "1234 Library St (The Belt Alley), Detroit, MI 48226"
+  },
+  {
+    "id": "6",
+    "name": "The Apparatus Room",
+    "addr": "250 W Larned St, Detroit, MI 48226"
+  },
+  {
+    "id": "7",
+    "name": "Time Will Tell",
+    "addr": "6408 Woodward Ave, Detroit, MI 48202"
+  },
+  {
+    "id": "8",
+    "name": "The Living Room - Shinola Hotel",
+    "addr": "1400 Woodward Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "9",
+    "name": "The Monarch Club",
+    "addr": "33 John R St, Penthouse, Detroit, MI 48226"
+  },
+  {
+    "id": "10",
+    "name": "The Conservatory - AC Hotel",
+    "addr": "10 Eliot St (corner Woodward and Eliot), Detroit, MI 48201"
+  },
+  {
+    "id": "11",
+    "name": "I|O Rooftop - The Godfrey",
+    "addr": "1401 Michigan Ave (7th Floor), Detroit, MI 48216"
+  },
+  {
+    "id": "12",
+    "name": "Kamper's Rooftop Lounge",
+    "addr": "1265 Washington Blvd (14th Floor), Detroit, MI 48226"
+  },
+  {
+    "id": "13",
+    "name": "Johnny Noodle King Rooftop",
+    "addr": "2601 W Fort St, Detroit, MI 48216"
+  },
+  {
+    "id": "14",
+    "name": "Monarch Club Rooftop Terraces",
+    "addr": "33 John R St, Penthouse, Detroit, MI 48226"
+  },
+  {
+    "id": "67",
+    "name": "Tin Roof Detroit",
+    "addr": "47 E Adams Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "15",
+    "name": "The Belt",
+    "addr": "Library St between Griswold and Shelby, Detroit, MI 48226"
+  },
+  {
+    "id": "16",
+    "name": "Deluxx Fluxx",
+    "addr": "1274 Library St (The Belt), Detroit, MI 48226"
+  },
+  {
+    "id": "17",
+    "name": "Parlay Detroit",
+    "addr": "1260 Washington Blvd, Detroit, MI 48226"
+  },
+  {
+    "id": "18",
+    "name": "Gilly's Clubhouse",
+    "addr": "1550 Woodward Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "19",
+    "name": "Post Bar",
+    "addr": "1325 Broadway St, Detroit, MI 48226"
+  },
+  {
+    "id": "20",
+    "name": "TV Lounge",
+    "addr": "2548 Grand River Ave, Detroit, MI 48201"
+  },
+  {
+    "id": "21",
+    "name": "Marble Bar",
+    "addr": "1501 Holden St, Detroit, MI 48208"
+  },
+  {
+    "id": "22",
+    "name": "The Spotlighter Theatre",
+    "addr": "415 Ledyard St, Detroit, MI 48201"
+  },
+  {
+    "id": "23",
+    "name": "The Majestic Theatre",
+    "addr": "4140 Woodward Ave, Detroit, MI 48201"
+  },
+  {
+    "id": "24",
+    "name": "Chartreuse Kitchen & Cocktails",
+    "addr": "15 E Kirby St (entrance on Woodward), Detroit, MI 48202"
+  },
+  {
+    "id": "25",
+    "name": "Parc Detroit",
+    "addr": "800 Woodward Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "34",
+    "name": "Prime + Proper",
+    "addr": "1145 Griswold St, Detroit, MI 48226"
+  },
+  {
+    "id": "35",
+    "name": "BESA",
+    "addr": "600 Woodward Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "36",
+    "name": "Ostrea",
+    "addr": "536 Shelby St, Detroit, MI 48226"
+  },
+  {
+    "id": "37",
+    "name": "Barda",
+    "addr": "4842 Grand River Ave, Detroit, MI 48208"
+  },
+  {
+    "id": "38",
+    "name": "Selden Standard",
+    "addr": "3921 2nd Ave, Detroit, MI 48201"
+  },
+  {
+    "id": "39",
+    "name": "Hiroki-San",
+    "addr": "1265 Washington Blvd (Lower Level, Book Tower), Detroit, MI 48226"
+  },
+  {
+    "id": "40",
+    "name": "Le Supreme",
+    "addr": "1265 Washington Blvd (Book Tower), Detroit, MI 48226"
+  },
+  {
+    "id": "41",
+    "name": "The Aladdin Sane",
+    "addr": "1265 Washington Blvd (Sublevel, Book Tower), Detroit, MI 48226"
+  },
+  {
+    "id": "26",
+    "name": "Belle Isle",
+    "addr": "MacArthur Bridge at Jefferson Ave and East Grand Blvd, Detroit, MI 48207"
+  },
+  {
+    "id": "27",
+    "name": "Eastern Market Saturday",
+    "addr": "2934 Russell St, Detroit, MI 48207"
+  },
+  {
+    "id": "28",
+    "name": "Dequindre Cut Greenway",
+    "addr": "Entrance: Gratiot Ave near Russell St, Detroit, MI 48207"
+  },
+  {
+    "id": "30",
+    "name": "The Peterboro",
+    "addr": "420 Peterboro St, Detroit, MI 48201"
+  },
+  {
+    "id": "31",
+    "name": "Batch Brewing Company",
+    "addr": "1400 Porter St, Detroit, MI 48216"
+  },
+  {
+    "id": "32",
+    "name": "Ottava Via",
+    "addr": "1400 Michigan Ave, Detroit, MI 48216"
+  },
+  {
+    "id": "33",
+    "name": "Lager House",
+    "addr": "1254 Michigan Ave, Detroit, MI 48216"
+  },
+  {
+    "id": "42",
+    "name": "Hudson Cafe",
+    "addr": "1241 Woodward Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "43",
+    "name": "Dime Store",
+    "addr": "719 Griswold St Suite 180 (inside Chrysler House), Detroit, MI 48226"
+  },
+  {
+    "id": "44",
+    "name": "Babo",
+    "addr": "15 E Kirby St Suite 115 (Park Shelton), Detroit, MI 48202"
+  },
+  {
+    "id": "45",
+    "name": "Joe Louis Southern Kitchen",
+    "addr": "6549 Woodward Ave, Detroit, MI 48202 (New Center) | 1528 Woodward Ave (Downtown, opened April 2026)"
+  },
+  {
+    "id": "46",
+    "name": "SPKRBOX",
+    "addr": "200 Grand River Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "68",
+    "name": "Orange Room",
+    "addr": "200 Grand River Ave (beneath SPKRBOX), Detroit, MI 48226"
+  },
+  {
+    "id": "47",
+    "name": "Cannelle",
+    "addr": "45 W Grand River Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "48",
+    "name": "Madcap Coffee",
+    "addr": "1413 Farmer St (Parker's Alley, behind Shinola Hotel), Detroit, MI 48226"
+  },
+  {
+    "id": "49",
+    "name": "Dessert Oasis Coffee Roasters",
+    "addr": "1220 Griswold St, Detroit, MI 48226"
+  },
+  {
+    "id": "50",
+    "name": "Avalon International Breads",
+    "addr": "1049 Woodward Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "51",
+    "name": "London Chop House",
+    "addr": "155 W Congress St, Detroit, MI 48226"
+  },
+  {
+    "id": "52",
+    "name": "Ima Izakaya",
+    "addr": "2100 Michigan Ave, Detroit, MI 48216"
+  },
+  {
+    "id": "53",
+    "name": "Experience Zuzu",
+    "addr": "511 Woodward Ave Suite 100, Detroit, MI 48226"
+  },
+  {
+    "id": "55",
+    "name": "Ima",
+    "addr": "4870 Cass Ave, Detroit, MI 48201 (Midtown / Wayne State campus)"
+  },
+  {
+    "id": "56",
+    "name": "Eatori Market",
+    "addr": "1215 Griswold St, Detroit, MI 48226"
+  },
+  {
+    "id": "57",
+    "name": "Frita Batidos",
+    "addr": "66 W Columbia St, Detroit, MI 48226"
+  },
+  {
+    "id": "63",
+    "name": "Vicente's Cuban Cuisine",
+    "addr": "1250 Library St, Detroit, MI 48226"
+  },
+  {
+    "id": "64",
+    "name": "Fixins Soul Kitchen",
+    "addr": "1435 Randolph St, Detroit, MI 48226"
+  },
+  {
+    "id": "65",
+    "name": "Grey Ghost",
+    "addr": "47 Watson St, Detroit, MI 48201"
+  },
+  {
+    "id": "69",
+    "name": "Vecino",
+    "addr": "4100 3rd Ave, Detroit, MI 48201"
+  },
+  {
+    "id": "70",
+    "name": "Soraya",
+    "addr": "160 W Fort St, Detroit, MI 48226"
+  },
+  {
+    "id": "71",
+    "name": "Bash",
+    "addr": "5069 Trumbull St, Detroit, MI 48208"
+  },
+  {
+    "id": "72",
+    "name": "Sahara",
+    "addr": "77 W Columbia St, Detroit, MI 48201"
+  },
+  {
+    "id": "73",
+    "name": "Adelina",
+    "addr": "1040 Woodward Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "74",
+    "name": "Sexy Steak",
+    "addr": "1942 Grand River Ave, Detroit, MI 48226"
+  },
+  {
+    "id": "75",
+    "name": "Leila",
+    "addr": "1245 Griswold St, Detroit, MI 48226"
+  },
+  {
+    "id": "76",
+    "name": "San Morello",
+    "addr": "1400 Woodward Ave (Shinola Hotel), Detroit, MI 48226"
+  },
+  {
+    "id": "77",
+    "name": "Mezcal",
+    "addr": "51 W Forest Ave, Detroit, MI 48202"
+  },
+  {
+    "id": "78",
+    "name": "Condado Tacos",
+    "addr": "634 Selden St, Unit A, Detroit, MI 48201"
+  },
+  {
+    "id": "79",
+    "name": "Bakersfield",
+    "addr": "3100 Woodward Ave, Detroit, MI 48201"
+  },
+  {
+    "id": "80",
+    "name": "La Lanterna",
+    "addr": "1224 Griswold St, Detroit, MI 48226"
+  },
+  {
+    "id": "81",
+    "name": "The Lone Goat",
+    "addr": "33 John R St, Detroit, MI 48226"
+  },
+  {
+    "id": "82",
+    "name": "Bucharest Grill",
+    "addr": "2684 E Jefferson Ave, Detroit, MI 48207"
+  },
+  {
+    "id": "83",
+    "name": "Cibo",
+    "addr": "600 W Lafayette Blvd, Detroit, MI 48226 (Cambria Hotel)"
+  },
+  {
+    "id": "84",
+    "name": "Highlands",
+    "addr": "400 Renaissance Center, Floors 71 & 72, Detroit, MI 48243"
+  },
+  {
+    "id": "85",
+    "name": "High Bar",
+    "addr": "400 Renaissance Center, Floor 71, Detroit, MI 48243"
+  },
+  {
+    "id": "86",
+    "name": "Haus of Brunch",
+    "addr": "204 Michigan Ave (Westin Book Cadillac), Detroit, MI 48226"
+  },
+  {
+    "id": "87",
+    "name": "The Brakeman",
+    "addr": "22 John R St, Detroit, MI 48226"
+  },
+  {
+    "id": "r1",
+    "name": "Bar Chenin",
+    "addr": "1509 Broadway St, Detroit, MI 48226 (Siren Hotel)"
+  },
+  {
+    "id": "r2",
+    "name": "Father Forgive Me",
+    "addr": "1265 Parkview St, Detroit, MI 48214 (The Shepherd campus)"
+  },
+  {
+    "id": "r3",
+    "name": "Pocket Change",
+    "addr": "1454 Gratiot Ave (2nd Floor), Detroit, MI 48207"
+  },
+  {
+    "id": "r4",
+    "name": "Street Beet",
+    "addr": "1800 Michigan Ave, Detroit, MI 48216"
+  },
+  {
+    "id": "r5",
+    "name": "Dirty Shake",
+    "addr": "4120 Cass Ave, Detroit, MI 48201"
+  },
+  {
+    "id": "u1",
+    "name": "Sunda New Asian",
+    "addr": "33 W Columbia St, Detroit, MI 48201"
+  },
+  {
+    "id": "u2",
+    "name": "Cosm Detroit",
+    "addr": "Cadillac Square (near Campus Martius), Detroit, MI 48226"
+  },
+  {
+    "id": "u3",
+    "name": "The Detroit EDITION Hotel",
+    "addr": "1208 Woodward Ave (Hudson's Detroit Tower), Detroit, MI 48226"
+  },
+  {
+    "id": "u4",
+    "name": "Little Liberia",
+    "addr": "16530 E Warren Ave, Detroit, MI 48224 (The Ribbon development)"
+  }
+]

@@ -1,0 +1,1498 @@
+[
+  {
+    "id": "1",
+    "name": "Bad Luck Bar",
+    "addr": "1218 Griswold St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333022,
+      -83.048681
+    ],
+    "current": [
+      42.3339,
+      -83.0497
+    ],
+    "deltaFt": 422,
+    "formatted": "1218 Griswold St, Detroit, MI 48226, USA",
+    "placeName": "Bad Luck Bar"
+  },
+  {
+    "id": "2",
+    "name": "The Shelby",
+    "addr": "607 Shelby St, Detroit, MI 48226 (blue door, downstairs)",
+    "status": "OK",
+    "geocoded": [
+      42.329286,
+      -83.04843
+    ],
+    "current": [
+      42.3316,
+      -83.0499
+    ],
+    "deltaFt": 933,
+    "formatted": "607 Shelby St, Detroit, MI 48226, USA",
+    "placeName": "shelby"
+  },
+  {
+    "id": "3",
+    "name": "Hidden at Parlay Detroit",
+    "addr": "1260 Washington Blvd, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333485,
+      -83.05055
+    ],
+    "current": [
+      42.3322,
+      -83.0524
+    ],
+    "deltaFt": 685,
+    "formatted": "1260 Washington Blvd, Detroit, MI 48226, USA",
+    "placeName": "Parlay Detroit"
+  },
+  {
+    "id": "4",
+    "name": "Standby",
+    "addr": "225 Gratiot Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334415,
+      -83.046032
+    ],
+    "current": [
+      42.3328,
+      -83.0452
+    ],
+    "deltaFt": 631,
+    "formatted": "225 Gratiot Ave, Detroit, MI 48226, USA",
+    "placeName": "Standby"
+  },
+  {
+    "id": "5",
+    "name": "The Skip",
+    "addr": "1234 Library St (The Belt Alley), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334706,
+      -83.046706
+    ],
+    "current": [
+      42.333,
+      -83.0489
+    ],
+    "deltaFt": 859,
+    "formatted": "1234 The Belt, Detroit, MI 48226, USA",
+    "placeName": "The Skip"
+  },
+  {
+    "id": "6",
+    "name": "The Apparatus Room",
+    "addr": "250 W Larned St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.328328,
+      -83.048352
+    ],
+    "current": [
+      42.3283,
+      -83.0469
+    ],
+    "deltaFt": 392,
+    "formatted": "250 W Larned St, Detroit, MI 48226, USA",
+    "placeName": "The Apparatus Room"
+  },
+  {
+    "id": "7",
+    "name": "Time Will Tell",
+    "addr": "6408 Woodward Ave, Detroit, MI 48202",
+    "status": "OK",
+    "geocoded": [
+      42.368716,
+      -83.072034
+    ],
+    "current": [
+      42.3675,
+      -83.0636
+    ],
+    "deltaFt": 2316,
+    "formatted": "6408 Woodward Ave, Detroit, MI 48202, USA",
+    "placeName": "Time Will Tell"
+  },
+  {
+    "id": "8",
+    "name": "The Living Room - Shinola Hotel",
+    "addr": "1400 Woodward Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334305,
+      -83.048496
+    ],
+    "current": [
+      42.3354,
+      -83.0489
+    ],
+    "deltaFt": 414,
+    "formatted": "1400 Woodward Ave, Detroit, MI 48226, USA",
+    "placeName": "Shinola Hotel"
+  },
+  {
+    "id": "9",
+    "name": "The Monarch Club",
+    "addr": "33 John R St, Penthouse, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.335431,
+      -83.048879
+    ],
+    "current": [
+      42.3337,
+      -83.0466
+    ],
+    "deltaFt": 881,
+    "formatted": "33 John R St Penthouse, Detroit, MI 48226, USA",
+    "placeName": "The Monarch Club"
+  },
+  {
+    "id": "10",
+    "name": "The Conservatory - AC Hotel",
+    "addr": "10 Eliot St (corner Woodward and Eliot), Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.346605,
+      -83.056836
+    ],
+    "current": [
+      42.3437,
+      -83.0558
+    ],
+    "deltaFt": 1096,
+    "formatted": "10 Eliot St, Detroit, MI 48201, USA",
+    "placeName": "The Conservatory"
+  },
+  {
+    "id": "11",
+    "name": "I|O Rooftop - The Godfrey",
+    "addr": "1401 Michigan Ave (7th Floor), Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.331026,
+      -83.065425
+    ],
+    "current": [
+      42.3291,
+      -83.0621
+    ],
+    "deltaFt": 1139,
+    "formatted": "1401 Michigan Ave, Detroit, MI 48216, USA",
+    "placeName": "IO Godfrey Rooftop Lounge"
+  },
+  {
+    "id": "12",
+    "name": "Kamper's Rooftop Lounge",
+    "addr": "1265 Washington Blvd (14th Floor), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.332992,
+      -83.05145
+    ],
+    "current": [
+      42.3323,
+      -83.0527
+    ],
+    "deltaFt": 421,
+    "formatted": "Book Tower, 1265 Washington Blvd Suite #200, Detroit, MI 48226, USA",
+    "placeName": "Kamper's Rooftop Bar"
+  },
+  {
+    "id": "13",
+    "name": "Johnny Noodle King Rooftop",
+    "addr": "2601 W Fort St, Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.318863,
+      -83.074382
+    ],
+    "current": [
+      42.3274,
+      -83.0714
+    ],
+    "deltaFt": 3217,
+    "formatted": "2601 W Fort St, Detroit, MI 48216, USA",
+    "placeName": "Johnny Noodle King"
+  },
+  {
+    "id": "14",
+    "name": "Monarch Club Rooftop Terraces",
+    "addr": "33 John R St, Penthouse, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.335431,
+      -83.048879
+    ],
+    "current": [
+      42.3338,
+      -83.0466
+    ],
+    "deltaFt": 855,
+    "formatted": "33 John R St Penthouse, Detroit, MI 48226, USA",
+    "placeName": "The Monarch Club"
+  },
+  {
+    "id": "67",
+    "name": "Tin Roof Detroit",
+    "addr": "47 E Adams Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.337576,
+      -83.050024
+    ],
+    "current": [
+      42.3314,
+      -83.0449
+    ],
+    "deltaFt": 2643,
+    "formatted": "47 E Adams Ave St, Detroit, MI 48226, USA",
+    "placeName": "Tin Roof"
+  },
+  {
+    "id": "15",
+    "name": "The Belt",
+    "addr": "Library St between Griswold and Shelby, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334927,
+      -83.047252
+    ],
+    "current": [
+      42.3329,
+      -83.0491
+    ],
+    "deltaFt": 892,
+    "formatted": "1274 Library St, Detroit, MI 48226, USA",
+    "placeName": "The BELT"
+  },
+  {
+    "id": "16",
+    "name": "Deluxx Fluxx",
+    "addr": "1274 Library St (The Belt), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334728,
+      -83.047255
+    ],
+    "current": [
+      42.3332,
+      -83.0489
+    ],
+    "deltaFt": 712,
+    "formatted": "1274 Library St, Detroit, MI 48226, USA",
+    "placeName": "Deluxx Fluxx"
+  },
+  {
+    "id": "17",
+    "name": "Parlay Detroit",
+    "addr": "1260 Washington Blvd, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333485,
+      -83.05055
+    ],
+    "current": [
+      42.3321,
+      -83.0524
+    ],
+    "deltaFt": 710,
+    "formatted": "1260 Washington Blvd, Detroit, MI 48226, USA",
+    "placeName": "Parlay Detroit"
+  },
+  {
+    "id": "18",
+    "name": "Gilly's Clubhouse",
+    "addr": "1550 Woodward Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.335712,
+      -83.049701
+    ],
+    "current": [
+      42.3361,
+      -83.049
+    ],
+    "deltaFt": 236,
+    "formatted": "1550 Woodward Ave, Detroit, MI 48226, USA",
+    "placeName": "Gilly's Clubhouse"
+  },
+  {
+    "id": "19",
+    "name": "Post Bar",
+    "addr": "1325 Broadway St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334812,
+      -83.046189
+    ],
+    "current": [
+      42.334,
+      -83.0473
+    ],
+    "deltaFt": 421,
+    "formatted": "1325 Broadway St, Detroit, MI 48226, USA",
+    "placeName": "The Post Bar"
+  },
+  {
+    "id": "20",
+    "name": "TV Lounge",
+    "addr": "2548 Grand River Ave, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.338047,
+      -83.062567
+    ],
+    "current": [
+      42.3617,
+      -83.0648
+    ],
+    "deltaFt": 8650,
+    "formatted": "2548 Grand River Ave, Detroit, MI 48201, USA",
+    "placeName": "T V Lounge"
+  },
+  {
+    "id": "21",
+    "name": "Marble Bar",
+    "addr": "1501 Holden St, Detroit, MI 48208",
+    "status": "OK",
+    "geocoded": [
+      42.363047,
+      -83.085201
+    ],
+    "current": [
+      42.3534,
+      -83.0886
+    ],
+    "deltaFt": 3637,
+    "formatted": "1501 Holden St, Detroit, MI 48208, USA",
+    "placeName": "Marble Bar"
+  },
+  {
+    "id": "22",
+    "name": "The Spotlighter Theatre",
+    "addr": "415 Ledyard St, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      39.29936,
+      -76.613974
+    ],
+    "current": [
+      42.3498,
+      -83.0583
+    ],
+    "deltaFt": 2097512,
+    "formatted": "817 St Paul St, Baltimore, MD 21202, USA",
+    "placeName": "Spotlighters Theatre"
+  },
+  {
+    "id": "23",
+    "name": "The Majestic Theatre",
+    "addr": "4140 Woodward Ave, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.351443,
+      -83.060108
+    ],
+    "current": [
+      42.3609,
+      -83.0624
+    ],
+    "deltaFt": 3505,
+    "formatted": "4140 Woodward Ave, Detroit, MI 48201, USA",
+    "placeName": "The Majestic Theatre"
+  },
+  {
+    "id": "24",
+    "name": "Chartreuse Kitchen & Cocktails",
+    "addr": "15 E Kirby St (entrance on Woodward), Detroit, MI 48202",
+    "status": "OK",
+    "geocoded": [
+      42.360223,
+      -83.066305
+    ],
+    "current": [
+      42.354,
+      -83.0571
+    ],
+    "deltaFt": 3363,
+    "formatted": "15 E Kirby St D, Detroit, MI 48202, USA",
+    "placeName": "Chartreuse Kitchen & Cocktails"
+  },
+  {
+    "id": "25",
+    "name": "Parc Detroit",
+    "addr": "800 Woodward Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.331413,
+      -83.046563
+    ],
+    "current": [
+      42.3326,
+      -83.049
+    ],
+    "deltaFt": 787,
+    "formatted": "800 Woodward Ave, Detroit, MI 48226, USA",
+    "placeName": "Parc"
+  },
+  {
+    "id": "34",
+    "name": "Prime + Proper",
+    "addr": "1145 Griswold St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.332288,
+      -83.04931
+    ],
+    "current": [
+      42.3338,
+      -83.0496
+    ],
+    "deltaFt": 557,
+    "formatted": "1145 Griswold St, Detroit, MI 48226, USA",
+    "placeName": "Prime + Proper"
+  },
+  {
+    "id": "35",
+    "name": "BESA",
+    "addr": "600 Woodward Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.330482,
+      -83.045432
+    ],
+    "current": [
+      42.3315,
+      -83.049
+    ],
+    "deltaFt": 1031,
+    "formatted": "600 Woodward Ave, Detroit, MI 48226, USA",
+    "placeName": "BESA"
+  },
+  {
+    "id": "36",
+    "name": "Ostrea",
+    "addr": "536 Shelby St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.329041,
+      -83.047737
+    ],
+    "current": [
+      42.3313,
+      -83.05
+    ],
+    "deltaFt": 1026,
+    "formatted": "536 Shelby St, Detroit, MI 48226, USA",
+    "placeName": "Ostrea Seafood"
+  },
+  {
+    "id": "37",
+    "name": "Barda",
+    "addr": "4842 Grand River Ave, Detroit, MI 48208",
+    "status": "OK",
+    "geocoded": [
+      42.348523,
+      -83.087987
+    ],
+    "current": [
+      42.3576,
+      -83.0912
+    ],
+    "deltaFt": 3423,
+    "formatted": "4842 Grand River Ave, Detroit, MI 48208, USA",
+    "placeName": "BARDA"
+  },
+  {
+    "id": "38",
+    "name": "Selden Standard",
+    "addr": "3921 2nd Ave, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.3478,
+      -83.065018
+    ],
+    "current": [
+      42.3567,
+      -83.0654
+    ],
+    "deltaFt": 3248,
+    "formatted": "3921 2nd Ave, Detroit, MI 48201, USA",
+    "placeName": "Selden Standard"
+  },
+  {
+    "id": "39",
+    "name": "Hiroki-San",
+    "addr": "1265 Washington Blvd (Lower Level, Book Tower), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333596,
+      -83.051529
+    ],
+    "current": [
+      42.3321,
+      -83.0527
+    ],
+    "deltaFt": 631,
+    "formatted": "1265 Washington Blvd, Detroit, MI 48226, USA",
+    "placeName": "HIROKI-SAN"
+  },
+  {
+    "id": "40",
+    "name": "Le Supreme",
+    "addr": "1265 Washington Blvd (Book Tower), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333539,
+      -83.051369
+    ],
+    "current": [
+      42.3322,
+      -83.0527
+    ],
+    "deltaFt": 606,
+    "formatted": "Book Tower, 1265 Washington Blvd Suite #200, Detroit, MI 48226, USA",
+    "placeName": "Le Suprême"
+  },
+  {
+    "id": "41",
+    "name": "The Aladdin Sane",
+    "addr": "1265 Washington Blvd (Sublevel, Book Tower), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.33356,
+      -83.051468
+    ],
+    "current": [
+      42.332,
+      -83.0527
+    ],
+    "deltaFt": 659,
+    "formatted": "Book Tower, 1265 Washington Blvd Suite #200, Detroit, MI 48226, USA",
+    "placeName": "The Aladdin Sane"
+  },
+  {
+    "id": "26",
+    "name": "Belle Isle",
+    "addr": "MacArthur Bridge at Jefferson Ave and East Grand Blvd, Detroit, MI 48207",
+    "status": "OK",
+    "geocoded": [
+      42.342649,
+      -82.998573
+    ],
+    "current": [
+      42.3398,
+      -82.982
+    ],
+    "deltaFt": 4588,
+    "formatted": "7200 E Jefferson Ave, Detroit, MI 48214, USA",
+    "placeName": "MacArthur Bridge"
+  },
+  {
+    "id": "27",
+    "name": "Eastern Market Saturday",
+    "addr": "2934 Russell St, Detroit, MI 48207",
+    "status": "OK",
+    "geocoded": [
+      42.34905,
+      -83.041898
+    ],
+    "current": [
+      42.3473,
+      -83.0401
+    ],
+    "deltaFt": 802,
+    "formatted": "2934 Russell St, Detroit, MI 48207, USA",
+    "placeName": "Eastern Market"
+  },
+  {
+    "id": "28",
+    "name": "Dequindre Cut Greenway",
+    "addr": "Entrance: Gratiot Ave near Russell St, Detroit, MI 48207",
+    "status": "OK",
+    "geocoded": [
+      42.343879,
+      -83.03356
+    ],
+    "current": [
+      42.3475,
+      -83.0397
+    ],
+    "deltaFt": 2118,
+    "formatted": "Dequindre Cut Greenway, Detroit, MI 48207, USA",
+    "placeName": "Dequindre Cut"
+  },
+  {
+    "id": "30",
+    "name": "The Peterboro",
+    "addr": "420 Peterboro St, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.344337,
+      -83.060694
+    ],
+    "current": [
+      42.3501,
+      -83.0611
+    ],
+    "deltaFt": 2105,
+    "formatted": "420 Peterboro St, Detroit, MI 48201, USA",
+    "placeName": "The Peterboro"
+  },
+  {
+    "id": "31",
+    "name": "Batch Brewing Company",
+    "addr": "1400 Porter St, Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.328529,
+      -83.063349
+    ],
+    "current": [
+      42.3289,
+      -83.0631
+    ],
+    "deltaFt": 151,
+    "formatted": "1400 Porter St, Detroit, MI 48216, USA",
+    "placeName": "Batch Brewing Company"
+  },
+  {
+    "id": "32",
+    "name": "Ottava Via",
+    "addr": "1400 Michigan Ave, Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.331703,
+      -83.065774
+    ],
+    "current": [
+      42.3291,
+      -83.0618
+    ],
+    "deltaFt": 1432,
+    "formatted": "1400 Michigan Ave, Detroit, MI 48216, USA",
+    "placeName": "Ottava Via"
+  },
+  {
+    "id": "33",
+    "name": "Lager House",
+    "addr": "1254 Michigan Ave, Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.331725,
+      -83.063272
+    ],
+    "current": [
+      42.329,
+      -83.0593
+    ],
+    "deltaFt": 1461,
+    "formatted": "1254 Michigan Ave, Detroit, MI 48226, USA",
+    "placeName": "Lager House"
+  },
+  {
+    "id": "42",
+    "name": "Hudson Cafe",
+    "addr": "1241 Woodward Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333418,
+      -83.048503
+    ],
+    "current": [
+      42.3346,
+      -83.049
+    ],
+    "deltaFt": 452,
+    "formatted": "1241 Woodward Ave, Detroit, MI 48226, USA",
+    "placeName": "The Hudson Cafe"
+  },
+  {
+    "id": "43",
+    "name": "Dime Store",
+    "addr": "719 Griswold St Suite 180 (inside Chrysler House), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.330891,
+      -83.047851
+    ],
+    "current": [
+      42.3316,
+      -83.0497
+    ],
+    "deltaFt": 562,
+    "formatted": "719 Griswold St #180, Detroit, MI 48226, USA",
+    "placeName": "Dime Store"
+  },
+  {
+    "id": "44",
+    "name": "Babo",
+    "addr": "15 E Kirby St Suite 115 (Park Shelton), Detroit, MI 48202",
+    "status": "OK",
+    "geocoded": [
+      42.360592,
+      -83.066499
+    ],
+    "current": [
+      42.3541,
+      -83.0572
+    ],
+    "deltaFt": 3449,
+    "formatted": "15 E Kirby St #115, Detroit, MI 48202, USA",
+    "placeName": "Babo"
+  },
+  {
+    "id": "45",
+    "name": "Joe Louis Southern Kitchen",
+    "addr": "6549 Woodward Ave, Detroit, MI 48202 (New Center) | 1528 Woodward Ave (Downtown, opened April 2026)",
+    "status": "OK",
+    "geocoded": [
+      42.369685,
+      -83.073426
+    ],
+    "current": [
+      42.369,
+      -83.0636
+    ],
+    "deltaFt": 2660,
+    "formatted": "6549 Woodward Ave, Detroit, MI 48202, USA",
+    "placeName": "Joe Louis Southern Kitchen"
+  },
+  {
+    "id": "46",
+    "name": "SPKRBOX",
+    "addr": "200 Grand River Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.33382,
+      -83.04991
+    ],
+    "current": [
+      42.3333,
+      -83.0494
+    ],
+    "deltaFt": 234,
+    "formatted": "200 Grand River Ave, Detroit, MI 48226, USA",
+    "placeName": "SPKRBOX"
+  },
+  {
+    "id": "68",
+    "name": "Orange Room",
+    "addr": "200 Grand River Ave (beneath SPKRBOX), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.33382,
+      -83.04991
+    ],
+    "current": [
+      42.3334,
+      -83.0494
+    ],
+    "deltaFt": 206,
+    "formatted": "200 Grand River Ave, Detroit, MI 48226, USA",
+    "placeName": "SPKRBOX"
+  },
+  {
+    "id": "47",
+    "name": "Cannelle",
+    "addr": "45 W Grand River Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333636,
+      -83.049522
+    ],
+    "current": [
+      42.3333,
+      -83.0502
+    ],
+    "deltaFt": 220,
+    "formatted": "45 W Grand River Ave, Detroit, MI 48226, USA",
+    "placeName": "Cannelle by Matt Knio"
+  },
+  {
+    "id": "48",
+    "name": "Madcap Coffee",
+    "addr": "1413 Farmer St (Parker's Alley, behind Shinola Hotel), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334558,
+      -83.047888
+    ],
+    "current": [
+      42.3355,
+      -83.0487
+    ],
+    "deltaFt": 407,
+    "formatted": "1413 Farmer St, Detroit, MI 48226, USA",
+    "placeName": "Madcap Coffee Company"
+  },
+  {
+    "id": "49",
+    "name": "Dessert Oasis Coffee Roasters",
+    "addr": "1220 Griswold St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.332997,
+      -83.048953
+    ],
+    "current": [
+      42.334,
+      -83.0497
+    ],
+    "deltaFt": 418,
+    "formatted": "1220 Griswold St, Detroit, MI 48226, USA",
+    "placeName": "Dessert Oasis Coffee Roasters Detroit"
+  },
+  {
+    "id": "50",
+    "name": "Avalon International Breads",
+    "addr": "1049 Woodward Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.33276,
+      -83.047963
+    ],
+    "current": [
+      42.3328,
+      -83.049
+    ],
+    "deltaFt": 280,
+    "formatted": "1049 Woodward Ave, Detroit, MI 48226, USA",
+    "placeName": "Avalon Cafe and Bakery"
+  },
+  {
+    "id": "51",
+    "name": "London Chop House",
+    "addr": "155 W Congress St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.3293,
+      -83.04754
+    ],
+    "current": [
+      42.328,
+      -83.0487
+    ],
+    "deltaFt": 568,
+    "formatted": "Murphy Telegraph Building, 155 W Congress St, Detroit, MI 48226, USA",
+    "placeName": "London Chop House"
+  },
+  {
+    "id": "52",
+    "name": "Ima Izakaya",
+    "addr": "2100 Michigan Ave, Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.331607,
+      -83.075355
+    ],
+    "current": [
+      42.3289,
+      -83.0662
+    ],
+    "deltaFt": 2659,
+    "formatted": "2100 Michigan Ave, Detroit, MI 48216, USA",
+    "placeName": "Ima Izakaya"
+  },
+  {
+    "id": "53",
+    "name": "Experience Zuzu",
+    "addr": "511 Woodward Ave Suite 100, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.329506,
+      -83.045689
+    ],
+    "current": [
+      42.331,
+      -83.049
+    ],
+    "deltaFt": 1046,
+    "formatted": "511 Woodward Ave suite 100, Detroit, MI 48226, USA",
+    "placeName": "Experience Zuzu"
+  },
+  {
+    "id": "55",
+    "name": "Ima",
+    "addr": "4870 Cass Ave, Detroit, MI 48201 (Midtown / Wayne State campus)",
+    "status": "OK",
+    "geocoded": [
+      42.355812,
+      -83.066356
+    ],
+    "current": [
+      42.3562,
+      -83.0654
+    ],
+    "deltaFt": 294,
+    "formatted": "4870 Cass Ave, Detroit, MI 48201, USA",
+    "placeName": "Ima Noodles"
+  },
+  {
+    "id": "56",
+    "name": "Eatori Market",
+    "addr": "1215 Griswold St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.33291,
+      -83.049808
+    ],
+    "current": [
+      42.3338,
+      -83.0497
+    ],
+    "deltaFt": 326,
+    "formatted": "1215 Griswold St, Detroit, MI 48226, USA",
+    "placeName": "Eatóri Detroit"
+  },
+  {
+    "id": "57",
+    "name": "Frita Batidos",
+    "addr": "66 W Columbia St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.337947,
+      -83.052997
+    ],
+    "current": [
+      42.3408,
+      -83.053
+    ],
+    "deltaFt": 1041,
+    "formatted": "66 W Columbia St, Detroit, MI 48201, USA",
+    "placeName": "Frita Batidos Detroit"
+  },
+  {
+    "id": "63",
+    "name": "Vicente's Cuban Cuisine",
+    "addr": "1250 Library St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334471,
+      -83.047014
+    ],
+    "current": [
+      42.3331,
+      -83.0487
+    ],
+    "deltaFt": 676,
+    "formatted": "1250 Library St, Detroit, MI 48226, USA",
+    "placeName": "Vicente’s Cuban Cuisine"
+  },
+  {
+    "id": "64",
+    "name": "Fixins Soul Kitchen",
+    "addr": "1435 Randolph St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.335598,
+      -83.045963
+    ],
+    "current": [
+      42.3341,
+      -83.046
+    ],
+    "deltaFt": 547,
+    "formatted": "1435 Randolph Street, Detroit, MI 48226, USA",
+    "placeName": "Fixins Soul Kitchen"
+  },
+  {
+    "id": "65",
+    "name": "Grey Ghost",
+    "addr": "47 Watson St, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.345175,
+      -83.05558
+    ],
+    "current": [
+      42.3523,
+      -83.0501
+    ],
+    "deltaFt": 2990,
+    "formatted": "47 Watson St, Detroit, MI 48201, USA",
+    "placeName": "Grey Ghost Detroit"
+  },
+  {
+    "id": "69",
+    "name": "Vecino",
+    "addr": "4100 3rd Ave, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.34833,
+      -83.067366
+    ],
+    "current": [
+      42.354,
+      -83.0661
+    ],
+    "deltaFt": 2097,
+    "formatted": "4100 3rd Ave, Detroit, MI 48201, USA",
+    "placeName": "Vecino"
+  },
+  {
+    "id": "70",
+    "name": "Soraya",
+    "addr": "160 W Fort St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.330563,
+      -83.048639
+    ],
+    "current": [
+      42.3283,
+      -83.0495
+    ],
+    "deltaFt": 857,
+    "formatted": "160 W Fort St 1st Floor, Ste 100, Detroit, MI 48226, USA",
+    "placeName": "Soraya"
+  },
+  {
+    "id": "71",
+    "name": "Bash",
+    "addr": "5069 Trumbull St, Detroit, MI 48208",
+    "status": "OK",
+    "geocoded": [
+      42.35302,
+      -83.079447
+    ],
+    "current": [
+      42.359,
+      -83.0863
+    ],
+    "deltaFt": 2859,
+    "formatted": "5069 Trumbull, Detroit, MI 48208, USA",
+    "placeName": "Bash Original Izakaya"
+  },
+  {
+    "id": "72",
+    "name": "Sahara",
+    "addr": "77 W Columbia St, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.337719,
+      -83.052991
+    ],
+    "current": [
+      42.3358,
+      -83.0495
+    ],
+    "deltaFt": 1173,
+    "formatted": "77 W Columbia St, Detroit, MI 48201, USA",
+    "placeName": "Sahara Restaurant Mediterranean Kitchen - The District Detroit"
+  },
+  {
+    "id": "73",
+    "name": "Adelina",
+    "addr": "1040 Woodward Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.332809,
+      -83.047436
+    ],
+    "current": [
+      42.334,
+      -83.0485
+    ],
+    "deltaFt": 521,
+    "formatted": "1040 Woodward Ave, Detroit, MI 48226, USA",
+    "placeName": "ADELINA"
+  },
+  {
+    "id": "74",
+    "name": "Sexy Steak",
+    "addr": "1942 Grand River Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.335035,
+      -83.054965
+    ],
+    "current": [
+      42.335,
+      -83.068
+    ],
+    "deltaFt": 3515,
+    "formatted": "1942 Grand River Ave, Detroit, MI 48226, USA",
+    "placeName": "Sexy Steak"
+  },
+  {
+    "id": "75",
+    "name": "Leila",
+    "addr": "1245 Griswold St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.33316,
+      -83.049848
+    ],
+    "current": [
+      42.3335,
+      -83.0502
+    ],
+    "deltaFt": 156,
+    "formatted": "1245 Griswold St, Detroit, MI 48226, USA",
+    "placeName": "Leila"
+  },
+  {
+    "id": "76",
+    "name": "San Morello",
+    "addr": "1400 Woodward Ave (Shinola Hotel), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334355,
+      -83.048544
+    ],
+    "current": [
+      42.3352,
+      -83.049
+    ],
+    "deltaFt": 332,
+    "formatted": "1400 Woodward Ave, Detroit, MI 48226, USA",
+    "placeName": "San Morello"
+  },
+  {
+    "id": "77",
+    "name": "Mezcal",
+    "addr": "51 W Forest Ave, Detroit, MI 48202",
+    "status": "OK",
+    "geocoded": [
+      42.354211,
+      -83.0638
+    ],
+    "current": [
+      42.3578,
+      -83.0679
+    ],
+    "deltaFt": 1714,
+    "formatted": "51 W Forest Ave, Detroit, MI 48201, USA",
+    "placeName": "Mezcal Mexican Restaurant-Detroit"
+  },
+  {
+    "id": "78",
+    "name": "Condado Tacos",
+    "addr": "634 Selden St, Unit A, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.347354,
+      -83.065259
+    ],
+    "current": [
+      42.3566,
+      -83.0657
+    ],
+    "deltaFt": 3375,
+    "formatted": "634 Selden St Unit A, Detroit, MI 48201, USA",
+    "placeName": "Condado Tacos"
+  },
+  {
+    "id": "79",
+    "name": "Bakersfield",
+    "addr": "3100 Woodward Ave, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.345162,
+      -83.05608
+    ],
+    "current": [
+      42.3522,
+      -83.0656
+    ],
+    "deltaFt": 3631,
+    "formatted": "3100 Woodward Ave, Detroit, MI 48201, USA",
+    "placeName": "Bakersfield DET"
+  },
+  {
+    "id": "80",
+    "name": "La Lanterna",
+    "addr": "1224 Griswold St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333061,
+      -83.049006
+    ],
+    "current": [
+      42.3337,
+      -83.0497
+    ],
+    "deltaFt": 299,
+    "formatted": "1224 Griswold St, Detroit, MI 48226, USA",
+    "placeName": "La Lanterna"
+  },
+  {
+    "id": "81",
+    "name": "The Lone Goat",
+    "addr": "33 John R St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.335307,
+      -83.04877
+    ],
+    "current": [
+      42.3337,
+      -83.0464
+    ],
+    "deltaFt": 867,
+    "formatted": "33 John R St, Detroit, MI 48226, USA",
+    "placeName": "The Lone Goat"
+  },
+  {
+    "id": "82",
+    "name": "Bucharest Grill",
+    "addr": "2684 E Jefferson Ave, Detroit, MI 48207",
+    "status": "OK",
+    "geocoded": [
+      42.338604,
+      -83.020675
+    ],
+    "current": [
+      42.339,
+      -83.018
+    ],
+    "deltaFt": 736,
+    "formatted": "2684 E Jefferson Ave, Detroit, MI 48207, USA",
+    "placeName": "Bucharest Grill"
+  },
+  {
+    "id": "83",
+    "name": "Cibo",
+    "addr": "600 W Lafayette Blvd, Detroit, MI 48226 (Cambria Hotel)",
+    "status": "OK",
+    "geocoded": [
+      42.328973,
+      -83.054509
+    ],
+    "current": [
+      42.3313,
+      -83.0535
+    ],
+    "deltaFt": 892,
+    "formatted": "600 W Lafayette Blvd, Detroit, MI 48226, USA",
+    "placeName": "Cibo Detroit"
+  },
+  {
+    "id": "84",
+    "name": "Highlands",
+    "addr": "400 Renaissance Center, Floors 71 & 72, Detroit, MI 48243",
+    "status": "OK",
+    "geocoded": [
+      42.328829,
+      -83.039587
+    ],
+    "current": [
+      42.3291,
+      -83.043
+    ],
+    "deltaFt": 926,
+    "formatted": "400 Renaissance Center floor 71, Detroit, MI 48243, USA",
+    "placeName": "Highlands Detroit"
+  },
+  {
+    "id": "85",
+    "name": "High Bar",
+    "addr": "400 Renaissance Center, Floor 71, Detroit, MI 48243",
+    "status": "OK",
+    "geocoded": [
+      42.328829,
+      -83.039587
+    ],
+    "current": [
+      42.3291,
+      -83.0432
+    ],
+    "deltaFt": 980,
+    "formatted": "400 Renaissance Center floor 71, Detroit, MI 48243, USA",
+    "placeName": "Highlands Detroit"
+  },
+  {
+    "id": "86",
+    "name": "Haus of Brunch",
+    "addr": "204 Michigan Ave (Westin Book Cadillac), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.33182,
+      -83.049973
+    ],
+    "current": [
+      42.3305,
+      -83.0513
+    ],
+    "deltaFt": 600,
+    "formatted": "204 Michigan Ave, Detroit, MI 48226, USA",
+    "placeName": "HAUS OF BRUNCH"
+  },
+  {
+    "id": "87",
+    "name": "The Brakeman",
+    "addr": "22 John R St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.335008,
+      -83.048556
+    ],
+    "current": [
+      42.3338,
+      -83.0462
+    ],
+    "deltaFt": 773,
+    "formatted": "22 John R St, Detroit, MI 48226, USA",
+    "placeName": "The Brakeman"
+  },
+  {
+    "id": "r1",
+    "name": "Bar Chenin",
+    "addr": "1509 Broadway St, Detroit, MI 48226 (Siren Hotel)",
+    "status": "OK",
+    "geocoded": [
+      42.335775,
+      -83.048593
+    ],
+    "current": [
+      42.334,
+      -83.047
+    ],
+    "deltaFt": 777,
+    "formatted": "1509 Broadway St Suite A-1, Detroit, MI 48226, USA",
+    "placeName": "Chenin"
+  },
+  {
+    "id": "r2",
+    "name": "Father Forgive Me",
+    "addr": "1265 Parkview St, Detroit, MI 48214 (The Shepherd campus)",
+    "status": "OK",
+    "geocoded": [
+      42.360358,
+      -82.984843
+    ],
+    "current": [
+      42.366,
+      -82.996
+    ],
+    "deltaFt": 3644,
+    "formatted": "1265 Parkview St, Detroit, MI 48214, USA",
+    "placeName": "Father Forgive Me"
+  },
+  {
+    "id": "r3",
+    "name": "Pocket Change",
+    "addr": "1454 Gratiot Ave (2nd Floor), Detroit, MI 48207",
+    "status": "OK",
+    "geocoded": [
+      42.344168,
+      -83.037879
+    ],
+    "current": [
+      42.347,
+      -83.037
+    ],
+    "deltaFt": 1060,
+    "formatted": "1454 Gratiot Ave, Detroit, MI 48207, USA",
+    "placeName": "Pocket Change"
+  },
+  {
+    "id": "r4",
+    "name": "Street Beet",
+    "addr": "1800 Michigan Ave, Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.33164,
+      -83.070831
+    ],
+    "current": [
+      42.3302,
+      -83.0699
+    ],
+    "deltaFt": 582,
+    "formatted": "1800 Michigan Ave, Detroit, MI 48216, USA",
+    "placeName": "Street Beet"
+  },
+  {
+    "id": "r5",
+    "name": "Dirty Shake",
+    "addr": "4120 Cass Ave, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.353007,
+      -83.067043
+    ],
+    "current": [
+      42.3606,
+      -83.0647
+    ],
+    "deltaFt": 2841,
+    "formatted": "4642 2nd Ave, Detroit, MI 48201, USA",
+    "placeName": "Dirty Shake"
+  },
+  {
+    "id": "u1",
+    "name": "Sunda New Asian",
+    "addr": "33 W Columbia St, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.33806,
+      -83.052108
+    ],
+    "current": [
+      42.3408,
+      -83.0514
+    ],
+    "deltaFt": 1018,
+    "formatted": "33 W Columbia St, Detroit, MI 48201, USA",
+    "placeName": "Sunda New Asian – Detroit"
+  },
+  {
+    "id": "u2",
+    "name": "Cosm Detroit",
+    "addr": "Cadillac Square (near Campus Martius), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.33224,
+      -83.045413
+    ],
+    "current": [
+      42.3319,
+      -83.0475
+    ],
+    "deltaFt": 576,
+    "formatted": "22 Monroe St, Detroit, MI 48226, USA",
+    "placeName": "Cosm Detroit (September 2026)"
+  },
+  {
+    "id": "u3",
+    "name": "The Detroit EDITION Hotel",
+    "addr": "1208 Woodward Ave (Hudson's Detroit Tower), Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333525,
+      -83.047582
+    ],
+    "current": [
+      42.3348,
+      -83.049
+    ],
+    "deltaFt": 602,
+    "formatted": "Detroit, MI 48226, USA",
+    "placeName": "Edition Residences & Hotel Detroit"
+  },
+  {
+    "id": "u4",
+    "name": "Little Liberia",
+    "addr": "16530 E Warren Ave, Detroit, MI 48224 (The Ribbon development)",
+    "status": "OK",
+    "geocoded": [
+      42.403741,
+      -82.935302
+    ],
+    "current": [
+      42.3819,
+      -82.9574
+    ],
+    "deltaFt": 9947,
+    "formatted": "16530 E Warren Ave Unit A, Detroit, MI 48224, USA",
+    "placeName": "Little Liberia"
+  }
+]

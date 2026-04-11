@@ -1,0 +1,172 @@
+[
+  {
+    "id": "1",
+    "name": "Bad Luck Bar",
+    "addr": "1218 Griswold St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.333022,
+      -83.048681
+    ],
+    "current": [
+      42.3339,
+      -83.0497
+    ],
+    "deltaFt": 422,
+    "formatted": "1218 Griswold St, Detroit, MI 48226, USA",
+    "placeName": "Bad Luck Bar"
+  },
+  {
+    "id": "4",
+    "name": "Standby",
+    "addr": "225 Gratiot Ave, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.334415,
+      -83.046032
+    ],
+    "current": [
+      42.3328,
+      -83.0452
+    ],
+    "deltaFt": 631,
+    "formatted": "225 Gratiot Ave, Detroit, MI 48226, USA",
+    "placeName": "Standby"
+  },
+  {
+    "id": "21",
+    "name": "Marble Bar",
+    "addr": "1501 Holden St, Detroit, MI 48208",
+    "status": "OK",
+    "geocoded": [
+      42.363047,
+      -83.085201
+    ],
+    "current": [
+      42.3534,
+      -83.0886
+    ],
+    "deltaFt": 3637,
+    "formatted": "1501 Holden St, Detroit, MI 48208, USA",
+    "placeName": "Marble Bar"
+  },
+  {
+    "id": "38",
+    "name": "Selden Standard",
+    "addr": "3921 2nd Ave, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.3478,
+      -83.065018
+    ],
+    "current": [
+      42.3567,
+      -83.0654
+    ],
+    "deltaFt": 3248,
+    "formatted": "3921 2nd Ave, Detroit, MI 48201, USA",
+    "placeName": "Selden Standard"
+  },
+  {
+    "id": "31",
+    "name": "Batch Brewing Company",
+    "addr": "1400 Porter St, Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.328529,
+      -83.063349
+    ],
+    "current": [
+      42.3289,
+      -83.0631
+    ],
+    "deltaFt": 151,
+    "formatted": "1400 Porter St, Detroit, MI 48216, USA",
+    "placeName": "Batch Brewing Company"
+  },
+  {
+    "id": "57",
+    "name": "Frita Batidos",
+    "addr": "66 W Columbia St, Detroit, MI 48226",
+    "status": "OK",
+    "geocoded": [
+      42.337947,
+      -83.052997
+    ],
+    "current": [
+      42.3408,
+      -83.053
+    ],
+    "deltaFt": 1041,
+    "formatted": "66 W Columbia St, Detroit, MI 48201, USA",
+    "placeName": "Frita Batidos Detroit"
+  },
+  {
+    "id": "65",
+    "name": "Grey Ghost",
+    "addr": "47 Watson St, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.345175,
+      -83.05558
+    ],
+    "current": [
+      42.3523,
+      -83.0501
+    ],
+    "deltaFt": 2990,
+    "formatted": "47 Watson St, Detroit, MI 48201, USA",
+    "placeName": "Grey Ghost Detroit"
+  },
+  {
+    "id": "r2",
+    "name": "Father Forgive Me",
+    "addr": "1265 Parkview St, Detroit, MI 48214 (The Shepherd campus)",
+    "status": "OK",
+    "geocoded": [
+      42.360358,
+      -82.984843
+    ],
+    "current": [
+      42.366,
+      -82.996
+    ],
+    "deltaFt": 3644,
+    "formatted": "1265 Parkview St, Detroit, MI 48214, USA",
+    "placeName": "Father Forgive Me"
+  },
+  {
+    "id": "r4",
+    "name": "Street Beet",
+    "addr": "1800 Michigan Ave, Detroit, MI 48216",
+    "status": "OK",
+    "geocoded": [
+      42.33164,
+      -83.070831
+    ],
+    "current": [
+      42.3302,
+      -83.0699
+    ],
+    "deltaFt": 582,
+    "formatted": "1800 Michigan Ave, Detroit, MI 48216, USA",
+    "placeName": "Street Beet"
+  },
+  {
+    "id": "u1",
+    "name": "Sunda New Asian",
+    "addr": "33 W Columbia St, Detroit, MI 48201",
+    "status": "OK",
+    "geocoded": [
+      42.33806,
+      -83.052108
+    ],
+    "current": [
+      42.3408,
+      -83.0514
+    ],
+    "deltaFt": 1018,
+    "formatted": "33 W Columbia St, Detroit, MI 48201, USA",
+    "placeName": "Sunda New Asian – Detroit"
+  }
+]
