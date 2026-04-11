@@ -1109,16 +1109,20 @@ if(!containerRef.current||mapRef.current)return;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
-const inv=()=>{if(mapRef.current)mapRef.current.invalidateSize({animate:false});};
-const t1=setTimeout(inv,50);
-const t2=setTimeout(inv,250);
-const t3=setTimeout(inv,700);
+const inv=()=>{if(mapRef.current)mapRef.current.invalidateSize({animate:false,pan:false});};
+requestAnimationFrame(()=>{inv();requestAnimationFrame(inv);});
+const t1=setTimeout(inv,80);
+const t2=setTimeout(inv,200);
+const t3=setTimeout(inv,500);
+const t4=setTimeout(inv,1000);
+const t5=setTimeout(inv,2000);
+map.on("tileload",inv);
 let ro;
 if(window.ResizeObserver&&containerRef.current){ro=new ResizeObserver(inv);ro.observe(containerRef.current);}
 const vvp=window.visualViewport;
 if(vvp)vvp.addEventListener("resize",inv);
 setMapReady(true);
-return()=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);if(ro)ro.disconnect();if(vvp)vvp.removeEventListener("resize",inv);map.remove();mapRef.current=null;};
+return()=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);clearTimeout(t4);clearTimeout(t5);map.off("tileload",inv);if(ro)ro.disconnect();if(vvp)vvp.removeEventListener("resize",inv);map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
@@ -1176,8 +1180,8 @@ c==="all"?"All Venues":c
 );})
 ),
 // ── Map tile area ──
-React.createElement("div",{style:{flex:1,position:"relative",minHeight:0,overflow:"hidden",background:isDark?"#1a1a2e":"#f4f0e8"}},
-React.createElement("div",{ref:containerRef,style:{position:"absolute",top:0,left:0,right:0,bottom:0,width:"100%",height:"100%"}})),
+React.createElement("div",{style:{flex:"1 1 0",position:"relative",height:0,overflow:"hidden",background:isDark?"#1a1a2e":"#f4f0e8"}},
+React.createElement("div",{ref:containerRef,style:{position:"absolute",inset:0,width:"100%",height:"100%"}})),
 // ── Custom zoom + near-me controls ──
 React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
 React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRadius:10,overflow:"hidden",boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)"}},
