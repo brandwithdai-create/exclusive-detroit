@@ -1517,15 +1517,17 @@ UPCOMING.length>0&&React.createElement("div",{style:{background:"var(--c-grad-ne
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"}},
 React.createElement("div",{style:{paddingTop:44,paddingBottom:24}},
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,marginBottom:10}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.purple}},"New & Noteworthy"),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.72rem",fontWeight:600,letterSpacing:"0.22em",textTransform:"uppercase",color:C.purple}},"New & Noteworthy"),
 React.createElement("div",{style:{flex:1,height:1,background:"rgba(110,75,195,0.25)"}})
 ),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.5rem)",fontWeight:400,color:C.white}},"Opening Soon in Detroit")
 ),
 React.createElement("div",{style:{display:"flex",gap:12,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",scrollSnapType:"x mandatory",paddingBottom:4,marginLeft:-22,marginRight:-22,paddingLeft:22,paddingRight:22}},
-UPCOMING.slice(0,4).map((v,i)=>React.createElement("div",{key:v.id,style:{flexShrink:0,width:"calc(100vw - 60px)",maxWidth:400,scrollSnapAlign:"start"}},
-React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:172,hideVibes:true})
-))
+[0,2].map(si=>
+React.createElement("div",{key:si,style:{flexShrink:0,width:"calc(100vw - 60px)",maxWidth:400,scrollSnapAlign:"start",display:"flex",flexDirection:"column",gap:10}},
+UPCOMING.slice(si,si+2).map((v,pi)=>React.createElement(UCard,{key:v.id,venue:v,i:si+pi,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:110,hideVibes:true}))
+)
+)
 )
 )
 ),
