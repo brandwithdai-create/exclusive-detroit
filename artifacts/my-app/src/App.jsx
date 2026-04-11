@@ -1133,13 +1133,10 @@ const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
 React.useEffect(()=>{
-const mapBg=isDark?"#1a1a2e":"#f4f0e8";
 // ── Save existing values ──────────────────────────────────────────────────
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
 const pp=document.body.style.position,pw=document.body.style.width,pt=document.body.style.top;
 const pob=document.body.style.overscrollBehavior,poh=document.documentElement.style.overscrollBehavior;
-const pbb=document.body.style.background,pbh=document.documentElement.style.background;
-const phb=document.body.style.height,phh=document.documentElement.style.height;
 const scrollY=window.scrollY;
 // ── Root fix: lock body so page behind map cannot scroll or bounce ────────
 document.body.style.overflow="hidden";
@@ -1150,12 +1147,6 @@ document.documentElement.style.overflow="hidden";
 // ── Root fix: kill elastic overscroll on both html and body ───────────────
 document.body.style.overscrollBehavior="none";
 document.documentElement.style.overscrollBehavior="none";
-// ── Root fix: force dvh height so Safari URL-bar transitions leave no gap ─
-document.body.style.height="100dvh";
-document.documentElement.style.height="100dvh";
-// ── Visual fallback: if Safari exposes html/body during bounce, show map color ──
-document.body.style.background=mapBg;
-document.documentElement.style.background=mapBg;
 return()=>{
 document.body.style.overflow=pb;
 document.body.style.position=pp;
@@ -1164,10 +1155,6 @@ document.body.style.top=pt;
 document.documentElement.style.overflow=ph;
 document.body.style.overscrollBehavior=pob;
 document.documentElement.style.overscrollBehavior=poh;
-document.body.style.height=phb;
-document.documentElement.style.height=phh;
-document.body.style.background=pbb;
-document.documentElement.style.background=pbh;
 window.scrollTo(0,scrollY);
 };
 },[]);
@@ -1276,7 +1263,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
-return React.createElement("div",{style:{position:"fixed",inset:0,width:"100%",height:"100dvh",minHeight:"100dvh",maxHeight:"100dvh",overflow:"hidden",overscrollBehavior:"none",zIndex:400,background:isDark?"#1a1a2e":"#f4f0e8"}},
+return React.createElement("div",{style:{position:"fixed",inset:0,overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#1a1a2e":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
@@ -1291,8 +1278,8 @@ c==="all"?"All Venues":c
 );})
 ),
 // ── Map tile area — full bleed absolute, sits behind all overlays ──
-React.createElement("div",{style:{position:"absolute",inset:0,width:"100%",height:"100%",overflow:"hidden",background:isDark?"#1a1a2e":"#f4f0e8"}},
-React.createElement("div",{ref:containerRef,style:{position:"absolute",inset:0,width:"100%",height:"100%"}})),
+React.createElement("div",{style:{position:"absolute",inset:0,overflow:"hidden",background:isDark?"#1a1a2e":"#f4f0e8"}},
+React.createElement("div",{ref:containerRef,style:{position:"absolute",inset:0}})),
 // ── Custom zoom + near-me controls ──
 React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
 React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRadius:10,overflow:"hidden",boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)"}},
