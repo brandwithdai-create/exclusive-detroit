@@ -1008,7 +1008,7 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 });
 
-const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap, imgHeight }) {
+const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap, imgHeight, hideVibes }) {
 const [hov, setHov] = useState(false);
 const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
@@ -1030,7 +1030,7 @@ React.createElement("div", { style:{ display:"flex", gap:5 }}, React.createEleme
 React.createElement("h3", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}, venue.name),
 vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.82rem",fontStyle:"italic",color:"var(--c-vibe-txt)",margin:0,lineHeight:1.4}},vibeLine),
 React.createElement("p", { style:{ fontSize:"0.78rem", color:C.ash, fontWeight:300, lineHeight:1.65, flex:1, margin:0 }}, venue.desc),
-React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:4 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v}))),
+!hideVibes&&React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:4 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v}))),
 React.createElement("div", { style:{ background:just?"rgba(201,168,76,0.09)":"rgba(110,75,195,0.09)", border:"1px solid "+(just?"rgba(201,168,76,0.28)":"rgba(110,75,195,0.28)"), borderRadius:5, padding:"6px 10px" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.48rem", letterSpacing:"0.09em", color:acc }}, venue.note)
 ),
@@ -1524,7 +1524,7 @@ React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 ),
 React.createElement("div",{style:{display:"flex",gap:14,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",paddingBottom:4,marginLeft:-22,marginRight:-22,paddingLeft:22,paddingRight:22}},
 UPCOMING.slice(0,4).map((v,i)=>React.createElement("div",{key:v.id,style:{flexShrink:0,width:260}},
-React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:148})
+React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:148,hideVibes:true})
 ))
 )
 )
@@ -1537,7 +1537,6 @@ const active=c===cat;
 return React.createElement("button",{key:c,onClick:()=>switchCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1.5px solid "+(active?C.gold:"var(--c-filter-bdr)"),background:active?C.gold:"transparent",color:active?C.black:C.ash,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Spots":c);
 })),
 React.createElement("div",{style:{paddingBottom:10,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}},
-nearMe?React.createElement("button",{onClick:deactivateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",border:"1px solid "+C.purple,color:C.black,background:C.purple,padding:"5px 12px",borderRadius:100,cursor:"pointer"}},"◉ Near Me ×"):React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",border:"1px solid "+C.border,color:C.smoke,background:"transparent",padding:"5px 12px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
 nearMe&&userCoords&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",color:C.purple,letterSpacing:"0.08em"}},"Sorted by distance"),
 geoError&&!nearMe&&React.createElement("span",{style:{fontSize:"0.73rem",color:"#E8A0A0",fontWeight:300}},geoError)
 )
