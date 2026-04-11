@@ -1139,6 +1139,7 @@ const pb=document.body.style.overflow,ph=document.documentElement.style.overflow
 const pp=document.body.style.position,pw=document.body.style.width,pt=document.body.style.top;
 const pob=document.body.style.overscrollBehavior,poh=document.documentElement.style.overscrollBehavior;
 const pbb=document.body.style.background,pbh=document.documentElement.style.background;
+const phb=document.body.style.height,phh=document.documentElement.style.height;
 const scrollY=window.scrollY;
 // ── Root fix: lock body so page behind map cannot scroll or bounce ────────
 document.body.style.overflow="hidden";
@@ -1149,6 +1150,9 @@ document.documentElement.style.overflow="hidden";
 // ── Root fix: kill elastic overscroll on both html and body ───────────────
 document.body.style.overscrollBehavior="none";
 document.documentElement.style.overscrollBehavior="none";
+// ── Root fix: force dvh height so Safari URL-bar transitions leave no gap ─
+document.body.style.height="100dvh";
+document.documentElement.style.height="100dvh";
 // ── Visual fallback: if Safari exposes html/body during bounce, show map color ──
 document.body.style.background=mapBg;
 document.documentElement.style.background=mapBg;
@@ -1160,6 +1164,8 @@ document.body.style.top=pt;
 document.documentElement.style.overflow=ph;
 document.body.style.overscrollBehavior=pob;
 document.documentElement.style.overscrollBehavior=poh;
+document.body.style.height=phb;
+document.documentElement.style.height=phh;
 document.body.style.background=pbb;
 document.documentElement.style.background=pbh;
 window.scrollTo(0,scrollY);
@@ -1270,7 +1276,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
-return React.createElement("div",{style:{position:"fixed",top:0,left:0,right:0,bottom:0,paddingTop:"calc(68px + env(safe-area-inset-top))",boxSizing:"border-box",display:"flex",flexDirection:"column",overflow:"hidden",overscrollBehavior:"none",zIndex:400,background:isDark?"#1a1a2e":"#f4f0e8"}},
+return React.createElement("div",{style:{position:"fixed",top:0,left:0,right:0,height:"100dvh",minHeight:"100dvh",maxHeight:"100dvh",paddingTop:"calc(68px + env(safe-area-inset-top))",boxSizing:"border-box",display:"flex",flexDirection:"column",overflow:"hidden",overscrollBehavior:"none",zIndex:400,background:isDark?"#1a1a2e":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",flexShrink:0,scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
