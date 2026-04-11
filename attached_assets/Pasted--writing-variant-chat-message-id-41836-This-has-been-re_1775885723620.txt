@@ -1,0 +1,45 @@
+:::writing{variant=“chat_message” id=“41836”}
+This has been reported multiple times and is still not fixed. I do not want another surface-level adjustment. I need the root cause fixed and verified in Safari on iPhone.
+
+Problem:
+The map page still shows white/blank space at the bottom in Safari. The map must fill the full visible screen. Chrome is not the source of truth here — Safari on iPhone is.
+
+Required approach:
+	•	Fix this as a Safari viewport/layout bug only
+	•	Do not suggest cosmetic workarounds unless the root cause is identified first
+	•	Do not move buttons around as a substitute for fixing the actual issue
+	•	The bottom controls may overlay the map if needed, but the map itself must extend all the way to the bottom with no white space
+
+What to do:
+	1.	Inspect the exact map page container and every parent wrapper affecting height
+	2.	Identify the specific cause of the white space in iPhone Safari
+	3.	Fix the root issue, which is likely one of:
+	•	incorrect 100vh behavior in Safari
+	•	parent container not stretching fully
+	•	safe-area inset or bottom padding/margin applied incorrectly
+	•	bottom controls reserving layout space instead of overlaying
+	4.	Test in Safari specifically after the change
+	5.	Do not mark complete until the map is truly full-screen with zero white space at the bottom
+
+Proof required after fix:
+	•	Tell me the exact root cause
+	•	Tell me the exact file/component changed
+	•	Tell me the exact CSS/layout rule that was updated
+	•	Provide a Safari screenshot showing the map reaching the bottom of the screen with no blank area
+
+Important cost constraints:
+	•	Do not scan unrelated files
+	•	Do not refactor unrelated pages
+	•	Do not run broad audits
+	•	Do not touch API logic
+	•	Only work on the map page layout and the minimum required parent containers
+	•	Stop after this issue is fixed and verified
+
+This needs a real fix, not another attempt.
+:::
+
+That message corners them into giving you:
+	•	the actual cause
+	•	the actual file
+	•	the actual CSS rule
+	•	proof in Safari

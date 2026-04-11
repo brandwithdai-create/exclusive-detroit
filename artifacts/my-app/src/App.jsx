@@ -1132,8 +1132,21 @@ const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
 React.useEffect(()=>{
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
-document.body.style.overflow="hidden";document.documentElement.style.overflow="hidden";
-return()=>{document.body.style.overflow=pb;document.documentElement.style.overflow=ph;};
+const pp=document.body.style.position,pw=document.body.style.width,pt=document.body.style.top;
+const scrollY=window.scrollY;
+document.body.style.overflow="hidden";
+document.body.style.position="fixed";
+document.body.style.width="100%";
+document.body.style.top=-scrollY+"px";
+document.documentElement.style.overflow="hidden";
+return()=>{
+document.body.style.overflow=pb;
+document.body.style.position=pp;
+document.body.style.width=pw;
+document.body.style.top=pt;
+document.documentElement.style.overflow=ph;
+window.scrollTo(0,scrollY);
+};
 },[]);
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
