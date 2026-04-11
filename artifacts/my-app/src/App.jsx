@@ -1188,10 +1188,9 @@ React.createElement("path",{d:"M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"})
 )
 )
 ),
-// ── Bottom bar: List | Legend | Re-center ──
-React.createElement("div",{style:{position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",left:0,right:0,display:"flex",alignItems:"center",justifyContent:"space-between",padding:"0 14px",zIndex:800,pointerEvents:"none"}},
-React.createElement("button",{onClick:()=>navTo&&navTo("explore"),style:{...PILL}},"≡  List"),
-React.createElement("div",{style:{display:"flex",alignItems:"center",gap:12,border:"1px solid var(--c-mzoom-bdr)",background:"var(--c-mzoom-bg)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",borderRadius:100,padding:"8px 16px",boxShadow:"0 2px 14px rgba(0,0,0,0.22)"}},
+// ── Bottom bar: List | Legend | Re-center — each independently positioned to avoid iOS pointer-events:none inheritance bug ──
+React.createElement("button",{onClick:()=>navTo&&navTo("explore"),style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",left:14,zIndex:900,touchAction:"manipulation"}},"≡  List"),
+React.createElement("div",{style:{position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",left:"50%",transform:"translateX(-50%)",zIndex:800,pointerEvents:"none",display:"flex",alignItems:"center",gap:12,border:"1px solid var(--c-mzoom-bdr)",background:"var(--c-mzoom-bg)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",borderRadius:100,padding:"8px 16px",boxShadow:"0 2px 14px rgba(0,0,0,0.22)"}},
 React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
 React.createElement("div",{style:{width:8,height:8,borderRadius:"50%",background:C.gold,boxShadow:"0 0 6px rgba(201,168,76,0.55)"}}),
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"Venues")
@@ -1202,8 +1201,7 @@ React.createElement("div",{style:{width:8,height:8,borderRadius:"50%",background
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"New / Soon")
 )
 ),
-React.createElement("button",{onClick:reCenter,style:{...PILL}},"⊕  Re-center")
-),
+React.createElement("button",{onClick:reCenter,style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",right:14,zIndex:900,touchAction:"manipulation"}},"⊕  Re-center"),
 // ── Bottom sheet ──
 React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:"var(--c-sheet-bg)",borderTop:"1px solid var(--c-sheet-bdr)",borderRadius:"18px 18px 0 0",zIndex:1100,transform:selected?"translateY(0)":"translateY(110%)",transition:"transform 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:selected?"auto":"none",willChange:"transform",boxShadow:"0 -6px 40px rgba(0,0,0,0.25)"}},
 React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:4}},
