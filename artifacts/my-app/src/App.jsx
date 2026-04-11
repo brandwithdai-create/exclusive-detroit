@@ -1522,9 +1522,9 @@ React.createElement("div",{style:{flex:1,height:1,background:"rgba(110,75,195,0.
 ),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.5rem)",fontWeight:400,color:C.white}},"Opening Soon in Detroit")
 ),
-React.createElement("div",{style:{display:"flex",gap:14,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",paddingBottom:4,marginLeft:-22,marginRight:-22,paddingLeft:22,paddingRight:22}},
-UPCOMING.slice(0,4).map((v,i)=>React.createElement("div",{key:v.id,style:{flexShrink:0,width:260}},
-React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:148,hideVibes:true})
+React.createElement("div",{style:{display:"flex",gap:12,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",scrollSnapType:"x mandatory",paddingBottom:4,marginLeft:-22,marginRight:-22,paddingLeft:22,paddingRight:22}},
+UPCOMING.slice(0,4).map((v,i)=>React.createElement("div",{key:v.id,style:{flexShrink:0,width:"calc(100vw - 60px)",maxWidth:400,scrollSnapAlign:"start"}},
+React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:172,hideVibes:true})
 ))
 )
 )
