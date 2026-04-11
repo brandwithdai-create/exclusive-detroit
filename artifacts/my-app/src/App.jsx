@@ -1175,8 +1175,9 @@ let ro;
 if(window.ResizeObserver&&containerRef.current){ro=new ResizeObserver(inv);ro.observe(containerRef.current);}
 const vvp=window.visualViewport;
 if(vvp)vvp.addEventListener("resize",inv);
+window.addEventListener("resize",inv);
 setMapReady(true);
-return()=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);clearTimeout(t4);clearTimeout(t5);map.off("tileload",inv);if(ro)ro.disconnect();if(vvp)vvp.removeEventListener("resize",inv);map.remove();mapRef.current=null;};
+return()=>{clearTimeout(t1);clearTimeout(t2);clearTimeout(t3);clearTimeout(t4);clearTimeout(t5);map.off("tileload",inv);if(ro)ro.disconnect();if(vvp)vvp.removeEventListener("resize",inv);window.removeEventListener("resize",inv);map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
