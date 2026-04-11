@@ -263,8 +263,8 @@ function LoadingGrid() {
 
 const TABS = [
   { key:"games",    label:"Games"    },
-  { key:"events",   label:"Events"   },
   { key:"concerts", label:"Concerts" },
+  { key:"events",   label:"Events"   },
 ];
 
 // Cache with TTL — expires after 10 minutes so stale data is never shown indefinitely.
