@@ -789,7 +789,7 @@ addr:"2921 E Grand Blvd, Detroit, MI 48202",
 hours:"Wed-Thu 5pm-9pm | Fri-Sat 5pm-10pm | Sun 4:30pm-8pm | Mon-Tue Closed | Happy Hour: Wed-Thu 5pm-7pm, Sun all night",
 best:"Dinner / Happy Hour / Date Night",
 exclusive:"$2 oysters, $8 martinis, $8 wine, $5 beer during happy hour — Wednesday–Thursday 5–7 PM and all night Sunday. Led by a Michelin-starred chef on one of Detroit's most underrated boulevards.",
-image:"/venue-photos/90.jpg", cats:["Dinner","Happy Hour"], badges:["firsttimer","locals"] },
+image:"/venue-photos/90.jpg", cats:["Dinner","Happy Hour"], badges:["firsttimer","locals"], websiteUrl:"https://www.oakandreel.com" },
 
 /* ── LUNCH + HAPPY HOUR ── */
 { id:91, name:"Central Kitchen + Bar",                 hood:"Downtown",           cat:"Lunch",
@@ -799,7 +799,7 @@ addr:"660 Woodward Ave, Suite 4A, Detroit, MI 48226",
 hours:"Wed-Thu 12pm-10pm | Fri 12pm-11pm | Sat 12pm-11pm | Sun 11am-4pm | Mon-Tue Closed | Happy Hour: Thu-Fri 4pm-6pm",
 best:"Lunch / Happy Hour",
 exclusive:"Happy hour Thursday and Friday 4–6 PM. Right on Woodward Avenue in Downtown Detroit — an easy pick for a business lunch or a casual post-work drink.",
-image:"/venue-photos/91.jpg", cats:["Lunch","Happy Hour"], badges:["locals"] },
+image:"/venue-photos/91.jpg", cats:["Lunch","Happy Hour"], badges:["locals"], websiteUrl:"https://www.centraldetroit.com" },
 
 { id:92, name:"HopCat Detroit",                        hood:"Midtown",            cat:"Lunch",
 desc:"A 100+ tap craft beer bar on Woodward Ave with a full kitchen serving burgers, loaded fries, wraps, and bar snacks. One of the best spots in Detroit for a relaxed group lunch — casual, welcoming, and reliably good. The rotating draft list covers Michigan craft brews and national favorites.",
@@ -808,7 +808,7 @@ addr:"4265 Woodward Ave, Detroit, MI 48201",
 hours:"Mon-Thu 11am-11pm | Fri-Sat 11am-12am | Sun 11am-11pm | Happy Hour: Mon-Thu 3pm-5:30pm & 9pm-close (dine-in only)",
 best:"Lunch / Happy Hour / Groups",
 exclusive:"Two happy hour windows every Monday–Thursday: 3–5:30 PM and 9 PM to close. 50% off select apps, local drafts from $4, and $6 mules, meowgaritas, and wine.",
-image:"/venue-photos/92.jpg", cats:["Lunch","Happy Hour"], badges:["locals"] },
+image:"/venue-photos/92.jpg", cats:["Lunch","Happy Hour"], badges:["locals"], websiteUrl:"https://www.hopcat.com/detroit/home" },
 
 { id:93, name:"Detroit Shipping Company",              hood:"Midtown",            cat:"Lunch",
 desc:"A restaurant collective and beer hall in the Midtown/Cass Corridor built from converted shipping containers, with six independent restaurants, two bars, a live music stage, and outdoor gathering space. Vendors include Bangkok 96 Street Food, Takitos AF, Momo Cha Nepalese Dumplings, Motorburger, and Halal Street. Open at noon on weekends.",
@@ -817,7 +817,7 @@ addr:"474 Peterboro St, Detroit, MI 48201",
 hours:"Tue-Thu 4pm-10pm | Fri 4pm-11pm | Sat 12pm-11pm | Sun 12pm-10pm | Mon Closed | Happy Hour: Tue-Thu 4pm-6pm",
 best:"Lunch (Sat–Sun) / Happy Hour / Groups",
 exclusive:"Six independent restaurants under one roof. Noon hours on Saturday and Sunday only — weekday service starts at 4 PM Tuesday through Thursday. Happy hour Tuesday–Thursday 4–6 PM.",
-image:"/venue-photos/93.jpg", cats:["Lunch","Happy Hour"], badges:["locals"] },
+image:"/venue-photos/93.jpg", cats:["Lunch","Happy Hour"], badges:["locals"], websiteUrl:"https://www.detroitshippingcompany.com" },
 
 ];
 
