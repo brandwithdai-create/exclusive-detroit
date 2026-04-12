@@ -1252,7 +1252,7 @@ const reCenter=()=>{const m=mapRef.current;if(!m)return;m.setView([42.3314,-83.0
 const selImgFallback=selected?getVenueFallbackImage(selected):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
-const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"8px 15px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto"};
+const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"7px 14px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto",display:"inline-flex",alignItems:"center",whiteSpace:"nowrap"};
 const lv=[...ALL,...UPCOMING].filter(v=>{
 if(showSavedOnly&&!favs.includes(String(v.id)))return false;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
@@ -1327,15 +1327,15 @@ React.createElement("path",{d:"M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.
 ),
 // ── Bottom bar: List | Legend | Re-center — each independently positioned to avoid iOS pointer-events:none inheritance bug ──
 React.createElement("button",{onClick:()=>setShowList(s=>!s),style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",left:14,zIndex:900,touchAction:"manipulation",border:showList?"1px solid "+C.gold:"1px solid var(--c-mzoom-bdr)",color:showList?C.gold:"var(--c-mzoom-color)"}},"≡  List"),
-React.createElement("div",{style:{position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",left:"50%",transform:"translateX(-50%)",zIndex:800,pointerEvents:"none",display:"flex",alignItems:"center",gap:12,border:"1px solid var(--c-mzoom-bdr)",background:"var(--c-mzoom-bg)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",borderRadius:100,padding:"8px 16px",boxShadow:"0 2px 14px rgba(0,0,0,0.22)"}},
-React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
-React.createElement("div",{style:{width:8,height:8,borderRadius:"50%",background:C.gold,boxShadow:"0 0 6px rgba(201,168,76,0.55)"}}),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"Venues")
+React.createElement("div",{style:{position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",left:"50%",transform:"translateX(-50%)",zIndex:800,pointerEvents:"none",display:"inline-flex",alignItems:"center",gap:10,border:"1px solid var(--c-mzoom-bdr)",background:"var(--c-mzoom-bg)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",borderRadius:100,padding:"7px 14px",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",whiteSpace:"nowrap"}},
+React.createElement("div",{style:{display:"flex",alignItems:"center",gap:5}},
+React.createElement("div",{style:{width:7,height:7,borderRadius:"50%",background:C.gold,boxShadow:"0 0 6px rgba(201,168,76,0.55)",flexShrink:0}}),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"Venues")
 ),
-React.createElement("div",{style:{width:1,height:12,background:"var(--c-mzoom-sep)"}}),
-React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
-React.createElement("div",{style:{width:8,height:8,borderRadius:"50%",background:C.purple,boxShadow:"0 0 6px rgba(200,174,255,0.55)"}}),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"New / Soon")
+React.createElement("div",{style:{width:1,height:10,background:"var(--c-mzoom-sep)",flexShrink:0}}),
+React.createElement("div",{style:{display:"flex",alignItems:"center",gap:5}},
+React.createElement("div",{style:{width:7,height:7,borderRadius:"50%",background:C.purple,boxShadow:"0 0 6px rgba(200,174,255,0.55)",flexShrink:0}}),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"New / Soon")
 )
 ),
 React.createElement("button",{onClick:reCenter,style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",right:14,zIndex:900,touchAction:"manipulation"}},"⊕  Re-center"),
