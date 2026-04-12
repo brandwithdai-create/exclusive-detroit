@@ -1,0 +1,60 @@
+Perfect — this is exactly the right next step, but we want to be very precise so nothing breaks visually.
+
+Right now:
+	•	Dark mode works because body = #000000 matches the map
+	•	Light mode still risks showing through in standalone mode (just less noticeable)
+
+BUT — we cannot just copy what we did in dark mode blindly, because:
+	•	Your light mode uses a warm off-white (#f4f0e8), not pure white
+	•	If we mismatch this, you’ll get visible bands or flashes
+
+⸻
+
+✅ What you want (correct approach)
+
+Apply the same logic, not the same color:
+	•	Dark mode → #000000 (already done ✅)
+	•	Light mode → keep #f4f0e8, but make it permanent and consistent everywhere
+
+⸻
+
+⚠️ Important (this is the key detail)
+
+We are NOT changing the color —
+We are making sure it always fills the safe-area + body consistently, just like dark mode now does.
+
+⸻
+
+Send this to Replit:
+
+:::writing{variant=“chat_message” id=“73912”}
+Apply the same safe-area/background consistency fix to LIGHT MODE as we did for dark mode.
+
+Important:
+	•	Do NOT change the light mode color itself
+	•	Keep the exact light mode background color as #f4f0e8
+
+What I want:
+	•	Ensure the body background in light mode is consistently set to #f4f0e8
+	•	It must fully cover safe-area regions in iOS Home Screen standalone mode (top + bottom)
+	•	It should match the map background visually so there is no visible band, flash, or mismatch
+
+Constraints:
+	•	Dark mode stays exactly as it is (#000000)
+	•	Do not modify Leaflet styles
+	•	Do not touch any layout or spacing
+	•	Only ensure background consistency in light mode like we did for dark mode
+
+Before applying, confirm if light mode currently has any mismatch or exposure issue similar to what dark mode had.
+:::
+
+⸻
+
+💡 What this does for you
+	•	Prevents light flashes or weird beige gaps on iOS
+	•	Keeps your luxury aesthetic intact (no harsh white)
+	•	Makes Apple reviewers see a polished, stable app
+
+⸻
+
+If you want next-level polish after this, I can help you make the map tiles subtly match your brand tone (like a warmer light map), but this step alone gets you App Store–safe.

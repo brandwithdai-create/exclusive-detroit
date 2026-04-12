@@ -1293,7 +1293,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
-return React.createElement("div",{style:{position:"fixed",inset:0,overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#1a1a2e":"#f4f0e8"}},
+return React.createElement("div",{style:{position:"fixed",inset:0,overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#000000":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
@@ -1308,7 +1308,7 @@ c==="all"?"All Venues":c
 );})
 ),
 // ── Map tile area — full bleed absolute, sits behind all overlays ──
-React.createElement("div",{style:{position:"absolute",inset:0,overflow:"hidden",background:isDark?"#1a1a2e":"#f4f0e8"}},
+React.createElement("div",{style:{position:"absolute",inset:0,overflow:"hidden",background:isDark?"#000000":"#f4f0e8"}},
 React.createElement("div",{ref:containerRef,style:{position:"absolute",inset:0}})),
 // ── Custom zoom + near-me controls ──
 React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
