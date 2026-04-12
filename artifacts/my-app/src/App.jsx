@@ -43,7 +43,7 @@ const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happ
 
 const FEATURED_IDS=["74","1","47","73","55","38","44","39","46","7","76","37","41","71","5","40","9","25","34","35","17","13","10"];
 
-const COORDS={"1":[42.333022,-83.048681],"2":[42.329286,-83.04843],"3":[42.33344,-83.05055],"4":[42.334415,-83.046032],"5":[42.334706,-83.046706],"6":[42.328328,-83.048352],"7":[42.368716,-83.072034],"8":[42.334305,-83.048496],"9":[42.33543,-83.04888],"10":[42.346605,-83.056836],"11":[42.331026,-83.065425],"12":[42.332992,-83.05145],"13":[42.318863,-83.074382],"14":[42.33553,-83.04888],"15":[42.334927,-83.047252],"16":[42.334728,-83.047255],"17":[42.33354,-83.05055],"18":[42.335712,-83.049701],"19":[42.334812,-83.046189],"20":[42.338047,-83.062567],"21":[42.363047,-83.085201],"22":[42.34025,-83.05811],"23":[42.351443,-83.060108],"24":[42.360223,-83.066305],"25":[42.331413,-83.046563],"26":[42.342649,-82.998573],"27":[42.34905,-83.041898],"28":[42.343879,-83.03356],"30":[42.344337,-83.060694],"31":[42.328529,-83.063349],"32":[42.331703,-83.065774],"33":[42.331725,-83.063272],"34":[42.332288,-83.04931],"35":[42.330482,-83.045432],"36":[42.329041,-83.047737],"37":[42.348523,-83.087987],"38":[42.3478,-83.065018],"39":[42.333596,-83.051529],"40":[42.333539,-83.051369],"41":[42.33356,-83.051468],"42":[42.333418,-83.048503],"43":[42.330891,-83.047851],"44":[42.360592,-83.066499],"45":[42.369685,-83.073426],"46":[42.33382,-83.04991],"47":[42.333636,-83.049522],"48":[42.334558,-83.047888],"49":[42.332997,-83.048953],"50":[42.33276,-83.047963],"51":[42.3293,-83.04754],"52":[42.331607,-83.075355],"53":[42.329506,-83.045689],"55":[42.355812,-83.066356],"56":[42.33291,-83.049808],"57":[42.337947,-83.052997],"63":[42.334471,-83.047014],"64":[42.335598,-83.045963],"65":[42.345175,-83.05558],"67":[42.337576,-83.050024],"68":[42.33392,-83.04991],"69":[42.34833,-83.067366],"70":[42.330563,-83.048639],"71":[42.35302,-83.079447],"72":[42.337719,-83.052991],"73":[42.332809,-83.047436],"74":[42.335035,-83.054965],"75":[42.33316,-83.049848],"76":[42.334355,-83.048544],"77":[42.354211,-83.0638],"78":[42.347354,-83.065259],"79":[42.345162,-83.05608],"80":[42.333061,-83.049006],"81":[42.335307,-83.04877],"82":[42.338604,-83.020675],"83":[42.328973,-83.054509],"84":[42.32883,-83.03959],"85":[42.32893,-83.03959],"86":[42.33182,-83.049973],"87":[42.335008,-83.048556],"r1":[42.335775,-83.048593],"r2":[42.360358,-82.984843],"r3":[42.344168,-83.037879],"r4":[42.33164,-83.070831],"r5":[42.353007,-83.067043],"u1":[42.33806,-83.052108],"u2":[42.33224,-83.045413],"u3":[42.333525,-83.047582],"u4":[42.403741,-82.935302],"88":[42.331746,-83.048726],"89":[42.331862,-83.048201],"90":[42.378500,-83.044500],"91":[42.333800,-83.046200],"92":[42.361400,-83.064100],"93":[42.352000,-83.065500]};
+const COORDS={"1":[42.333022,-83.048681],"2":[42.329286,-83.04843],"3":[42.33344,-83.05055],"4":[42.334415,-83.046032],"5":[42.334706,-83.046706],"6":[42.328328,-83.048352],"7":[42.368716,-83.072034],"8":[42.334305,-83.048496],"9":[42.33543,-83.04888],"10":[42.346605,-83.056836],"11":[42.331026,-83.065425],"12":[42.332992,-83.05145],"13":[42.318863,-83.074382],"14":[42.33553,-83.04888],"15":[42.334927,-83.047252],"16":[42.334728,-83.047255],"17":[42.33354,-83.05055],"18":[42.335712,-83.049701],"19":[42.334812,-83.046189],"20":[42.338047,-83.062567],"21":[42.363047,-83.085201],"22":[42.34025,-83.05811],"23":[42.351443,-83.060108],"24":[42.360223,-83.066305],"25":[42.331413,-83.046563],"26":[42.342649,-82.998573],"27":[42.34905,-83.041898],"28":[42.343879,-83.03356],"30":[42.344337,-83.060694],"31":[42.328529,-83.063349],"32":[42.331703,-83.065774],"33":[42.331725,-83.063272],"34":[42.332288,-83.04931],"35":[42.330482,-83.045432],"36":[42.329041,-83.047737],"37":[42.348523,-83.087987],"38":[42.3478,-83.065018],"39":[42.333596,-83.051529],"40":[42.333539,-83.051369],"41":[42.33356,-83.051468],"42":[42.333418,-83.048503],"43":[42.330891,-83.047851],"44":[42.360592,-83.066499],"45":[42.369685,-83.073426],"46":[42.33382,-83.04991],"47":[42.333636,-83.049522],"48":[42.334558,-83.047888],"49":[42.332997,-83.048953],"50":[42.33276,-83.047963],"51":[42.3293,-83.04754],"52":[42.331607,-83.075355],"53":[42.329506,-83.045689],"55":[42.355812,-83.066356],"56":[42.33291,-83.049808],"57":[42.337947,-83.052997],"63":[42.334471,-83.047014],"64":[42.335598,-83.045963],"65":[42.345175,-83.05558],"67":[42.337576,-83.050024],"68":[42.33392,-83.04991],"69":[42.34833,-83.067366],"70":[42.330563,-83.048639],"71":[42.35302,-83.079447],"72":[42.337719,-83.052991],"73":[42.332809,-83.047436],"74":[42.335035,-83.054965],"75":[42.33316,-83.049848],"76":[42.334355,-83.048544],"77":[42.354211,-83.0638],"78":[42.347354,-83.065259],"79":[42.345162,-83.05608],"80":[42.333061,-83.049006],"81":[42.335307,-83.04877],"82":[42.338604,-83.020675],"83":[42.328973,-83.054509],"84":[42.32883,-83.03959],"85":[42.32893,-83.03959],"86":[42.33182,-83.049973],"87":[42.335008,-83.048556],"r1":[42.335775,-83.048593],"r2":[42.360358,-82.984843],"r3":[42.344168,-83.037879],"r4":[42.33164,-83.070831],"r5":[42.353007,-83.067043],"u1":[42.33806,-83.052108],"u2":[42.33224,-83.045413],"u3":[42.333525,-83.047582],"u4":[42.403741,-82.935302],"88":[42.331746,-83.048726],"89":[42.331862,-83.048201],"90":[42.378500,-83.044500],"91":[42.333800,-83.046200],"92":[42.361400,-83.064100],"93":[42.352000,-83.065500],"94":[42.335800,-83.048580],"95":[42.335241,-83.048939],"96":[42.330126,-83.045314]};
 
 function haversine(lat1,lon1,lat2,lon2){const R=3958.8,d2r=Math.PI/180;const dLat=(lat2-lat1)*d2r,dLon=(lon2-lon1)*d2r;const a=Math.sin(dLat/2)**2+Math.cos(lat1*d2r)*Math.cos(lat2*d2r)*Math.sin(dLon/2)**2;return R*2*Math.asin(Math.sqrt(a));}
 
@@ -66,14 +66,24 @@ desc:"An experiential cocktail bar tucked in a downtown alley. No signage, walk-
 vibes:["No Signage","Timed Seatings","Immersive"], addr:"1218 Griswold St, Detroit, MI 48226",
 hours:"Mon-Sat 5pm-1am | Sun Closed | Walk-ins only", best:"Weeknight / Weekend",
 exclusive:"No sign. No reservation. Walk in, get seated on a timer. The menu is whatever the bartender decides.",
-cats:["Hidden Bars","Cocktail Lounges","Alley Spots"],badges:["hidden","locals"], websiteUrl:"https://www.badluckbar.com" },
+cats:["Hidden Bars","Alley Spots"],badges:["hidden","locals"], websiteUrl:"https://www.badluckbar.com" },
 
-{ id:2,  name:"The Shelby",                       hood:"Downtown",           cat:"Hidden Bars",
-desc:"A James Beard-nominated subterranean cocktail bar inside a restored 1925 bank vault. Blue door, down a staircase, and the cocktails are worth every step.",
-vibes:["Bank Vault","James Beard Nominated","Craft Cocktails"], addr:"607 Shelby St, Detroit, MI 48226 (blue door, downstairs)",
-hours:"Wed-Thu 5pm-12am | Fri-Sat 5pm-1am | Sun-Tue Closed", best:"Date Night / Weeknight",
-exclusive:"2022 James Beard semifinalist. NYT 36 Hours in Detroit. Hidden behind a blue door inside a century-old bank vault.",
-cats:["Hidden Bars","Cocktail Lounges"],badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/shelby-detroit" },
+{ id:7,  name:"Time Will Tell",                   hood:"New Center",         cat:"Cocktail Lounges",
+desc:"A neighborhood cocktail bar on Woodward Ave in Milwaukee Junction. Whimsical, inventive cocktails and a thoughtful spirits selection in an intimate space with a great jukebox.",
+vibes:["Neighborhood Bar","Inventive Drinks","Jukebox"], addr:"6408 Woodward Ave, Detroit, MI 48202",
+hours:"Sun-Wed 6pm-12am | Thu-Sat 6pm-2am", best:"Weeknight / Date Night",
+exclusive:"A neighborhood cocktail bar in Milwaukee Junction, away from the downtown crowds. Smaller, warmer, more personal. The kind of bar you make a regular stop.",
+badges:["locals","hidden"], websiteUrl:"https://www.timewilltelldet.com" },
+
+{ id:85, name:"High Bar",                          hood:"Downtown",           cat:"Cocktail Lounges",
+desc:"An indoor cocktail lounge on the 71st floor of the Renaissance Center, adjacent to Highlands restaurant. The tallest bar in Michigan — craft cocktails, small plates, and unobstructed floor-to-ceiling views of the Detroit River and Windsor skyline. Walk-ins welcome at the bar when seating is available.",
+vibes:["Michigan's Tallest Bar","Floor 71 RenCen","Detroit River Views"],
+addr:"400 Renaissance Center, Floor 71, Detroit, MI 48243",
+hours:"Mon-Thu 5pm-9:30pm | Fri-Sat 4:30pm-10pm | Sun Closed",
+best:"Sunset / After Work / Date Night",
+exclusive:"The tallest bar in the state of Michigan, on the 71st floor of the Renaissance Center. Walk-in seating gives you the same breathtaking river and Windsor views as the restaurant without a reservation.",
+badges:["firsttimer","hidden"],
+websiteUrl:"https://www.highlandsdetroit.com/highbar" },
 
 { id:3,  name:"Hidden at Parlay Detroit",         hood:"Downtown",           cat:"Hidden Bars",
 desc:"A speakeasy in the lower level of Parlay Detroit sports bar. Curated cocktails, elevated bites, and a sultry atmosphere that has nothing to do with the sports bar above.",
@@ -96,19 +106,19 @@ hours:"Tue-Thu 4pm-12am | Fri-Sat 4pm-2am | Sun 4pm-12am | Mon Closed", best:"We
 exclusive:"No street presence. You either know it's there or you walk right past it.",
 badges:["hidden","locals"], websiteUrl:"https://www.theskipdetroit.com" },
 
+{ id:2,  name:"The Shelby",                       hood:"Downtown",           cat:"Hidden Bars",
+desc:"A James Beard-nominated subterranean cocktail bar inside a restored 1925 bank vault. Blue door, down a staircase, and the cocktails are worth every step.",
+vibes:["Bank Vault","James Beard Nominated","Craft Cocktails"], addr:"607 Shelby St, Detroit, MI 48226 (blue door, downstairs)",
+hours:"Wed-Thu 5pm-12am | Fri-Sat 5pm-1am | Sun-Tue Closed", best:"Date Night / Weeknight",
+exclusive:"2022 James Beard semifinalist. NYT 36 Hours in Detroit. Hidden behind a blue door inside a century-old bank vault.",
+cats:["Hidden Bars","Cocktail Lounges"],badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/shelby-detroit" },
+
 { id:6,  name:"The Apparatus Room",               hood:"Downtown",           cat:"Cocktail Lounges",
 desc:"The restaurant and bar inside Detroit Foundation Hotel, a meticulous restoration of the 1929 Detroit Fire Department headquarters. Soaring ceilings, exposed brick, New American small plates.",
 vibes:["Historic Firehouse","Industrial Chic","New American"], addr:"250 W Larned St, Detroit, MI 48226",
 hours:"Mon-Thu 7am-10:45pm | Fri-Sat 7am-11:45pm | Sun 7am-9:45pm", best:"Weeknight / Weekend",
 exclusive:"Drinking inside the former Detroit Fire HQ. The original apparatus bays are still visible.",
 badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/the-apparatus-room-detroit" },
-
-{ id:7,  name:"Time Will Tell",                   hood:"New Center",         cat:"Cocktail Lounges",
-desc:"A neighborhood cocktail bar on Woodward Ave in Milwaukee Junction. Whimsical, inventive cocktails and a thoughtful spirits selection in an intimate space with a great jukebox.",
-vibes:["Neighborhood Bar","Inventive Drinks","Jukebox"], addr:"6408 Woodward Ave, Detroit, MI 48202",
-hours:"Sun-Wed 6pm-12am | Thu-Sat 6pm-2am", best:"Weeknight / Date Night",
-exclusive:"A neighborhood cocktail bar in Milwaukee Junction, away from the downtown crowds. Smaller, warmer, more personal. The kind of bar you make a regular stop.",
-badges:["locals","hidden"], websiteUrl:"https://www.timewilltelldet.com" },
 
 { id:8,  name:"The Living Room - Shinola Hotel",  hood:"Downtown",           cat:"Hotel Lounges",
 desc:"A curated Tuesday evening experience inside Detroit's most design-forward boutique hotel. Part gallery opening, part cocktail hour. Tuesdays only, 6-9pm.",
@@ -354,12 +364,6 @@ hours:"Wed-Thu 5pm-9pm | Fri 5pm-11pm | Sat 12pm-11pm | Sun 4:30pm-9pm | Mon-Tue
 exclusive:"Most people eat dinner and leave. The people who stay for the back bar after 10pm know something most visitors don't.",
 badges:["firsttimer","locals"], reservationUrl:"https://www.exploretock.com/the-peterboro-detroit" },
 
-{ id:31, name:"Batch Brewing Company",            hood:"Corktown",           cat:"Corktown",
-desc:"Detroit's first nano-brewery and Corktown's communal anchor. Small-batch craft beer brewed on-site, rotating food, live music on stage.",
-vibes:["Craft Beer","Live Music","Communal Taproom"], addr:"1400 Porter St, Detroit, MI 48216",
-hours:"Mon-Thu 4pm-11pm | Fri-Sat 12pm-12am | Sun 12pm-8pm", best:"Weekend / Anytime",
-exclusive:"Detroit's first nano-brewery, still in Corktown, still running the best communal table in the neighborhood.",
-cats:["Corktown","Cocktail Lounges"],badges:["firsttimer","locals"], websiteUrl:"https://www.batchbrewingcompany.com" },
 
 { id:32, name:"Ottava Via",                       hood:"Corktown",           cat:"Corktown",
 desc:"A lively modern Italian restaurant on Michigan Ave. Wood-fired pizzas, fresh pastas, outdoor fireplace, and bocce ball lanes on the patio.",
@@ -368,12 +372,6 @@ hours:"Sun-Thu 11am-10pm | Fri-Sat 11am-11pm", best:"Date Night / Weekend",
 exclusive:"Outdoor fireplace, bocce ball, wood-fired pizza. In summer this patio is one of the best tables in the city.",
 cats:["Corktown","Dinner"],badges:["locals"], reservationUrl:"https://resy.com/cities/detroit-mi/venues/ottava-via" },
 
-{ id:33, name:"Lager House",                      hood:"Corktown",           cat:"Corktown",
-desc:"A beloved live music dive bar in the heart of Corktown. Original rock, punk, blues, and metal most nights. The bar top is inlaid with signed guitar picks.",
-vibes:["Live Music","Dive Bar","Rock and Punk"], addr:"1254 Michigan Ave, Detroit, MI 48216",
-hours:"Mon-Thu 1pm-12am | Fri 1pm-2am | Sat 9am-2am | Sun 9am-12am", best:"Weekend / Late Night",
-exclusive:"The bar top is inlaid with signed guitar picks from every act that has played here. No cover most nights.",
-cats:["Corktown","Cocktail Lounges"],badges:["locals"], ticketUrl:"https://thelagerhouse.com/events", websiteUrl:"https://thelagerhouse.com" },
 
 /* ── BREAKFAST ── */
 { id:42, name:"Hudson Cafe",                       hood:"Downtown",           cat:"Breakfast",
@@ -651,6 +649,14 @@ exclusive:"Andrew Carmellini is one of the most celebrated chefs in America, and
 badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/san-morello-detroit" },
 
+{ id:96, name:"Townhouse Detroit",                  hood:"Downtown",           cat:"Dinner",
+desc:"An upscale American restaurant and bar at Campus Martius with a rooftop terrace, seasonal cocktails, and a menu built for lingering. One of downtown's most consistent spots from lunch through late night.",
+vibes:["Campus Martius","Rooftop Terrace","American Cuisine"], addr:"500 Woodward Ave, Detroit, MI 48226",
+hours:"Mon-Tue 4pm-10pm | Wed-Thu 11:30am-10pm | Fri 11:30am-11pm | Sat 11am-11pm | Sun 11am-10pm", best:"Dinner / Weekend Lunch",
+exclusive:"Campus Martius access from the bar. A downtown anchor that works for a business lunch, date night, or post-game drinks alike.",
+image:"/venue-photos/96.jpg", cats:["Dinner","Lunch"], badges:["firsttimer"],
+reservationUrl:"https://resy.com/cities/detroit-mi/venues/townhouse" },
+
 /* ── NEW LUNCH ── */
 { id:77, name:"Mezcal",                             hood:"Midtown",            cat:"Lunch",
 desc:"A lively Mexican restaurant and bar in the Cass Corridor serving fish tacos, birria, quesabirria, street tacos, carnitas, ceviche, and enchiladas. One of Midtown's most consistent lunch anchors with a generous double happy hour on Fridays and Saturdays.",
@@ -733,15 +739,6 @@ exclusive:"The highest restaurant in Detroit. The three-course dinner is phenome
 badges:["firsttimer"],
 reservationUrl:"https://resy.com/cities/detroit-mi/venues/highlands-and-high-bar" },
 
-{ id:85, name:"High Bar",                           hood:"Downtown",           cat:"Cocktail Lounges",
-desc:"An indoor cocktail lounge on the 71st floor of the Renaissance Center, adjacent to Highlands restaurant. The tallest bar in Michigan — craft cocktails, small plates, and unobstructed floor-to-ceiling views of the Detroit River and Windsor skyline. Walk-ins welcome at the bar when seating is available.",
-vibes:["Michigan's Tallest Bar","Floor 71 RenCen","Detroit River Views"],
-addr:"400 Renaissance Center, Floor 71, Detroit, MI 48243",
-hours:"Mon-Thu 5pm-9:30pm | Fri-Sat 4:30pm-10pm | Sun Closed",
-best:"Sunset / After Work / Date Night",
-exclusive:"The tallest bar in the state of Michigan, on the 71st floor of the Renaissance Center. Walk-in seating gives you the same breathtaking river and Windsor views as the restaurant without a reservation.",
-badges:["firsttimer","hidden"],
-websiteUrl:"https://www.highlandsdetroit.com/highbar" },
 
 /* ── NEW BREAKFAST ── */
 { id:86, name:"Haus of Brunch",                     hood:"Downtown",           cat:"Breakfast",
@@ -822,6 +819,13 @@ image:"/venue-photos/93.jpg", cats:["Lunch","Happy Hour"], badges:["locals"], we
 ];
 
 const RECENTLY = [
+{ id:"r5", name:"Dirty Shake",        hood:"Midtown",       cat:"Cocktail Lounges",
+desc:"A high-energy neighborhood bar from the team behind Chartreuse and Freya. Nostalgic cocktails, boozy slushies, a cult-status bar burger, and a patio with garage doors.",
+vibes:["Late Night","Bar Burger","Chartreuse Team"], addr:"4120 Cass Ave, Detroit, MI 48201",
+hours:"Check @dirtyshakedetroit for current hours", best:"Late Night / Weeknight",
+exclusive:"When the Chartreuse team opens a neighborhood bar, the neighborhood pays attention.",
+cats:["Cocktail Lounges","Midtown"],badges:["recentopen"], websiteUrl:"https://www.instagram.com/dirtyshakedetroit" },
+
 { id:"r1", name:"Bar Chenin",        hood:"Downtown",      cat:"Cocktail Lounges",
 desc:"A pocket-sized natural wine bar inside the Siren Hotel - 10 seats inside, 16 on the patio. Biodynamic bottles, inventive cocktails, house-made ice cream. 2026 James Beard nominee for Best New Bar.",
 vibes:["Natural Wine","10 Seats","James Beard Nominated"], addr:"1509 Broadway St, Detroit, MI 48226 (Siren Hotel)",
@@ -829,19 +833,12 @@ hours:"Mon 5pm-12am | Thu 5pm-12am | Fri-Sat 5pm-2am | Sun 5pm-12am | Tue-Wed Cl
 exclusive:"10 seats, no reservations, first come first served. The most sought-after bar stool in Downtown Detroit.",
 badges:["recentopen","hidden","locals"], websiteUrl:"https://www.barchenin.com" },
 
-{ id:"r2", name:"Father Forgive Me",  hood:"East Village",  cat:"Cocktail Lounges",
-desc:"Wine and cocktails in a converted 1911 church garage on the grounds of The Shepherd cultural arts center, from the team behind Standby and The Skip. TIME's World's Greatest Places 2025.",
-vibes:["Church Garage","Standby Team","Garden Patio"], addr:"1265 Parkview St, Detroit, MI 48214 (The Shepherd campus)",
-hours:"Mon and Wed-Thu 4pm-11pm | Fri 4pm-12am | Sat 12pm-12am | Sun 12pm-11pm | Tue Closed", best:"Date Night / Weekend",
-exclusive:"A bar inside a church garage from the people who made Standby and The Skip. TIME's World's Greatest Places 2025.",
-badges:["recentopen","hidden","locals"], websiteUrl:"https://www.fatherforgiveme.com" },
-
-{ id:"r3", name:"Pocket Change",      hood:"Eastern Market",cat:"Nightlife",
+{ id:"r3", name:"Pocket Change",      hood:"Eastern Market",cat:"Cocktail Lounges",
 desc:"A second-floor cocktail bar with deep red walls and a rooftop patio overlooking Eastern Market sheds. Look for the red neon Cocktails sign on Gratiot and head upstairs.",
 vibes:["Hidden Entrance","Rooftop Patio","DJ Nights"], addr:"1454 Gratiot Ave (2nd Floor), Detroit, MI 48207",
 hours:"Thu 7pm-12am | Fri-Sat 8pm-2am | Sun 2pm-10pm", best:"Weekend / Late Night",
 exclusive:"No sign at street level. A red neon Cocktails sign is your only clue. Head upstairs.",
-cats:["Nightlife","Cocktail Lounges"],badges:["recentopen","hidden"], websiteUrl:"https://www.instagram.com/pocketchangedetroit" },
+cats:["Cocktail Lounges","Nightlife"],badges:["recentopen","hidden"], websiteUrl:"https://www.instagram.com/pocketchangedetroit" },
 
 { id:"r4", name:"Street Beet",        hood:"Corktown",      cat:"Corktown",
 desc:"Detroit's beloved vegan pop-up turned permanent restaurant in the former Bobcat Bonnie's space. Plant-based smashburgers, coney dogs, diner classics. Vintage arcade in the back.",
@@ -850,12 +847,21 @@ hours:"Wed-Thu 4pm-10pm | Fri 4pm-11pm | Sat 10am-3pm and 4pm-11pm | Sun 10am-3p
 exclusive:"Detroit's most beloved vegan pop-up finally has a permanent home.",
 cats:["Corktown","Lunch"],badges:["recentopen"], websiteUrl:"https://www.streetbeet.online" },
 
-{ id:"r5", name:"Dirty Shake",        hood:"Midtown",       cat:"Midtown",
-desc:"A high-energy neighborhood bar from the team behind Chartreuse and Freya. Nostalgic cocktails, boozy slushies, a cult-status bar burger, and a patio with garage doors.",
-vibes:["Late Night","Bar Burger","Chartreuse Team"], addr:"4120 Cass Ave, Detroit, MI 48201",
-hours:"Check @dirtyshakedetroit for current hours", best:"Late Night / Weeknight",
-exclusive:"When the Chartreuse team opens a neighborhood bar, the neighborhood pays attention.",
-cats:["Midtown","Cocktail Lounges"],badges:["recentopen"], websiteUrl:"https://www.instagram.com/dirtyshakedetroit" },
+{ id:94, name:"Candy Bar",                          hood:"Downtown",           cat:"Cocktail Lounges",
+desc:"An inventive cocktail bar inside the Siren Hotel — plush seating, a dazzling chandelier, and cocktails that take inspiration from candy and confections.",
+vibes:["Siren Hotel","Craft Cocktails","Chandelier Bar"], addr:"1509 Broadway St, Detroit, MI 48226 (Siren Hotel)",
+hours:"Mon-Thu 4pm-12am | Fri-Sat 4pm-2am | Sun 4pm-12am", best:"Date Night / Late Night",
+exclusive:"A cocktail bar inside one of Detroit's most design-forward hotels. Same building as Bar Chenin — two completely different experiences under one roof.",
+image:"/venue-photos/94.jpg", badges:["locals"],
+reservationUrl:"https://www.opentable.com/r/candy-bar-detroit" },
+
+{ id:95, name:"Wright & Company",                   hood:"Downtown",           cat:"Cocktail Lounges",
+desc:"A celebrated bar and restaurant on the second floor of 1500 Woodward Ave. Creative small plates, seasonal cocktails, and a polished vintage interior with views over downtown Detroit.",
+vibes:["Craft Cocktails","Seasonal Small Plates","Second Floor Views"], addr:"1500 Woodward Ave Floor 2, Detroit, MI 48226",
+hours:"Tue-Thu 5pm-11pm | Fri 5pm-12am | Sat 4pm-12am | Mon & Sun Closed", best:"Date Night / Weeknight",
+exclusive:"One of the best bar programs in the city. Creative small plates and cocktails in a polished, vintage-forward space that rewards going back.",
+image:"/venue-photos/95.jpg", badges:["firsttimer","locals"],
+websiteUrl:"https://www.wrightdetroit.com" },
 ];
 
 const UPCOMING = [
@@ -880,12 +886,6 @@ hours:"Opening 2027 - confirm at hudsons-detroit.com", best:"Hotel Stay / Specia
 exclusive:"Detroit's first five-star hotel inside its tallest new tower in 50 years.",
 openDate:"2027-01-01", note:"Opening 2027 | Detroit's first 5-star hotel | Hudson's Detroit Tower",
 websiteUrl:"https://www.hudsons-detroit.com" },
-{ id:"u4", name:"Little Liberia",            hood:"East English Village", cat:"African Restaurant",
-desc:"Detroit's first Liberian restaurant. Halal menu from chef Ameneh Marhaba inside The Ribbon on the east side.",
-vibes:["Liberian Cuisine","Halal","Community-Led"], addr:"16530 E Warren Ave, Detroit, MI 48224 (The Ribbon development)",
-hours:"Opening date TBD - follow @littleliberiadetroit", best:"Dinner / Cultural Experience",
-exclusive:"Detroit's first Liberian restaurant. The kind of opening that matters beyond food.",
-openDate:null, note:"Coming Soon | Detroit's first Liberian restaurant | Chef Ameneh Marhaba", websiteUrl:"https://www.littleliberia.com" },
 ].map(v => ({ ...v, status: calcStatus(v.openDate) }))
 .filter(v => v.status === "justopened" || v.status === "comingsoon");
 

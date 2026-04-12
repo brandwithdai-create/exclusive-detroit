@@ -103,7 +103,7 @@ Before any push, report: what was added/changed, image source, CTA type + destin
 
 ## Venue Photo System (Permanent DB Storage)
 
-Photos for all 85 venues are permanently stored in PostgreSQL — zero Google API calls on page load.
+Photos for all venues are permanently stored in PostgreSQL — zero Google API calls on page load. New venues (id:94 Candy Bar, id:95 Wright & Company, id:96 Townhouse Detroit) use static `/venue-photos/{id}.jpg` files (priority over DB). Venues id:90-96 use static local image files.
 
 **Database table**: `venue_photos` (venue_id TEXT PK, photo_url TEXT, place_id, rating, rating_count, search_query, fetched_at)
 
