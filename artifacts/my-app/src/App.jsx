@@ -66,7 +66,7 @@ desc:"An experiential cocktail bar tucked in a downtown alley. No signage, walk-
 vibes:["No Signage","Timed Seatings","Immersive"], addr:"1218 Griswold St, Detroit, MI 48226",
 hours:"Mon-Sat 5pm-1am | Sun Closed | Walk-ins only", best:"Weeknight / Weekend",
 exclusive:"No sign. No reservation. Walk in, get seated on a timer. The menu is whatever the bartender decides.",
-cats:["Hidden Bars","Cocktail Lounges"],badges:["hidden","locals"], websiteUrl:"https://www.badluckbar.com" },
+cats:["Hidden Bars","Cocktail Lounges","Alley Spots"],badges:["hidden","locals"], websiteUrl:"https://www.badluckbar.com" },
 
 { id:2,  name:"The Shelby",                       hood:"Downtown",           cat:"Speakeasies",
 desc:"A James Beard-nominated subterranean cocktail bar inside a restored 1925 bank vault. Blue door, down a staircase, and the cocktails are worth every step.",
@@ -201,7 +201,7 @@ desc:"Detroit's no-nonsense downtown sports bar anchor on Broadway, open every d
 vibes:["Open Daily","Game Day Anchor","Downtown"], addr:"1325 Broadway St, Detroit, MI 48226",
 hours:"Mon-Sun 11am-2am", best:"Game Day / Any Day",
 exclusive:"Open every day from 11am to 2am. On game nights this is where the energy is real.",
-badges:["locals"], websiteUrl:"https://www.postbardetroit.com" },
+cats:["Sports Bars","Alley Spots"],badges:["locals"], websiteUrl:"https://www.postbardetroit.com" },
 
 { id:20, name:"TV Lounge",                         hood:"Midtown",            cat:"Nightlife",
 desc:"A no-frills Midtown dive institution with a legendary jukebox and unpretentious energy that keeps locals coming back at closing time.",
