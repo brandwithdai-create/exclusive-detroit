@@ -75,6 +75,14 @@ hours:"Sun-Wed 6pm-12am | Thu-Sat 6pm-2am", best:"Weeknight / Date Night",
 exclusive:"A neighborhood cocktail bar in Milwaukee Junction, away from the downtown crowds. Smaller, warmer, more personal. The kind of bar you make a regular stop.",
 badges:["locals","hidden"], websiteUrl:"https://www.timewilltelldet.com" },
 
+{ id:94, name:"Candy Bar",                          hood:"Downtown",           cat:"Cocktail Lounges",
+desc:"An inventive cocktail bar inside the Siren Hotel — plush seating, a dazzling chandelier, and cocktails that take inspiration from candy and confections.",
+vibes:["Siren Hotel","Craft Cocktails","Chandelier Bar"], addr:"1509 Broadway St, Detroit, MI 48226 (Siren Hotel)",
+hours:"Mon-Thu 4pm-12am | Fri-Sat 4pm-2am | Sun 4pm-12am", best:"Date Night / Late Night",
+exclusive:"A cocktail bar inside one of Detroit's most design-forward hotels. Same building as Bar Chenin — two completely different experiences under one roof.",
+image:"/venue-photos/94.jpg", badges:["locals"],
+reservationUrl:"https://www.opentable.com/r/candy-bar-detroit" },
+
 { id:85, name:"High Bar",                          hood:"Downtown",           cat:"Cocktail Lounges",
 desc:"An indoor cocktail lounge on the 71st floor of the Renaissance Center, adjacent to Highlands restaurant. The tallest bar in Michigan — craft cocktails, small plates, and unobstructed floor-to-ceiling views of the Detroit River and Windsor skyline. Walk-ins welcome at the bar when seating is available.",
 vibes:["Michigan's Tallest Bar","Floor 71 RenCen","Detroit River Views"],
@@ -99,12 +107,13 @@ hours:"Wed-Thu 5pm-1am | Fri-Sat 5pm-2am | Sun 5pm-1am | Mon-Tue Closed | Happy 
 exclusive:"Two James Beard nominations for Outstanding Bar Program. 2025 Pinnacle Guide — 2 Pins Outstanding. Tales of the Cocktail Regional Top Ten Best American Cocktail Bar. Below street level, below the radar.",
 cats:["Cocktail Lounges","Alley Spots"],badges:["firsttimer","locals"], reservationUrl:"https://www.opentable.com/r/standby-detroit" },
 
-{ id:5,  name:"The Skip",                         hood:"Downtown",           cat:"Cocktail Lounges",
-desc:"An open-air tropical cocktail bar hiding inside The Belt alley from the team that built Standby. Frozen drinks, craft brews, island vibes in a completely hidden outdoor space.",
-vibes:["Open Air","Tropical","Frozen Cocktails"], addr:"1234 Library St (The Belt Alley), Detroit, MI 48226",
-hours:"Tue-Thu 4pm-12am | Fri-Sat 4pm-2am | Sun 4pm-12am | Mon Closed", best:"Weekend / Summer",
-exclusive:"No street presence. You either know it's there or you walk right past it.",
-badges:["hidden","locals"], websiteUrl:"https://www.theskipdetroit.com" },
+{ id:95, name:"Wright & Company",                   hood:"Downtown",           cat:"Cocktail Lounges",
+desc:"A celebrated bar and restaurant on the second floor of 1500 Woodward Ave. Creative small plates, seasonal cocktails, and a polished vintage interior with views over downtown Detroit.",
+vibes:["Craft Cocktails","Seasonal Small Plates","Second Floor Views"], addr:"1500 Woodward Ave Floor 2, Detroit, MI 48226",
+hours:"Tue-Thu 5pm-11pm | Fri 5pm-12am | Sat 4pm-12am | Mon & Sun Closed", best:"Date Night / Weeknight",
+exclusive:"One of the best bar programs in the city. Creative small plates and cocktails in a polished, vintage-forward space that rewards going back.",
+image:"/venue-photos/95.jpg", badges:["firsttimer","locals"],
+websiteUrl:"https://www.wrightdetroit.com" },
 
 { id:2,  name:"The Shelby",                       hood:"Downtown",           cat:"Hidden Bars",
 desc:"A James Beard-nominated subterranean cocktail bar inside a restored 1925 bank vault. Blue door, down a staircase, and the cocktails are worth every step.",
@@ -112,6 +121,13 @@ vibes:["Bank Vault","James Beard Nominated","Craft Cocktails"], addr:"607 Shelby
 hours:"Wed-Thu 5pm-12am | Fri-Sat 5pm-1am | Sun-Tue Closed", best:"Date Night / Weeknight",
 exclusive:"2022 James Beard semifinalist. NYT 36 Hours in Detroit. Hidden behind a blue door inside a century-old bank vault.",
 cats:["Hidden Bars","Cocktail Lounges"],badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/shelby-detroit" },
+
+{ id:5,  name:"The Skip",                         hood:"Downtown",           cat:"Cocktail Lounges",
+desc:"An open-air tropical cocktail bar hiding inside The Belt alley from the team that built Standby. Frozen drinks, craft brews, island vibes in a completely hidden outdoor space.",
+vibes:["Open Air","Tropical","Frozen Cocktails"], addr:"1234 Library St (The Belt Alley), Detroit, MI 48226",
+hours:"Tue-Thu 4pm-12am | Fri-Sat 4pm-2am | Sun 4pm-12am | Mon Closed", best:"Weekend / Summer",
+exclusive:"No street presence. You either know it's there or you walk right past it.",
+badges:["hidden","locals"], websiteUrl:"https://www.theskipdetroit.com" },
 
 { id:6,  name:"The Apparatus Room",               hood:"Downtown",           cat:"Cocktail Lounges",
 desc:"The restaurant and bar inside Detroit Foundation Hotel, a meticulous restoration of the 1929 Detroit Fire Department headquarters. Soaring ceilings, exposed brick, New American small plates.",
@@ -847,21 +863,6 @@ hours:"Wed-Thu 4pm-10pm | Fri 4pm-11pm | Sat 10am-3pm and 4pm-11pm | Sun 10am-3p
 exclusive:"Detroit's most beloved vegan pop-up finally has a permanent home.",
 cats:["Corktown","Lunch"],badges:["recentopen"], websiteUrl:"https://www.streetbeet.online" },
 
-{ id:94, name:"Candy Bar",                          hood:"Downtown",           cat:"Cocktail Lounges",
-desc:"An inventive cocktail bar inside the Siren Hotel — plush seating, a dazzling chandelier, and cocktails that take inspiration from candy and confections.",
-vibes:["Siren Hotel","Craft Cocktails","Chandelier Bar"], addr:"1509 Broadway St, Detroit, MI 48226 (Siren Hotel)",
-hours:"Mon-Thu 4pm-12am | Fri-Sat 4pm-2am | Sun 4pm-12am", best:"Date Night / Late Night",
-exclusive:"A cocktail bar inside one of Detroit's most design-forward hotels. Same building as Bar Chenin — two completely different experiences under one roof.",
-image:"/venue-photos/94.jpg", badges:["locals"],
-reservationUrl:"https://www.opentable.com/r/candy-bar-detroit" },
-
-{ id:95, name:"Wright & Company",                   hood:"Downtown",           cat:"Cocktail Lounges",
-desc:"A celebrated bar and restaurant on the second floor of 1500 Woodward Ave. Creative small plates, seasonal cocktails, and a polished vintage interior with views over downtown Detroit.",
-vibes:["Craft Cocktails","Seasonal Small Plates","Second Floor Views"], addr:"1500 Woodward Ave Floor 2, Detroit, MI 48226",
-hours:"Tue-Thu 5pm-11pm | Fri 5pm-12am | Sat 4pm-12am | Mon & Sun Closed", best:"Date Night / Weeknight",
-exclusive:"One of the best bar programs in the city. Creative small plates and cocktails in a polished, vintage-forward space that rewards going back.",
-image:"/venue-photos/95.jpg", badges:["firsttimer","locals"],
-websiteUrl:"https://www.wrightdetroit.com" },
 ];
 
 const UPCOMING = [
