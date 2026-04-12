@@ -125,11 +125,11 @@ export const HOTELS = [
   {
     id: "hotel-9",
     name: "Element Detroit at the Metropolitan",
-    hood: "Bricktown",
+    hood: "Grand Circus Park",
     addr: "33 John R St",
     desc: "An extended-stay gem inside the breathtaking 1925 Metropolitan Building — one of Detroit's finest examples of Gothic commercial architecture. Smartly designed suites with full kitchens.",
     price_from: "From $149/night",
-    features: ["Historic Building", "Suite-Style Rooms", "Bricktown"],
+    features: ["Historic Building", "Suite-Style Rooms", "Grand Circus Park"],
     image: "/hotels/metropolitan.jpg",
     images: [],
     booking_url: "https://www.booking.com/hotel/us/element-detroit-at-the-metropolitan.html",
