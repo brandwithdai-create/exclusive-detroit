@@ -1,0 +1,68 @@
+Make this change exactly:
+
+Important:  
+Do not touch venues like restaurants and bars. They are already correct.  
+Do not change any coding for restaurants, bars, or the Explore page.  
+Explore is perfect as-is.
+
+We only need to focus on:
+- Events
+- Games
+- Concerts
+
+Requirements:
+
+1. Concerts must always keep auto-populating
+   - Concert listings should continue updating automatically from the stored event/ticket APIs already connected.
+
+2. Events, Concerts, and Games tabs must auto-update from existing event APIs only
+   - Keep automatic live/updating data enabled for:
+     - Ticketmaster
+     - Eventbrite
+     - StubHub
+     - any other event/ticket APIs already connected in the app
+   - These tabs should refresh from those stored API sources so listings stay current automatically.
+
+3. Google Places API must never run anywhere in the app
+   - Disable all Google Places API calls completely.
+   - Remove any fallback logic that tries Google Places if something is missing.
+   - Do not call Google Places for images, venue info, hours, location details, or anything else.
+   - We already saved the correct venue images locally/static, so the app should only use those stored local images.
+
+4. Use local/static venue images only
+   - Restaurants, bars, hotels, sports venues, and other saved places should always pull from the local stored image mapping.
+   - No dynamic image fetching.
+   - No remapping.
+   - No external photo lookup.
+   - If a local image is missing, show the intended placeholder only — never trigger Google Places.
+
+5. Do not change restaurants, bars, or Explore
+   - Leave all restaurant and bar code alone.
+   - Leave Explore page code alone.
+   - Do not rework venue logic that is already correct.
+   - Only update the code related to Events, Games, and Concerts auto-updating behavior if needed.
+
+6. Event APIs only for event content
+   - Ticketmaster/Eventbrite/StubHub data should power event, concert, and game listings.
+   - Keep those APIs updating automatically.
+   - Do not connect those event updates to Google Places in any way.
+
+7. Protect against accidental paid calls
+   - Confirm in code that there are zero Google Places API requests being made.
+   - Search the full codebase for any Google Places usage and disable/remove it.
+   - Keep changes minimal and scoped.
+   - Do not add any new paid API usage.
+   - Do not add loops, bulk refresh jobs, or repeated polling that could create unnecessary calls.
+
+8. After update, verify
+   - Verify Concerts still auto-populate automatically.
+   - Verify Events update automatically.
+   - Verify Games update automatically.
+   - Verify local/static images still display correctly.
+   - Verify restaurants, bars, and Explore were not changed.
+   - Verify Google Places API is never called at all.
+
+Please make this airtight:  
+automatic updates for Events, Games, and Concerts only, zero Google Places API usage anywhere, and no changes to restaurants, bars, or Explore.
+
+Also confirm exactly which files were changed.
