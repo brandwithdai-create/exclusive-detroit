@@ -96,16 +96,7 @@ function validateEvent(built, tmEventId, label) {
 
 // ── Source logger ─────────────────────────────────────────────────────────────
 function logBatch(label, items) {
-  console.log(`[ExclusiveDetroit] ${label}: ${items.length} items loaded | ${new Date().toISOString()}`);
-  items.forEach(ev => {
-    console.log(
-      `  [${ev._source}] id=${ev.id}` +
-      ` | title="${ev.title || ev.team + " vs. " + ev.opponent}"` +
-      ` | date=${ev.date}` +
-      ` | venue="${ev.venue}"` +
-      ` | ticket=${ev.ticket_url}`
-    );
-  });
+  console.log(`[ExclusiveDetroit] ${label}: ${items.length} items | ${new Date().toISOString()} | first: "${(items[0]?.title || items[0]?.team) ?? "—"}"`);
 }
 
 // ── Team / sport helpers ──────────────────────────────────────────────────────
