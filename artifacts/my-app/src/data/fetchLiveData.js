@@ -172,9 +172,19 @@ function mapTmEvent(ev, type = "concert") {
 
 // ── fetchLiveGames ─────────────────────────────────────────────────────────────
 export async function fetchLiveGames() {
+  const API_URL = "/api/events/games";
   try {
-    const res = await fetch("/api/events/games");
-    if (!res.ok) throw new Error(`Server HTTP ${res.status}`);
+    console.log("[ExclusiveDetroit] Fetching games from", API_URL);
+    const res = await fetch(API_URL);
+    const ct = res.headers.get("content-type") || "";
+    if (!res.ok) {
+      console.error(`[ExclusiveDetroit] Games API error: HTTP ${res.status} from ${API_URL}`);
+      throw new Error(`Server HTTP ${res.status}`);
+    }
+    if (!ct.includes("application/json")) {
+      console.error(`[ExclusiveDetroit] Games API returned non-JSON (content-type: "${ct}") — API server may not be reachable`);
+      throw new Error(`Non-JSON response: ${ct}`);
+    }
     const data = await res.json();
     const events = data?._embedded?.events || [];
 
@@ -254,9 +264,19 @@ export async function fetchLiveGames() {
 
 // ── fetchLiveConcerts ──────────────────────────────────────────────────────────
 export async function fetchLiveConcerts() {
+  const API_URL = "/api/events/concerts";
   try {
-    const res = await fetch("/api/events/concerts");
-    if (!res.ok) throw new Error(`Server HTTP ${res.status}`);
+    console.log("[ExclusiveDetroit] Fetching concerts from", API_URL);
+    const res = await fetch(API_URL);
+    const ct = res.headers.get("content-type") || "";
+    if (!res.ok) {
+      console.error(`[ExclusiveDetroit] Concerts API error: HTTP ${res.status} from ${API_URL}`);
+      throw new Error(`Server HTTP ${res.status}`);
+    }
+    if (!ct.includes("application/json")) {
+      console.error(`[ExclusiveDetroit] Concerts API returned non-JSON (content-type: "${ct}") — API server may not be reachable`);
+      throw new Error(`Non-JSON response: ${ct}`);
+    }
     const data = await res.json();
     const events = data?._embedded?.events || [];
 
@@ -280,13 +300,20 @@ export async function fetchLiveConcerts() {
 // ── fetchLiveEvents ────────────────────────────────────────────────────────────
 export async function fetchLiveEvents() {
   try {
+    console.log("[ExclusiveDetroit] Fetching events from /api/events/theatre + /api/events/family");
     const [r1, r2] = await Promise.all([
       fetch("/api/events/theatre"),
       fetch("/api/events/family"),
     ]);
+    if (!r1.ok) console.error(`[ExclusiveDetroit] Theatre API error: HTTP ${r1.status}`);
+    if (!r2.ok) console.error(`[ExclusiveDetroit] Family API error: HTTP ${r2.status}`);
+    const ct1 = r1.headers.get("content-type") || "";
+    const ct2 = r2.headers.get("content-type") || "";
+    if (!ct1.includes("application/json")) console.error(`[ExclusiveDetroit] Theatre API non-JSON response (content-type: "${ct1}") — API server may not be reachable`);
+    if (!ct2.includes("application/json")) console.error(`[ExclusiveDetroit] Family API non-JSON response (content-type: "${ct2}") — API server may not be reachable`);
     const [d1, d2] = await Promise.all([
-      r1.ok ? r1.json() : Promise.resolve({}),
-      r2.ok ? r2.json() : Promise.resolve({}),
+      (r1.ok && ct1.includes("application/json")) ? r1.json() : Promise.resolve({}),
+      (r2.ok && ct2.includes("application/json")) ? r2.json() : Promise.resolve({}),
     ]);
 
     const allEvs = [
