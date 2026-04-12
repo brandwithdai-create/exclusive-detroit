@@ -54,6 +54,35 @@ pnpm workspace monorepo. **ExclusiveDetroit** is a Detroit nightlife + lifestyle
 
 **Error fallback**: If a Ticketmaster fetch fails, `ThingsToDo.jsx` shows "temporarily unavailable" (distinct from a genuine empty calendar). Games always show (static fallback array). CDN `stale-if-error` means users never see an error state unless Ticketmaster has been down for 24+ hours.
 
+## Standing Update Rules (enforce every session without exception)
+
+### 1. Static venue/hotel lists — never change without explicit approval
+- Do NOT add any venue, hotel, restaurant, or bar without the user explicitly naming it and approving it
+- Dynamic categories (games, events, sports tickets) may auto-populate from their live APIs
+- `VENUES` in App.jsx and `HOTELS` in eventsData.js are locked unless the user says otherwise
+
+### 2. Google Places API — off by default
+- Do NOT use Google Places API unless the user explicitly approves it for a specific session
+- When approved: one-time shell import only, for the exact venues named, images saved as permanent static assets in `public/venue-photos/{id}.jpg`
+- Zero runtime calls, no refresh, no background calls, no ongoing dependency after import
+
+### 3. Booking link priority for every new venue
+1. OpenTable (`reservationUrl`) — check the venue's own website HTML for the real slug
+2. Venue's own bookable website (`reservationUrl`) if it has a table booking flow
+3. Resy (`reservationUrl`) — confirmed 200 via fetch
+4. Correct website URL (`websiteUrl`) with "Visit Website" CTA as last resort
+
+### 4. Every new venue must be fully verified before going in
+- Correct name, neighborhood (`hood`), category (`cat`), `cats[]` array
+- Correct hours, address, coordinates in `COORDS`
+- Correct static image — real photo, matched to the correct venue, no placeholder
+- Correct booking/website link with correct CTA label (Book Now / Visit Website / Get Tickets)
+- Uses the exact same VCard layout/structure as all other venues — no custom formatting
+- No duplicates in any filter category or in All Spots
+
+### 5. Pre-push checklist — tell the user exactly what changed
+Before any push, report: what was added/changed, image source, CTA type + destination, which filter categories it appears in, and confirm no duplicates
+
 ## Key Constraints
 - App.jsx uses React.createElement throughout — NEVER convert to JSX
 - All CSS vars defined in index.html (3 theme blocks: :root dark, [data-theme="light"], @media light)
