@@ -1,7 +1,7 @@
 {
   "name": "Exclusive Detroit",
   "short_name": "Exclusive",
-  "description": "The insider's guide to Detroit's hidden bars, speakeasies, rooftops, and nightlife. If you know, you know.",
+  "description": "The insider's guide to Detroit's hidden bars, rooftops, dining, and nightlife. If you know, you know.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
