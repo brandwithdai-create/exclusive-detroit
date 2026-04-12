@@ -43,7 +43,7 @@ const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happ
 
 const FEATURED_IDS=["74","1","47","73","55","38","44","39","46","7","76","37","41","71","5","40","9","25","34","35","17","13","10"];
 
-const COORDS={"1":[42.333022,-83.048681],"2":[42.329286,-83.04843],"3":[42.33344,-83.05055],"4":[42.334415,-83.046032],"5":[42.334706,-83.046706],"6":[42.328328,-83.048352],"7":[42.368716,-83.072034],"8":[42.334305,-83.048496],"9":[42.33543,-83.04888],"10":[42.346605,-83.056836],"11":[42.331026,-83.065425],"12":[42.332992,-83.05145],"13":[42.318863,-83.074382],"14":[42.33553,-83.04888],"15":[42.334927,-83.047252],"16":[42.334728,-83.047255],"17":[42.33354,-83.05055],"18":[42.335712,-83.049701],"19":[42.334812,-83.046189],"20":[42.338047,-83.062567],"21":[42.363047,-83.085201],"22":[42.34025,-83.05811],"23":[42.351443,-83.060108],"24":[42.360223,-83.066305],"25":[42.331413,-83.046563],"26":[42.342649,-82.998573],"27":[42.34905,-83.041898],"28":[42.343879,-83.03356],"30":[42.344337,-83.060694],"31":[42.328529,-83.063349],"32":[42.331703,-83.065774],"33":[42.331725,-83.063272],"34":[42.332288,-83.04931],"35":[42.330482,-83.045432],"36":[42.329041,-83.047737],"37":[42.348523,-83.087987],"38":[42.3478,-83.065018],"39":[42.333596,-83.051529],"40":[42.333539,-83.051369],"41":[42.33356,-83.051468],"42":[42.333418,-83.048503],"43":[42.330891,-83.047851],"44":[42.360592,-83.066499],"45":[42.369685,-83.073426],"46":[42.33382,-83.04991],"47":[42.333636,-83.049522],"48":[42.334558,-83.047888],"49":[42.332997,-83.048953],"50":[42.33276,-83.047963],"51":[42.3293,-83.04754],"52":[42.331607,-83.075355],"53":[42.329506,-83.045689],"55":[42.355812,-83.066356],"56":[42.33291,-83.049808],"57":[42.337947,-83.052997],"63":[42.334471,-83.047014],"64":[42.335598,-83.045963],"65":[42.345175,-83.05558],"67":[42.337576,-83.050024],"68":[42.33392,-83.04991],"69":[42.34833,-83.067366],"70":[42.330563,-83.048639],"71":[42.35302,-83.079447],"72":[42.337719,-83.052991],"73":[42.332809,-83.047436],"74":[42.335035,-83.054965],"75":[42.33316,-83.049848],"76":[42.334355,-83.048544],"77":[42.354211,-83.0638],"78":[42.347354,-83.065259],"79":[42.345162,-83.05608],"80":[42.333061,-83.049006],"81":[42.335307,-83.04877],"82":[42.338604,-83.020675],"83":[42.328973,-83.054509],"84":[42.32883,-83.03959],"85":[42.32893,-83.03959],"86":[42.33182,-83.049973],"87":[42.335008,-83.048556],"r1":[42.335775,-83.048593],"r2":[42.360358,-82.984843],"r3":[42.344168,-83.037879],"r4":[42.33164,-83.070831],"r5":[42.353007,-83.067043],"u1":[42.33806,-83.052108],"u2":[42.33224,-83.045413],"u3":[42.333525,-83.047582],"u4":[42.403741,-82.935302],"88":[42.331746,-83.048726],"89":[42.331862,-83.048201],"90":[42.350440,-83.039090],"91":[42.328500,-83.072000],"92":[42.360850,-83.065230],"93":[42.352200,-83.073500]};
+const COORDS={"1":[42.333022,-83.048681],"2":[42.329286,-83.04843],"3":[42.33344,-83.05055],"4":[42.334415,-83.046032],"5":[42.334706,-83.046706],"6":[42.328328,-83.048352],"7":[42.368716,-83.072034],"8":[42.334305,-83.048496],"9":[42.33543,-83.04888],"10":[42.346605,-83.056836],"11":[42.331026,-83.065425],"12":[42.332992,-83.05145],"13":[42.318863,-83.074382],"14":[42.33553,-83.04888],"15":[42.334927,-83.047252],"16":[42.334728,-83.047255],"17":[42.33354,-83.05055],"18":[42.335712,-83.049701],"19":[42.334812,-83.046189],"20":[42.338047,-83.062567],"21":[42.363047,-83.085201],"22":[42.34025,-83.05811],"23":[42.351443,-83.060108],"24":[42.360223,-83.066305],"25":[42.331413,-83.046563],"26":[42.342649,-82.998573],"27":[42.34905,-83.041898],"28":[42.343879,-83.03356],"30":[42.344337,-83.060694],"31":[42.328529,-83.063349],"32":[42.331703,-83.065774],"33":[42.331725,-83.063272],"34":[42.332288,-83.04931],"35":[42.330482,-83.045432],"36":[42.329041,-83.047737],"37":[42.348523,-83.087987],"38":[42.3478,-83.065018],"39":[42.333596,-83.051529],"40":[42.333539,-83.051369],"41":[42.33356,-83.051468],"42":[42.333418,-83.048503],"43":[42.330891,-83.047851],"44":[42.360592,-83.066499],"45":[42.369685,-83.073426],"46":[42.33382,-83.04991],"47":[42.333636,-83.049522],"48":[42.334558,-83.047888],"49":[42.332997,-83.048953],"50":[42.33276,-83.047963],"51":[42.3293,-83.04754],"52":[42.331607,-83.075355],"53":[42.329506,-83.045689],"55":[42.355812,-83.066356],"56":[42.33291,-83.049808],"57":[42.337947,-83.052997],"63":[42.334471,-83.047014],"64":[42.335598,-83.045963],"65":[42.345175,-83.05558],"67":[42.337576,-83.050024],"68":[42.33392,-83.04991],"69":[42.34833,-83.067366],"70":[42.330563,-83.048639],"71":[42.35302,-83.079447],"72":[42.337719,-83.052991],"73":[42.332809,-83.047436],"74":[42.335035,-83.054965],"75":[42.33316,-83.049848],"76":[42.334355,-83.048544],"77":[42.354211,-83.0638],"78":[42.347354,-83.065259],"79":[42.345162,-83.05608],"80":[42.333061,-83.049006],"81":[42.335307,-83.04877],"82":[42.338604,-83.020675],"83":[42.328973,-83.054509],"84":[42.32883,-83.03959],"85":[42.32893,-83.03959],"86":[42.33182,-83.049973],"87":[42.335008,-83.048556],"r1":[42.335775,-83.048593],"r2":[42.360358,-82.984843],"r3":[42.344168,-83.037879],"r4":[42.33164,-83.070831],"r5":[42.353007,-83.067043],"u1":[42.33806,-83.052108],"u2":[42.33224,-83.045413],"u3":[42.333525,-83.047582],"u4":[42.403741,-82.935302],"88":[42.331746,-83.048726],"89":[42.331862,-83.048201],"90":[42.378500,-83.044500],"91":[42.333800,-83.046200],"92":[42.361400,-83.064100],"93":[42.352000,-83.065500]};
 
 function haversine(lat1,lon1,lat2,lon2){const R=3958.8,d2r=Math.PI/180;const dLat=(lat2-lat1)*d2r,dLon=(lon2-lon1)*d2r;const a=Math.sin(dLat/2)**2+Math.cos(lat1*d2r)*Math.cos(lat2*d2r)*Math.sin(dLon/2)**2;return R*2*Math.asin(Math.sqrt(a));}
 
@@ -782,38 +782,42 @@ exclusive:"Expect a packed crowd on weekends with a strong party vibe and music 
 badges:["locals"], websiteUrl:"https://loveandtequiladetroit.com" },
 
 /* ── DINNER + HAPPY HOUR ── */
-{ id:90, name:"Oak & Reel",                            hood:"Eastern Market",     cat:"Dinner",
-desc:"A raw bar and wood-fired seafood restaurant rooted in Eastern Market. Gulf oysters on the half shell, grilled whole fish, wood-smoked shellfish, and a carefully curated wine and cocktail program. One of Detroit's most focused and celebrated seafood destinations.",
-vibes:["Raw Bar","Wood-Fired Seafood","Eastern Market","Wine Program"], addr:"1430 St Aubin St, Detroit, MI 48207",
-hours:"Tue-Thu 5pm-10pm | Fri 5pm-11pm | Sat 4pm-11pm | Sun 4pm-10pm | Mon Closed | Happy Hour: Wed-Thu 5pm-7pm, Sun all night",
+{ id:90, name:"Oak & Reel",                            hood:"New Center",         cat:"Dinner",
+desc:"An award-winning contemporary Italian seafood restaurant on East Grand Blvd by Michelin-starred Chef Jared Gadbaw. House-made pastas (bucatini with preserved lemon, squid ink lumache with shrimp), fresh oysters by the half-dozen, and a rotating selection of antipasti. One of Detroit's most celebrated dining rooms.",
+vibes:["House-Made Pasta","Fresh Oysters","Michelin-Starred Chef","Italian Seafood"],
+addr:"2921 E Grand Blvd, Detroit, MI 48202",
+hours:"Wed-Thu 5pm-9pm | Fri-Sat 5pm-10pm | Sun 4:30pm-8pm | Mon-Tue Closed | Happy Hour: Wed-Thu 5pm-7pm, Sun all night",
 best:"Dinner / Happy Hour / Date Night",
-exclusive:"Best seafood happy hour in the city: $2 oysters, $8 martinis, $8 wine, $5 beer. Wednesday–Thursday 5–7 PM and all night Sunday.",
-cats:["Dinner","Happy Hour"], badges:["firsttimer","locals"] },
+exclusive:"$2 oysters, $8 martinis, $8 wine, $5 beer during happy hour — Wednesday–Thursday 5–7 PM and all night Sunday. Led by a Michelin-starred chef on one of Detroit's most underrated boulevards.",
+image:"/venue-photos/90.jpg", cats:["Dinner","Happy Hour"], badges:["firsttimer","locals"] },
 
 /* ── LUNCH + HAPPY HOUR ── */
-{ id:91, name:"Central Kitchen + Bar",                 hood:"Corktown",           cat:"Lunch",
-desc:"A neighborhood kitchen and bar in Corktown serving elevated comfort food with a casual, local edge. Thoughtfully sourced ingredients, a solid craft cocktail program, and a room that draws both regulars and out-of-towners. One of Corktown's most dependable spots for a long lunch or an afternoon at the bar.",
-vibes:["Corktown Kitchen","Craft Cocktails","Neighborhood Spot","Casual"], addr:"2179 Michigan Ave, Detroit, MI 48216",
-hours:"Mon-Thu 11am-10pm | Fri 11am-11pm | Sat 10am-11pm | Sun 10am-9pm | Happy Hour: Thu-Fri 4pm-6pm",
+{ id:91, name:"Central Kitchen + Bar",                 hood:"Downtown",           cat:"Lunch",
+desc:"A stylish bar and kitchen on Woodward Ave in the heart of Downtown Detroit. An approachable menu of elevated comfort plates, craft cocktails, and weekend brunch — the kind of room that works equally well for a midday lunch or a longer afternoon sit. Closed Monday and Tuesday.",
+vibes:["Woodward Ave","Craft Cocktails","Weekend Brunch","Downtown"],
+addr:"660 Woodward Ave, Suite 4A, Detroit, MI 48226",
+hours:"Wed-Thu 12pm-10pm | Fri 12pm-11pm | Sat 12pm-11pm | Sun 11am-4pm | Mon-Tue Closed | Happy Hour: Thu-Fri 4pm-6pm",
 best:"Lunch / Happy Hour",
-exclusive:"Happy hour Thursday and Friday 4–6 PM. One of Corktown's most versatile rooms — works for a quick lunch or a longer sit.",
-cats:["Lunch","Happy Hour"], badges:["locals"] },
+exclusive:"Happy hour Thursday and Friday 4–6 PM. Right on Woodward Avenue in Downtown Detroit — an easy pick for a business lunch or a casual post-work drink.",
+image:"/venue-photos/91.jpg", cats:["Lunch","Happy Hour"], badges:["locals"] },
 
 { id:92, name:"HopCat Detroit",                        hood:"Midtown",            cat:"Lunch",
-desc:"A 100+ tap craft beer bar on Woodward Ave with a full kitchen serving burgers, loaded fries, wraps, and bar snacks. One of the best spots in Detroit for a relaxed group lunch — casual, welcoming, and reliably good. The extensive rotating draft list covers Michigan craft and national favorites.",
-vibes:["100+ Taps","Craft Beer","Group Friendly","Woodward Ave"], addr:"4265 Woodward Ave, Detroit, MI 48201",
-hours:"Mon-Thu 11am-11pm | Fri-Sat 11am-12am | Sun 11am-10pm | Happy Hour: Mon-Thu 3pm-5:30pm & 9pm-close",
+desc:"A 100+ tap craft beer bar on Woodward Ave with a full kitchen serving burgers, loaded fries, wraps, and bar snacks. One of the best spots in Detroit for a relaxed group lunch — casual, welcoming, and reliably good. The rotating draft list covers Michigan craft brews and national favorites.",
+vibes:["100+ Taps","Craft Beer","Group Friendly","Woodward Ave"],
+addr:"4265 Woodward Ave, Detroit, MI 48201",
+hours:"Mon-Thu 11am-11pm | Fri-Sat 11am-12am | Sun 11am-11pm | Happy Hour: Mon-Thu 3pm-5:30pm & 9pm-close (dine-in only)",
 best:"Lunch / Happy Hour / Groups",
-exclusive:"Two happy hour windows Monday–Thursday: 3–5:30 PM and 9 PM to close. 50% off select apps, select drafts from $4, and $6 mules, meowgaritas, and wine.",
-cats:["Lunch","Happy Hour"], badges:["locals"] },
+exclusive:"Two happy hour windows every Monday–Thursday: 3–5:30 PM and 9 PM to close. 50% off select apps, local drafts from $4, and $6 mules, meowgaritas, and wine.",
+image:"/venue-photos/92.jpg", cats:["Lunch","Happy Hour"], badges:["locals"] },
 
-{ id:93, name:"Detroit Shipping Company",              hood:"Corktown",           cat:"Lunch",
-desc:"A converted shipping container food hall in Corktown with multiple independent food vendors, two bars, and a large outdoor gathering space. Rotating vendors covering tacos, sandwiches, pizza, and more. Open at noon Friday through Sunday — the go-to for a group meal with variety and an outdoor vibe.",
-vibes:["Food Hall","Container Architecture","Outdoor Space","Multiple Vendors"], addr:"474 Peterboro St, Detroit, MI 48201",
-hours:"Tue-Thu 4pm-11pm | Fri 4pm-12am | Sat-Sun 12pm-12am | Mon Closed | Happy Hour: Tue-Thu 4pm-6pm",
-best:"Lunch (Fri–Sun) / Happy Hour / Groups",
-exclusive:"Noon hours are Friday through Sunday only — weekday service begins at 4 PM Tuesday through Thursday. Happy hour Tuesday–Thursday 4–6 PM. Best experienced as a group on a weekend afternoon.",
-cats:["Lunch","Happy Hour"], badges:["locals"] },
+{ id:93, name:"Detroit Shipping Company",              hood:"Midtown",            cat:"Lunch",
+desc:"A restaurant collective and beer hall in the Midtown/Cass Corridor built from converted shipping containers, with six independent restaurants, two bars, a live music stage, and outdoor gathering space. Vendors include Bangkok 96 Street Food, Takitos AF, Momo Cha Nepalese Dumplings, Motorburger, and Halal Street. Open at noon on weekends.",
+vibes:["Food Hall","Live Music","Outdoor Stage","Six Restaurants"],
+addr:"474 Peterboro St, Detroit, MI 48201",
+hours:"Tue-Thu 4pm-10pm | Fri 4pm-11pm | Sat 12pm-11pm | Sun 12pm-10pm | Mon Closed | Happy Hour: Tue-Thu 4pm-6pm",
+best:"Lunch (Sat–Sun) / Happy Hour / Groups",
+exclusive:"Six independent restaurants under one roof. Noon hours on Saturday and Sunday only — weekday service starts at 4 PM Tuesday through Thursday. Happy hour Tuesday–Thursday 4–6 PM.",
+image:"/venue-photos/93.jpg", cats:["Lunch","Happy Hour"], badges:["locals"] },
 
 ];
 
