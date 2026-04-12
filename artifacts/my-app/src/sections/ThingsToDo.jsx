@@ -382,9 +382,6 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
       </div>
       <div style={{ background:C.deep, padding: onBack ? "16px 22px 40px" : "64px 22px 40px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
-          <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.22em", textTransform:"uppercase", color:C.gold, marginBottom:8 }}>
-            Detroit
-          </p>
           <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.8rem,5vw,3rem)", fontWeight:400, color:C.white, margin:0 }}>
             Things To Do
           </h2>
