@@ -19,8 +19,6 @@
 
 import { GAMES, isUpcoming } from "./eventsData.js";
 
-const TM_KEY = import.meta.env.VITE_TICKETMASTER_KEY;
-
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function dedupeById(arr) {
@@ -32,14 +30,6 @@ function sortByDate(arr) {
   return [...arr].sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
 }
 
-function getDateRange(daysAhead = 60) {
-  const now = new Date();
-  const end = new Date(now);
-  end.setDate(end.getDate() + daysAhead);
-  const pad = n => String(n).padStart(2, "0");
-  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
-  return { startDateTime: `${fmt(now)}T00:00:00Z`, endDateTime: `${fmt(end)}T23:59:59Z` };
-}
 
 function formatTMTime(datetime, localTime) {
   if (!datetime && !localTime) return "TBA";
@@ -58,19 +48,6 @@ function tmImageUrl(images, preferRatio = "16_9") {
   return match?.url || images.find(i => i.url)?.url || null;
 }
 
-function tmUrl(extraParams, daysAhead = 60) {
-  const { startDateTime, endDateTime } = getDateRange(daysAhead);
-  const url = new URL("https://app.ticketmaster.com/discovery/v2/events.json");
-  url.searchParams.set("apikey", TM_KEY);
-  url.searchParams.set("city", "Detroit");
-  url.searchParams.set("stateCode", "MI");
-  url.searchParams.set("countryCode", "US");
-  url.searchParams.set("startDateTime", startDateTime);
-  url.searchParams.set("endDateTime", endDateTime);
-  url.searchParams.set("sort", "date,asc");
-  for (const [k, v] of Object.entries(extraParams)) url.searchParams.set(k, v);
-  return url.toString();
-}
 
 // ── Strict per-event validator ────────────────────────────────────────────────
 // All five fields must belong to the same TM event object.
@@ -195,14 +172,9 @@ function mapTmEvent(ev, type = "concert") {
 
 // ── fetchLiveGames ─────────────────────────────────────────────────────────────
 export async function fetchLiveGames() {
-  if (!TM_KEY) {
-    console.warn("[ExclusiveDetroit] Games: no TM key — using static fallback");
-    return sortByDate(GAMES.filter(g => isUpcoming(g.date)));
-  }
-
   try {
-    const res = await fetch(tmUrl({ classificationName: "sports", size: "50" }));
-    if (!res.ok) throw new Error(`TM HTTP ${res.status}`);
+    const res = await fetch("/api/events/games");
+    if (!res.ok) throw new Error(`Server HTTP ${res.status}`);
     const data = await res.json();
     const events = data?._embedded?.events || [];
 
@@ -282,11 +254,9 @@ export async function fetchLiveGames() {
 
 // ── fetchLiveConcerts ──────────────────────────────────────────────────────────
 export async function fetchLiveConcerts() {
-  if (!TM_KEY) { console.warn("[ExclusiveDetroit] Concerts: no TM key"); return []; }
-
   try {
-    const res = await fetch(tmUrl({ classificationName: "music", size: "50" }));
-    if (!res.ok) throw new Error(`TM HTTP ${res.status}`);
+    const res = await fetch("/api/events/concerts");
+    if (!res.ok) throw new Error(`Server HTTP ${res.status}`);
     const data = await res.json();
     const events = data?._embedded?.events || [];
 
@@ -309,12 +279,10 @@ export async function fetchLiveConcerts() {
 
 // ── fetchLiveEvents ────────────────────────────────────────────────────────────
 export async function fetchLiveEvents() {
-  if (!TM_KEY) { console.warn("[ExclusiveDetroit] Events: no TM key"); return []; }
-
   try {
     const [r1, r2] = await Promise.all([
-      fetch(tmUrl({ classificationName: "arts & theatre", size: "50" })),
-      fetch(tmUrl({ classificationName: "family",         size: "25" })),
+      fetch("/api/events/theatre"),
+      fetch("/api/events/family"),
     ]);
     const [d1, d2] = await Promise.all([
       r1.ok ? r1.json() : Promise.resolve({}),
