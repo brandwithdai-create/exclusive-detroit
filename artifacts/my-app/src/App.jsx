@@ -39,7 +39,7 @@ if (v.websiteUrl)     return { label:"Visit Website", url:v.websiteUrl };
 return null;
 }
 
-const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happy Hour","Sports Bars","Hidden Bars","Speakeasies","Cocktail Lounges","Rooftops","Hotel Lounges","Alley Spots","Nightlife","Comedy / Live Events","Date Night","Outdoor Activities","Midtown","Downtown","Corktown"];
+const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happy Hour","Sports Bars","Hidden Bars","Cocktail Lounges","Rooftops","Hotel Lounges","Alley Spots","Nightlife","Comedy / Live Events","Date Night","Outdoor Activities","Midtown","Downtown","Corktown"];
 
 const FEATURED_IDS=["74","1","47","73","55","38","44","39","46","7","76","37","41","71","5","40","9","25","34","35","17","13","10"];
 
@@ -68,14 +68,14 @@ hours:"Mon-Sat 5pm-1am | Sun Closed | Walk-ins only", best:"Weeknight / Weekend"
 exclusive:"No sign. No reservation. Walk in, get seated on a timer. The menu is whatever the bartender decides.",
 cats:["Hidden Bars","Cocktail Lounges","Alley Spots"],badges:["hidden","locals"], websiteUrl:"https://www.badluckbar.com" },
 
-{ id:2,  name:"The Shelby",                       hood:"Downtown",           cat:"Speakeasies",
+{ id:2,  name:"The Shelby",                       hood:"Downtown",           cat:"Hidden Bars",
 desc:"A James Beard-nominated subterranean cocktail bar inside a restored 1925 bank vault. Blue door, down a staircase, and the cocktails are worth every step.",
 vibes:["Bank Vault","James Beard Nominated","Craft Cocktails"], addr:"607 Shelby St, Detroit, MI 48226 (blue door, downstairs)",
 hours:"Wed-Thu 5pm-12am | Fri-Sat 5pm-1am | Sun-Tue Closed", best:"Date Night / Weeknight",
 exclusive:"2022 James Beard semifinalist. NYT 36 Hours in Detroit. Hidden behind a blue door inside a century-old bank vault.",
-cats:["Speakeasies","Cocktail Lounges"],badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/shelby-detroit" },
+cats:["Hidden Bars","Cocktail Lounges"],badges:["hidden","locals"], reservationUrl:"https://www.opentable.com/r/shelby-detroit" },
 
-{ id:3,  name:"Hidden at Parlay Detroit",         hood:"Downtown",           cat:"Speakeasies",
+{ id:3,  name:"Hidden at Parlay Detroit",         hood:"Downtown",           cat:"Hidden Bars",
 desc:"A speakeasy in the lower level of Parlay Detroit sports bar. Curated cocktails, elevated bites, and a sultry atmosphere that has nothing to do with the sports bar above.",
 vibes:["Speakeasy","Craft Cocktails","Underground"], addr:"1260 Washington Blvd, Detroit, MI 48226",
 hours:"Sun-Thu 11am-12am | Fri-Sat 11am-2am (speakeasy hours vary)", best:"Weekend",
@@ -916,8 +916,8 @@ style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'D
 }, cta.label);
 }
 
-const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports Bars":"⚾️","Hidden Bars":"🚪","Speakeasies":"🥃","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🖤","Outdoor Activities":"🍃","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
-const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Speakeasies","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports Bars","Rooftops","Comedy / Live Events","Nightlife","Date Night","Outdoor Activities","Alley Spots"];
+const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports Bars":"⚾️","Hidden Bars":"🚪","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🖤","Outdoor Activities":"🍃","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
+const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports Bars","Rooftops","Comedy / Live Events","Nightlife","Date Night","Outdoor Activities","Alley Spots"];
 function getEmojiForVenue(venue){const all=[venue.cat,...(venue.cats||[])];for(const c of EMOJI_PRIORITY){if(all.includes(c)&&CAT_EMOJI[c])return CAT_EMOJI[c];}return CAT_EMOJI[venue.cat]||"✨";}
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
@@ -956,7 +956,6 @@ u3:"1542314831-068cd1dbfeeb",u4:"1414235077428-338989a2e8c0",
 };
 const CATEGORY_IMG_POOL = {
 "Hidden Bars":["1470337458703-46ad1756a187","1566417713940-fe7c737a9ef2","1551634979-2e9bb8c7dd5d"],
-"Speakeasies":["1551634979-2e9bb8c7dd5d","1514362545857-3bc16c4c7d1b","1470337458703-46ad1756a187"],
 "Cocktail Lounges":["1513558161293-cdaf765ed2fd","1470337458703-46ad1756a187","1543007630-9359431a5a9d"],
 "Nightlife":["1492684223066-81342ee5ff30","1504701954957-2010ec3bcec1","1517457373958-b7bdd4587205"],
 "Hotel Lounges":["1542314831-068cd1dbfeeb","1571896349842-33c89424de2d","1513558161293-cdaf765ed2fd"],
@@ -1155,8 +1154,8 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }, msg);
 }
 
-const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports Bars","Speakeasies","Cocktail Lounges"];
-const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports Bars":"⚾","Speakeasies":"🥃","Cocktail Lounges":"🍹"};
+const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports Bars","Cocktail Lounges"];
+const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports Bars":"⚾","Cocktail Lounges":"🍹"};
 const TILE_DARK="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
 const TILE_LIGHT="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
 function MapView({isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme}){
