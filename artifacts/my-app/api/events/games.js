@@ -1,0 +1,53 @@
+// Vercel serverless function — Detroit sports games via Ticketmaster
+// Path: /api/events/games
+// VITE_TICKETMASTER_KEY must be set in Vercel project environment variables.
+
+const KEY = process.env.VITE_TICKETMASTER_KEY;
+const TM_BASE = "https://app.ticketmaster.com/discovery/v2/events.json";
+
+function getDateRange() {
+  const now = new Date();
+  const end = new Date(now);
+  end.setDate(end.getDate() + 60);
+  const pad = n => String(n).padStart(2, "0");
+  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  return { startDateTime: `${fmt(now)}T00:00:00Z`, endDateTime: `${fmt(end)}T23:59:59Z` };
+}
+
+export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET");
+
+  if (!KEY) {
+    console.error("[ExclusiveDetroit] VITE_TICKETMASTER_KEY not set in Vercel environment variables");
+    return res.status(500).json({ error: "VITE_TICKETMASTER_KEY not configured" });
+  }
+
+  try {
+    const { startDateTime, endDateTime } = getDateRange();
+    const url = new URL(TM_BASE);
+    url.searchParams.set("apikey",             KEY);
+    url.searchParams.set("city",               "Detroit");
+    url.searchParams.set("stateCode",          "MI");
+    url.searchParams.set("countryCode",        "US");
+    url.searchParams.set("startDateTime",      startDateTime);
+    url.searchParams.set("endDateTime",        endDateTime);
+    url.searchParams.set("sort",               "date,asc");
+    url.searchParams.set("classificationName", "sports");
+    url.searchParams.set("size",               "50");
+
+    const tmRes = await fetch(url.toString());
+    if (!tmRes.ok) {
+      const text = await tmRes.text();
+      console.error(`[ExclusiveDetroit] Ticketmaster games HTTP ${tmRes.status}:`, text.slice(0, 200));
+      return res.status(502).json({ error: `Ticketmaster HTTP ${tmRes.status}` });
+    }
+
+    const data = await tmRes.json();
+    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=1800");
+    return res.json(data);
+  } catch (err) {
+    console.error("[ExclusiveDetroit] games fetch error:", err.message);
+    return res.status(500).json({ error: err.message });
+  }
+}
