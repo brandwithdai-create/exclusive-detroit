@@ -1186,7 +1186,7 @@ document.documentElement.style.overflow="hidden";
 document.body.style.overscrollBehavior="none";
 document.documentElement.style.overscrollBehavior="none";
 // ── Match body bg to map so Safari rubber-band gap is invisible ───────────
-document.body.style.background=isDark?"#1a1a2e":"#f4f0e8";
+document.body.style.background=isDark?"#000000":"#f4f0e8";
 return()=>{
 document.body.style.overflow=pb;
 document.body.style.position=pp;
