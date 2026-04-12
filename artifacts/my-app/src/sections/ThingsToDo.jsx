@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { getTicketCTA, fmtDate } from "../data/eventsData.js";
+import { getTicketCTA, fmtDate, GAMES as GAMES_FALLBACK } from "../data/eventsData.js";
 import { fetchLiveGames, fetchLiveConcerts, fetchLiveEvents } from "../data/fetchLiveData.js";
 
 const C = {
@@ -300,6 +300,9 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
       setErrors(e => ({ ...e, [key]: false }));
     } catch (err) {
       console.warn(`[ExclusiveDetroit] ThingsToDo load error for "${key}":`, err.message);
+      if (key === "games" && _cache.games === null && GAMES_FALLBACK.length > 0) {
+        setter(GAMES_FALLBACK);
+      }
       setErrors(e => ({ ...e, [key]: true }));
     } finally {
       setLoading(l => ({ ...l, [key]: false }));

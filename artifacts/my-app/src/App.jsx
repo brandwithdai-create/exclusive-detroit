@@ -1348,7 +1348,7 @@ React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"v
 selected&&React.createElement("div",{style:{padding:"10px 16px calc(14px + env(safe-area-inset-bottom))"}},
 React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start"}},
 React.createElement("div",{style:{width:64,height:64,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
-selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
+selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})
 ),
 React.createElement("div",{style:{flex:1,minWidth:0}},
 React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:2}},

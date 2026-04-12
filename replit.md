@@ -54,6 +54,41 @@ pnpm workspace monorepo. **ExclusiveDetroit** is a Detroit nightlife + lifestyle
 
 **Error fallback**: If a Ticketmaster fetch fails, `ThingsToDo.jsx` shows "temporarily unavailable" (distinct from a genuine empty calendar). Games always show (static fallback array). CDN `stale-if-error` means users never see an error state unless Ticketmaster has been down for 24+ hours.
 
+## Stable Backup Reference
+
+**APP STORE STABLE checkpoint**: commit `98944622a556917bfc714b8ba4b943f2e211376c` ("Published your App")
+- Cocktail Lounges order locked: TWT, Candy Bar, High Bar, Standby, Wright & Co, Shelby, Skip, Apparatus Room, Peterboro, Dirty Shake, Bar Chenin, Pocket Change
+- All static images confirmed on disk: venue-photos/90–96.jpg, hotels/all 8 hotels
+- To roll back: use the checkpoint UI to restore to this commit
+
+## Content Lock Rules (enforced from this session forward)
+
+**LOCKED — no changes without explicit user approval per item:**
+- `VENUES` array in App.jsx — order, content, hours, descriptions, images, links
+- `RECENTLY` array in App.jsx — same rules
+- `UPCOMING` array in App.jsx — same rules
+- `HOTELS` array in eventsData.js — same rules
+- All static images in `public/venue-photos/` and `public/hotels/`
+- All venue IDs, coordinates in `COORDS`, and `FEATURED_IDS`
+
+**DYNAMIC — may auto-update from live API:**
+- Games tab (Ticketmaster → static GAMES fallback)
+- Events tab (Ticketmaster → empty state on failure)
+- Concerts tab (Ticketmaster → empty state on failure)
+
+**Never add or change** venue content, order, hours, descriptions, or images unless explicitly requested by the user with the venue named.
+
+## Graceful Failure Architecture (as of APP STORE STABLE)
+
+| Failure | Behaviour |
+|---|---|
+| Games API down | `fetchLiveGames` catches internally → returns static GAMES array (Tigers/Pistons/Wings with real ticket URLs). ThingsToDo also catches as secondary defence. |
+| Events/Concerts API down | `fetchLiveEvents`/`fetchLiveConcerts` throw → ThingsToDo shows "temporarily unavailable" message. |
+| Venue image fails to load | `VenueImg.onError` → tries static `fallbackSrc` → if that also fails, shows 🥃 placeholder. |
+| Map sheet thumbnail fails | `onError` on the 64×64 img → hides the broken element, grey box remains. |
+| CTA / ticket link missing | `getCTA()` / `getTicketCTA()` return `null` → component returns `null` → no button rendered. |
+| Venue image system | All ID-keyed via `String(venue.id)` — never array-order-based. |
+
 ## Standing Update Rules (enforce every session without exception)
 
 ### 1. Static venue/hotel lists — never change without explicit approval
