@@ -373,9 +373,9 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
       <div style={{ background:C.deep, paddingTop: onBack ? 16 : 0, paddingLeft:22, paddingRight:22, paddingBottom: onBack ? 12 : 0 }}>
         {onBack && (
           <div style={{ maxWidth:1200, margin:"0 auto" }}>
-            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.ash, fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.18em", textTransform:"uppercase", padding:"6px 0", display:"inline-flex", alignItems:"center", gap:9, transition:"color 0.18s", minHeight:40 }}
+            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.ash, fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", letterSpacing:"0.18em", textTransform:"uppercase", padding:"12px 0", display:"inline-flex", alignItems:"center", gap:10, transition:"color 0.18s", minHeight:48 }}
               onMouseEnter={e=>e.currentTarget.style.color=C.goldL} onMouseLeave={e=>e.currentTarget.style.color=C.ash}>
-              <span style={{ fontSize:"1.1rem", lineHeight:1, fontWeight:300, letterSpacing:0 }}>←</span>Back
+              <span style={{ fontSize:"1.3rem", lineHeight:1, fontWeight:300, letterSpacing:0 }}>←</span>Back
             </button>
           </div>
         )}

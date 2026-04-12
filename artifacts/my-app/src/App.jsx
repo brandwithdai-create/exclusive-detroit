@@ -996,7 +996,7 @@ React.createElement("div", { style:{ display:"flex", justifyContent:"space-betwe
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood)
 ),
-venue.distMi!==undefined&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.1em",color:C.purple}},"◉ "+venue.distMi.toFixed(1)+" mi away"),
+venue.distMi!==undefined&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.62rem",letterSpacing:"0.1em",color:C.purple}},"◉ "+venue.distMi.toFixed(1)+" mi away"),
 (venue.badges||[]).length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:5 }}, (venue.badges||[]).map(b=>React.createElement(Chip,{key:b,type:b}))),
 React.createElement("h3", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}, venue.name),
 vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.82rem",fontStyle:"italic",color:"var(--c-vibe-txt)",margin:0,lineHeight:1.4}},vibeLine),
@@ -1540,7 +1540,7 @@ const active=c===cat;
 return React.createElement("button",{key:c,onClick:()=>switchCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1.5px solid "+(active?C.gold:"var(--c-filter-bdr)"),background:active?C.gold:"transparent",color:active?C.black:C.ash,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Spots":c);
 })),
 React.createElement("div",{style:{paddingBottom:10,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}},
-nearMe&&userCoords&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",color:C.purple,letterSpacing:"0.08em"}},"Sorted by distance"),
+nearMe&&userCoords&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.62rem",color:C.purple,letterSpacing:"0.08em"}},"Sorted by distance"),
 geoError&&!nearMe&&React.createElement("span",{style:{fontSize:"0.73rem",color:"#E8A0A0",fontWeight:300}},geoError)
 )
 )
