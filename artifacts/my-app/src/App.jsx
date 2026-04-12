@@ -789,7 +789,7 @@ addr:"2921 E Grand Blvd, Detroit, MI 48202",
 hours:"Wed-Thu 5pm-9pm | Fri-Sat 5pm-10pm | Sun 4:30pm-8pm | Mon-Tue Closed | Happy Hour: Wed-Thu 5pm-7pm, Sun all night",
 best:"Dinner / Happy Hour / Date Night",
 exclusive:"$2 oysters, $8 martinis, $8 wine, $5 beer during happy hour — Wednesday–Thursday 5–7 PM and all night Sunday. Led by a Michelin-starred chef on one of Detroit's most underrated boulevards.",
-image:"/venue-photos/90.jpg", cats:["Dinner","Happy Hour"], badges:["firsttimer","locals"], websiteUrl:"https://www.oakandreel.com" },
+image:"/venue-photos/90.jpg", cats:["Dinner","Happy Hour"], badges:["firsttimer","locals"], reservationUrl:"https://www.opentable.com/r/oak-and-reel-detroit" },
 
 /* ── LUNCH + HAPPY HOUR ── */
 { id:91, name:"Central Kitchen + Bar",                 hood:"Downtown",           cat:"Lunch",
@@ -799,7 +799,7 @@ addr:"660 Woodward Ave, Suite 4A, Detroit, MI 48226",
 hours:"Wed-Thu 12pm-10pm | Fri 12pm-11pm | Sat 12pm-11pm | Sun 11am-4pm | Mon-Tue Closed | Happy Hour: Thu-Fri 4pm-6pm",
 best:"Lunch / Happy Hour",
 exclusive:"Happy hour Thursday and Friday 4–6 PM. Right on Woodward Avenue in Downtown Detroit — an easy pick for a business lunch or a casual post-work drink.",
-image:"/venue-photos/91.jpg", cats:["Lunch","Happy Hour"], badges:["locals"], websiteUrl:"https://www.centraldetroit.com" },
+image:"/venue-photos/91.jpg", cats:["Lunch","Happy Hour"], badges:["locals"], reservationUrl:"https://resy.com/cities/detroit-mi/venues/central-kitchen-and-bar" },
 
 { id:92, name:"HopCat Detroit",                        hood:"Midtown",            cat:"Lunch",
 desc:"A 100+ tap craft beer bar on Woodward Ave with a full kitchen serving burgers, loaded fries, wraps, and bar snacks. One of the best spots in Detroit for a relaxed group lunch — casual, welcoming, and reliably good. The rotating draft list covers Michigan craft brews and national favorites.",
