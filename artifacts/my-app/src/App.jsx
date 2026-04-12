@@ -1649,7 +1649,7 @@ React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Each pocket 
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"24px 22px 56px"}},
 React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(240px,1fr))",gap:14}},
 HOODS.map(h=>{
-const cnt=ALL.filter(v=>v.hood===h.k||v.cat===h.k).length;
+const cnt=ALL.filter(v=>v.hood===h.k||v.cat===h.k||(v.cats||[]).includes(h.k)).length;
 return React.createElement("div",{key:h.k,onClick:()=>goCategory(h.k),style:{background:C.card,border:"1px solid "+C.border,borderRadius:12,padding:"20px 18px",cursor:"pointer",transition:"all 0.22s"},onMouseEnter:e=>{e.currentTarget.style.borderColor=C.goldD;e.currentTarget.style.transform="translateY(-3px)";},onMouseLeave:e=>{e.currentTarget.style.borderColor=C.border;e.currentTarget.style.transform="none";}},
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.2rem",fontWeight:600,color:C.white,marginBottom:7}},h.k),
 React.createElement("div",{style:{fontSize:"0.76rem",color:C.ash,fontWeight:300,lineHeight:1.55,marginBottom:11}},h.d),
