@@ -87,7 +87,7 @@ desc:"A nationally acclaimed subterranean cocktail bar on Gratiot Ave. Two-time 
 vibes:["Craft Cocktails","Candlelit","Seasonal Menu"], addr:"225 Gratiot Ave, Detroit, MI 48226",
 hours:"Wed-Thu 5pm-1am | Fri-Sat 5pm-2am | Sun 5pm-1am | Mon-Tue Closed | Happy Hour: Wed-Fri & Sun 5pm-6:30pm", best:"Weeknight / Date Night",
 exclusive:"Two James Beard nominations for Outstanding Bar Program. 2025 Pinnacle Guide — 2 Pins Outstanding. Tales of the Cocktail Regional Top Ten Best American Cocktail Bar. Below street level, below the radar.",
-badges:["firsttimer","locals"], reservationUrl:"https://www.opentable.com/r/standby-detroit" },
+cats:["Cocktail Lounges","Alley Spots"],badges:["firsttimer","locals"], reservationUrl:"https://www.opentable.com/r/standby-detroit" },
 
 { id:5,  name:"The Skip",                         hood:"Downtown",           cat:"Cocktail Lounges",
 desc:"An open-air tropical cocktail bar hiding inside The Belt alley from the team that built Standby. Frozen drinks, craft brews, island vibes in a completely hidden outdoor space.",
