@@ -288,6 +288,7 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
   });
   const [activeItem, setActiveItem] = useState(null);
   const [activeType, setActiveType] = useState(null);
+  const [errors, setErrors] = useState({ games: false, events: false, concerts: false });
 
   const load = useCallback(async (key, fetcher, setter) => {
     if (isCacheValid(key)) return;
@@ -296,8 +297,10 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
       _cache[key]   = data;
       _cacheAt[key] = Date.now();
       setter(data);
+      setErrors(e => ({ ...e, [key]: false }));
     } catch (err) {
       console.warn(`[ExclusiveDetroit] ThingsToDo load error for "${key}":`, err.message);
+      setErrors(e => ({ ...e, [key]: true }));
     } finally {
       setLoading(l => ({ ...l, [key]: false }));
     }
@@ -345,7 +348,19 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
     </div>
   );
 
-  const grid = (items, renderCard) => (
+  const errorMsg = (label) => (
+    <div style={{ textAlign:"center", padding:"60px 22px" }}>
+      <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.55rem", letterSpacing:"0.12em", textTransform:"uppercase", color:C.gold, marginBottom:10 }}>
+        {label} temporarily unavailable
+      </p>
+      <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.82rem", color:C.smoke, fontWeight:300, maxWidth:340, margin:"0 auto", lineHeight:1.6 }}>
+        We are having trouble reaching our events provider. Check back in a few minutes.
+      </p>
+    </div>
+  );
+
+  const grid = (items, renderCard, key) => (
+    errors[key] && items.length === 0 ? errorMsg(tab) :
     items.length === 0 ? emptyMsg(tab) : (
       <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))", gap:15 }}>
         {items.map(renderCard)}
@@ -394,19 +409,19 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
           loading.games ? <LoadingGrid /> :
           grid(games, g => (
             <GameCard key={g.id} game={g} saved={isSavedEvent(g.id)} onSave={toggleSavedEvent} onOpen={handleOpen} />
-          ))
+          ), "games")
         )}
         {tab === "events" && (
           loading.events ? <LoadingGrid /> :
           grid(events, e => (
             <EventCard key={e.id} event={e} saved={isSavedEvent(e.id)} onSave={toggleSavedEvent} onOpen={handleOpen} type="event" />
-          ))
+          ), "events")
         )}
         {tab === "concerts" && (
           loading.concerts ? <LoadingGrid /> :
           grid(concerts, c => (
             <EventCard key={c.id} event={{ ...c, title: c.artist || c.title }} saved={isSavedEvent(c.id)} onSave={toggleSavedEvent} onOpen={handleOpen} type="concert" />
-          ))
+          ), "concerts")
         )}
 
         <p style={{ fontFamily:"'DM Mono',monospace", fontSize:"0.47rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke, textAlign:"center", paddingTop:32 }}>

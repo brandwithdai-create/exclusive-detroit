@@ -1,0 +1,52 @@
+name: Monitor Live Endpoints
+
+on:
+  schedule:
+    # Every 30 minutes
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Verify ExclusiveDetroit API endpoints
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Check /api/health
+        run: |
+          echo "Probing https://www.exclusivedetroitapp.com/api/health"
+          response=$(curl -sf --max-time 15 https://www.exclusivedetroitapp.com/api/health)
+          echo "$response" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          print('healthy:', d.get('healthy'))
+          print('ts:', d.get('ts'))
+          eps = d.get('endpoints', {})
+          for k, v in eps.items():
+              status = 'OK' if v.get('ok') else 'FAIL'
+              print(f'  {k}: {status} ({v.get(\"ms\")}ms)')
+          if not d.get('healthy'):
+              sys.exit(1)
+          "
+
+      - name: Check /api/events/games returns JSON
+        run: |
+          ct=$(curl -sf --max-time 15 -o /dev/null -w "%{content_type}" \
+            https://www.exclusivedetroitapp.com/api/events/games)
+          echo "Content-Type: $ct"
+          echo "$ct" | grep -q "application/json" || (echo "FAIL: not JSON" && exit 1)
+
+      - name: Check /api/events/concerts returns JSON
+        run: |
+          ct=$(curl -sf --max-time 15 -o /dev/null -w "%{content_type}" \
+            https://www.exclusivedetroitapp.com/api/events/concerts)
+          echo "Content-Type: $ct"
+          echo "$ct" | grep -q "application/json" || (echo "FAIL: not JSON" && exit 1)
+
+      - name: Check /api/events/theatre returns JSON
+        run: |
+          ct=$(curl -sf --max-time 15 -o /dev/null -w "%{content_type}" \
+            https://www.exclusivedetroitapp.com/api/events/theatre)
+          echo "Content-Type: $ct"
+          echo "$ct" | grep -q "application/json" || (echo "FAIL: not JSON" && exit 1)

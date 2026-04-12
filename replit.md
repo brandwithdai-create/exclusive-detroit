@@ -24,6 +24,36 @@ pnpm workspace monorepo. **ExclusiveDetroit** is a Detroit nightlife + lifestyle
 - `ThingsToDo.jsx` — Games/Events/Concerts tabs, save state via savedEvents localStorage
 - `Stay.jsx` — Hotel grid, save state via savedHotels localStorage
 
+## Production Architecture (App Store ready)
+
+**Hosting**: Vercel only. `exclusivedetroitapp.com` auto-deploys from `github.com/brandwithdai-create/exclusive-detroit` `main` branch. Replit deployment button is NOT used for the live domain.
+
+**Required Vercel Environment Variables**:
+- `VITE_TICKETMASTER_KEY` — Ticketmaster Discovery API key (server-side only, never in browser bundle)
+
+**Vercel API Functions** (at `artifacts/my-app/api/`):
+- `/api/events/games` — Detroit sports via Ticketmaster
+- `/api/events/concerts` — Detroit concerts via Ticketmaster
+- `/api/events/theatre` — Arts & theatre via Ticketmaster
+- `/api/events/family` — Family events via Ticketmaster
+- `/api/health` — Health check, probes all 3 categories, returns JSON status
+- `/api/places` — Google Places (disabled / returns empty)
+
+**Cache-Control strategy** (all event functions):
+- `s-maxage=300` — CDN caches fresh responses for 5 min
+- `stale-while-revalidate=3600` — CDN serves stale while background-refreshing (1 hr)
+- `stale-if-error=86400` — CDN serves last-known-good for 24 hr if Ticketmaster is down
+
+**Routing** (`vercel.json`): Vercel routes API functions before evaluating rewrites. The `/(.*) → /index.html` catch-all does NOT intercept `/api/*` calls.
+
+**Monitoring**: `.github/workflows/monitor-endpoints.yml` runs every 30 min. Checks `/api/health`, games, concerts, and theatre. GitHub emails repo owner if any check fails.
+
+**Post-deploy verification**: `sh scripts/verify-endpoints.sh` — tests 4 endpoints and exits 1 on any failure.
+
+**Push to production**: Checkpoint auto-commits. Then `sh push.sh` → GitHub → Vercel auto-deploys in ~2 min.
+
+**Error fallback**: If a Ticketmaster fetch fails, `ThingsToDo.jsx` shows "temporarily unavailable" (distinct from a genuine empty calendar). Games always show (static fallback array). CDN `stale-if-error` means users never see an error state unless Ticketmaster has been down for 24+ hours.
+
 ## Key Constraints
 - App.jsx uses React.createElement throughout — NEVER convert to JSX
 - All CSS vars defined in index.html (3 theme blocks: :root dark, [data-theme="light"], @media light)

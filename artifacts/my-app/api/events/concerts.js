@@ -1,6 +1,13 @@
 // Vercel serverless function — Detroit concerts via Ticketmaster
 // Path: /api/events/concerts
 // VITE_TICKETMASTER_KEY must be set in Vercel project environment variables.
+//
+// PRODUCTION ARCHITECTURE:
+//   - This function lives in GitHub main → Vercel auto-deploys on push
+//   - Vercel CDN caches responses for 5 min (s-maxage=300)
+//   - stale-while-revalidate=3600: CDN serves stale while background-refreshing (1 hr)
+//   - stale-if-error=86400: CDN serves last-known-good data for 24 hr on Ticketmaster outage
+//   - The catch-all rewrite in vercel.json does NOT intercept /api/* (functions have priority)
 
 const KEY = process.env.VITE_TICKETMASTER_KEY;
 const TM_BASE = "https://app.ticketmaster.com/discovery/v2/events.json";
@@ -44,7 +51,10 @@ export default async function handler(req, res) {
     }
 
     const data = await tmRes.json();
-    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=1800");
+    // s-maxage=300: fresh for 5 min on CDN
+    // stale-while-revalidate=3600: serve stale while refreshing for up to 1 hour
+    // stale-if-error=86400: serve last-known-good for 24 hr on upstream error
+    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=3600, stale-if-error=86400");
     return res.json(data);
   } catch (err) {
     console.error("[ExclusiveDetroit] concerts fetch error:", err.message);
