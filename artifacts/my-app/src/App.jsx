@@ -1468,7 +1468,7 @@ const savedEventObjects=savedEvents.map(id=>savedEventMeta[id]||ALL_STATIC_EVENT
 const savedHotelObjects=savedHotels.map(id=>HOTELS.find(h=>String(h.id)===String(id))).filter(Boolean);
 const totalSaves=favs.length+savedEvents.length+savedHotels.length;
 const modalVenue=findItem(modalId);
-const navTo=s=>{if(s!=="explore")setCat("all");setSection(s);window.scrollTo({top:0,behavior:"smooth"});};
+const navTo=s=>{if(s!=="explore")setCat("all");setSection(s);window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;requestAnimationFrame(()=>{window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;});};
 
 const ss=(prop,val)=>({[prop]:val});
 const row=(children,extra={})=>React.createElement("div",{style:{display:"flex",...extra}},children);
