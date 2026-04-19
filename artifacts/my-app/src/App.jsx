@@ -81,7 +81,7 @@ vibes:["Siren Hotel","Craft Cocktails","Chandelier Bar"], addr:"1509 Broadway St
 hours:"Mon-Thu 4pm-12am | Fri-Sat 4pm-2am | Sun 4pm-12am", best:"Date Night / Late Night",
 exclusive:"A cocktail bar inside one of Detroit's most design-forward hotels. Same building as Bar Chenin — two completely different experiences under one roof.",
 image:"/venue-photos/94.jpg", badges:["locals"],
-reservationUrl:"https://www.opentable.com/r/candy-bar-detroit" },
+reservationUrl:"https://resy.com/cities/detroit-mi/venues/candy-bar" },
 
 { id:85, name:"High Bar",                          hood:"Downtown",           cat:"Cocktail Lounges",
 desc:"An indoor cocktail lounge on the 71st floor of the Renaissance Center, adjacent to Highlands restaurant. The tallest bar in Michigan — craft cocktails, small plates, and unobstructed floor-to-ceiling views of the Detroit River and Windsor skyline. Walk-ins welcome at the bar when seating is available.",
@@ -192,7 +192,7 @@ desc:"A lively rooftop bar and live music venue steps from Campus Martius. Outdo
 vibes:["Live Music","Rooftop Terrace","Craft Cocktails"], addr:"47 E Adams Ave, Detroit, MI 48226",
 hours:"Mon 11am-12am | Tue-Sun 11am-2am", best:"Evening / Live Music Nights",
 exclusive:"Detroit's most social rooftop — the energy here on a weekend night is unlike anywhere else in the city. Combine with a walk through Campus Martius.",
-badges:["firsttimer"], websiteUrl:"https://tinroofbar.com/detroit" },
+badges:["firsttimer"], websiteUrl:"https://tinroofdetroit.com/" },
 
 { id:15, name:"The Belt",                          hood:"Downtown",           cat:"Alley Spots",
 desc:"A once-overlooked downtown alley transformed into a curated open-air gallery lined with murals from international and local artists. Multiple bars spill into the space.",
@@ -243,12 +243,6 @@ hours:"Mon, Wed-Thu 8pm-2am | Fri-Sat 8pm-3am | Check listings", best:"Weekend /
 exclusive:"Detroit invented electronic music. Marble Bar is where the city still practices it.",
 badges:["locals","hidden"], websiteUrl:"https://www.themarblebar.com" },
 
-{ id:22, name:"The Spotlighter Theatre",           hood:"Midtown",            cat:"Comedy / Live Events",
-desc:"An intimate black-box comedy and performance space in Midtown. Local and touring comedians, improv nights, and late-night variety shows in 150 seats.",
-vibes:["Comedy","Black Box","150 Seats"], addr:"415 Ledyard St, Detroit, MI 48201",
-hours:"Show nights vary - check @spotlighterdetroit on Instagram", best:"Weeknight / Date Night",
-exclusive:"150 seats. Nobody is far from anything. Detroit comedy at its most raw.",
-badges:["locals","hidden"], websiteUrl:"https://www.instagram.com/spotlighterdetroit" },
 
 { id:23, name:"The Majestic Theatre",              hood:"Midtown",            cat:"Comedy / Live Events",
 desc:"A 100-year-old theatre complex anchoring Midtown nightlife. Live music, comedy, and cultural events across three interconnected venues.",
@@ -279,7 +273,7 @@ hours:"Sun-Thu 4pm-10pm | Fri-Sat 4pm-11pm",
 best:"Date Night / Special Occasion",
 exclusive:"Soaring ceilings, marble floors, glass-walled dry-age rooms, and a custom butcher counter visible from every table. One of the most exacting steak restaurants in America.",
 cats:["Date Night","Dinner"],badges:["firsttimer"],
-reservationUrl:"https://www.opentable.com/r/prime-and-proper-detroit" },
+reservationUrl:"https://resy.com/cities/detroit-mi/venues/prime-and-proper" },
 
 { id:35, name:"BESA",                             hood:"Downtown",           cat:"Date Night",
 desc:"Modern European dining inspired by the Adriatic coast inside the historic Vinton Building on Woodward Ave. Bold flavors built around fresh seafood, handmade pasta, wood-fired lamb, and one of the strongest wine programs in Detroit.",
@@ -603,7 +597,7 @@ hours:"Mon 3pm-10pm | Tue-Thu 12pm-10pm | Fri 3pm-11pm | Sat 4pm-11pm | Sun Clos
 best:"Dinner / Date Night",
 exclusive:"Inside the Federal Reserve Building, one of downtown Detroit's most architecturally striking spaces. The fusion of Japanese technique with Caribbean and Korean flavors is completely its own thing.",
 badges:["firsttimer","locals"],
-reservationUrl:"https://resy.com/cities/detroit-mi/venues/soraya" },
+reservationUrl:"https://www.sorayadetroit.com" },
 
 { id:71, name:"Bash",                               hood:"Woodbridge",         cat:"Dinner",
 desc:"Bash Original Izakaya is a modern Japanese restaurant in Detroit's Woodbridge neighborhood, led by Executive Chef James Kim. Bold specialty rolls, refined sashimi, carefully balanced nigiri, pork gyoza, mushroom miso ramen, and an excellent sake selection. Outdoor patio seating in season.",
@@ -784,7 +778,7 @@ vibes:["Late Night","DJ Sets","Dancing"], addr:"24 W Adams Ave, Detroit, MI 4822
 hours:"Thu-Sat 10pm-2am",
 best:"After 11:30PM",
 exclusive:"Gets busiest after midnight — this is where you go when you want a true late-night Detroit crowd.",
-badges:["locals"], websiteUrl:"https://annexdetroit.com" },
+badges:["locals"], websiteUrl:"https://theannexdetroit.com/" },
 
 { id:89, name:"Love & Tequila",                     hood:"Downtown",           cat:"Nightlife",
 desc:"Love & Tequila is a vibrant nightlife spot combining a bar, dance floor, and Latin-inspired party energy. Known for its music mix, tequila-forward menu, and high-energy weekends, it brings a different flavor to Detroit's downtown scene. It's a popular stop for groups and late-night celebrations.",
