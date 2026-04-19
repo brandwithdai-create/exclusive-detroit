@@ -81,7 +81,7 @@ vibes:["Siren Hotel","Craft Cocktails","Chandelier Bar"], addr:"1509 Broadway St
 hours:"Mon-Thu 4pm-12am | Fri-Sat 4pm-2am | Sun 4pm-12am", best:"Date Night / Late Night",
 exclusive:"A cocktail bar inside one of Detroit's most design-forward hotels. Same building as Bar Chenin — two completely different experiences under one roof.",
 image:"/venue-photos/94.jpg", badges:["locals"],
-reservationUrl:"https://resy.com/cities/detroit-mi/venues/candy-bar" },
+reservationUrl:"https://resy.com/cities/detroit-mi/venues/1858" },
 
 { id:85, name:"High Bar",                          hood:"Downtown",           cat:"Cocktail Lounges",
 desc:"An indoor cocktail lounge on the 71st floor of the Renaissance Center, adjacent to Highlands restaurant. The tallest bar in Michigan — craft cocktails, small plates, and unobstructed floor-to-ceiling views of the Detroit River and Windsor skyline. Walk-ins welcome at the bar when seating is available.",
@@ -273,7 +273,7 @@ hours:"Sun-Thu 4pm-10pm | Fri-Sat 4pm-11pm",
 best:"Date Night / Special Occasion",
 exclusive:"Soaring ceilings, marble floors, glass-walled dry-age rooms, and a custom butcher counter visible from every table. One of the most exacting steak restaurants in America.",
 cats:["Date Night","Dinner"],badges:["firsttimer"],
-reservationUrl:"https://resy.com/cities/detroit-mi/venues/prime-and-proper" },
+reservationUrl:"https://resy.com/cities/detroit-mi/venues/prime_and_proper" },
 
 { id:35, name:"BESA",                             hood:"Downtown",           cat:"Date Night",
 desc:"Modern European dining inspired by the Adriatic coast inside the historic Vinton Building on Woodward Ave. Bold flavors built around fresh seafood, handmade pasta, wood-fired lamb, and one of the strongest wine programs in Detroit.",
