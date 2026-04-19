@@ -1,20 +1,26 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Exclusive Detroit — Live Data Fetcher  v3
+// Exclusive Detroit — Live Data Fetcher  v4
 // Single source of truth: Ticketmaster Discovery API only.
 //
 // INTEGRITY RULES (enforced per-event, no exceptions):
 //   1. Every event object is built from ONE Ticketmaster response object.
 //   2. title, date, venue, and ticket_url must all be present and non-empty.
 //   3. ticket_url must start with https:// — no relative URLs, no placeholders.
-//   4. image must be a real URL from the TM response — no stock photos injected.
+//   4. ticket_url domain must be in TRUSTED_TICKET_DOMAINS. This rejects resale
+//      and secondary-market listings (e.g. GOFEVO) that TM sometimes returns
+//      alongside primary events.
+//   5. image must be a real URL from the TM response — no stock photos injected.
 //      Exception: Games use a sport-specific photo pool because TM returns the
 //      same team-promo image for every home game of the same team.
-//   5. desc comes from the TM event's own `info` or `pleaseNote` field only.
+//   6. desc comes from the TM event's own `info` or `pleaseNote` field only.
 //      We never generate synthetic descriptions.
-//   6. _source is tagged on every object so the UI can log and verify origin.
-//   7. On any API failure, concerts and events return [] — never demo data.
-//   8. Games fall back to the static GAMES array (real venue / real team ticketing
+//   7. _source is tagged on every object so the UI can log and verify origin.
+//   8. On any API failure, concerts and events return [] — never demo data.
+//   9. Games fall back to the static GAMES array (real venue / real team ticketing
 //      page URLs) only when TM returns zero Detroit home-game results.
+//  10. After ID-based dedup, a content-based dedup collapses any remaining events
+//      that share the same normalized title + venue + date (same-day window).
+//      The first occurrence (primary TM listing) always wins.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import { GAMES, isUpcoming } from "./eventsData.js";
@@ -28,6 +34,71 @@ function dedupeById(arr) {
 
 function sortByDate(arr) {
   return [...arr].sort((a, b) => (a.date || "9999").localeCompare(b.date || "9999"));
+}
+
+// ── Trusted ticket-domain allowlist ───────────────────────────────────────────
+// Ticketmaster's API can return resale/secondary-market listings (e.g. GOFEVO)
+// alongside primary events. Only events whose ticket URL belongs to a trusted
+// primary-ticket domain are displayed. Eventbrite is included for future use.
+const TRUSTED_TICKET_DOMAINS = [
+  "ticketmaster.com",
+  "livenation.com",
+  "ticketweb.com",    // Ticketmaster-owned; used for small/local venues
+  "eventbrite.com",
+  "axs.com",
+];
+
+function isTrustedTicketDomain(url) {
+  if (!url) return false;
+  try {
+    const hostname = new URL(url).hostname.toLowerCase().replace(/^www\./, "");
+    return TRUSTED_TICKET_DOMAINS.some(d => hostname === d || hostname.endsWith("." + d));
+  } catch { return false; }
+}
+
+// ── Content-based deduplication ───────────────────────────────────────────────
+// Collapses events that share the same venue + date AND whose titles are either:
+//   a) identical after normalization, OR
+//   b) one is a prefix of the other (catches TM's per-ticket-type label variants,
+//      e.g. "Hamilton (Touring)" vs "Hamilton (Touring) - Recommended for ages 10+")
+// The array must already be sorted (primary TM listings appear before resale clones)
+// so the first occurrence — the canonical primary listing — always wins.
+function normalizeTitle(title) {
+  return (title || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function titlesOverlap(a, b) {
+  // Exact match
+  if (a === b) return true;
+  // One is a leading prefix of the other (with a word boundary)
+  if (b.startsWith(a + " ") || a.startsWith(b + " ")) return true;
+  return false;
+}
+
+function dedupeByContent(arr) {
+  const kept = [];
+  for (const ev of arr) {
+    const normTitle = normalizeTitle(ev.title);
+    const venue     = (ev.venue || "").toLowerCase().trim();
+    const date      = ev.date || "";
+
+    const isDup = kept.some(k =>
+      (k.date || "") === date &&
+      (k.venue || "").toLowerCase().trim() === venue &&
+      titlesOverlap(normalizeTitle(k.title), normTitle)
+    );
+
+    if (isDup) {
+      console.log(`[ExclusiveDetroit] CONTENT-DEDUP removed "${ev.title}" on ${date} @ ${ev.venue} (url: ${ev.ticket_url})`);
+    } else {
+      kept.push(ev);
+    }
+  }
+  return kept;
 }
 
 
@@ -62,6 +133,10 @@ function validateEvent(built, tmEventId, label) {
   }
   if (!built.ticket_url.startsWith("https://")) {
     console.warn(`[ExclusiveDetroit] SKIP ${label} tmId=${tmEventId}: ticket_url is not https ("${built.ticket_url}")`);
+    return false;
+  }
+  if (!isTrustedTicketDomain(built.ticket_url)) {
+    console.warn(`[ExclusiveDetroit] SKIP ${label} tmId=${tmEventId}: untrusted ticket domain — resale/secondary source excluded ("${built.ticket_url}")`);
     return false;
   }
   if (!built.image || !built.image.startsWith("http")) {
@@ -289,7 +364,7 @@ export async function fetchLiveConcerts() {
       return validateEvent(ev, ev._tm_id, "concert");
     });
 
-  const result = sortByDate(dedupeById(concerts));
+  const result = dedupeByContent(sortByDate(dedupeById(concerts)));
   logBatch("Concerts", result);
   return result;
 }
@@ -331,7 +406,7 @@ export async function fetchLiveEvents() {
       return validateEvent(ev, ev._tm_id, "event");
     });
 
-  const result = sortByDate(dedupeById(events));
+  const result = dedupeByContent(sortByDate(dedupeById(events)));
   logBatch("Events", result);
   return result;
 }
