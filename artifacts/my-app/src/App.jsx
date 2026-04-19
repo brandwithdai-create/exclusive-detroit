@@ -879,7 +879,7 @@ vibes:["Immersive Dome","Live Sports","12K LED"], addr:"Cadillac Square (near Ca
 hours:"Targeting Fall 2026 - confirm at cosm.com/detroit", best:"Game Night / Any Night",
 exclusive:"Nothing like this exists anywhere in the Midwest. When it opens Detroit will have the most immersive sports venue in the country outside LA and Dallas.",
 openDate:"2026-09-01", note:"Targeting Fall 2026 | Bedrock's Development at Cadillac Square",
-cats:["Immersive Entertainment","Sports Bars"],websiteUrl:"https://cosm.com/detroit", ticketUrl:"https://cosm.com/detroit" },
+cats:["Immersive Entertainment","Sports Bars"],websiteUrl:"https://cosm.com/detroit" },
 { id:"u3", name:"The Detroit EDITION Hotel", hood:"Downtown",           cat:"Luxury Hotel",
 desc:"Detroit's first five-star hotel inside Hudson's Detroit tower. 227 rooms, rooftop pool, four dining concepts.",
 vibes:["Five-Star","Hudson's Tower","Marriott EDITION"], addr:"1208 Woodward Ave (Hudson's Detroit Tower), Detroit, MI 48226",
