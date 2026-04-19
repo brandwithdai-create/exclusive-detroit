@@ -57,12 +57,23 @@ function isTrustedTicketDomain(url) {
 }
 
 // ── Content-based deduplication ───────────────────────────────────────────────
-// Collapses events that share the same venue + date AND whose titles are either:
-//   a) identical after normalization, OR
-//   b) one is a prefix of the other (catches TM's per-ticket-type label variants,
-//      e.g. "Hamilton (Touring)" vs "Hamilton (Touring) - Recommended for ages 10+")
-// The array must already be sorted (primary TM listings appear before resale clones)
-// so the first occurrence — the canonical primary listing — always wins.
+// Two-level duplicate detection:
+//
+// Level A — Same venue: collapses events sharing title-prefix + venue + date.
+//   Handles TM's per-ticket-type variants (e.g. "Hamilton (Touring)" vs
+//   "Hamilton (Touring) - Recommended for ages 10+") and matinee/evening pairs.
+//
+// Level B — Different venue, same time: collapses events sharing title-prefix +
+//   date + start time (within CROSS_VENUE_WINDOW_HRS) across different venues.
+//   A touring show cannot physically be at two venues simultaneously; when TM
+//   returns two such entries the second is a data error. The first entry in the
+//   API response (the primary/canonical listing) is always kept.
+//   TBA-time events are never cross-venue deduped (can't compare unknown times).
+//
+// The array must be pre-sorted so the canonical TM listing appears first.
+
+const CROSS_VENUE_WINDOW_HRS = 2;
+
 function normalizeTitle(title) {
   return (title || "")
     .toLowerCase()
@@ -72,11 +83,28 @@ function normalizeTitle(title) {
 }
 
 function titlesOverlap(a, b) {
-  // Exact match
   if (a === b) return true;
-  // One is a leading prefix of the other (with a word boundary)
   if (b.startsWith(a + " ") || a.startsWith(b + " ")) return true;
   return false;
+}
+
+// Parse "H:MM AM/PM ET" → decimal hours (null if TBA / unparseable)
+function parseDisplayTime(timeStr) {
+  if (!timeStr || timeStr === "TBA") return null;
+  const m = timeStr.match(/^(\d+):(\d+)\s+(AM|PM)/i);
+  if (!m) return null;
+  let h = parseInt(m[1], 10);
+  const pm = m[3].toUpperCase() === "PM";
+  if (pm && h !== 12) h += 12;
+  if (!pm && h === 12) h = 0;
+  return h + parseInt(m[2], 10) / 60;
+}
+
+function timesAreClose(timeA, timeB) {
+  const a = parseDisplayTime(timeA);
+  const b = parseDisplayTime(timeB);
+  if (a === null || b === null) return false; // TBA → cannot compare → not a dup
+  return Math.abs(a - b) <= CROSS_VENUE_WINDOW_HRS;
 }
 
 function dedupeByContent(arr) {
@@ -86,11 +114,19 @@ function dedupeByContent(arr) {
     const venue     = (ev.venue || "").toLowerCase().trim();
     const date      = ev.date || "";
 
-    const isDup = kept.some(k =>
-      (k.date || "") === date &&
-      (k.venue || "").toLowerCase().trim() === venue &&
-      titlesOverlap(normalizeTitle(k.title), normTitle)
-    );
+    const isDup = kept.some(k => {
+      if ((k.date || "") !== date) return false;
+      if (!titlesOverlap(normalizeTitle(k.title), normTitle)) return false;
+
+      const kVenue = (k.venue || "").toLowerCase().trim();
+
+      // Level A: same venue → always a duplicate
+      if (kVenue === venue) return true;
+
+      // Level B: different venue, same title, same date, same start time
+      // → touring show listed at two venues simultaneously → TM data error
+      return timesAreClose(k.time, ev.time);
+    });
 
     if (isDup) {
       console.log(`[ExclusiveDetroit] CONTENT-DEDUP removed "${ev.title}" on ${date} @ ${ev.venue} (url: ${ev.ticket_url})`);
