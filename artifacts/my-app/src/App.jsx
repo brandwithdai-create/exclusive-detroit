@@ -1083,18 +1083,30 @@ const badges = venue.badges||[];
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
 React.useLayoutEffect(() => {
+const scrollY = window.scrollY;
 const body = document.body;
-const prevOverflow = body.style.overflow;
-const prevTouchAction = body.style.touchAction;
+const html = document.documentElement;
+const prevBodyPos = body.style.position;
+const prevBodyTop = body.style.top;
+const prevBodyWidth = body.style.width;
+const prevBodyOverflow = body.style.overflow;
+const prevHtmlOverflow = html.style.overflow;
+body.style.position = "fixed";
+body.style.top = `-${scrollY}px`;
+body.style.width = "100%";
 body.style.overflow = "hidden";
-body.style.touchAction = "none";
+html.style.overflow = "hidden";
 return () => {
-body.style.overflow = prevOverflow;
-body.style.touchAction = prevTouchAction;
+body.style.position = prevBodyPos;
+body.style.top = prevBodyTop;
+body.style.width = prevBodyWidth;
+body.style.overflow = prevBodyOverflow;
+html.style.overflow = prevHtmlOverflow;
+window.scrollTo(0, scrollY);
 };
 }, []);
 return React.createElement(React.Fragment, null,
-React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)" }}),
+React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92dvh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
 React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
 React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:240 })
