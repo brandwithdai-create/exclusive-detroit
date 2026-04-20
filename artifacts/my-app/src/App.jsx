@@ -1204,19 +1204,18 @@ window.scrollTo(0,scrollY);
 };
 },[]);
 React.useLayoutEffect(()=>{
-const applyH=()=>{
-const el=outerRef.current;if(!el)return;
-const h=window.visualViewport?window.visualViewport.height:window.innerHeight;
-el.style.height=h+"px";
+const setExactHeight=()=>{
+const height=window.visualViewport?.height||window.innerHeight;
+if(outerRef.current){outerRef.current.style.height=`${height}px`;}
 requestAnimationFrame(()=>{if(mapRef.current)mapRef.current.invalidateSize();});
 };
-applyH();
-const vv=window.visualViewport;
-if(vv)vv.addEventListener("resize",applyH);
-window.addEventListener("orientationchange",applyH);
+setExactHeight();
+window.visualViewport?.addEventListener("resize",setExactHeight);
+const onOrient=()=>setTimeout(setExactHeight,100);
+window.addEventListener("orientationchange",onOrient);
 return()=>{
-if(vv)vv.removeEventListener("resize",applyH);
-window.removeEventListener("orientationchange",applyH);
+window.visualViewport?.removeEventListener("resize",setExactHeight);
+window.removeEventListener("orientationchange",onOrient);
 };
 },[]);
 React.useEffect(()=>{
@@ -1328,7 +1327,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
-return React.createElement("div",{ref:outerRef,style:{position:"fixed",top:0,left:0,width:"100%",height:(window.visualViewport?window.visualViewport.height:window.innerHeight)+"px",overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#000000":"#f4f0e8"}},
+return React.createElement("div",{ref:outerRef,style:{position:"fixed",top:0,left:0,width:"100%",overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#000000":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
