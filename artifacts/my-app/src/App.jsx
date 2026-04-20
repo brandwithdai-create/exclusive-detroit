@@ -1248,7 +1248,7 @@ return!!COORDS[String(v.id)];
 }).map(v=>COORDS[String(v.id)]);
 if(coords.length===0)return;
 if(coords.length===1){map.setView(coords[0],15,{animate:true});}
-else{map.fitBounds(L.latLngBounds(coords),{padding:[50,50],animate:true});}
+else{map.fitBounds(L.latLngBounds(coords),{padding:mapCat==="Hidden Bars"?[80,80]:[50,50],maxZoom:mapCat==="Hidden Bars"?15:18,animate:true});}
 },[mapCat]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
