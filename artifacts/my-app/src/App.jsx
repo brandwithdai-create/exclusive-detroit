@@ -148,7 +148,7 @@ desc:"A rooftop cocktail lounge at the penthouse of the beautifully restored Met
 vibes:["Rooftop Penthouse","City Views","Fire Pits"], addr:"33 John R St, Penthouse, Detroit, MI 48226",
 hours:"Mon-Thu 5pm-11pm | Fri 5pm-12am | Sat 4pm-12am | Sun 2pm-8pm", best:"Weeknight / Weekend",
 exclusive:"Penthouse of the Metropolitan Building. Two outdoor fire pit terraces. One of the most dramatic views in the city.",
-badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/the-monarch-club-detroit" },
+badges:["firsttimer"], cats:["Cocktail Lounges"], reservationUrl:"https://www.opentable.com/r/the-monarch-club-detroit" },
 
 { id:10, name:"The Conservatory - AC Hotel",      hood:"Midtown / Brush Park",cat:"Hotel Lounges",
 desc:"A glass-enclosed bar connecting the AC Hotel Detroit to the restored Bonstelle Theatre. Spanish Modernisme design, gin-forward cocktails, Spanish tapas, and architecture unlike anything else in Detroit.",
@@ -575,7 +575,7 @@ addr:"47 Watson St, Detroit, MI 48201",
 hours:"Sun-Thu 4pm-11pm | Fri-Sat 4pm-12am | Sunday brunch 10am-2pm",
 best:"Dinner / Date Night / Late Night",
 exclusive:"The 50-foot bar top is reclaimed bowling alley wood. Named after a Prohibition-era Detroit rum runner. One of the hardest reservations to get in the city – and consistently worth every effort.",
-badges:["firsttimer","locals"],
+badges:["firsttimer","locals"], cats:["Cocktail Lounges"],
 reservationUrl:"https://resy.com/cities/detroit-mi/venues/greyghost" },
 
 /* ── NEW DINNER ── */
