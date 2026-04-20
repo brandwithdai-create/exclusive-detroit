@@ -1204,11 +1204,12 @@ window.scrollTo(0,scrollY);
 };
 },[]);
 React.useLayoutEffect(()=>{
+const forceRedraw=(m)=>{m.invalidateSize();m.setView(m.getCenter(),m.getZoom(),{animate:false});};
 const setExactHeight=()=>{
 const height=window.visualViewport?.height||window.innerHeight;
 if(outerRef.current){outerRef.current.style.height=`${height}px`;}
 if(containerRef.current){containerRef.current.style.height=`${height}px`;}
-requestAnimationFrame(()=>{if(mapRef.current)mapRef.current.invalidateSize();});
+requestAnimationFrame(()=>{if(mapRef.current)forceRedraw(mapRef.current);});
 };
 setExactHeight();
 window.visualViewport?.addEventListener("resize",setExactHeight);
@@ -1226,15 +1227,12 @@ containerRef.current.style.height=`${exactH}px`;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
-map.invalidateSize();
+const forceRedraw=(m)=>{m.invalidateSize();m.setView(m.getCenter(),m.getZoom(),{animate:false});};
+forceRedraw(map);
 setMapReady(true);
-const ro=new ResizeObserver(()=>{
-if(mapRef.current){mapRef.current.invalidateSize();}
-});
+const ro=new ResizeObserver(()=>{if(mapRef.current)forceRedraw(mapRef.current);});
 ro.observe(containerRef.current);
-const t=setTimeout(()=>{
-if(mapRef.current){mapRef.current.invalidateSize();}
-},200);
+const t=setTimeout(()=>{if(mapRef.current)forceRedraw(mapRef.current);},200);
 return()=>{clearTimeout(t);ro.disconnect();map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
