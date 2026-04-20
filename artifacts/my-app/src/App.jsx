@@ -1172,20 +1172,13 @@ const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
 const prevMapCatRef=React.useRef(mapCat);
 React.useLayoutEffect(()=>{
-// ── Save existing values ──────────────────────────────────────────────────
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
-const pp=document.body.style.position,pw=document.body.style.width,pt=document.body.style.top;
 const pob=document.body.style.overscrollBehavior,poh=document.documentElement.style.overscrollBehavior;
-const pbg=document.body.style.background;
-const phtmlbg=document.documentElement.style.background;
-const scrollY=window.scrollY;
-// ── Root fix: lock body so page behind map cannot scroll or bounce ────────
+const pbg=document.body.style.background,phtmlbg=document.documentElement.style.background;
+// ── Lock scroll without body position:fixed (avoids iOS fixed-child bug) ──
 document.body.style.overflow="hidden";
-document.body.style.position="fixed";
-document.body.style.width="100%";
-document.body.style.top=-scrollY+"px";
 document.documentElement.style.overflow="hidden";
-// ── Root fix: kill elastic overscroll on both html and body ───────────────
+// ── Kill elastic overscroll on both html and body ─────────────────────────
 document.body.style.overscrollBehavior="none";
 document.documentElement.style.overscrollBehavior="none";
 // ── Match body + html bg to map so safe-area gaps are invisible ───────────
@@ -1193,15 +1186,11 @@ document.body.style.background=isDark?"#000000":"#f4f0e8";
 document.documentElement.style.background=isDark?"#000000":"#f4f0e8";
 return()=>{
 document.body.style.overflow=pb;
-document.body.style.position=pp;
-document.body.style.width=pw;
-document.body.style.top=pt;
 document.documentElement.style.overflow=ph;
 document.body.style.overscrollBehavior=pob;
 document.documentElement.style.overscrollBehavior=poh;
 document.body.style.background=pbg;
 document.documentElement.style.background=phtmlbg;
-window.scrollTo(0,scrollY);
 };
 },[]);
 React.useLayoutEffect(()=>{
