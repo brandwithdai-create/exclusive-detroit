@@ -1164,7 +1164,7 @@ const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
 const [showList,setShowList]=React.useState(false);
-const [diag,setDiag]=React.useState(null);
+
 const hasSaves=favs.length>0;
 const outerRef=React.useRef(null);
 const containerRef=React.useRef(null);
@@ -1233,26 +1233,7 @@ forceRedraw(map);
 setMapReady(true);
 const ro=new ResizeObserver(()=>{if(mapRef.current)forceRedraw(mapRef.current);});
 ro.observe(containerRef.current);
-const t=setTimeout(()=>{
-if(mapRef.current)forceRedraw(mapRef.current);
-const o=outerRef.current,c=containerRef.current;
-const ob=o?.getBoundingClientRect(),cb=c?.getBoundingClientRect();
-const tiles=Array.from(c?.querySelectorAll(".leaflet-tile")||[]);
-const tileMaxBot=tiles.length?Math.round(Math.max(...tiles.map(t=>t.getBoundingClientRect().bottom))):0;
-const tileCnt=tiles.length;
-const mpane=c?.querySelector(".leaflet-map-pane");
-const mpBCR=mpane?.getBoundingClientRect();
-setDiag({
-vvh:Math.round(window.visualViewport?.height||0),
-ivh:window.innerHeight,
-scrH:window.screen.height,
-outerH:o?.clientHeight,outerBot:Math.round(ob?.bottom||0),
-contH:c?.clientHeight,contBot:Math.round(cb?.bottom||0),
-mapSz:mapRef.current?JSON.stringify(mapRef.current.getSize()):"?",
-tileCnt,tileMaxBot,
-mpBot:Math.round(mpBCR?.bottom||0),
-});
-},300);
+const t=setTimeout(()=>{if(mapRef.current)forceRedraw(mapRef.current);},300);
 return()=>{clearTimeout(t);ro.disconnect();map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
@@ -1371,18 +1352,6 @@ c==="all"?"All Venues":c
 // ── Map tile area — full bleed absolute, sits behind all overlays ──
 React.createElement("div",{style:{position:"absolute",top:0,right:0,bottom:0,left:0,overflow:"hidden",background:isDark?"#000000":"#f4f0e8"}},
 React.createElement("div",{ref:containerRef,style:{position:"absolute",top:0,right:0,bottom:0,left:0}})),
-// ── TEMP DIAG OVERLAY ──
-diag&&React.createElement("div",{style:{position:"fixed",bottom:0,left:0,right:0,background:"rgba(0,0,0,0.88)",color:"#fff",fontFamily:"monospace",fontSize:"11px",lineHeight:1.7,padding:"8px 12px",zIndex:99999,pointerEvents:"none"}},
-"vvh:"+diag.vvh+" ivh:"+diag.ivh+" scrH:"+diag.scrH,
-React.createElement("br"),
-"outerH:"+diag.outerH+" outerBot:"+diag.outerBot,
-React.createElement("br"),
-"contH:"+diag.contH+" contBot:"+diag.contBot,
-React.createElement("br"),
-"tiles:"+diag.tileCnt+" tileMaxBot:"+diag.tileMaxBot,
-React.createElement("br"),
-"mpBot:"+diag.mpBot+" mapSz:"+diag.mapSz
-),
 // ── Custom zoom + near-me controls ──
 React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
 React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRadius:10,overflow:"hidden",boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)"}},
