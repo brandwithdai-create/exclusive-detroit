@@ -1,0 +1,47 @@
+This did not fix the issue at all. The bottom gap is still there exactly as before in both light mode and dark mode.
+
+At this point, please stop treating this as only a Leaflet resize problem.
+
+The fact that the visible strip is still showing the app/page background color means the issue is likely higher up in the Map screen layout stack, not just inside the Leaflet tile container.
+
+Please debug the full Map page container chain from the outer page/root wrapper down to the Leaflet container.
+
+What needs to be checked:
+1. The Map screen root container
+2. Any fixed/flex wrapper around the map
+3. The actual map viewport container
+4. The Leaflet container itself
+
+What appears to be happening:
+- A parent or wrapper container is still not matching the true visible iPhone viewport height
+- Because of that, the map area is not actually filling the screen
+- Leaflet resize/invalidateSize alone cannot solve this if the parent layout is still wrong
+
+Please fix only this one issue:
+The Map page must fill the full visible screen height with no bottom strip in:
+- light mode
+- dark mode
+- Safari
+- home-screen installed mode
+
+Very important:
+- I do not want this to create bugs anywhere else in the app
+- Please keep this extremely focused only on the Map page and its direct container/layout chain
+- Do not touch Explore, modal behavior, cards, saves, areas, settings, or any other part of the app
+- Do not do a broad refactor
+- Do not patch this by masking, padding, or covering the gap
+- Do not add fake space or visual overlays
+- If anything outside the Map page itself seems necessary, ask for approval first
+
+What I need:
+- A real root-cause fix for the Map page layout
+- The exact container name(s) that were wrong
+- The exact reason the gap was still appearing after the previous attempt
+- A minimal scoped fix only
+
+Acceptance criteria:
+- No white strip in light mode
+- No black strip in dark mode
+- Map page truly fills the visible iPhone viewport edge to edge
+- Works in Safari and home-screen installed mode
+- No regressions anywhere else in the app

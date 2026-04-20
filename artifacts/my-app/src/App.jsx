@@ -1170,7 +1170,7 @@ const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
 const prevMapCatRef=React.useRef(mapCat);
-React.useEffect(()=>{
+React.useLayoutEffect(()=>{
 // ── Save existing values ──────────────────────────────────────────────────
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
 const pp=document.body.style.position,pw=document.body.style.width,pt=document.body.style.top;
@@ -1226,7 +1226,8 @@ L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(ma
 mapRef.current=map;
 map.invalidateSize();
 setMapReady(true);
-return()=>{map.remove();mapRef.current=null;};
+const t=setTimeout(()=>{map.invalidateSize();},200);
+return()=>{clearTimeout(t);map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
@@ -1342,8 +1343,8 @@ c==="all"?"All Venues":c
 );})
 ),
 // ── Map tile area — full bleed absolute, sits behind all overlays ──
-React.createElement("div",{style:{position:"absolute",inset:0,overflow:"hidden",background:isDark?"#000000":"#f4f0e8"}},
-React.createElement("div",{ref:containerRef,style:{position:"absolute",inset:0}})),
+React.createElement("div",{style:{position:"absolute",top:0,right:0,bottom:0,left:0,overflow:"hidden",background:isDark?"#000000":"#f4f0e8"}},
+React.createElement("div",{ref:containerRef,style:{position:"absolute",top:0,right:0,bottom:0,left:0}})),
 // ── Custom zoom + near-me controls ──
 React.createElement("div",{style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top) + 56px + 16px)",left:12,display:"flex",flexDirection:"column",gap:8,zIndex:700}},
 React.createElement("div",{style:{display:"flex",flexDirection:"column",borderRadius:10,overflow:"hidden",boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)"}},
