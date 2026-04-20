@@ -1207,6 +1207,7 @@ React.useLayoutEffect(()=>{
 const setExactHeight=()=>{
 const height=window.visualViewport?.height||window.innerHeight;
 if(outerRef.current){outerRef.current.style.height=`${height}px`;}
+if(containerRef.current){containerRef.current.style.height=`${height}px`;}
 requestAnimationFrame(()=>{if(mapRef.current)mapRef.current.invalidateSize();});
 };
 setExactHeight();
@@ -1220,6 +1221,8 @@ window.removeEventListener("orientationchange",onOrient);
 },[]);
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
+const exactH=window.visualViewport?.height||window.innerHeight;
+containerRef.current.style.height=`${exactH}px`;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;

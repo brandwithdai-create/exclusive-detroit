@@ -1,0 +1,49 @@
+We need to stop theorizing and fix the real issue in one focused pass, because this back-and-forth is getting expensive.
+
+Important proven fact:
+When we previously turned the Leaflet/map area red for debugging, the bottom strip also turned red.
+
+That proves the strip is inside the Leaflet/map region itself.
+So this is not just the app root background behind the map.
+The map is not rendering/filling that bottom area.
+
+Please use that fact as the source of truth and debug from there.
+
+What this means:
+- The failing element is still inside the MapView / Leaflet rendering chain
+- The outer height logic alone did not solve it
+- Either the Leaflet container, map pane, tile pane, tile wrapper, or another inner map element is still ending short or not painting into the full area
+
+Please do one careful debugging pass and identify the exact rendered element that owns the bottom strip.
+
+I do not want another theory-only explanation.
+I need:
+1. The exact DOM element/class that is still producing the strip
+2. Why it is not rendering/filling to the bottom
+3. The one minimal fix to correct it
+
+Please verify by inspecting the actual rendered Leaflet DOM, not just the code intent.
+
+Suggested debugging method:
+- Temporarily give different solid debug colors to each relevant layer one at a time:
+  - MapView outer fixed container
+  - Leaflet root container
+  - leaflet-pane
+  - leaflet-map-pane
+  - leaflet-tile-pane
+  - tile wrapper / tile container
+- The goal is to identify exactly which layer owns the visible bottom strip
+- Once identified, remove the debug colors and apply only the minimal real fix
+
+Important scope rules:
+- Keep this strictly isolated to the Map page / Leaflet chain only
+- Do not touch Explore, modals, cards, saves, areas, settings, or global app layout
+- Do not do a broad refactor
+- Do not mark this complete until the strip is actually gone on the failing iPhone context
+
+Success criteria:
+- The map itself fully renders into the bottom area
+- No white strip in light mode
+- No black strip in dark mode
+- Verified in iPhone Safari and home-screen installed mode
+- No regressions elsewhere in the app
