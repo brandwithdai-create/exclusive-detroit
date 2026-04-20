@@ -1164,6 +1164,7 @@ const hasSaves=favs.length>0;
 const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
+const prevMapCatRef=React.useRef(mapCat);
 React.useEffect(()=>{
 // ── Save existing values ──────────────────────────────────────────────────
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
@@ -1235,6 +1236,20 @@ const m=L.marker(coord,{icon}).addTo(map).on("click",()=>setSelected(v));
 markersRef.current.push(m);
 });
 },[mapCat,mapReady,selected,showSavedOnly,favs]);
+React.useEffect(()=>{
+if(prevMapCatRef.current===mapCat)return;
+prevMapCatRef.current=mapCat;
+const map=mapRef.current;if(!map)return;
+const coords=[...ALL,...UPCOMING].filter(v=>{
+if(showSavedOnly&&!favs.includes(String(v.id)))return false;
+if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
+if(BLOCKED_PINS.has(String(v.id)))return false;
+return!!COORDS[String(v.id)];
+}).map(v=>COORDS[String(v.id)]);
+if(coords.length===0)return;
+if(coords.length===1){map.setView(coords[0],15,{animate:true});}
+else{map.fitBounds(L.latLngBounds(coords),{padding:[50,50],animate:true});}
+},[mapCat]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 if(selected){const coord=COORDS[String(selected.id)];if(coord){const zoom=map.getZoom();const markerPt=map.project([coord[0],coord[1]],zoom);const sheetH=190;const targetPt=L.point(markerPt.x,markerPt.y+sheetH/2);const targetLatLng=map.unproject(targetPt,zoom);map.panTo(targetLatLng,{animate:true,duration:0.4});}}
