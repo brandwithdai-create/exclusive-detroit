@@ -1,0 +1,44 @@
+Please fix only this one issue on the Map page and do not change anything else.
+
+Issue:
+On iPhone Safari and home-screen installed mode, the Map page still shows a strip of empty space at the bottom:
+
+* white in light mode
+* black in dark mode
+
+This needs to be treated as a Map viewport sizing issue only.
+
+What I believe needs to happen:
+
+1. The actual visible height for the Map screen needs to be measured using JavaScript on iPhone/PWA instead of relying on plain 100vh.
+2. That measured height needs to be applied only to the actual Map viewport/container for this screen.
+3. After the correct height is applied, Leaflet needs to be told to recalculate its size using map.invalidateSize().
+4. That same recalculation should also run when:
+    * the Map tab becomes visible
+    * the viewport changes
+    * orientation changes
+    * the app resumes in standalone/PWA mode if needed
+
+Important implementation notes:
+
+* Please scope this fix only to the Map screen and the actual Leaflet container
+* Do not use broad selectors like [class*="map"]
+* Do not add bottom padding to the map container to fake the height, because that can create or preserve the visible gap
+* Do not change the floating bottom controls, top controls, modal behavior, Explore page, or any other layout
+* Do not do a broad refactor
+* If anything outside this exact issue seems necessary, ask for approval first
+
+Suggested direction:
+
+* Use the real visible viewport height (window.innerHeight and/or visualViewport.height if appropriate) to set a scoped CSS variable or direct height for the Map screen/container
+* Remove any reliance on plain 100vh for the live map area on iPhone/PWA if that is what is causing the mismatch
+* Once the Map container height is correct, call Leaflet invalidateSize() after layout settles
+* Also call invalidateSize() when switching into the Map tab
+
+Acceptance criteria:
+
+* No white strip at the bottom in light mode
+* No black strip at the bottom in dark mode
+* Map fills the full visible page correctly on iPhone Safari and home-screen installed mode
+* No regression to controls, overlays, markers, tab switching, or map interactions
+* Long-term fix only, not a visual patch

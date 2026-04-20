@@ -1165,6 +1165,7 @@ const [mapReady,setMapReady]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
 const [showList,setShowList]=React.useState(false);
 const hasSaves=favs.length>0;
+const outerRef=React.useRef(null);
 const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef([]);
@@ -1200,6 +1201,22 @@ document.documentElement.style.overscrollBehavior=poh;
 document.body.style.background=pbg;
 document.documentElement.style.background=phtmlbg;
 window.scrollTo(0,scrollY);
+};
+},[]);
+React.useLayoutEffect(()=>{
+const applyH=()=>{
+const el=outerRef.current;if(!el)return;
+const h=window.visualViewport?window.visualViewport.height:window.innerHeight;
+el.style.height=h+"px";
+requestAnimationFrame(()=>{if(mapRef.current)mapRef.current.invalidateSize();});
+};
+applyH();
+const vv=window.visualViewport;
+if(vv)vv.addEventListener("resize",applyH);
+window.addEventListener("orientationchange",applyH);
+return()=>{
+if(vv)vv.removeEventListener("resize",applyH);
+window.removeEventListener("orientationchange",applyH);
 };
 },[]);
 React.useEffect(()=>{
@@ -1310,7 +1327,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
-return React.createElement("div",{style:{position:"fixed",inset:0,overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#000000":"#f4f0e8"}},
+return React.createElement("div",{ref:outerRef,style:{position:"fixed",top:0,left:0,width:"100%",height:(window.visualViewport?window.visualViewport.height:window.innerHeight)+"px",overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#000000":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
