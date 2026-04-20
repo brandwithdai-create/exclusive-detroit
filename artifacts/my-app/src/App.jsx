@@ -1365,7 +1365,7 @@ c==="all"?"All Venues":c
 React.createElement("div",{style:{position:"absolute",top:0,right:0,bottom:0,left:0,overflow:"hidden",background:isDark?"#000000":"#f4f0e8"}},
 React.createElement("div",{ref:containerRef,style:{position:"absolute",top:0,right:0,bottom:0,left:0}})),
 // ── TEMP DIAG OVERLAY ──
-diag&&React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:"rgba(0,0,0,0.82)",color:"#fff",fontFamily:"monospace",fontSize:"11px",lineHeight:1.6,padding:"8px 12px",zIndex:9999,pointerEvents:"none"}},
+diag&&React.createElement("div",{style:{position:"fixed",bottom:0,left:0,right:0,background:"rgba(0,0,0,0.82)",color:"#fff",fontFamily:"monospace",fontSize:"11px",lineHeight:1.6,padding:"8px 12px",zIndex:99999,pointerEvents:"none"}},
 "vvh:"+diag.vvh+" | ivh:"+diag.ivh+" | scrH:"+diag.scrH,
 React.createElement("br"),
 "outerH:"+diag.outerH+" outerBot:"+diag.outerBot,
