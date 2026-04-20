@@ -1232,19 +1232,7 @@ forceRedraw(map);
 setMapReady(true);
 const ro=new ResizeObserver(()=>{if(mapRef.current)forceRedraw(mapRef.current);});
 ro.observe(containerRef.current);
-const t=setTimeout(()=>{
-if(mapRef.current)forceRedraw(mapRef.current);
-const outer=outerRef.current;const cont=containerRef.current;
-const pane=cont?.querySelector(".leaflet-map-pane");
-const tilePn=cont?.querySelector(".leaflet-tile-pane");
-console.log("[MapDiag] visualViewport.height:",window.visualViewport?.height);
-console.log("[MapDiag] innerHeight:",window.innerHeight);
-console.log("[MapDiag] outerRef clientHeight:",outer?.clientHeight,"offsetHeight:",outer?.offsetHeight,"getBCR.height:",outer?.getBoundingClientRect().height);
-console.log("[MapDiag] containerRef clientHeight:",cont?.clientHeight,"offsetHeight:",cont?.offsetHeight,"getBCR.height:",cont?.getBoundingClientRect().height);
-console.log("[MapDiag] leaflet-map-pane clientHeight:",pane?.clientHeight,"style:",pane?.style.cssText);
-console.log("[MapDiag] leaflet-tile-pane clientHeight:",tilePn?.clientHeight);
-console.log("[MapDiag] map._size:",mapRef.current?.getSize());
-},300);
+const t=setTimeout(()=>{if(mapRef.current)forceRedraw(mapRef.current);},200);
 return()=>{clearTimeout(t);ro.disconnect();map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
