@@ -1082,23 +1082,15 @@ const isV = typeof venue.id === "number";
 const badges = venue.badges||[];
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
-useEffect(() => {
-const scrollY = window.scrollY;
+React.useLayoutEffect(() => {
 const body = document.body;
-const prevPos = body.style.position;
-const prevTop = body.style.top;
-const prevWidth = body.style.width;
 const prevOverflow = body.style.overflow;
+const prevTouchAction = body.style.touchAction;
 body.style.overflow = "hidden";
-body.style.position = "fixed";
-body.style.top = `-${scrollY}px`;
-body.style.width = "100%";
+body.style.touchAction = "none";
 return () => {
 body.style.overflow = prevOverflow;
-body.style.position = prevPos;
-body.style.top = prevTop;
-body.style.width = prevWidth;
-window.scrollTo(0, scrollY);
+body.style.touchAction = prevTouchAction;
 };
 }, []);
 return React.createElement(React.Fragment, null,
@@ -1354,7 +1346,7 @@ React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,ba
 React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:4}},
 React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"var(--c-sheet-handle)"}})
 ),
-selected&&React.createElement("div",{style:{padding:"10px 16px calc(14px + env(safe-area-inset-bottom))"}},
+selected&&React.createElement("div",{style:{padding:"10px 16px calc(4px + env(safe-area-inset-bottom))"}},
 React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start"}},
 React.createElement("div",{style:{width:64,height:64,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
 selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})
