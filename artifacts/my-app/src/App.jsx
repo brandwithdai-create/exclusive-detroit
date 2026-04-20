@@ -1228,8 +1228,14 @@ L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(ma
 mapRef.current=map;
 map.invalidateSize();
 setMapReady(true);
-const t=setTimeout(()=>{map.invalidateSize();},200);
-return()=>{clearTimeout(t);map.remove();mapRef.current=null;};
+const ro=new ResizeObserver(()=>{
+if(mapRef.current){mapRef.current.invalidateSize();}
+});
+ro.observe(containerRef.current);
+const t=setTimeout(()=>{
+if(mapRef.current){mapRef.current.invalidateSize();}
+},200);
+return()=>{clearTimeout(t);ro.disconnect();map.remove();mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
