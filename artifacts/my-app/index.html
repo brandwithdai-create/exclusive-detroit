@@ -220,6 +220,15 @@
         overscroll-behavior: none;
         overflow-x: hidden;
       }
+      /* ── Leaflet container: extend 20px past viewport bottom to prevent iOS gap ── */
+      .leaflet-container {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: -20px !important;
+        height: auto !important;
+      }
       /* ── Match Leaflet background to map theme ── */
       .leaflet-container { background: #000 !important; }
       [data-theme="light"] .leaflet-container { background: #f4f0e8 !important; }
