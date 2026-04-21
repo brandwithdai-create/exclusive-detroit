@@ -1335,7 +1335,7 @@ onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()
 MAP_FILTER_CATS.map(c=>{
 const active=mapCat===c;
 const ico=MAP_CAT_ICONS[c]||"·";
-return React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{display:"inline-flex",alignItems:"center",gap:5,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(active?"transparent":"var(--c-mzoom-bdr)"),color:active?"#0A0808":"var(--c-mzoom-color)",background:active?C.gold:"var(--c-mzoom-bg)",padding:"7px 13px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0,boxShadow:active?"0 2px 8px rgba(0,0,0,0.18)":"none",transition:"all 0.2s",fontWeight:active?500:400}},
+return React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{display:"inline-flex",alignItems:"center",gap:5,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(active?"transparent":"var(--c-mzoom-bdr)"),color:active?"var(--c-btn-cta-txt)":"var(--c-mzoom-color)",background:active?C.gold:"var(--c-mzoom-bg)",padding:"7px 13px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0,boxShadow:active?"0 2px 8px rgba(0,0,0,0.18)":"none",transition:"all 0.2s",fontWeight:active?500:400}},
 React.createElement("span",{style:{fontSize:"0.6rem",lineHeight:1}},ico),
 c==="all"?"All Venues":c
 );})
