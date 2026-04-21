@@ -43,7 +43,8 @@ const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happ
 
 const FEATURED_IDS=["74","1","47","73","55","38","44","39","46","7","76","37","41","71","5","40","9","25","34","35","17","13","10"];
 
-const COORDS={"1":[42.333022,-83.048681],"2":[42.329286,-83.04843],"3":[42.33344,-83.05055],"4":[42.334415,-83.046032],"5":[42.334706,-83.046706],"6":[42.328328,-83.048352],"7":[42.368716,-83.072034],"8":[42.334305,-83.048496],"9":[42.33543,-83.04888],"10":[42.346605,-83.056836],"11":[42.331026,-83.065425],"12":[42.332992,-83.05145],"13":[42.318863,-83.074382],"14":[42.33553,-83.04888],"15":[42.334927,-83.047252],"16":[42.334728,-83.047255],"17":[42.33354,-83.05055],"18":[42.335712,-83.049701],"19":[42.334812,-83.046189],"20":[42.338047,-83.062567],"21":[42.363047,-83.085201],"22":[42.34025,-83.05811],"23":[42.351443,-83.060108],"24":[42.360223,-83.066305],"25":[42.331413,-83.046563],"26":[42.342649,-82.998573],"27":[42.34905,-83.041898],"28":[42.343879,-83.03356],"30":[42.344337,-83.060694],"31":[42.328529,-83.063349],"32":[42.331703,-83.065774],"33":[42.331725,-83.063272],"34":[42.332288,-83.04931],"35":[42.330482,-83.045432],"36":[42.329041,-83.047737],"37":[42.348523,-83.087987],"38":[42.3478,-83.065018],"39":[42.333596,-83.051529],"40":[42.333539,-83.051369],"41":[42.33356,-83.051468],"42":[42.333418,-83.048503],"43":[42.330891,-83.047851],"44":[42.360592,-83.066499],"45":[42.369685,-83.073426],"46":[42.33382,-83.04991],"47":[42.333636,-83.049522],"48":[42.334558,-83.047888],"49":[42.332997,-83.048953],"50":[42.33276,-83.047963],"51":[42.3293,-83.04754],"52":[42.331607,-83.075355],"53":[42.329506,-83.045689],"55":[42.355812,-83.066356],"56":[42.33291,-83.049808],"57":[42.337947,-83.052997],"63":[42.334471,-83.047014],"64":[42.335598,-83.045963],"65":[42.345175,-83.05558],"67":[42.337576,-83.050024],"68":[42.33392,-83.04991],"69":[42.34833,-83.067366],"70":[42.330563,-83.048639],"71":[42.35302,-83.079447],"72":[42.337719,-83.052991],"73":[42.332809,-83.047436],"74":[42.335035,-83.054965],"75":[42.33316,-83.049848],"76":[42.334355,-83.048544],"77":[42.354211,-83.0638],"78":[42.347354,-83.065259],"79":[42.345162,-83.05608],"80":[42.333061,-83.049006],"81":[42.335307,-83.04877],"82":[42.338604,-83.020675],"83":[42.328973,-83.054509],"84":[42.32883,-83.03959],"85":[42.32893,-83.03959],"86":[42.33182,-83.049973],"87":[42.335008,-83.048556],"r1":[42.335775,-83.048593],"r2":[42.360358,-82.984843],"r3":[42.344168,-83.037879],"r4":[42.33164,-83.070831],"r5":[42.353007,-83.067043],"u1":[42.33806,-83.052108],"u2":[42.33224,-83.045413],"u3":[42.333525,-83.047582],"u4":[42.403741,-82.935302],"88":[42.331746,-83.048726],"89":[42.331862,-83.048201],"90":[42.378500,-83.044500],"91":[42.333800,-83.046200],"92":[42.361400,-83.064100],"93":[42.352000,-83.065500],"94":[42.335800,-83.048580],"95":[42.335241,-83.048939],"96":[42.330126,-83.045314]};
+const COORDS={"1":[42.333022,-83.048681],"2":[42.329286,-83.04843],"3":[42.33344,-83.05055],"4":[42.334415,-83.046032],"5":[42.334706,-83.046706],"6":[42.328328,-83.048352],"7":[42.368716,-83.072034],"8":[42.334305,-83.048496],"9":[42.33543,-83.04888],"10":[42.346605,-83.056836],"11":[42.331026,-83.065425],"12":[42.332992,-83.05145],"13":[42.318863,-83.074382],"14":[42.33553,-83.04888],"15":[42.334927,-83.047252],"16":[42.334728,-83.047255],"17":[42.33354,-83.05055],"18":[42.335712,-83.049701],"19":[42.334812,-83.046189],"20":[42.338047,-83.062567],"21":[42.363047,-83.085201],"22":[42.34025,-83.05811],"23":[42.351443,-83.060108],"24":[42.360223,-83.066305],"25":[42.331413,-83.046563],"26":[42.342649,-82.998573],"27":[42.34905,-83.041898],"28":[42.343879,-83.03356],"30":[42.344337,-83.060694],"31":[42.328529,-83.063349],"32":[42.331703,-83.065774],"33":[42.331725,-83.063272],"34":[42.332288,-83.04931],"35":[42.330482,-83.045432],"36":[42.329041,-83.047737],"37":[42.348523,-83.087987],"38":[42.3478,-83.065018],"39":[42.333596,-83.051529],"40":[42.333539,-83.051369],"41":[42.33356,-83.051468],"42":[42.333418,-83.048503],"43":[42.330891,-83.047851],"44":[42.360592,-83.066499],"45":[42.369685,-83.073426],"46":[42.33382,-83.04991],"47":[42.333636,-83.049522],"48":[42.334558,-83.047888],"49":[42.332997,-83.048953],"50":[42.33276,-83.047963],"51":[42.3293,-83.04754],"52":[42.331607,-83.075355],"53":[42.329506,-83.045689],"55":[42.355812,-83.066356],"56":[42.33291,-83.049808],"57":[42.337947,-83.052997],"63":[42.334471,-83.047014],"64":[42.335598,-83.045963],"65":[42.345175,-83.05558],"67":[42.337576,-83.050024],"68":[42.33392,-83.04991],"69":[42.34833,-83.067366],"70":[42.330563,-83.048639],"71":[42.35302,-83.079447],"72":[42.337719,-83.052991],"73":[42.332809,-83.047436],"74":[42.335035,-83.054965],"75":[42.33316,-83.049848],"76":[42.334355,-83.048544],"77":[42.354211,-83.0638],"78":[42.347354,-83.065259],"79":[42.345162,-83.05608],"80":[42.333061,-83.049006],"81":[42.335307,-83.04877],"82":[42.338604,-83.020675],"83":[42.328973,-83.054509],"84":[42.32883,-83.03959],"85":[42.32893,-83.03959],"86":[42.33182,-83.049973],"87":[42.335008,-83.048556],"r1":[42.335775,-83.048593],"r2":[42.360358,-82.984843],"r3":[42.344168,-83.037879],"r4":[42.33164,-83.070831],"r5":[42.353007,-83.067043],"u1":[42.33806,-83.052108],"u2":[42.33224,-83.045413],"u3":[42.333525,-83.047582],"u4":[42.403741,-82.935302],"88":[42.331746,-83.048726],"89":[42.331862,-83.048201],"90":[42.378500,-83.044500],"91":[42.333800,-83.046200],"92":[42.361400,-83.064100],"93":[42.352000,-83.065500],"94":[42.335800,-83.048580],"95":[42.335241,-83.048939],"96":[42.330126,-83.045314],
+"hotel-1":[42.3367,-83.0497],"hotel-2":[42.3363,-83.0514],"hotel-3":[42.3281,-83.0508],"hotel-4":[42.3326,-83.0507],"hotel-5":[42.3371,-83.0773],"hotel-8":[42.3403,-83.0487],"hotel-9":[42.3385,-83.0530],"hotel-10":[42.3381,-83.0547]};
 
 function haversine(lat1,lon1,lat2,lon2){const R=3958.8,d2r=Math.PI/180;const dLat=(lat2-lat1)*d2r,dLon=(lon2-lon1)*d2r;const a=Math.sin(dLat/2)**2+Math.cos(lat1*d2r)*Math.cos(lat2*d2r)*Math.sin(dLon/2)**2;return R*2*Math.asin(Math.sqrt(a));}
 
@@ -1142,17 +1143,19 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }, msg);
 }
 
-const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports Bars","Cocktail Lounges"];
-const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports Bars":"⚾","Cocktail Lounges":"🍹"};
+const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports Bars","Cocktail Lounges","Hotels"];
+const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports Bars":"⚾","Cocktail Lounges":"🍹","Hotels":"🏨"};
+const MAP_HOTELS=HOTELS.map(h=>({id:h.id,name:h.name,hood:h.hood,addr:h.addr,desc:h.desc,cat:"Hotels",cats:[],badges:[],status:"open",image:h.image,booking_url:h.booking_url,website_url:h.website_url,price_from:h.price_from}));
 const TILE_DARK="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
 const TILE_LIGHT="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
-function MapView({isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme}){
+function MapView({isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel}){
 const isDark=theme==="dark"||(theme==="system"&&window.matchMedia("(prefers-color-scheme:dark)").matches);
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
 const [showList,setShowList]=React.useState(false);
+const mapVenuePool=mapCat==="Hotels"?MAP_HOTELS:[...ALL,...UPCOMING];
 
 const hasSaves=favs.length>0;
 const outerRef=React.useRef(null);
@@ -1222,8 +1225,8 @@ L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(ma
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 markersRef.current.forEach(m=>map.removeLayer(m));markersRef.current=[];
-[...ALL,...UPCOMING].forEach(v=>{
-if(showSavedOnly&&!favs.includes(String(v.id)))return;
+mapVenuePool.forEach(v=>{
+if(showSavedOnly&&mapCat!=="Hotels"&&!favs.includes(String(v.id)))return;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return;
 if(BLOCKED_PINS.has(String(v.id)))return;
 const coord=COORDS[String(v.id)];if(!coord)return;
@@ -1247,20 +1250,20 @@ React.useEffect(()=>{
 if(prevMapCatRef.current===mapCat)return;
 prevMapCatRef.current=mapCat;
 const map=mapRef.current;if(!map)return;
-const coords=[...ALL,...UPCOMING].filter(v=>{
-if(showSavedOnly&&!favs.includes(String(v.id)))return false;
+const coords=mapVenuePool.filter(v=>{
+if(showSavedOnly&&mapCat!=="Hotels"&&!favs.includes(String(v.id)))return false;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
 if(BLOCKED_PINS.has(String(v.id)))return false;
 return!!COORDS[String(v.id)];
 }).map(v=>COORDS[String(v.id)]);
 if(coords.length===0)return;
 if(coords.length===1){map.setView(coords[0],15,{animate:true});}
-else{map.fitBounds(L.latLngBounds(coords),{padding:mapCat==="Hidden Bars"?[80,80]:[50,50],maxZoom:mapCat==="Hidden Bars"?15:18,animate:true});}
+else{map.fitBounds(L.latLngBounds(coords),{padding:mapCat==="Hidden Bars"||mapCat==="Hotels"?[80,80]:[50,50],maxZoom:mapCat==="Hidden Bars"||mapCat==="Hotels"?15:18,animate:true});}
 },[mapCat]);
 React.useEffect(()=>{
 if(!showSavedOnly)return;
 const map=mapRef.current;if(!map)return;
-const coords=[...ALL,...UPCOMING].filter(v=>{
+const coords=mapVenuePool.filter(v=>{
 if(!favs.includes(String(v.id)))return false;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
 if(BLOCKED_PINS.has(String(v.id)))return false;
@@ -1283,8 +1286,8 @@ const selImgFallback=selected?getVenueFallbackImage(selected):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
 const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"7px 14px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto",display:"inline-flex",alignItems:"center",whiteSpace:"nowrap"};
-const lv=[...ALL,...UPCOMING].filter(v=>{
-if(showSavedOnly&&!favs.includes(String(v.id)))return false;
+const lv=mapVenuePool.filter(v=>{
+if(showSavedOnly&&mapCat!=="Hotels"&&!favs.includes(String(v.id)))return false;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
 return true;
 }).sort((a,b)=>a.name.localeCompare(b.name));
@@ -1310,7 +1313,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 )
 :lv.map(v=>{
 const img=photoMap?.[String(v.id)]||getVenueFallbackImage(v);
-const saved=isFav(v.id);
+const saved=v.cat==="Hotels"?isSavedHotel(v.id):isFav(v.id);
 const isSel=selected?.id===v.id;
 return React.createElement("button",{key:v.id,onClick:()=>{setSelected(v);setShowList(false);},style:{width:"100%",display:"flex",alignItems:"center",gap:12,padding:"11px 16px",background:isSel?"rgba(201,168,76,0.08)":"none",border:"none",borderBottom:"1px solid var(--c-sheet-bdr)",cursor:"pointer",textAlign:"left",touchAction:"manipulation"}},
 React.createElement("div",{style:{width:48,height:48,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
@@ -1388,8 +1391,8 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 ),
 React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:5,marginBottom:8}},selected.desc.length>90?selected.desc.slice(0,90)+"\u2026":selected.desc),
 React.createElement("div",{style:{display:"flex",gap:10}},
-React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"9px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details"),
-React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{flex:"0 0 auto",width:38,height:38,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:isFav(selected.id)?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(isFav(selected.id)?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:isFav(selected.id)?C.gold:"var(--c-modal-save-clr)",fontSize:"1rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},isFav(selected.id)?"\u2665":"\u2661")
+React.createElement("button",{onClick:()=>{if(selected.cat==="Hotels"){navTo("stay");setSelected(null);}else{setModalId(String(selected.id));setSelected(null);}},style:{flex:1,padding:"9px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details"),
+React.createElement("button",{onClick:()=>selected.cat==="Hotels"?toggleSavedHotel(String(selected.id)):toggleFav(String(selected.id)),title:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"Saved":"Save",style:{flex:"0 0 auto",width:38,height:38,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+((selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?C.gold:"var(--c-modal-save-clr)",fontSize:"1rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"\u2665":"\u2661")
 )
 )
 ),
@@ -1835,7 +1838,7 @@ return React.createElement("div",{style:{background:C.black,color:C.bone,fontFam
 NavBar(),
 React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
-section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme}),
+section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About(),
