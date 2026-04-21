@@ -1155,6 +1155,7 @@ const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
 const [showList,setShowList]=React.useState(false);
+const [hotelDetail,setHotelDetail]=React.useState(null);
 const mapVenuePool=mapCat==="Hotels"?MAP_HOTELS:[...ALL,...UPCOMING];
 
 const hasSaves=favs.length>0;
@@ -1291,6 +1292,39 @@ if(showSavedOnly&&mapCat!=="Hotels"&&!favs.includes(String(v.id)))return false;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
 return true;
 }).sort((a,b)=>a.name.localeCompare(b.name));
+const hdSv=hotelDetail?isSavedHotel(hotelDetail.id):false;
+const hdCta=hotelDetail?(hotelDetail.booking_url||hotelDetail.website_url):null;
+const hdImg=hotelDetail?(hotelDetail.image||null):null;
+const hotelDetailSheet=React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:"var(--c-sheet-bg)",borderTop:"1px solid var(--c-sheet-bdr)",borderRadius:"18px 18px 0 0",zIndex:1150,transform:hotelDetail?"translateY(0)":"translateY(110%)",transition:"transform 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:hotelDetail?"auto":"none",willChange:"transform",boxShadow:"0 -6px 40px rgba(0,0,0,0.25)"}},
+React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:4}},
+React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"var(--c-sheet-handle)"}})
+),
+hotelDetail&&React.createElement("div",{style:{padding:"10px 16px calc(16px + env(safe-area-inset-bottom))",position:"relative"}},
+React.createElement("button",{onClick:()=>setHotelDetail(null),style:{position:"absolute",top:10,right:12,background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1}},"\u2715"),
+React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start",paddingRight:34}},
+React.createElement("div",{style:{width:80,height:80,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
+hdImg&&React.createElement("img",{src:hdImg,alt:hotelDetail.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})
+),
+React.createElement("div",{style:{flex:1,minWidth:0}},
+React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:2}},"Hotel"),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},hotelDetail.name),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},hotelDetail.hood)
+)
+),
+React.createElement("div",{style:{display:"flex",gap:8,marginTop:5,marginBottom:4,alignItems:"center",flexWrap:"wrap"}},
+hotelDetail.price_from&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:C.gold,textTransform:"uppercase"}},hotelDetail.price_from),
+hotelDetail.price_from&&hotelDetail.addr&&React.createElement("span",{style:{color:"var(--c-sheet-sub)",fontFamily:"'DM Mono',monospace",fontSize:"0.42rem"}},"·"),
+hotelDetail.addr&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:"var(--c-sheet-sub)",textTransform:"uppercase"}},hotelDetail.addr)
+),
+React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:2,marginBottom:10}},hotelDetail.desc),
+React.createElement("div",{style:{display:"flex",gap:10}},
+hdCta
+?React.createElement("a",{href:hdCta,target:"_blank",rel:"noopener noreferrer",style:{flex:1,display:"flex",alignItems:"center",justifyContent:"center",padding:"9px",background:C.gold,color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500,textDecoration:"none"}},"Book Now")
+:React.createElement("span",{style:{flex:1}}),
+React.createElement("button",{onClick:()=>toggleSavedHotel(String(hotelDetail.id)),title:hdSv?"Saved":"Save",style:{flex:"0 0 auto",width:38,height:38,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:hdSv?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(hdSv?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:hdSv?C.gold:"var(--c-modal-save-clr)",fontSize:"1rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},hdSv?"\u2665":"\u2661")
+)
+)
+);
 const listPanel=React.createElement("div",{key:"listpanel",style:{position:"absolute",left:0,right:0,bottom:0,height:"78%",background:"var(--c-sheet-bg)",borderTop:"1px solid var(--c-sheet-bdr)",borderRadius:"18px 18px 0 0",zIndex:1200,transform:showList?"translateY(0)":"translateY(110%)",transition:"transform 0.35s cubic-bezier(0.32,0.72,0,1)",pointerEvents:showList?"auto":"none",display:"flex",flexDirection:"column",boxShadow:"0 -8px 40px rgba(0,0,0,0.35)",overflow:"hidden"}},
 React.createElement("div",{style:{flexShrink:0}},
 React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:6}},
@@ -1391,11 +1425,12 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 ),
 React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:5,marginBottom:8}},selected.desc.length>90?selected.desc.slice(0,90)+"\u2026":selected.desc),
 React.createElement("div",{style:{display:"flex",gap:10}},
-React.createElement("button",{onClick:()=>{if(selected.cat==="Hotels"){navTo("stay");setSelected(null);}else{setModalId(String(selected.id));setSelected(null);}},style:{flex:1,padding:"9px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details"),
+React.createElement("button",{onClick:()=>{if(selected.cat==="Hotels"){setHotelDetail(selected);setSelected(null);}else{setModalId(String(selected.id));setSelected(null);}},style:{flex:1,padding:"9px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details"),
 React.createElement("button",{onClick:()=>selected.cat==="Hotels"?toggleSavedHotel(String(selected.id)):toggleFav(String(selected.id)),title:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"Saved":"Save",style:{flex:"0 0 auto",width:38,height:38,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+((selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?C.gold:"var(--c-modal-save-clr)",fontSize:"1rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"\u2665":"\u2661")
 )
 )
 ),
+hotelDetailSheet,
 listPanel
 );}
 
