@@ -907,7 +907,7 @@ const cta = getCTA(venue); if (!cta) return null;
 return React.createElement("a", {
 href:cta.url, target:"_blank", rel:"noopener noreferrer",
 onClick:e=>e.stopPropagation(),
-style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:full?"9px":"10px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", width:full?"100%":undefined, textAlign:full?"center":undefined }
+style:{ display:full?"flex":"inline-block", alignItems:full?"center":undefined, justifyContent:full?"center":undefined, height:full?"38px":undefined, background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:full?"0 9px":"10px 18px", borderRadius:full?8:6, fontWeight:500, textDecoration:"none", cursor:"pointer", width:full?"100%":undefined }
 }, cta.label);
 }
 
