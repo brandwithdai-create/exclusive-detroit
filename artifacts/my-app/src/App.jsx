@@ -1374,16 +1374,14 @@ React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,ba
 React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:4}},
 React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"var(--c-sheet-handle)"}})
 ),
-selected&&React.createElement("div",{style:{padding:"10px 16px calc(4px + env(safe-area-inset-bottom))"}},
-React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start"}},
-React.createElement("div",{style:{width:72,height:72,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
+selected&&React.createElement("div",{style:{padding:"10px 16px calc(4px + env(safe-area-inset-bottom))",position:"relative"}},
+React.createElement("button",{onClick:()=>setSelected(null),style:{position:"absolute",top:10,right:12,background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1}},"✕"),
+React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start",paddingRight:34}},
+React.createElement("div",{style:{width:80,height:80,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
 selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})
 ),
 React.createElement("div",{style:{flex:1,minWidth:0}},
-React.createElement("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:2}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
-React.createElement("button",{onClick:()=>setSelected(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0,marginTop:-4,marginRight:-6,lineHeight:1,flexShrink:0}},"✕")
-),
+React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:2}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood)
 )
