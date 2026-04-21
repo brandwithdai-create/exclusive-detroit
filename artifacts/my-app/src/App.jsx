@@ -1268,7 +1268,7 @@ return!!COORDS[String(v.id)];
 }).map(v=>COORDS[String(v.id)]);
 if(coords.length===0)return;
 if(coords.length===1){map.setView(coords[0],15,{animate:true});}
-else{map.fitBounds(L.latLngBounds(coords),{padding:[50,50],maxZoom:18,animate:true});}
+else{map.fitBounds(L.latLngBounds(coords),{padding:[80,80],maxZoom:16,animate:true});}
 },[showSavedOnly]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
