@@ -1459,9 +1459,9 @@ useEffect(()=>{localStorage.setItem("savedEvents",JSON.stringify(savedEvents));}
 useEffect(()=>{localStorage.setItem("savedEventMeta",JSON.stringify(savedEventMeta));},[savedEventMeta]);
 useEffect(()=>{localStorage.setItem("savedHotels",JSON.stringify(savedHotels));},[savedHotels]);
 const isSavedEvent=id=>savedEvents.includes(String(id));
-const toggleSavedEvent=(id,item)=>{const sid=String(id);setSavedEvents(prev=>{if(prev.includes(sid)){setSavedEventMeta(m=>{const n={...m};delete n[sid];return n;});return prev.filter(x=>x!==sid);}else{if(item)setSavedEventMeta(m=>({...m,[sid]:item}));return[...prev,sid];}});};
+const toggleSavedEvent=(id,item)=>{const sid=String(id);const removing=savedEvents.includes(sid);setSavedEvents(prev=>{if(prev.includes(sid)){setSavedEventMeta(m=>{const n={...m};delete n[sid];return n;});return prev.filter(x=>x!==sid);}else{if(item)setSavedEventMeta(m=>({...m,[sid]:item}));return[...prev,sid];}});showToast(removing?"Removed from saves":"\u2665 Saved to your list");};
 const isSavedHotel=id=>savedHotels.includes(String(id));
-const toggleSavedHotel=id=>{setSavedHotels(prev=>prev.includes(String(id))?prev.filter(x=>x!==String(id)):[...prev,String(id)]);};
+const toggleSavedHotel=id=>{const removing=savedHotels.includes(String(id));setSavedHotels(prev=>prev.includes(String(id))?prev.filter(x=>x!==String(id)):[...prev,String(id)]);showToast(removing?"Removed from saves":"\u2665 Saved to your list");};
 
 useEffect(()=>{
 const html=document.documentElement;
