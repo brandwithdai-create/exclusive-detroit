@@ -220,7 +220,22 @@
         overscroll-behavior: none;
         overflow-x: hidden;
       }
-      /* ── Leaflet container: extend 20px past viewport bottom to prevent iOS gap ── */
+      /*
+       * LOCKED PRODUCTION FIX — do not remove or simplify.
+       *
+       * iPhone Safari / PWA installed mode can show a false bottom gap on the
+       * Leaflet map due to viewport compositing and safe-area rendering quirks.
+       * This overshoot-based containment fix is intentional: the map tile layer
+       * renders 20px past the visible viewport bottom so iOS can never expose a
+       * gap, regardless of rounding or compositing errors. The parent wrapper's
+       * overflow:hidden clips the extra 20px visually while Leaflet still
+       * generates tiles for that region.
+       *
+       * Do NOT remove or simplify without testing on:
+       *   1. Real iPhone Safari
+       *   2. Installed PWA / home-screen app mode
+       *   3. After scrolling Explore first, then opening Map
+       */
       .leaflet-container {
         position: absolute !important;
         top: 0 !important;
