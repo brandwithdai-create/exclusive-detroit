@@ -1705,6 +1705,7 @@ const HOODS=[
 {k:"Downtown",       d:"The Belt, rooftop bars, hidden bars, and the city's most storied hotel lounges. Start here."},
 {k:"Midtown",        d:"Art museums, craft cocktail bars, and the city's most walkable nightlife."},
 {k:"Corktown",       d:"Detroit's oldest neighborhood - breweries, wine bars, and Michigan Central Station."},
+{k:"New Center",     d:"A growing district just north of Downtown known for its creative energy, local dining, and hidden cocktail spots."},
 {k:"Eastern Market", d:"Saturday mornings and late-night raves. A neighborhood with a double life."},
 {k:"Alley Spots",    d:"The Belt - a mural-covered downtown alley turned open-air social hub."},
 ];
