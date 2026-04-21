@@ -160,9 +160,9 @@ function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
             ) : <span style={{ flex:1 }} />}
             <button
               onClick={() => onSave(hotel.id)}
-              style={{ padding:"0 18px", background:saved?"rgba(201,168,76,0.15)":"var(--c-modal-save-bg)", border:"1.5px solid "+(saved?"rgba(201,168,76,0.7)":"var(--c-modal-save-bdr)"), color:saved?C.gold:"var(--c-modal-save-clr)", fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.12em", textTransform:"uppercase", borderRadius:8, cursor:"pointer", transition:"all 0.18s", flexShrink:0, whiteSpace:"nowrap" }}
+              style={{ width:38, height:38, flexShrink:0, alignSelf:"center", display:"inline-flex", alignItems:"center", justifyContent:"center", padding:0, background:saved?"rgba(201,168,76,0.15)":"var(--c-modal-save-bg)", border:"1.5px solid "+(saved?"rgba(201,168,76,0.7)":"var(--c-modal-save-bdr)"), color:saved?C.gold:"var(--c-modal-save-clr)", fontSize:"1rem", borderRadius:8, cursor:"pointer", transition:"all 0.18s" }}
             >
-              {saved ? "\u2665 Saved" : "\u2661 Save"}
+              {saved ? "\u2665" : "\u2661"}
             </button>
           </div>
         </div>
