@@ -1243,7 +1243,7 @@ mHtml=`<div style="width:13px;height:13px;background:${pin};border-radius:50%;bo
 }
 const sz=isSel?[26,26]:[13,13];const anc=isSel?[13,13]:[6,6];
 const icon=L.divIcon({className:"",html:mHtml,iconSize:sz,iconAnchor:anc});
-const m=L.marker(coord,{icon}).addTo(map).on("click",()=>setSelected(v));
+const m=L.marker(coord,{icon}).addTo(map).on("click",()=>{if(v.cat==="Hotels"){setHotelDetail(v);setSelected(null);}else{setHotelDetail(null);setSelected(v);}});
 markersRef.current.push(m);
 });
 },[mapCat,mapReady,selected,showSavedOnly,favs]);
@@ -1349,7 +1349,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 const img=photoMap?.[String(v.id)]||getVenueFallbackImage(v);
 const saved=v.cat==="Hotels"?isSavedHotel(v.id):isFav(v.id);
 const isSel=selected?.id===v.id;
-return React.createElement("button",{key:v.id,onClick:()=>{setSelected(v);setShowList(false);},style:{width:"100%",display:"flex",alignItems:"center",gap:12,padding:"11px 16px",background:isSel?"rgba(201,168,76,0.08)":"none",border:"none",borderBottom:"1px solid var(--c-sheet-bdr)",cursor:"pointer",textAlign:"left",touchAction:"manipulation"}},
+return React.createElement("button",{key:v.id,onClick:()=>{if(v.cat==="Hotels"){setHotelDetail(v);setSelected(null);setShowList(false);}else{setHotelDetail(null);setSelected(v);setShowList(false);}},style:{width:"100%",display:"flex",alignItems:"center",gap:12,padding:"11px 16px",background:isSel?"rgba(201,168,76,0.08)":"none",border:"none",borderBottom:"1px solid var(--c-sheet-bdr)",cursor:"pointer",textAlign:"left",touchAction:"manipulation"}},
 React.createElement("div",{style:{width:48,height:48,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
 img&&React.createElement("img",{src:img,alt:v.name,loading:"lazy",style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
 ),
