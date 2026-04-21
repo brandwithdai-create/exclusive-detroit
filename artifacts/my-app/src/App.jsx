@@ -907,7 +907,7 @@ const cta = getCTA(venue); if (!cta) return null;
 return React.createElement("a", {
 href:cta.url, target:"_blank", rel:"noopener noreferrer",
 onClick:e=>e.stopPropagation(),
-style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:"10px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", width:full?"100%":undefined, textAlign:full?"center":undefined }
+style:{ display:"inline-block", background:C.gold, color:C.black, fontFamily:"'DM Mono',monospace", fontSize:"0.57rem", letterSpacing:"0.13em", textTransform:"uppercase", padding:full?"9px":"10px 18px", borderRadius:6, fontWeight:500, textDecoration:"none", cursor:"pointer", width:full?"100%":undefined, textAlign:full?"center":undefined }
 }, cta.label);
 }
 
@@ -1390,7 +1390,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 ),
 React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:9,marginBottom:10}},selected.desc.length>90?selected.desc.slice(0,90)+"\u2026":selected.desc),
 React.createElement("div",{style:{display:"flex",gap:10}},
-React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"9px",background:C.gold,border:"none",color:"#0A0808",fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details"),
+React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"9px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details"),
 React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{flex:"0 0 auto",width:38,height:38,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:isFav(selected.id)?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(isFav(selected.id)?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:isFav(selected.id)?C.gold:"var(--c-modal-save-clr)",fontSize:"1rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},isFav(selected.id)?"\u2665":"\u2661")
 )
 )
