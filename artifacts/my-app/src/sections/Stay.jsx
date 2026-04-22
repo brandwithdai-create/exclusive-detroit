@@ -89,7 +89,7 @@ function useHotelPlaces(hotel) {
   return placesData;
 }
 
-function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
+export function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
   React.useEffect(() => {
     const fn = e => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", fn);

@@ -88,7 +88,7 @@ function MetaRow({ date, time, venue }) {
   );
 }
 
-function DetailModal({ item, type, saved, onSave, onClose }) {
+export function DetailModal({ item, type, saved, onSave, onClose }) {
   if (!item) return null;
   const isGame = type === "game";
   const title = isGame ? null : (item.artist || item.title || "");

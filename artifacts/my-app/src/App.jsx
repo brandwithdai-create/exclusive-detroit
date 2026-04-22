@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import L from "leaflet";
-import ThingsToDo from "./sections/ThingsToDo.jsx";
-import Stay from "./sections/Stay.jsx";
+import ThingsToDo, { DetailModal } from "./sections/ThingsToDo.jsx";
+import Stay, { HotelDetailModal } from "./sections/Stay.jsx";
 // fetchPlacePhotos intentionally NOT imported here — venue cards use static images only
 import { GAMES, DETROIT_EVENTS, CONCERTS, HOTELS, fmtDate, getTicketCTA, getBookingCTA } from "./data/eventsData.js";
 
@@ -1745,38 +1745,8 @@ itemGrid(savedHotelItems.map(hotelCard))
 )
 )
 ),
-savedDetailHotel&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:1600,background:"var(--c-sheet-bg)",display:"flex",flexDirection:"column",overflowY:"auto"}},
-React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 16px",borderBottom:"1px solid var(--c-sheet-bdr)",flexShrink:0}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},savedDetailHotel.hood+" · Hotel"),
-React.createElement("button",{onClick:()=>setSavedDetailHotel(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0}},"\u2715")
-),
-savedDetailHotel.image&&React.createElement("img",{src:savedDetailHotel.image,alt:"",style:{width:"100%",height:220,objectFit:"cover",display:"block",flexShrink:0}}),
-React.createElement("div",{style:{padding:"20px 18px 32px",flex:1}},
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.55rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.2,marginBottom:6}},savedDetailHotel.name),
-savedDetailHotel.price_from&&React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",color:C.gold,marginBottom:14}},savedDetailHotel.price_from),
-savedDetailHotel.desc&&React.createElement("p",{style:{fontSize:"0.82rem",color:"var(--c-sheet-body)",lineHeight:1.65,marginBottom:24}},savedDetailHotel.desc),
-React.createElement("div",{style:{display:"flex",gap:10,alignItems:"center"}},
-(()=>{const cta=getBookingCTA(savedDetailHotel);return cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",style:{flex:1,textAlign:"center",padding:"12px",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,textDecoration:"none",fontWeight:500,display:"block"}},cta.label):React.createElement("span",{style:{flex:1}});})(),
-React.createElement("button",{onClick:()=>{onUnsaveHotel&&onUnsaveHotel(savedDetailHotel.id);setSavedDetailHotel(null);},title:"Remove from saves",style:{width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(201,168,76,0.15)",border:"1.5px solid rgba(201,168,76,0.7)",borderRadius:8,color:C.gold,fontSize:"1rem",cursor:"pointer",flexShrink:0}},"♥")
-)
-)
-),
-savedDetailEvt&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:1600,background:"var(--c-sheet-bg)",display:"flex",flexDirection:"column",overflowY:"auto"}},
-React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 16px",borderBottom:"1px solid var(--c-sheet-bdr)",flexShrink:0}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},(savedDetailEvt.sport||savedDetailEvt.category||"Event")),
-React.createElement("button",{onClick:()=>setSavedDetailEvt(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0}},"\u2715")
-),
-savedDetailEvt.image&&React.createElement("img",{src:savedDetailEvt.image,alt:"",style:{width:"100%",height:220,objectFit:"cover",display:"block",flexShrink:0}}),
-React.createElement("div",{style:{padding:"20px 18px 32px",flex:1}},
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.55rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.2,marginBottom:6}},(savedDetailEvt.title||(savedDetailEvt.team+" vs. "+savedDetailEvt.opponent))),
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",color:C.smoke,marginBottom:14}},(savedDetailEvt.venue||"")+(savedDetailEvt.date?" · "+fmtDate(savedDetailEvt.date):"")),
-savedDetailEvt.desc&&React.createElement("p",{style:{fontSize:"0.82rem",color:"var(--c-sheet-body)",lineHeight:1.65,marginBottom:24}},savedDetailEvt.desc),
-React.createElement("div",{style:{display:"flex",gap:10,alignItems:"center"}},
-(()=>{const cta=getTicketCTA(savedDetailEvt);return cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",style:{flex:1,textAlign:"center",padding:"12px",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,textDecoration:"none",fontWeight:500,display:"block"}},cta.label):React.createElement("span",{style:{flex:1}});})(),
-React.createElement("button",{onClick:()=>{onUnsaveEvent&&onUnsaveEvent(savedDetailEvt.id,savedDetailEvt);setSavedDetailEvt(null);},title:"Remove from saves",style:{width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(201,168,76,0.15)",border:"1.5px solid rgba(201,168,76,0.7)",borderRadius:8,color:C.gold,fontSize:"1rem",cursor:"pointer",flexShrink:0}},"♥")
-)
-)
-)
+savedDetailHotel&&React.createElement(HotelDetailModal,{hotel:savedDetailHotel,places:null,saved:isSavedHotel(savedDetailHotel.id),onSave:toggleSavedHotel,onClose:()=>setSavedDetailHotel(null)}),
+savedDetailEvt&&React.createElement(DetailModal,{item:savedDetailEvt,type:savedDetailEvt.sport?"game":savedDetailEvt.artist?"concert":"event",saved:isSavedEvent(savedDetailEvt.id),onSave:toggleSavedEvent,onClose:()=>setSavedDetailEvt(null)})
 );
 };
 
