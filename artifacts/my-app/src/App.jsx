@@ -1013,6 +1013,10 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 );
 });
 
+const _tcCards=new Map();let _tcRaf=null,_tcCount=0;
+function _tcUpdate(){const vcy=window.scrollY+window.innerHeight/2;let bestId=null,minD=Infinity;for(const[id,{el}]of _tcCards){const r=el.getBoundingClientRect();const cy=window.scrollY+r.top+r.height/2;const d=Math.abs(cy-vcy);if(d<minD){minD=d;bestId=id;}}for(const[id,{set}]of _tcCards)set(id===bestId);}
+function _tcScroll(){if(_tcRaf)return;_tcRaf=requestAnimationFrame(()=>{_tcRaf=null;_tcUpdate();});}
+
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap }) {
 const [hov, setHov] = useState(false);
 const [isActive, setIsActive] = useState(false);
@@ -1021,9 +1025,11 @@ const cardRef = React.useRef(null);
 React.useEffect(()=>{
   if(!isTest) return;
   const el=cardRef.current; if(!el) return;
-  const obs=new IntersectionObserver(([entry])=>setIsActive(entry.isIntersecting),{rootMargin:"-32% 0px -32% 0px",threshold:0});
-  obs.observe(el);
-  return ()=>obs.disconnect();
+  if(_tcCount===0)window.addEventListener('scroll',_tcScroll,{passive:true});
+  _tcCount++;
+  _tcCards.set(venue.id,{el,set:setIsActive});
+  _tcUpdate();
+  return ()=>{_tcCards.delete(venue.id);_tcCount--;if(_tcCount===0)window.removeEventListener('scroll',_tcScroll);};
 },[isTest]);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
