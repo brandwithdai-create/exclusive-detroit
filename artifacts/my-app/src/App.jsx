@@ -1030,7 +1030,7 @@ const cardBorder = hov ? C.goldD : isActive ? C.goldD : C.border;
 const cardShadow = hov ? "var(--c-shdw-h)" : isActive ? "0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)" : "var(--c-shdw-f)";
 return React.createElement("div", {
 ref: cardRef,
-onClick:()=>onOpen(String(venue.id)),
+onClick:()=>{setHov(false);onOpen(String(venue.id));},
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+cardBorder, borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:cardShadow, transition:"transform 0.24s,box-shadow 0.3s ease,border-color 0.3s ease", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
 },
@@ -1101,7 +1101,7 @@ const hBorder = hov ? (just?C.goldD:"rgba(110,75,195,0.5)") : isActive ? C.goldD
 const hShadow = hov ? "0 8px 36px rgba(0,0,0,0.55)" : isActive ? "0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)" : "0 2px 14px rgba(0,0,0,0.4)";
 return React.createElement("div", {
 ref: cardRef,
-onClick:()=>onOpen(venue.id),
+onClick:()=>{setHov(false);onOpen(venue.id);},
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+hBorder, borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hShadow, transition:"transform 0.24s,box-shadow 0.3s ease,border-color 0.3s ease", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
 },

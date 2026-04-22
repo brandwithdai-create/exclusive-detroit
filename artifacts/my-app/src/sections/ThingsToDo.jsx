@@ -188,7 +188,7 @@ function GameCard({ game, saved, onSave, onOpen }) {
   return (
     <div
       ref={cardRef}
-      onClick={() => onOpen({ ...game, resolvedImage: game.image }, "game")}
+      onClick={() => { setHov(false); onOpen({ ...game, resolvedImage: game.image }, "game"); }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{ background:C.card, border:"1px solid "+(hov?C.goldD:isActive?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":isActive?"0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}
@@ -235,7 +235,7 @@ function EventCard({ event, saved, onSave, onOpen, type = "event" }) {
   return (
     <div
       ref={cardRef}
-      onClick={() => onOpen({ ...event, resolvedImage: event.image }, type)}
+      onClick={() => { setHov(false); onOpen({ ...event, resolvedImage: event.image }, type); }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{ background:C.card, border:"1px solid "+(hov?C.goldD:isActive?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":isActive?"0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}

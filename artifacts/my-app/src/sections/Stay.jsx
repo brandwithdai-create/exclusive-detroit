@@ -187,7 +187,7 @@ function HotelCard({ hotel, saved, onSave, onOpen }) {
   return (
     <div
       ref={cardRef}
-      onClick={() => onOpen(hotel, places)}
+      onClick={() => { setHov(false); onOpen(hotel, places); }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{ background:C.card, border:"1px solid "+(hov?C.goldD:isActive?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":isActive?"0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}
