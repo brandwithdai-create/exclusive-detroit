@@ -1015,13 +1015,18 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap }) {
 const [hov, setHov] = useState(false);
+const [pressed, setPressed] = useState(false);
+const isTest = venue.id === 1;
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
 const vibeLine=getVibeLine(venue);
+const cardTransform = hov ? "translateY(-4px)" : (isTest && pressed) ? "scale(0.982)" : "none";
+const cardShadow = hov ? "var(--c-shdw-h)" : (isTest && pressed) ? "0 0 0 1.5px rgba(201,168,76,0.2), 0 2px 18px rgba(0,0,0,0.38)" : "var(--c-shdw-f)";
 return React.createElement("div", {
 onClick:()=>onOpen(String(venue.id)),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
-style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"transform 0.24s,box-shadow 0.24s,border-color 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
+onTouchStart:()=>setPressed(true), onTouchEnd:()=>setPressed(false), onTouchCancel:()=>setPressed(false),
+style:{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:cardTransform, boxShadow:cardShadow, transition:"transform 0.18s,box-shadow 0.18s,border-color 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
 },
 React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
