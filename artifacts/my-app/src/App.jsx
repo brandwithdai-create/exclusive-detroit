@@ -1848,7 +1848,7 @@ React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 ),
 React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 0"}},
 React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:16,padding:"14px 18px",display:"flex",flexDirection:"row",gap:16,alignItems:"center"}},
-React.createElement("div",{style:{width:74,height:74,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)"}},
+React.createElement("div",{style:{width:90,height:90,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)"}},
 React.createElement("img",{src:"/creator.jpg",alt:"Dai",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
 ),
 React.createElement("div",{style:{flex:1,display:"flex",flexDirection:"column",minWidth:0,textAlign:"center"}},
