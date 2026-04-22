@@ -1435,6 +1435,8 @@ const [favs,    setFavs]      = useState(()=>{try{const stored=JSON.parse(localS
 const [cat,     setCat]       = useState("all");
 const [sort,    setSort]      = useState("default");
 const [modalId, setModalId]   = useState(null);
+const [savedDetailHotel,setSavedDetailHotel]=useState(null);
+const [savedDetailEvt,  setSavedDetailEvt]  =useState(null);
 const [toast,   setToast]     = useState({ msg:"", vis:false });
 const [scrolled,setScrolled]  = useState(false);
 const [nearMe,  setNearMe]    = useState(false);
@@ -1680,7 +1682,7 @@ React.createElement("div",{style:{flex:1,height:1,background:"rgba(201,168,76,0.
 const evtCard=(item)=>{const cta=getTicketCTA(item);
 const label=item.title||(item.team+" vs. "+item.opponent);
 const badge=item.sport||item.category||"Event";
-return React.createElement("div",{key:item.id,onClick:()=>{if(cta)window.open(cta.url,"_blank","noopener");},style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:cta?"pointer":"default"}},
+return React.createElement("div",{key:item.id,onClick:()=>setSavedDetailEvt(item),style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:"pointer"}},
 item.image&&React.createElement("img",{src:item.image,alt:"",loading:"lazy",style:{width:"100%",height:130,objectFit:"cover",display:"block"}}),
 React.createElement("div",{style:{padding:"13px 14px"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:5}},badge),
@@ -1691,7 +1693,7 @@ cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferr
 React.createElement("button",{onClick:e=>{e.stopPropagation();onUnsaveEvent&&onUnsaveEvent(item.id,item);},style:{background:"none",border:"none",cursor:"pointer",color:C.gold,fontSize:"1.2rem",padding:"6px 4px",lineHeight:1,flexShrink:0}},"♥")
 )));};
 const hotelCard=(h)=>{const cta=getBookingCTA(h);
-return React.createElement("div",{key:h.id,onClick:()=>{if(cta)window.open(cta.url,"_blank","noopener");},style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:cta?"pointer":"default"}},
+return React.createElement("div",{key:h.id,onClick:()=>setSavedDetailHotel(h),style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:"pointer"}},
 h.image&&React.createElement("img",{src:h.image,alt:"",loading:"lazy",style:{width:"100%",height:130,objectFit:"cover",display:"block"}}),
 React.createElement("div",{style:{padding:"13px 14px"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:5}},h.hood+" · Hotel"),
@@ -1712,7 +1714,8 @@ React.createElement("div",{style:{display:"flex",alignItems:"center",justifyCont
 React.createElement("button",{onClick:e=>{e.stopPropagation();setModalId(String(v.id));},style:{display:"inline-block",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"7px 14px",borderRadius:5,fontWeight:500,border:"none",cursor:"pointer"}},"View Details"),
 React.createElement("button",{onClick:e=>{e.stopPropagation();toggleFav(String(v.id));},style:{background:"none",border:"none",cursor:"pointer",color:C.gold,fontSize:"1.2rem",padding:"6px 4px",lineHeight:1,flexShrink:0}},"♥")
 )));};
-return React.createElement("div",null,
+return React.createElement(React.Fragment,null,
+React.createElement("div",null,
 React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Your Collection"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Saved Spots"),
@@ -1738,6 +1741,39 @@ itemGrid(savedEventItems.map(evtCard))
 savedHotelItems.length>0&&React.createElement("div",null,
 secHdr("Hotel Stays"),
 itemGrid(savedHotelItems.map(hotelCard))
+)
+)
+)
+),
+savedDetailHotel&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:1600,background:"var(--c-sheet-bg)",display:"flex",flexDirection:"column",overflowY:"auto"}},
+React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 16px",borderBottom:"1px solid var(--c-sheet-bdr)",flexShrink:0}},
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},savedDetailHotel.hood+" · Hotel"),
+React.createElement("button",{onClick:()=>setSavedDetailHotel(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0}},"\u2715")
+),
+savedDetailHotel.image&&React.createElement("img",{src:savedDetailHotel.image,alt:"",style:{width:"100%",height:220,objectFit:"cover",display:"block",flexShrink:0}}),
+React.createElement("div",{style:{padding:"20px 18px 32px",flex:1}},
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.55rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.2,marginBottom:6}},savedDetailHotel.name),
+savedDetailHotel.price_from&&React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",color:C.gold,marginBottom:14}},savedDetailHotel.price_from),
+savedDetailHotel.desc&&React.createElement("p",{style:{fontSize:"0.82rem",color:"var(--c-sheet-body)",lineHeight:1.65,marginBottom:24}},savedDetailHotel.desc),
+React.createElement("div",{style:{display:"flex",gap:10,alignItems:"center"}},
+(()=>{const cta=getBookingCTA(savedDetailHotel);return cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",style:{flex:1,textAlign:"center",padding:"12px",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,textDecoration:"none",fontWeight:500,display:"block"}},cta.label):React.createElement("span",{style:{flex:1}});})(),
+React.createElement("button",{onClick:()=>{onUnsaveHotel&&onUnsaveHotel(savedDetailHotel.id);setSavedDetailHotel(null);},title:"Remove from saves",style:{width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(201,168,76,0.15)",border:"1.5px solid rgba(201,168,76,0.7)",borderRadius:8,color:C.gold,fontSize:"1rem",cursor:"pointer",flexShrink:0}},"♥")
+)
+)
+),
+savedDetailEvt&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:1600,background:"var(--c-sheet-bg)",display:"flex",flexDirection:"column",overflowY:"auto"}},
+React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"14px 16px",borderBottom:"1px solid var(--c-sheet-bdr)",flexShrink:0}},
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold}},(savedDetailEvt.sport||savedDetailEvt.category||"Event")),
+React.createElement("button",{onClick:()=>setSavedDetailEvt(null),style:{background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0}},"\u2715")
+),
+savedDetailEvt.image&&React.createElement("img",{src:savedDetailEvt.image,alt:"",style:{width:"100%",height:220,objectFit:"cover",display:"block",flexShrink:0}}),
+React.createElement("div",{style:{padding:"20px 18px 32px",flex:1}},
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.55rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.2,marginBottom:6}},(savedDetailEvt.title||(savedDetailEvt.team+" vs. "+savedDetailEvt.opponent))),
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",color:C.smoke,marginBottom:14}},(savedDetailEvt.venue||"")+(savedDetailEvt.date?" · "+fmtDate(savedDetailEvt.date):"")),
+savedDetailEvt.desc&&React.createElement("p",{style:{fontSize:"0.82rem",color:"var(--c-sheet-body)",lineHeight:1.65,marginBottom:24}},savedDetailEvt.desc),
+React.createElement("div",{style:{display:"flex",gap:10,alignItems:"center"}},
+(()=>{const cta=getTicketCTA(savedDetailEvt);return cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",style:{flex:1,textAlign:"center",padding:"12px",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,textDecoration:"none",fontWeight:500,display:"block"}},cta.label):React.createElement("span",{style:{flex:1}});})(),
+React.createElement("button",{onClick:()=>{onUnsaveEvent&&onUnsaveEvent(savedDetailEvt.id,savedDetailEvt);setSavedDetailEvt(null);},title:"Remove from saves",style:{width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(201,168,76,0.15)",border:"1.5px solid rgba(201,168,76,0.7)",borderRadius:8,color:C.gold,fontSize:"1rem",cursor:"pointer",flexShrink:0}},"♥")
 )
 )
 )
