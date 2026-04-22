@@ -1299,7 +1299,7 @@ const hotelDetailSheet=React.createElement("div",{style:{position:"absolute",bot
 React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:4}},
 React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"var(--c-sheet-handle)"}})
 ),
-hotelDetail&&React.createElement("div",{style:{padding:"10px 16px calc(16px + env(safe-area-inset-bottom))",position:"relative"}},
+hotelDetail&&React.createElement("div",{style:{padding:"10px 16px calc(4px + env(safe-area-inset-bottom))",position:"relative"}},
 React.createElement("button",{onClick:()=>setHotelDetail(null),style:{position:"absolute",top:10,right:12,background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1}},"\u2715"),
 React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start",paddingRight:34}},
 React.createElement("div",{style:{width:80,height:80,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
@@ -1311,12 +1311,7 @@ React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},hotelDetail.hood)
 )
 ),
-React.createElement("div",{style:{display:"flex",gap:8,marginTop:5,marginBottom:4,alignItems:"center",flexWrap:"wrap"}},
-hotelDetail.price_from&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:C.gold,textTransform:"uppercase"}},hotelDetail.price_from),
-hotelDetail.price_from&&hotelDetail.addr&&React.createElement("span",{style:{color:"var(--c-sheet-sub)",fontFamily:"'DM Mono',monospace",fontSize:"0.42rem"}},"·"),
-hotelDetail.addr&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",color:"var(--c-sheet-sub)",textTransform:"uppercase"}},hotelDetail.addr)
-),
-React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:2,marginBottom:10}},hotelDetail.desc),
+React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:5,marginBottom:8}},hotelDetail.desc.length>90?hotelDetail.desc.slice(0,90)+"\u2026":hotelDetail.desc),
 React.createElement("div",{style:{display:"flex",gap:10}},
 hdCta
 ?React.createElement("a",{href:hdCta,target:"_blank",rel:"noopener noreferrer",style:{flex:1,display:"flex",alignItems:"center",justifyContent:"center",padding:"9px",background:C.gold,color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500,textDecoration:"none"}},"Book Now")
