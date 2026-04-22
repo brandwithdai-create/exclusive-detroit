@@ -1676,7 +1676,7 @@ const allEmpty=savedVenues.length===0&&savedEventItems.length===0&&savedHotelIte
 const multiSec=(savedVenues.length>0?1:0)+(savedEventItems.length>0?1:0)+(savedHotelItems.length>0?1:0)>1;
 const itemGrid=(items)=>React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},items);
 const secHdr=(txt)=>React.createElement("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:18,marginTop:4}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldD}},txt),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldD}},txt),
 React.createElement("div",{style:{flex:1,height:1,background:"rgba(201,168,76,0.18)"}})
 );
 const evtCard=(item)=>{const cta=getTicketCTA(item);
