@@ -1842,6 +1842,26 @@ React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",bor
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"The City Brief"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"About Detroit")
 ),
+React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 0"}},
+React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:16,padding:"36px 24px 32px",textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center"}},
+React.createElement("div",{style:{width:100,height:100,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",marginBottom:20,flexShrink:0,boxShadow:"0 0 0 4px var(--c-excl-bg)"}},
+React.createElement("img",{src:"/creator.jpg",alt:"Dai",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
+),
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.goldL,margin:"0 0 10px"}},"Creator & Founder"),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.65rem",fontWeight:400,color:C.white,margin:"0 0 16px",lineHeight:1.15}},"Hi, I'm Dai"),
+React.createElement("p",{style:{fontSize:"0.88rem",color:C.ash,fontWeight:300,lineHeight:1.85,margin:"0 0 12px",maxWidth:380}},"Born and raised in Detroit, I've explored this city from top to bottom — from the rooftops to the hidden basements most people walk right past."),
+React.createElement("p",{style:{fontSize:"0.88rem",color:C.ash,fontWeight:300,lineHeight:1.85,margin:"0 0 24px",maxWidth:380}},"Every recommendation here is personal and present — places I've experienced, trust, and keep going back to."),
+React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"1.05rem",color:C.gold,lineHeight:1.55,margin:"0 0 26px",maxWidth:360}},"\u201cIf you know, you know\u2026 & if you don\u2019t, now you do.\u201d"),
+React.createElement("a",{href:"https://www.instagram.com/exclusivedetroit",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:8,padding:"10px 22px",borderRadius:100,border:"1.5px solid "+C.border,background:"transparent",color:C.ash,textDecoration:"none",fontFamily:"'DM Mono',monospace",fontSize:"0.51rem",letterSpacing:"0.12em",textTransform:"uppercase",cursor:"pointer",transition:"border-color 0.18s,color 0.18s"}},
+React.createElement("svg",{width:15,height:15,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round"},
+React.createElement("rect",{x:2,y:2,width:20,height:20,rx:5,ry:5}),
+React.createElement("path",{d:"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"}),
+React.createElement("line",{x1:17.5,y1:6.5,x2:"17.51",y2:6.5})
+),
+React.createElement("span",null,"Follow on Instagram")
+)
+)
+),
 React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"40px 22px 56px",display:"flex",flexDirection:"column",gap:36}},
 [["Detroit Is Not What You Think","Forget the headlines. Detroit has quietly become one of the most interesting cities in America for food, nightlife, art, and architecture. The people who know, know."],
 ["When to Visit","Late May through October is peak season. Summer rooftops are unmatched. Winter has its own moody energy - the hidden bars hit different when it's snowing outside. Jazz Fest in September. Movement Electronic Music Festival in May."],

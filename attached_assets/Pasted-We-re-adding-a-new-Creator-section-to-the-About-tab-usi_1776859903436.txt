@@ -1,0 +1,112 @@
+We’re adding a new “Creator” section to the About tab using a centered layout design. This should match the app’s luxury aesthetic and remain fully consistent with existing styling (spacing, typography, animations, dark/light mode behavior).
+
+1. SECTION PLACEMENT
+
+* Insert this directly under “About Detroit” header
+* Before “Detroit Is Not What You Think”
+* This should feel like a featured card, similar to a premium highlight
+
+⸻
+
+2. CARD DESIGN (CENTERED LAYOUT)
+
+* Use the same card container style as venue cards:
+    * Rounded corners
+    * Subtle border
+    * Proper padding
+    * Works in both light and dark mode
+
+⸻
+
+3. IMAGE (TOP CENTER)
+
+* Display creator image at the top, centered
+* Shape: circle
+* Size: ~90–110px diameter
+* Add a thin gold border (same tone used throughout app)
+* I will provide the image to use
+
+⸻
+
+4. TEXT CONTENT (CENTERED)
+
+Eyebrow (small label above name):
+CREATOR & FOUNDER
+
+Title:
+Hi, I’m Dai
+
+Body text:
+Born and raised in Detroit, I’ve explored this city from top to bottom — from the rooftops to the hidden basements most people walk right past.
+
+Every recommendation here is personal and present — places I’ve experienced, trust, and keep going back to.
+
+⸻
+
+5. SIGNATURE LINE (IMPORTANT DESIGN DETAIL)
+
+* Add this line below the body text
+* Style it in gold accent color (same as app highlights)
+* Slightly smaller than title, slightly larger than body
+
+Text:
+If you know, you know… & if you don’t, now you do.
+
+⸻
+
+6. INSTAGRAM CTA (BUTTON)
+
+* Add a button-style row below the signature line
+* Include:
+    * Instagram icon (left)
+    * Text: “Follow on Instagram”
+    * Username below or inline (depending on spacing)
+* This should be clickable
+* I will provide the Instagram link — use that to open externally
+* Style:
+    * Match existing buttons (like “Book Now” / “Visit Website” feel)
+    * Keep it subtle and premium (not oversized)
+
+⸻
+
+7. SPACING + CONSISTENCY
+
+* Maintain consistent vertical spacing with other sections
+* Do NOT add excessive padding (match About section spacing exactly)
+* Ensure:
+    * Looks identical in light & dark mode (just color-adjusted)
+    * No layout shift or animation changes
+    * Keeps smooth scroll performance
+
+⸻
+
+8. RESPONSIVE BEHAVIOR
+
+* Must look clean on mobile (primary focus)
+* Text stays centered
+* Proper spacing between:
+    * Image
+    * Title
+    * Body
+    * Signature
+    * CTA
+
+⸻
+
+9. FINAL CHECK
+
+* This should feel like a premium editorial feature, not just a profile
+* No extra animations, no added complexity — keep it clean and intentional
+
+⸻
+
+🔥 Why This Works (just for you)
+
+This turns your app into:
+
+* a brand
+* a voice
+* a trusted source
+
+And most importantly…
+it gives users a reason to follow you, not just use the app.
