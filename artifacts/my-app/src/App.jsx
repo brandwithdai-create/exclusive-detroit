@@ -1676,7 +1676,7 @@ const allEmpty=savedVenues.length===0&&savedEventItems.length===0&&savedHotelIte
 const multiSec=(savedVenues.length>0?1:0)+(savedEventItems.length>0?1:0)+(savedHotelItems.length>0?1:0)>1;
 const itemGrid=(items)=>React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},items);
 const secHdr=(txt)=>React.createElement("div",{style:{display:"flex",alignItems:"center",gap:12,marginBottom:18,marginTop:4}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldD}},txt),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldD}},txt),
 React.createElement("div",{style:{flex:1,height:1,background:"rgba(201,168,76,0.18)"}})
 );
 const evtCard=(item)=>{const cta=getTicketCTA(item);
@@ -1718,7 +1718,7 @@ return React.createElement(React.Fragment,null,
 React.createElement("div",null,
 React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Your Collection"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Saved Spots"),
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Dining & Drinks"),
 React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Your personal insider list.")
 ),
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"24px 22px 56px"}},
@@ -1731,7 +1731,7 @@ React.createElement("button",{onClick:()=>navTo("explore"),style:{fontFamily:"'D
 )
 :React.createElement(React.Fragment,null,
 savedVenues.length>0&&React.createElement("div",{style:{marginBottom:multiSec&&(savedEventItems.length>0||savedHotelItems.length>0)?44:0}},
-multiSec&&secHdr("Saved Spots"),
+multiSec&&secHdr("Dining & Drinks"),
 itemGrid(savedVenues.map(venueCard))
 ),
 savedEventItems.length>0&&React.createElement("div",{style:{marginBottom:savedHotelItems.length>0?44:0}},
