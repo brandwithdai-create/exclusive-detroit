@@ -1848,11 +1848,11 @@ React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"40px 22p
 ["Getting Around","Downtown is walkable. Midtown is a short Uber from Downtown. Corktown is 10 minutes west. The QLine connects Midtown to Downtown."],
 ["The Vibe","Detroit has a no-pretense, no-velvet-rope energy. But the hidden spots reward those who seek them out. Dress well. Tip well. Ask the bartender what they're drinking."]
 ].map(([t,b])=>React.createElement("div",{key:t},
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.45rem",fontWeight:400,color:C.white,marginBottom:10}},t),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.25rem",fontWeight:400,color:C.white,marginBottom:10}},t),
 React.createElement("p",{style:{fontSize:"0.88rem",color:C.ash,fontWeight:300,lineHeight:1.85}},b)
 )),
 React.createElement("div",null,
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.45rem",fontWeight:400,color:C.white,marginBottom:13}},"Traveler Tips"),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.25rem",fontWeight:400,color:C.white,marginBottom:13}},"Traveler Tips"),
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:10}},
 ["Detroit doesn't rush, neither should you. Late nights are where it comes alive.","Reservations matter more than you think. The best spots fill quietly.","Eastern Market on Saturday morning is non-negotiable.","If it looks quiet, you're probably early.","Always verify hours before visiting."].map(t=>
 React.createElement("div",{key:t,style:{display:"flex",gap:10,alignItems:"flex-start"}},
