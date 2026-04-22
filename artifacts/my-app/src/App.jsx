@@ -1843,23 +1843,22 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53r
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"About Detroit")
 ),
 React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 0"}},
-React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:16,padding:"20px 22px",display:"flex",flexDirection:"row",gap:20,alignItems:"flex-start"}},
-React.createElement("div",{style:{width:82,height:82,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 4px var(--c-excl-bg)",marginTop:2}},
+React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:16,padding:"14px 18px",display:"flex",flexDirection:"row",gap:16,alignItems:"center"}},
+React.createElement("div",{style:{width:64,height:64,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)"}},
 React.createElement("img",{src:"/creator.jpg",alt:"Dai",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
 ),
 React.createElement("div",{style:{flex:1,display:"flex",flexDirection:"column",minWidth:0}},
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.goldL,margin:"0 0 4px"}},"Creator & Founder"),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.45rem",fontWeight:400,color:C.white,margin:"0 0 8px",lineHeight:1.1}},"Hi, I'm Dai"),
-React.createElement("p",{style:{fontSize:"0.85rem",color:C.ash,fontWeight:300,lineHeight:1.7,margin:"0 0 8px"}},"Born and raised in Detroit, I\u2019ve explored this city from top to bottom. Every recommendation here is personal, current, and intentionally chosen \u2014 places I\u2019ve experienced, trust, and return to."),
-React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"0.97rem",color:C.gold,lineHeight:1.4,margin:"0 0 10px"}},"\u201cIf you know, you know\u2026 & if you don\u2019t, now you do.\u201d"),
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.ash,opacity:0.6,margin:"0 0 7px"}},"Follow for hidden gems in every city"),
-React.createElement("a",{href:"https://www.instagram.com/the_lovelydai?igsh=Zmh1OHZrYzBhZmI1&utm_source=qr",target:"_blank",rel:"noopener noreferrer",className:"creator-cta",style:{display:"inline-flex",alignItems:"center",alignSelf:"flex-start",gap:7,padding:"8px 16px",borderRadius:100,border:"1.5px solid "+C.border,background:"var(--c-excl-bg)",color:C.ash,textDecoration:"none",cursor:"pointer",transition:"border-color 0.2s,color 0.2s,background 0.2s"}},
-React.createElement("svg",{width:13,height:13,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round",flexShrink:0},
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.goldL,margin:"0 0 2px"}},"Creator & Founder"),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.3rem",fontWeight:400,color:C.white,margin:"0 0 5px",lineHeight:1.1}},"Hi, I'm Dai"),
+React.createElement("p",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:"0 0 5px"}},"Every recommendation here is personal, current, and intentionally chosen \u2014 places I\u2019ve experienced, trust, and return to."),
+React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"0.9rem",color:C.gold,lineHeight:1.35,margin:"0 0 8px"}},"\u201cIf you know, you know\u2026 & if you don\u2019t, now you do.\u201d"),
+React.createElement("a",{href:"https://www.instagram.com/the_lovelydai?igsh=Zmh1OHZrYzBhZmI1&utm_source=qr",target:"_blank",rel:"noopener noreferrer",className:"creator-cta",style:{display:"inline-flex",alignItems:"center",alignSelf:"flex-start",gap:6,padding:"7px 13px",borderRadius:100,border:"1.5px solid "+C.border,background:"var(--c-excl-bg)",color:C.ash,textDecoration:"none",cursor:"pointer",transition:"border-color 0.2s,color 0.2s,background 0.2s"}},
+React.createElement("svg",{width:12,height:12,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round",flexShrink:0},
 React.createElement("rect",{x:2,y:2,width:20,height:20,rx:5,ry:5}),
 React.createElement("path",{d:"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"}),
 React.createElement("line",{x1:17.5,y1:6.5,x2:"17.51",y2:6.5})
 ),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.08em"}},"@the_lovelydai")
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.08em"}},"@the_lovelydai")
 )
 )
 )
