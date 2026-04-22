@@ -1623,7 +1623,7 @@ React.createElement("h1",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 "Detroit",React.createElement("br"),React.createElement("em",{style:{fontStyle:"italic",color:C.goldL}},"Hidden Gems")
 ),
 React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:400,color:"var(--c-hero-sub)",maxWidth:480,margin:"0 auto 26px",lineHeight:1.82}},"The insider's guide to Detroit's most exclusive dining, cocktails, experiences, and hidden gems. Not for everyone — made for you."),
-React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:6,alignItems:"center"}},
+React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center"}},
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center"}},
 ["Hidden Bars","Rooftops","Cocktail Lounges"].map(c=>
 React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"var(--c-hero-pill-bg)",backdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",WebkitBackdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",boxShadow:cat===c?"none":"var(--c-hero-btn-shadow)",padding:"7px 14px",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
@@ -1635,7 +1635,7 @@ React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:
 )
 )
 ),
-React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:28,flexWrap:"wrap"}},
+React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",marginTop:"var(--hero-purple-mt)",flexWrap:"wrap"}},
 React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.purple,color:C.purple,background:"var(--c-purple-btn-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",boxShadow:"var(--c-hero-btn-shadow)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
 React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.purple,color:C.purple,background:"var(--c-purple-btn-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",boxShadow:"var(--c-hero-btn-shadow)",padding:"9px 20px",borderRadius:100,cursor:"pointer"}},"View Map →")
 ),
