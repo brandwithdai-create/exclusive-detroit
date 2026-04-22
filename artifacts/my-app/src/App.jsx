@@ -1718,7 +1718,7 @@ return React.createElement(React.Fragment,null,
 React.createElement("div",null,
 React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Your Collection"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Dining & Drinks"),
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Saved Spots"),
 React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Your personal insider list.")
 ),
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"24px 22px 56px"}},
