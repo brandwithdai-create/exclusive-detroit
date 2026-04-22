@@ -1773,9 +1773,9 @@ React.createElement("button",{onClick:e=>{e.stopPropagation();toggleFav(String(v
 )));};
 return React.createElement(React.Fragment,null,
 React.createElement("div",null,
-React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Your Collection"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Saved Spots"),
+React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"Your Collection"),
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:4}},"Saved Spots"),
 React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Your personal insider list.")
 ),
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"24px 22px 56px"}},
@@ -1816,10 +1816,10 @@ const HOODS=[
 {k:"Alley Spots",    d:"The Belt - a mural-covered downtown alley turned open-air social hub."},
 ];
 const Areas=()=>React.createElement("div",null,
-React.createElement("div",{style:{background:C.deep,padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
 React.createElement("div",{style:{maxWidth:1156,margin:"0 auto"}},
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Navigate by Area"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:8}},"Detroit Neighborhoods"),
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"Navigate by Area"),
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,marginBottom:4}},"Detroit Neighborhoods"),
 React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Each pocket of the city has its own energy.")
 )
 ),
@@ -1838,8 +1838,8 @@ React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5
 );
 
 const About=()=>React.createElement("div",null,
-React.createElement("div",{style:{background:C.deep,padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"The City Brief"),
+React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"The City Brief"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"About Detroit")
 ),
 React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"40px 22px 56px",display:"flex",flexDirection:"column",gap:36}},
