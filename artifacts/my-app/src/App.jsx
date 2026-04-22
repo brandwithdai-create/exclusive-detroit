@@ -1156,7 +1156,7 @@ const [mapReady,setMapReady]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
 const [showList,setShowList]=React.useState(false);
 const [hotelDetail,setHotelDetail]=React.useState(null);
-const mapVenuePool=mapCat==="Hotels"?MAP_HOTELS:(showSavedOnly?[...ALL,...UPCOMING,...MAP_HOTELS.filter(h=>isSavedHotel(h.id))]:[...ALL,...UPCOMING]);
+const mapVenuePool=mapCat==="Hotels"?MAP_HOTELS:[...ALL,...UPCOMING,...MAP_HOTELS];
 
 const hasSaves=favs.length>0;
 const outerRef=React.useRef(null);
