@@ -246,7 +246,7 @@ exclusive:"Detroit invented electronic music. Marble Bar is where the city still
 badges:["locals","hidden"], websiteUrl:"https://www.themarblebar.com" },
 
 
-{ id:23, name:"The Majestic Theatre",              hood:"Midtown",            cat:"Comedy / Live Events",
+{ id:23, name:"The Majestic Theatre",              hood:"Midtown",            cat:"Nightlife",
 desc:"A 100-year-old theatre complex anchoring Midtown nightlife. Live music, comedy, and cultural events across three interconnected venues.",
 vibes:["Historic Theatre","Live Music","Multi-Venue"], addr:"4140 Woodward Ave, Detroit, MI 48201",
 hours:"Varies by show - majesticdetroit.com/events", best:"Weekend / Weeknight",
@@ -377,12 +377,12 @@ exclusive:"Most people eat dinner and leave. The people who stay for the back ba
 badges:["firsttimer","locals"], reservationUrl:"https://www.exploretock.com/the-peterboro-detroit" },
 
 
-{ id:32, name:"Ottava Via",                       hood:"Corktown",           cat:"Corktown",
+{ id:32, name:"Ottava Via",                       hood:"Corktown",           cat:"Dinner",
 desc:"A lively modern Italian restaurant on Michigan Ave. Wood-fired pizzas, fresh pastas, outdoor fireplace, and bocce ball lanes on the patio.",
 vibes:["Italian","Wood-Fired Pizza","Bocce Ball"], addr:"1400 Michigan Ave, Detroit, MI 48216",
 hours:"Sun-Thu 11am-10pm | Fri-Sat 11am-11pm", best:"Date Night / Weekend",
 exclusive:"Outdoor fireplace, bocce ball, wood-fired pizza. In summer this patio is one of the best tables in the city.",
-cats:["Corktown","Dinner"],badges:["locals"], reservationUrl:"https://resy.com/cities/detroit-mi/venues/ottava-via" },
+cats:["Dinner"],badges:["locals"], reservationUrl:"https://resy.com/cities/detroit-mi/venues/ottava-via" },
 
 
 /* ── BREAKFAST ── */
@@ -836,7 +836,7 @@ desc:"A high-energy neighborhood bar from the team behind Chartreuse and Freya. 
 vibes:["Late Night","Bar Burger","Chartreuse Team"], addr:"4120 Cass Ave, Detroit, MI 48201",
 hours:"Check @dirtyshakedetroit for current hours", best:"Late Night / Weeknight",
 exclusive:"When the Chartreuse team opens a neighborhood bar, the neighborhood pays attention.",
-cats:["Cocktail Lounges","Midtown"],badges:["recentopen"], websiteUrl:"https://www.instagram.com/dirtyshakedetroit" },
+cats:["Cocktail Lounges"],badges:["recentopen"], websiteUrl:"https://www.instagram.com/dirtyshakedetroit" },
 
 { id:"r1", name:"Bar Chenin",        hood:"Downtown",      cat:"Cocktail Lounges",
 desc:"A pocket-sized natural wine bar inside the Siren Hotel - 10 seats inside, 16 on the patio. Biodynamic bottles, inventive cocktails, house-made ice cream. 2026 James Beard nominee for Best New Bar.",
@@ -852,12 +852,12 @@ hours:"Thu 7pm-12am | Fri-Sat 8pm-2am | Sun 2pm-10pm", best:"Weekend / Late Nigh
 exclusive:"No sign at street level. A red neon Cocktails sign is your only clue. Head upstairs.",
 cats:["Cocktail Lounges","Nightlife"],badges:["recentopen","hidden"], websiteUrl:"https://www.instagram.com/pocketchangedetroit" },
 
-{ id:"r4", name:"Street Beet",        hood:"Corktown",      cat:"Corktown",
+{ id:"r4", name:"Street Beet",        hood:"Corktown",      cat:"Lunch",
 desc:"Detroit's beloved vegan pop-up turned permanent restaurant in the former Bobcat Bonnie's space. Plant-based smashburgers, coney dogs, diner classics. Vintage arcade in the back.",
 vibes:["Vegan","Comfort Food","Arcade"], addr:"1800 Michigan Ave, Detroit, MI 48216",
 hours:"Wed-Thu 4pm-10pm | Fri 4pm-11pm | Sat 10am-3pm and 4pm-11pm | Sun 10am-3pm and 4pm-10pm | Mon-Tue Closed", best:"Weeknight / Weekend",
 exclusive:"Detroit's most beloved vegan pop-up finally has a permanent home.",
-cats:["Corktown","Lunch"],badges:["recentopen"], websiteUrl:"https://www.streetbeet.online" },
+cats:["Lunch"],badges:["recentopen"], websiteUrl:"https://www.streetbeet.online" },
 
 ];
 
