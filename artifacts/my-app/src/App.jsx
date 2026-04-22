@@ -1271,8 +1271,8 @@ if(BLOCKED_PINS.has(String(v.id)))return false;
 return!!COORDS[String(v.id)];
 }).map(v=>COORDS[String(v.id)]);
 if(coords.length===0)return;
-if(coords.length===1){map.setView(coords[0],15,{animate:true});}
-else{map.fitBounds(L.latLngBounds(coords),{padding:[80,80],maxZoom:16,animate:true});}
+if(coords.length===1){map.setView(coords[0],14,{animate:true});}
+else{map.fitBounds(L.latLngBounds(coords),{paddingTopLeft:[60,60],paddingBottomRight:[140,60],maxZoom:14,animate:true});}
 },[showSavedOnly]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
