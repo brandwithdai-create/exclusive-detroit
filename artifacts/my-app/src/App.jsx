@@ -1162,7 +1162,8 @@ const hasSaves=favs.length>0;
 const outerRef=React.useRef(null);
 const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
-const markersRef=React.useRef([]);
+const markersRef=React.useRef(new Map());
+const selectedMarkerRef=React.useRef(null);
 const prevMapCatRef=React.useRef(mapCat);
 React.useLayoutEffect(()=>{
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
@@ -1225,28 +1226,26 @@ L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(ma
 },[isDark]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
-markersRef.current.forEach(m=>map.removeLayer(m));markersRef.current=[];
+markersRef.current.forEach(({marker:m})=>map.removeLayer(m));markersRef.current=new Map();selectedMarkerRef.current=null;
 mapVenuePool.forEach(v=>{
 if(showSavedOnly&&!favs.includes(String(v.id))&&!isSavedHotel(String(v.id)))return;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return;
 if(BLOCKED_PINS.has(String(v.id)))return;
 const coord=COORDS[String(v.id)];if(!coord)return;
 const isNew=!!(v.status==="comingsoon"||v.status==="justopened"||(v.badges||[]).includes("recentopen"));
-const isSel=selected?.id===v.id;
 const pin=isNew?"#C8AEFF":"#C9A84C";
 const glow=isNew?"rgba(200,174,255,0.45)":"rgba(201,168,76,0.45)";
-let mHtml;
-if(isSel){
-mHtml=`<div style="width:26px;height:26px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.9);box-shadow:0 0 0 4px ${glow},0 3px 14px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(10,8,4,0.85)">★</div>`;
-}else{
-mHtml=`<div style="width:13px;height:13px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.75);box-shadow:0 0 8px ${glow};cursor:pointer"></div>`;
-}
-const sz=isSel?[26,26]:[13,13];const anc=isSel?[13,13]:[6,6];
-const icon=L.divIcon({className:"",html:mHtml,iconSize:sz,iconAnchor:anc});
+const mHtml=`<div style="width:13px;height:13px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.75);box-shadow:0 0 8px ${glow};cursor:pointer"></div>`;
+const icon=L.divIcon({className:"",html:mHtml,iconSize:[13,13],iconAnchor:[6,6]});
 const m=L.marker(coord,{icon}).addTo(map).on("click",()=>{if(v.cat==="Hotels"){setHotelDetail(v);setSelected(null);}else{setHotelDetail(null);setSelected(v);}});
-markersRef.current.push(m);
+markersRef.current.set(String(v.id),{marker:m,pin,glow});
 });
-},[mapCat,mapReady,selected,showSavedOnly,favs,savedHotels]);
+},[mapCat,mapReady,showSavedOnly,favs,savedHotels]);
+React.useEffect(()=>{
+if(selectedMarkerRef.current){const{marker:m,pin,glow}=selectedMarkerRef.current;m.setIcon(L.divIcon({className:"",html:`<div style="width:13px;height:13px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.75);box-shadow:0 0 8px ${glow};cursor:pointer"></div>`,iconSize:[13,13],iconAnchor:[6,6]}));selectedMarkerRef.current=null;}
+const activeId=selected?String(selected.id):hotelDetail?String(hotelDetail.id):null;
+if(activeId){const entry=markersRef.current.get(activeId);if(entry){const{marker:m,pin,glow}=entry;m.setIcon(L.divIcon({className:"",html:`<div style="width:26px;height:26px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.9);box-shadow:0 0 0 4px ${glow},0 3px 14px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(10,8,4,0.85)">★</div>`,iconSize:[26,26],iconAnchor:[13,13]}));selectedMarkerRef.current=entry;}}
+},[selected,hotelDetail,mapCat,mapReady,showSavedOnly,favs,savedHotels]);
 React.useEffect(()=>{
 if(prevMapCatRef.current===mapCat)return;
 prevMapCatRef.current=mapCat;

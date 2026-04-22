@@ -1,0 +1,57 @@
+Yes — the card tap and the button tap need to be treated as two different actions.
+
+Send this to Replit:
+
+In the Saves tab, tapping a saved card for games, events, concerts, things to do, or hotels should open that item’s internal detail card/modal inside the Saves tab. Right now, tapping some of these saved cards is sending me straight to the booking/ticket website, and that is not what I want.
+
+Please change the interaction logic so it works like this:
+
+Correct behavior
+
+* Tapping the card itself should open the assigned detail view for that saved item
+* This applies to:
+    * games
+    * events
+    * concerts
+    * things to do
+    * hotels / places to stay
+* The detail card should appear within the Saves experience, just like the other detail cards do
+* It should not immediately route me out to the external booking/ticket site
+
+Button behavior should stay separate
+
+* The Get Tickets / Book Now / View Rooms / Visit Website button should still go to the external destination
+* But the main card tap area should only open the internal detail card first
+
+So the rule should be:
+
+* tap card = open detail card
+* tap CTA button = go to external booking/ticket link
+* tap heart = save/unsave only
+
+Please make sure this is consistent across the full Saves tab:
+
+* saved games
+* saved concerts
+* saved events
+* saved things to do
+* saved hotel cards
+* any editorial or special cards that already have an internal detail layout assigned
+
+Important:
+
+* Do not change button destinations
+* Do not remove external links
+* Do not change heart behavior
+* Do not make the card tap open a website
+* The website should only open from the explicit CTA button
+
+Acceptance check:
+
+1. Go to Saves
+2. Tap a saved game/event/concert/hotel card anywhere on the card body or image
+3. Internal detail card opens inside the app
+4. Tap Get Tickets or Book Now from that detail card
+5. Only then should it go to the external website
+
+Please also make sure this works consistently in both light mode and dark mode.
