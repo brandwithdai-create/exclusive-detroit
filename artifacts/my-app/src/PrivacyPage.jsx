@@ -40,7 +40,7 @@ const SECTIONS = [
 export default function PrivacyPage() {
   return (
     <div style={{ background: C.black, minHeight: "100vh", fontFamily: "'DM Sans', sans-serif", color: C.bone }}>
-      <div style={{ background: C.deep, borderBottom: "1px solid " + C.border, padding: "24px 22px" }}>
+      <div style={{ background: C.deep, borderBottom: "1px solid " + C.border, padding: "calc(24px + env(safe-area-inset-top)) 22px 24px" }}>
         <a
           href="/"
           style={{ fontFamily: "'DM Mono', monospace", fontSize: "0.5rem", letterSpacing: "0.22em", textTransform: "uppercase", color: C.gold, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 32 }}
