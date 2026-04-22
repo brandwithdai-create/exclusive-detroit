@@ -1711,7 +1711,7 @@ React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.4
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",fontWeight:600,color:C.white,lineHeight:1.2,marginBottom:4}},v.name),
 React.createElement("div",{style:{fontSize:"0.76rem",color:C.smoke,fontWeight:300,marginBottom:10}},v.desc.length>65?v.desc.slice(0,65)+"\u2026":v.desc),
 React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between"}},
-v.reservationUrl?React.createElement("a",{href:v.reservationUrl,target:"_blank",rel:"noopener noreferrer",onClick:e=>e.stopPropagation(),style:{display:"inline-block",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"7px 14px",borderRadius:5,fontWeight:500,textDecoration:"none"}},"Book Now"):React.createElement("span",null),
+(()=>{const cta=getCTA(v);return cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",onClick:e=>e.stopPropagation(),style:{display:"inline-block",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"7px 14px",borderRadius:5,fontWeight:500,textDecoration:"none"}},cta.label):React.createElement("span",null);})(),
 React.createElement("button",{onClick:e=>{e.stopPropagation();toggleFav(String(v.id));},style:{background:"none",border:"none",cursor:"pointer",color:C.gold,fontSize:"1.2rem",padding:"6px 4px",lineHeight:1,flexShrink:0}},"♥")
 )));};
 return React.createElement(React.Fragment,null,
