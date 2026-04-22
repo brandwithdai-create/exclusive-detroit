@@ -1148,7 +1148,7 @@ const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner
 const MAP_HOTELS=HOTELS.map(h=>({id:h.id,name:h.name,hood:h.hood,addr:h.addr,desc:h.desc,cat:"Hotels",cats:[],badges:[],status:"open",image:h.image,booking_url:h.booking_url,website_url:h.website_url,price_from:h.price_from}));
 const TILE_DARK="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
 const TILE_LIGHT="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
-function MapView({isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel}){
+function MapView({isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}){
 const isDark=theme==="dark"||(theme==="system"&&window.matchMedia("(prefers-color-scheme:dark)").matches);
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
@@ -1156,7 +1156,7 @@ const [mapReady,setMapReady]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
 const [showList,setShowList]=React.useState(false);
 const [hotelDetail,setHotelDetail]=React.useState(null);
-const mapVenuePool=mapCat==="Hotels"?MAP_HOTELS:[...ALL,...UPCOMING];
+const mapVenuePool=mapCat==="Hotels"?MAP_HOTELS:(showSavedOnly?[...ALL,...UPCOMING,...MAP_HOTELS.filter(h=>isSavedHotel(h.id))]:[...ALL,...UPCOMING]);
 
 const hasSaves=favs.length>0;
 const outerRef=React.useRef(null);
@@ -1227,7 +1227,7 @@ React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 markersRef.current.forEach(m=>map.removeLayer(m));markersRef.current=[];
 mapVenuePool.forEach(v=>{
-if(showSavedOnly&&mapCat!=="Hotels"&&!favs.includes(String(v.id)))return;
+if(showSavedOnly&&!favs.includes(String(v.id))&&!isSavedHotel(String(v.id)))return;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return;
 if(BLOCKED_PINS.has(String(v.id)))return;
 const coord=COORDS[String(v.id)];if(!coord)return;
@@ -1246,13 +1246,13 @@ const icon=L.divIcon({className:"",html:mHtml,iconSize:sz,iconAnchor:anc});
 const m=L.marker(coord,{icon}).addTo(map).on("click",()=>{if(v.cat==="Hotels"){setHotelDetail(v);setSelected(null);}else{setHotelDetail(null);setSelected(v);}});
 markersRef.current.push(m);
 });
-},[mapCat,mapReady,selected,showSavedOnly,favs]);
+},[mapCat,mapReady,selected,showSavedOnly,favs,savedHotels]);
 React.useEffect(()=>{
 if(prevMapCatRef.current===mapCat)return;
 prevMapCatRef.current=mapCat;
 const map=mapRef.current;if(!map)return;
 const coords=mapVenuePool.filter(v=>{
-if(showSavedOnly&&mapCat!=="Hotels"&&!favs.includes(String(v.id)))return false;
+if(showSavedOnly&&!favs.includes(String(v.id))&&!isSavedHotel(String(v.id)))return false;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
 if(BLOCKED_PINS.has(String(v.id)))return false;
 return!!COORDS[String(v.id)];
@@ -1265,7 +1265,7 @@ React.useEffect(()=>{
 if(!showSavedOnly)return;
 const map=mapRef.current;if(!map)return;
 const coords=mapVenuePool.filter(v=>{
-if(!favs.includes(String(v.id)))return false;
+if(!favs.includes(String(v.id))&&!isSavedHotel(String(v.id)))return false;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
 if(BLOCKED_PINS.has(String(v.id)))return false;
 return!!COORDS[String(v.id)];
@@ -1288,7 +1288,7 @@ const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
 const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"7px 14px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto",display:"inline-flex",alignItems:"center",whiteSpace:"nowrap"};
 const lv=mapVenuePool.filter(v=>{
-if(showSavedOnly&&mapCat!=="Hotels"&&!favs.includes(String(v.id)))return false;
+if(showSavedOnly&&!favs.includes(String(v.id))&&!isSavedHotel(String(v.id)))return false;
 if(mapCat!=="all"&&v.cat!==mapCat&&!(v.cats||[]).includes(mapCat))return false;
 return true;
 }).sort((a,b)=>a.name.localeCompare(b.name));
@@ -1873,7 +1873,7 @@ return React.createElement("div",{style:{background:C.black,color:C.bone,fontFam
 NavBar(),
 React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),
-section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel}),
+section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
 section==="neighborhoods" && Areas(),
 section==="about"         && About(),
