@@ -174,11 +174,10 @@ export function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
 
 function HotelCard({ hotel, saved, onSave, onOpen }) {
   const [hov, setHov] = React.useState(false);
-  const [isActive, setIsActive] = React.useState(false);
   const cardRef = React.useRef(null);
   React.useEffect(() => {
     const el = cardRef.current; if (!el) return;
-    hlRegister(String(hotel.id), el, setIsActive);
+    hlRegister(String(hotel.id), el);
     return () => hlUnregister(String(hotel.id));
   }, []);
   const cta = getBookingCTA(hotel);
@@ -190,7 +189,7 @@ function HotelCard({ hotel, saved, onSave, onOpen }) {
       onClick={() => { setHov(false); onOpen(hotel, places); }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:isActive?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":isActive?"0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}
+      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}
     >
       <CardImage
         localSrc={hotel.image}

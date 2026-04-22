@@ -248,6 +248,12 @@
         height: auto !important;
       }
       /* ── Match Leaflet background to map theme ── */
+      /* ── Scroll highlight — DOM-toggled, bypasses React state scheduling ── */
+      .hl-active {
+        border-color: var(--c-goldD) !important;
+        box-shadow: 0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07) !important;
+      }
+
       .leaflet-container { background: #000 !important; }
       [data-theme="light"] .leaflet-container { background: #f4f0e8 !important; }
       @media (prefers-color-scheme: light) {

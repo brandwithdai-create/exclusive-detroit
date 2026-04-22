@@ -1016,18 +1016,17 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap }) {
 const [hov, setHov] = useState(false);
-const [isActive, setIsActive] = useState(false);
 const cardRef = React.useRef(null);
 React.useEffect(()=>{
   const el=cardRef.current; if(!el) return;
-  hlRegister(String(venue.id), el, setIsActive);
+  hlRegister(String(venue.id), el);
   return ()=>hlUnregister(String(venue.id));
 },[]);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
 const vibeLine=getVibeLine(venue);
-const cardBorder = hov ? C.goldD : isActive ? C.goldD : C.border;
-const cardShadow = hov ? "var(--c-shdw-h)" : isActive ? "0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)" : "var(--c-shdw-f)";
+const cardBorder = hov ? C.goldD : C.border;
+const cardShadow = hov ? "var(--c-shdw-h)" : "var(--c-shdw-f)";
 return React.createElement("div", {
 ref: cardRef,
 onClick:()=>{setHov(false);onOpen(String(venue.id));},
@@ -1054,20 +1053,20 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 });
 
-// Horizontal slider card tracker (for UCard)
-const _hCards = new Map();
+// Horizontal slider card tracker (for UCard) — DOM classList, no React state
+const _hCards = new Map(); // uid -> el
 let _hCont = null, _hRaf = null;
 function _hUpdate() {
   if (!_hCont) return;
   const cr = _hCont.getBoundingClientRect();
   const cx = cr.left + cr.width / 2;
   let best = null, minD = Infinity;
-  for (const [uid, { el }] of _hCards) {
+  for (const [uid, el] of _hCards) {
     const r = el.getBoundingClientRect();
     const d = Math.abs(r.left + r.width / 2 - cx);
     if (d < minD) { minD = d; best = uid; }
   }
-  for (const [uid, { set }] of _hCards) set(uid === best);
+  for (const [uid, el] of _hCards) el.classList.toggle('hl-active', uid === best);
 }
 function _hScroll() {
   if (_hRaf) return;
@@ -1076,7 +1075,6 @@ function _hScroll() {
 
 const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap, imgHeight, hideVibes }) {
 const [hov, setHov] = useState(false);
-const [isActive, setIsActive] = useState(false);
 const cardRef = React.useRef(null);
 React.useEffect(() => {
   const el = cardRef.current; if (!el) return;
@@ -1085,9 +1083,11 @@ React.useEffect(() => {
     while (p) { const s = window.getComputedStyle(p); if (s.overflowX==='auto'||s.overflowX==='scroll') { _hCont=p; break; } p=p.parentElement; }
     if (_hCont) _hCont.addEventListener('scroll', _hScroll, { passive: true });
   }
-  _hCards.set(String(venue.id), { el, set: setIsActive });
+  _hCards.set(String(venue.id), el);
   _hUpdate();
   return () => {
+    const e = _hCards.get(String(venue.id));
+    if (e) e.classList.remove('hl-active');
     _hCards.delete(String(venue.id));
     if (_hCards.size === 0 && _hCont) { _hCont.removeEventListener('scroll', _hScroll); _hCont = null; }
   };
@@ -1097,8 +1097,8 @@ const acc  = just ? C.gold : C.purple;
 const vibeLine=getVibeLine(venue);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
-const hBorder = hov ? (just?C.goldD:"rgba(110,75,195,0.5)") : isActive ? C.goldD : C.border;
-const hShadow = hov ? "0 8px 36px rgba(0,0,0,0.55)" : isActive ? "0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)" : "0 2px 14px rgba(0,0,0,0.4)";
+const hBorder = hov ? (just?C.goldD:"rgba(110,75,195,0.5)") : C.border;
+const hShadow = hov ? "0 8px 36px rgba(0,0,0,0.55)" : "0 2px 14px rgba(0,0,0,0.4)";
 return React.createElement("div", {
 ref: cardRef,
 onClick:()=>{setHov(false);onOpen(venue.id);},
