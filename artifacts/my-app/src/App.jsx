@@ -1025,7 +1025,7 @@ React.useEffect(()=>{
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
 const vibeLine=getVibeLine(venue);
-const cardBorder = hov ? C.goldD : C.border;
+const cardBorder = C.border;
 const cardShadow = hov ? "var(--c-shdw-h)" : "var(--c-shdw-f)";
 return React.createElement("div", {
 ref: cardRef,
@@ -1097,7 +1097,7 @@ const acc  = just ? C.gold : C.purple;
 const vibeLine=getVibeLine(venue);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
-const hBorder = hov ? (just?C.goldD:"rgba(110,75,195,0.5)") : C.border;
+const hBorder = C.border;
 const hShadow = hov ? "0 8px 36px rgba(0,0,0,0.55)" : "0 2px 14px rgba(0,0,0,0.4)";
 return React.createElement("div", {
 ref: cardRef,

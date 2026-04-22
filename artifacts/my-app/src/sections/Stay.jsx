@@ -189,7 +189,7 @@ function HotelCard({ hotel, saved, onSave, onOpen }) {
       onClick={() => { setHov(false); onOpen(hotel, places); }}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}
+      style={{ background:C.card, border:"1px solid "+C.border, borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}
     >
       <CardImage
         localSrc={hotel.image}
