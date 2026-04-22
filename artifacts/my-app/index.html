@@ -253,6 +253,17 @@
         border-color: var(--c-goldD) !important;
         box-shadow: 0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07) !important;
       }
+      /* Light mode: use dark amber for clear contrast against warm/white cards */
+      [data-theme="light"] .hl-active {
+        border-color: var(--c-gold) !important;
+        box-shadow: 0 0 0 1.5px rgba(138,96,16,0.40), 0 4px 22px rgba(138,96,16,0.13) !important;
+      }
+      @media (prefers-color-scheme: light) {
+        html:not([data-theme="dark"]) .hl-active {
+          border-color: var(--c-gold) !important;
+          box-shadow: 0 0 0 1.5px rgba(138,96,16,0.40), 0 4px 22px rgba(138,96,16,0.13) !important;
+        }
+      }
 
       .leaflet-container { background: #000 !important; }
       [data-theme="light"] .leaflet-container { background: #f4f0e8 !important; }
