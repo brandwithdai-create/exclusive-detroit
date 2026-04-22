@@ -1850,15 +1850,22 @@ React.createElement("img",{src:"/creator.jpg",alt:"Dai",style:{width:"100%",heig
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.goldL,margin:"0 0 10px"}},"Creator & Founder"),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.65rem",fontWeight:400,color:C.white,margin:"0 0 16px",lineHeight:1.15}},"Hi, I'm Dai"),
 React.createElement("p",{style:{fontSize:"0.88rem",color:C.ash,fontWeight:300,lineHeight:1.85,margin:"0 0 12px",maxWidth:380}},"Born and raised in Detroit, I've explored this city from top to bottom — from the rooftops to the hidden basements most people walk right past."),
-React.createElement("p",{style:{fontSize:"0.88rem",color:C.ash,fontWeight:300,lineHeight:1.85,margin:"0 0 24px",maxWidth:380}},"Every recommendation here is personal and present — places I've experienced, trust, and keep going back to."),
-React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"1.05rem",color:C.gold,lineHeight:1.55,margin:"0 0 26px",maxWidth:360}},"\u201cIf you know, you know\u2026 & if you don\u2019t, now you do.\u201d"),
-React.createElement("a",{href:"https://www.instagram.com/the_lovelydai?igsh=Zmh1OHZrYzBhZmI1&utm_source=qr",target:"_blank",rel:"noopener noreferrer",style:{display:"inline-flex",alignItems:"center",gap:8,padding:"10px 22px",borderRadius:100,border:"1.5px solid "+C.border,background:"transparent",color:C.ash,textDecoration:"none",fontFamily:"'DM Mono',monospace",fontSize:"0.51rem",letterSpacing:"0.12em",textTransform:"uppercase",cursor:"pointer",transition:"border-color 0.18s,color 0.18s"}},
-React.createElement("svg",{width:15,height:15,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round"},
+React.createElement("p",{style:{fontSize:"0.88rem",color:C.ash,fontWeight:300,lineHeight:1.85,margin:"0 0 24px",maxWidth:380}},"This isn\u2019t a list pulled from the internet. Every recommendation here is personal, current, and intentionally chosen \u2014 places I\u2019ve experienced, trust, and return to."),
+React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"1.05rem",color:C.gold,lineHeight:1.55,margin:"0 0 28px",maxWidth:360}},"\u201cIf you know, you know\u2026 & if you don\u2019t, now you do.\u201d"),
+React.createElement("div",{style:{display:"flex",flexDirection:"column",alignItems:"center",gap:8}},
+React.createElement("a",{href:"https://www.instagram.com/the_lovelydai?igsh=Zmh1OHZrYzBhZmI1&utm_source=qr",target:"_blank",rel:"noopener noreferrer",className:"creator-cta",style:{display:"inline-flex",alignItems:"center",gap:10,padding:"13px 26px",borderRadius:100,border:"1.5px solid "+C.border,background:"var(--c-excl-bg)",color:C.ash,textDecoration:"none",cursor:"pointer",transition:"border-color 0.2s,color 0.2s,background 0.2s"}},
+React.createElement("svg",{width:15,height:15,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round",flexShrink:0},
 React.createElement("rect",{x:2,y:2,width:20,height:20,rx:5,ry:5}),
 React.createElement("path",{d:"M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"}),
 React.createElement("line",{x1:17.5,y1:6.5,x2:"17.51",y2:6.5})
 ),
-React.createElement("span",null,"Follow on Instagram")
+React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:2,textAlign:"left"}},
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.51rem",letterSpacing:"0.12em",textTransform:"uppercase"}},"Follow for hidden gems in every city"),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",opacity:0.62}},"@the_lovelydai")
+),
+React.createElement("span",{style:{fontSize:"0.78rem",opacity:0.5,marginLeft:2}},"→")
+),
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.smoke,margin:0,opacity:0.55}},"Updated weekly")
 )
 )
 ),
