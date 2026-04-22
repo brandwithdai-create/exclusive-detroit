@@ -1871,10 +1871,10 @@ const settingsHeader=(label)=>React.createElement("div",{style:{padding:"16px 20
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.51rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldL,fontWeight:500,margin:0}},label)
 );
 const Settings=()=>React.createElement("div",null,
-React.createElement("div",{style:{background:C.deep,padding:"64px 22px 40px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
 React.createElement("div",{style:{maxWidth:516,margin:"0 auto"}},
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:8}},"Preferences"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,margin:0}},"Settings")
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"Preferences"),
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"Settings")
 )
 ),
 React.createElement("div",{style:{maxWidth:560,margin:"0 auto",padding:"32px 22px 64px",display:"flex",flexDirection:"column",gap:12}},
