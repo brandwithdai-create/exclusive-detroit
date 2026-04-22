@@ -40,7 +40,7 @@ if (v.websiteUrl)     return { label:"Visit Website", url:v.websiteUrl };
 return null;
 }
 
-const CATS = ["all","Breakfast","Coffee Shops & Bakeries","Lunch","Dinner","Happy Hour","Sports Bars","Hidden Bars","Cocktail Lounges","Rooftops","Hotel Lounges","Alley Spots","Nightlife","Comedy / Live Events","Date Night","Outdoor Activities","Midtown","Downtown","Corktown"];
+const CATS = ["all","Hidden Bars","Rooftops","Cocktail Lounges","Dinner","Happy Hour","Nightlife","Coffee Shops & Bakeries","Lunch","Breakfast","Sports Bars","Outdoor Activities"];
 
 const FEATURED_IDS=["74","1","47","73","55","38","44","39","46","7","76","37","41","71","5","40","9","25","34","35","17","13","10"];
 
@@ -253,88 +253,88 @@ hours:"Varies by show - majesticdetroit.com/events", best:"Weekend / Weeknight",
 exclusive:"A century of Detroit culture under one roof. Show up for an unknown opener on a Tuesday.",
 badges:["firsttimer"], websiteUrl:"https://www.majesticdetroit.com", ticketUrl:"https://www.majesticdetroit.com/events" },
 
-{ id:24, name:"Chartreuse Kitchen & Cocktails",    hood:"Midtown",            cat:"Date Night",
+{ id:24, name:"Chartreuse Kitchen & Cocktails",    hood:"Midtown",            cat:"Dinner",
 desc:"A James Beard-nominated farm-to-table restaurant inside the Park Shelton building, steps from the DIA. Seasonal small plates, botanical cocktails, and an intimate room with a well-earned reputation.",
 vibes:["James Beard Nominated","Small Plates","Seasonal"], addr:"15 E Kirby St (entrance on Woodward), Detroit, MI 48202",
 hours:"Tue-Thu 5pm-9pm | Fri 11:30am-2pm and 5pm-9:30pm | Sat 5pm-9:30pm | Sun 4pm-8pm | Mon Closed", best:"Date Night / Weeknight",
 exclusive:"James Beard semifinalist inside the Park Shelton. The entrance makes you feel like you found something. Make a reservation.",
-cats:["Date Night","Dinner"],badges:["firsttimer","locals"], reservationUrl:"https://www.opentable.com/r/chartreuse-kitchen-and-cocktails-detroit" },
+cats:["Dinner"],badges:["firsttimer","locals"], reservationUrl:"https://www.opentable.com/r/chartreuse-kitchen-and-cocktails-detroit" },
 
-{ id:25, name:"Parc Detroit",                      hood:"Downtown",           cat:"Date Night",
+{ id:25, name:"Parc Detroit",                      hood:"Downtown",           cat:"Dinner",
 desc:"A French-inspired bistro overlooking Campus Martius Park. Expansive wine list, wood-fired grill flavors, and floor-to-ceiling windows that open completely in warm weather.",
 vibes:["French-Inspired","Campus Martius","Wine Forward"], addr:"800 Woodward Ave, Detroit, MI 48226",
 hours:"Mon-Fri Lunch 11am-2:30pm, Dinner 4pm-9:30pm | Sat Brunch 10:30am, Dinner 4:30pm-10:30pm | Sun Brunch 10:30am, Dinner 4:30pm-8:30pm", best:"Date Night / Weekend Brunch",
 exclusive:"Campus Martius Park at your feet. Windows that open onto the city. The wine list takes it seriously.",
-cats:["Date Night","Dinner"],badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/parc-detroit" },
+cats:["Dinner"],badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/parc-detroit" },
 
-{ id:34, name:"Prime + Proper",                   hood:"Downtown",           cat:"Date Night",
+{ id:34, name:"Prime + Proper",                   hood:"Downtown",           cat:"Dinner",
 desc:"A modern cathedral of American steakhouse dining inside the restored Capitol Park Loft building, built in 1912. All beef is butchered in-house, aged a minimum of 28 days, and cooked over open flame. One of the most design-forward, nationally recognized steakhouses in the Midwest.",
 vibes:["USDA Prime","In-House Butcher","Capitol Park","Live Fire"],
 addr:"1145 Griswold St, Detroit, MI 48226",
 hours:"Sun-Thu 4pm-10pm | Fri-Sat 4pm-11pm",
 best:"Date Night / Special Occasion",
 exclusive:"Soaring ceilings, marble floors, glass-walled dry-age rooms, and a custom butcher counter visible from every table. One of the most exacting steak restaurants in America.",
-cats:["Date Night","Dinner"],badges:["firsttimer"],
+cats:["Dinner"],badges:["firsttimer"],
 reservationUrl:"https://resy.com/cities/detroit-mi/venues/prime_and_proper" },
 
-{ id:35, name:"BESA",                             hood:"Downtown",           cat:"Date Night",
+{ id:35, name:"BESA",                             hood:"Downtown",           cat:"Dinner",
 desc:"Modern European dining inspired by the Adriatic coast inside the historic Vinton Building on Woodward Ave. Bold flavors built around fresh seafood, handmade pasta, wood-fired lamb, and one of the strongest wine programs in Detroit.",
 vibes:["Adriatic Coast","Raw Bar","Wine Forward","Vinton Building"],
 addr:"600 Woodward Ave, Detroit, MI 48226",
 hours:"Mon-Thu 4pm-10pm | Fri-Sat 4pm-11pm | Sun Closed",
 best:"Date Night / Special Occasion",
 exclusive:"One of the most serious wine programs in Detroit, inside a beautifully restored historic building on Woodward. The private loft overlooking the dining room is worth requesting for a group.",
-cats:["Date Night","Dinner"],badges:["firsttimer"],
+cats:["Dinner"],badges:["firsttimer"],
 reservationUrl:"https://www.opentable.com/r/besa-detroit" },
 
-{ id:36, name:"Ostrea",                           hood:"Downtown",           cat:"Date Night",
+{ id:36, name:"Ostrea",                           hood:"Downtown",           cat:"Dinner",
 desc:"A seafood-forward restaurant in the Financial District from the team behind the legendary London Chop House. Daily rotating oysters from East and West Coast waters, caviar service, hamachi crudo, lobster, and a menu that changes with what's freshest. Champagne-bar energy at street level.",
 vibes:["Daily Oysters","Caviar Service","Financial District","London Chop House Team"],
 addr:"536 Shelby St, Detroit, MI 48226",
 hours:"Mon-Sat 3pm-11pm (kitchen 4pm-10pm) | Sun Closed",
 best:"Date Night / Pre-Show",
 exclusive:"Fresh oysters delivered every single day. Caviar service. The team behind the most storied steakhouse in Detroit history. Old-school glamour without the formality.",
-cats:["Date Night","Dinner"],badges:["firsttimer","locals"],
+cats:["Dinner"],badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/ostrea-detroit" },
 
-{ id:37, name:"Barda",                            hood:"Core City",          cat:"Date Night",
+{ id:37, name:"Barda",                            hood:"Core City",          cat:"Dinner",
 desc:"Detroit's only Argentine-inspired neo-steakhouse in Core City, from Buenos Aires-born chef Javier Bardauil. Every dish is cooked solely on a wood-burning grill and baking hearth. James Beard semifinalist. One of the most distinctive dining experiences in the city.",
 vibes:["Live Fire","Argentine","Wood-Burning Grill","Core City"],
 addr:"4842 Grand River Ave, Detroit, MI 48208",
 hours:"Wed-Thu 5pm-9pm | Fri-Sat 5pm-10pm | Sun-Tue Closed",
 best:"Date Night / Special Occasion",
 exclusive:"James Beard semifinalist. A wood-burning grill is the only cooking method in the kitchen. Outdoor bonfire seating in a park setting. There is truly nothing else like Barda in Detroit.",
-cats:["Date Night","Dinner"],badges:["firsttimer","locals"],
+cats:["Dinner"],badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/barda-detroit" },
 
-{ id:38, name:"Selden Standard",                  hood:"Midtown",            cat:"Date Night",
+{ id:38, name:"Selden Standard",                  hood:"Midtown",            cat:"Dinner",
 desc:"A two-time James Beard semifinalist for Outstanding Restaurant. Wood-fired small plates built around what Michigan farms are producing right now. One of the most consistently excellent dining rooms in the city – and a perennial favorite for date nights.",
 vibes:["Wood-Fired","James Beard","Small Plates","Seasonal"],
 addr:"3921 2nd Ave, Detroit, MI 48201",
 hours:"Daily 5pm-10pm",
 best:"Date Night / Weekend",
 exclusive:"Two-time James Beard Outstanding Restaurant semifinalist. Nationally acclaimed and consistently booked out. The chef's counter is the best seat – reserve well in advance.",
-cats:["Date Night","Dinner"],badges:["firsttimer","locals"],
+cats:["Dinner"],badges:["firsttimer","locals"],
 reservationUrl:"https://www.opentable.com/r/selden-standard-detroit" },
 
-{ id:39, name:"Hiroki-San",                        hood:"Downtown",           cat:"Date Night",
+{ id:39, name:"Hiroki-San",                        hood:"Downtown",           cat:"Dinner",
 desc:"An immersive Japanese dining experience in the lower level of the historic Book Tower. Robatayaki wood-fired skewers, Japanese Wagyu, fresh seafood, and a sake program that rewards deep dives. Built inside a former bank vault with original plaster walls and shoji screens.",
 vibes:["Japanese Wagyu","Robatayaki","Book Tower","Tokyo Imports"],
 addr:"1265 Washington Blvd (Lower Level, Book Tower), Detroit, MI 48226",
 hours:"Tue-Thu 5pm-10pm | Fri 4pm-11pm | Sat 4pm-11pm | Sun 4pm-9pm | Mon Closed",
 best:"Date Night / Special Occasion",
 exclusive:"Built inside a former bank vault beneath one of Detroit's most historic towers. The shoji-lined private dining room is one of the most intimate dining settings in the city. Reservations are essential.",
-cats:["Date Night","Dinner"],badges:["firsttimer","locals"],
+cats:["Dinner"],badges:["firsttimer","locals"],
 reservationUrl:"https://resy.com/cities/detroit-mi/venues/hiroki-san" },
 
-{ id:40, name:"Le Supreme",                        hood:"Downtown",           cat:"Date Night",
+{ id:40, name:"Le Supreme",                        hood:"Downtown",           cat:"Dinner",
 desc:"A Parisian-inspired brasserie occupying 6,200 square feet inside the restored Book Tower – the first restaurant to open in the $300 million renovation. Art nouveau tiles, a zinc bar top, oxblood leather booths, and a menu of French classics: seafood towers, steak au poivre, moules frites, and an in-house boulangerie.",
 vibes:["French Brasserie","Book Tower","Seafood Tower","All-Day Dining"],
 addr:"1265 Washington Blvd (Book Tower), Detroit, MI 48226",
 hours:"Mon-Thu 4pm-10pm | Fri 4pm-11pm | Sat 10am-2:30pm and 4pm-11pm | Sun 10am-2:30pm and 4pm-9pm",
 best:"Date Night / Weekend Brunch",
 exclusive:"The first restaurant to open in Book Tower's $300 million restoration. 210 seats, a 24-seat private dining room with a fireplace, and enough French elegance to make you forget you're in Michigan.",
-cats:["Date Night","Dinner"],badges:["firsttimer"],
+cats:["Dinner"],badges:["firsttimer"],
 reservationUrl:"https://resy.com/cities/detroit-mi/venues/le-supreme" },
 
 { id:41, name:"The Aladdin Sane",                  hood:"Downtown",           cat:"Hidden Bars",
@@ -588,7 +588,7 @@ addr:"4100 3rd Ave, Detroit, MI 48201",
 hours:"Tue-Thu 5pm-10pm | Fri 5pm-10pm | Sat 4:30pm-10pm | Sun 4:30pm-9pm | Mon Closed",
 best:"Dinner / Date Night",
 exclusive:"Michigan's first kernel-to-masa program using imported Mexican heirloom corn. The tortillas are made from scratch daily. One of Midtown's most intentional and impressive kitchens.",
-cats:["Dinner","Date Night"], badges:["firsttimer","locals"],
+cats:["Dinner"], badges:["firsttimer","locals"],
 reservationUrl:"https://resy.com/cities/detroit-mi/venues/vecino" },
 
 { id:70, name:"Soraya",                             hood:"Downtown",           cat:"Dinner",
@@ -638,7 +638,7 @@ addr:"1942 Grand River Ave, Detroit, MI 48226",
 hours:"Mon-Thu 5pm-10pm | Fri-Sat 5pm-11pm | Sun 5pm-10pm",
 best:"Date Night / Special Occasion",
 exclusive:"Detroit's most distinctive steakhouse concept — halal-certified prime cuts in an Italian fine dining setting with private rooms. The combination does not exist anywhere else in the city.",
-cats:["Dinner","Date Night"], badges:["firsttimer"],
+cats:["Dinner"], badges:["firsttimer"],
 reservationUrl:"https://www.opentable.com/r/sexy-steak-detroit" },
 
 { id:75, name:"Leila",                              hood:"Downtown",           cat:"Dinner",
@@ -913,8 +913,8 @@ style:{ display:full?"flex":"inline-block", alignItems:full?"center":undefined, 
 }, cta.label);
 }
 
-const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports Bars":"⚾️","Hidden Bars":"🚪","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Comedy / Live Events":"🎭","Date Night":"🖤","Outdoor Activities":"🍃","Midtown":"🏙","Downtown":"🏙","Corktown":"🌿","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
-const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports Bars","Rooftops","Comedy / Live Events","Nightlife","Date Night","Outdoor Activities","Alley Spots"];
+const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports Bars":"⚾️","Hidden Bars":"🚪","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Outdoor Activities":"🍃","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
+const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports Bars","Rooftops","Nightlife","Outdoor Activities","Alley Spots"];
 function getEmojiForVenue(venue){const all=[venue.cat,...(venue.cats||[])];for(const c of EMOJI_PRIORITY){if(all.includes(c)&&CAT_EMOJI[c])return CAT_EMOJI[c];}return CAT_EMOJI[venue.cat]||"✨";}
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
@@ -1193,8 +1193,8 @@ style:{ position:"fixed", bottom:28, left:"50%", transform:`translateX(-50%) tra
 }, msg);
 }
 
-const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Lunch","Happy Hour","Sports Bars","Cocktail Lounges","Hotels"];
-const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Lunch":"🍔","Happy Hour":"🥂","Sports Bars":"⚾","Cocktail Lounges":"🍹","Hotels":"🏨"};
+const MAP_FILTER_CATS=["all","Hidden Bars","Rooftops","Dinner","Cocktail Lounges","Hotels","Sports Bars","Happy Hour","Nightlife","Coffee Shops & Bakeries","Lunch","Breakfast","Outdoor Activities"];
+const MAP_CAT_ICONS={"all":"🗺","Hidden Bars":"🍸","Rooftops":"🏙","Dinner":"🍽","Cocktail Lounges":"🍹","Hotels":"🏨","Sports Bars":"⚾","Happy Hour":"🥂","Nightlife":"🌙","Coffee Shops & Bakeries":"☕","Lunch":"🍔","Breakfast":"🍳","Outdoor Activities":"🍃"};
 const MAP_HOTELS=HOTELS.map(h=>({id:h.id,name:h.name,hood:h.hood,addr:h.addr,desc:h.desc,cat:"Hotels",cats:[],badges:[],status:"open",image:h.image,booking_url:h.booking_url,website_url:h.website_url,price_from:h.price_from}));
 const TILE_DARK="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
 const TILE_LIGHT="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
@@ -1562,7 +1562,7 @@ const removing=cur.includes(sid);
 setFavs(removing?cur.filter(f=>f!==sid):[...cur,sid]);
 showToast(removing?"Removed from saves":"♥ Saved to your list");
 },[showToast]);
-const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{if(chipRowRef.current){const label=c==="all"?"All Spots":c;const btns=chipRowRef.current.querySelectorAll("button");for(const btn of btns){if(btn.textContent.trim()===label){const row=chipRowRef.current;const target=btn.offsetLeft-(row.clientWidth/2)+(btn.offsetWidth/2);row.scrollTo({left:Math.max(0,target),behavior:"smooth"});break;}}}if(gridTopRef.current&&filtersRef.current){const navEl=document.querySelector("nav");const navH=navEl?navEl.offsetHeight:68;const filterH=filtersRef.current.offsetHeight;const gridAbsTop=gridTopRef.current.getBoundingClientRect().top+window.scrollY;window.scrollTo({top:Math.max(0,gridAbsTop-navH-filterH),behavior:"smooth"});}},80);},[]);
+const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{if(chipRowRef.current){const label=c==="all"?"All Venues":c;const btns=chipRowRef.current.querySelectorAll("button");for(const btn of btns){if(btn.textContent.trim()===label){const row=chipRowRef.current;const target=btn.offsetLeft-(row.clientWidth/2)+(btn.offsetWidth/2);row.scrollTo({left:Math.max(0,target),behavior:"smooth"});break;}}}if(gridTopRef.current&&filtersRef.current){const navEl=document.querySelector("nav");const navH=navEl?navEl.offsetHeight:68;const filterH=filtersRef.current.offsetHeight;const gridAbsTop=gridTopRef.current.getBoundingClientRect().top+window.scrollY;window.scrollTo({top:Math.max(0,gridAbsTop-navH-filterH),behavior:"smooth"});}},80);},[]);
 const switchCat=useCallback(c=>{const savedLeft=chipRowRef.current?.scrollLeft??0;setCat(c);requestAnimationFrame(()=>{if(chipRowRef.current)chipRowRef.current.scrollLeft=savedLeft;if(gridTopRef.current){const gridTop=gridTopRef.current.getBoundingClientRect().top;const stickyBottom=filtersRef.current?filtersRef.current.getBoundingClientRect().bottom:0;window.scrollTo({top:window.scrollY+(gridTop-stickyBottom),behavior:"instant"});}});},[]);
 const doGetLocation=()=>{navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{if(gridTopRef.current&&filtersRef.current){const navEl=document.querySelector("nav");const navH=navEl?navEl.offsetHeight:68;const filterH=filtersRef.current.offsetHeight;const gridAbsTop=gridTopRef.current.getBoundingClientRect().top+window.scrollY;window.scrollTo({top:Math.max(0,gridAbsTop-navH-filterH),behavior:"smooth"});}},120);},err=>{if(err.code===1){if(navigator.permissions){navigator.permissions.query({name:"geolocation"}).then(r=>{if(r.state==="denied")setGeoError("Location is blocked in your browser settings. Go to Settings \u2192 Browser \u2192 Location and allow this site, then try again.");else setGeoError(null);}).catch(()=>setGeoError(null));}else{setGeoError(null);}}else{setGeoError("Couldn't get your location \u2014 please try again.");}});};
 const activateNearMe=()=>{setGeoError(null);if(!navigator.geolocation){setGeoError("Geolocation is not supported by your browser.");return;}if(navigator.permissions){navigator.permissions.query({name:"geolocation"}).then(r=>{if(r.state==="granted")doGetLocation();else if(r.state==="denied")setGeoError("Location is blocked in your browser settings. Go to Settings \u2192 Browser \u2192 Location and allow this site, then try again.");else setGeoModal(true);}).catch(()=>setGeoModal(true));}else{setGeoModal(true);}};
@@ -1624,7 +1624,7 @@ React.createElement("h1",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 ),
 React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:400,color:"var(--c-hero-sub)",maxWidth:480,margin:"0 auto 26px",lineHeight:1.82}},"The insider's guide to Detroit's most exclusive dining, cocktails, experiences, and hidden gems. Not for everyone — made for you."),
 React.createElement("div",{style:{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}},
-["Breakfast","Sports Bars","Hidden Bars","Rooftops","Dinner","Happy Hour","Cocktail Lounges","Nightlife"].map(c=>
+["Hidden Bars","Rooftops","Cocktail Lounges","Dinner","Happy Hour","Nightlife"].map(c=>
 React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"var(--c-hero-pill-bg)",backdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",WebkitBackdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",boxShadow:cat===c?"none":"var(--c-hero-btn-shadow)",padding:"7px 14px",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
 )
 ),
@@ -1689,7 +1689,7 @@ React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"0 22px"
 React.createElement("div",{ref:chipRowRef,style:{display:"flex",gap:7,overflowX:"auto",paddingBottom:12,scrollbarWidth:"none"}},
 CATS.map(c=>{
 const active=c===cat;
-return React.createElement("button",{key:c,onClick:()=>switchCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1.5px solid "+(active?C.gold:"var(--c-filter-bdr)"),background:active?C.gold:"transparent",color:active?C.black:C.ash,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Spots":c);
+return React.createElement("button",{key:c,onClick:()=>switchCat(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",padding:"6px 14px",border:"1.5px solid "+(active?C.gold:"var(--c-filter-bdr)"),background:active?C.gold:"transparent",color:active?C.black:C.ash,borderRadius:100,whiteSpace:"nowrap",cursor:"pointer",transition:"all 0.16s"}},c==="all"?"All Venues":c);
 })),
 React.createElement("div",{style:{paddingBottom:10,display:"flex",alignItems:"center",gap:8,flexWrap:"wrap"}},
 nearMe&&userCoords&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.62rem",color:C.purple,letterSpacing:"0.08em"}},"Sorted by distance"),
