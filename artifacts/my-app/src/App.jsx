@@ -1681,25 +1681,25 @@ React.createElement("div",{style:{flex:1,height:1,background:"rgba(201,168,76,0.
 const evtCard=(item)=>{const cta=getTicketCTA(item);
 const label=item.title||(item.team+" vs. "+item.opponent);
 const badge=item.sport||item.category||"Event";
-return React.createElement("div",{key:item.id,style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border}},
+return React.createElement("div",{key:item.id,onClick:()=>{if(cta)window.open(cta.url,"_blank","noopener");},style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:cta?"pointer":"default"}},
 item.image&&React.createElement("img",{src:item.image,alt:"",loading:"lazy",style:{width:"100%",height:130,objectFit:"cover",display:"block"}}),
 React.createElement("div",{style:{padding:"13px 14px"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:5}},badge),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",fontWeight:600,color:C.white,lineHeight:1.2,marginBottom:5}},label),
 React.createElement("div",{style:{fontSize:"0.76rem",color:C.smoke,fontWeight:300,marginBottom:10}},item.venue+(item.date?" · "+fmtDate(item.date):"")),
 React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between"}},
-cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",style:{display:"inline-block",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"7px 14px",borderRadius:5,fontWeight:500,textDecoration:"none"}},cta.label):React.createElement("span",null),
+cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",onClick:e=>e.stopPropagation(),style:{display:"inline-block",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"7px 14px",borderRadius:5,fontWeight:500,textDecoration:"none"}},cta.label):React.createElement("span",null),
 React.createElement("button",{onClick:e=>{e.stopPropagation();onUnsaveEvent&&onUnsaveEvent(item.id,item);},style:{background:"none",border:"none",cursor:"pointer",color:C.gold,fontSize:"1.2rem",padding:"6px 4px",lineHeight:1,flexShrink:0}},"♥")
 )));};
 const hotelCard=(h)=>{const cta=getBookingCTA(h);
-return React.createElement("div",{key:h.id,style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border}},
+return React.createElement("div",{key:h.id,onClick:()=>{if(cta)window.open(cta.url,"_blank","noopener");},style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:cta?"pointer":"default"}},
 h.image&&React.createElement("img",{src:h.image,alt:"",loading:"lazy",style:{width:"100%",height:130,objectFit:"cover",display:"block"}}),
 React.createElement("div",{style:{padding:"13px 14px"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:5}},h.hood+" · Hotel"),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",fontWeight:600,color:C.white,lineHeight:1.2,marginBottom:4}},h.name),
 React.createElement("div",{style:{fontSize:"0.76rem",color:C.smoke,fontWeight:300,marginBottom:10}},h.price_from||""),
 React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between"}},
-cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",style:{display:"inline-block",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"7px 14px",borderRadius:5,fontWeight:500,textDecoration:"none"}},cta.label):React.createElement("span",null),
+cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",onClick:e=>e.stopPropagation(),style:{display:"inline-block",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"7px 14px",borderRadius:5,fontWeight:500,textDecoration:"none"}},cta.label):React.createElement("span",null),
 React.createElement("button",{onClick:e=>{e.stopPropagation();onUnsaveHotel&&onUnsaveHotel(h.id);},style:{background:"none",border:"none",cursor:"pointer",color:C.gold,fontSize:"1.2rem",padding:"6px 4px",lineHeight:1,flexShrink:0}},"♥")
 )));};
 const venueCard=(v)=>{const img=photoMap?.[String(v.id)]||getVenueFallbackImage(v);
