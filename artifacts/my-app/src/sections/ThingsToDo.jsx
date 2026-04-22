@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { hlRegister, hlUnregister } from "../cardHighlight.js";
 import { getTicketCTA, fmtDate, GAMES as GAMES_FALLBACK } from "../data/eventsData.js";
 import { fetchLiveGames, fetchLiveConcerts, fetchLiveEvents } from "../data/fetchLiveData.js";
 
@@ -175,14 +176,22 @@ export function DetailModal({ item, type, saved, onSave, onClose }) {
 
 function GameCard({ game, saved, onSave, onOpen }) {
   const [hov, setHov] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const cardRef = useRef(null);
+  useEffect(() => {
+    const el = cardRef.current; if (!el) return;
+    hlRegister(String(game.id), el, setIsActive);
+    return () => hlUnregister(String(game.id));
+  }, []);
   const sc = SPORT_COLORS[game.sport] || SPORT_COLORS.MLB;
 
   return (
     <div
+      ref={cardRef}
       onClick={() => onOpen({ ...game, resolvedImage: game.image }, "game")}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.22s" }}
+      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:isActive?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":isActive?"0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}
     >
       <CardImage src={game.image} alt={game.team} logo={game.logo_url} height={200} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>
@@ -214,14 +223,22 @@ function GameCard({ game, saved, onSave, onOpen }) {
 
 function EventCard({ event, saved, onSave, onOpen, type = "event" }) {
   const [hov, setHov] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const cardRef = useRef(null);
+  useEffect(() => {
+    const el = cardRef.current; if (!el) return;
+    hlRegister(String(event.id), el, setIsActive);
+    return () => hlUnregister(String(event.id));
+  }, []);
   const title = event.artist || event.title || "";
 
   return (
     <div
+      ref={cardRef}
       onClick={() => onOpen({ ...event, resolvedImage: event.image }, type)}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":"var(--c-shdw-f)", transition:"all 0.22s" }}
+      style={{ background:C.card, border:"1px solid "+(hov?C.goldD:isActive?C.goldD:C.border), borderRadius:12, overflow:"hidden", display:"flex", flexDirection:"column", animation:"fadeSlideIn 0.28s ease both", cursor:"pointer", transform:hov?"translateY(-3px)":"none", boxShadow:hov?"var(--c-shdw-h)":isActive?"0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)":"var(--c-shdw-f)", transition:"transform 0.22s,box-shadow 0.3s ease,border-color 0.3s ease" }}
     >
       <CardImage src={event.image} alt={title} height={200} />
       <div style={{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:10, flex:1 }}>

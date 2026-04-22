@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import { hlRegister, hlUnregister } from "./cardHighlight.js";
 import L from "leaflet";
 import ThingsToDo, { DetailModal } from "./sections/ThingsToDo.jsx";
 import Stay, { HotelDetailModal } from "./sections/Stay.jsx";
@@ -1013,29 +1014,20 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 );
 });
 
-const _tcCards=new Map();let _tcRaf=null,_tcCount=0;
-function _tcUpdate(){const vcy=window.scrollY+window.innerHeight/2;let bestId=null,minD=Infinity;for(const[id,{el}]of _tcCards){const r=el.getBoundingClientRect();const cy=window.scrollY+r.top+r.height/2;const d=Math.abs(cy-vcy);if(d<minD){minD=d;bestId=id;}}for(const[id,{set}]of _tcCards)set(id===bestId);}
-function _tcScroll(){if(_tcRaf)return;_tcRaf=requestAnimationFrame(()=>{_tcRaf=null;_tcUpdate();});}
-
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap }) {
 const [hov, setHov] = useState(false);
 const [isActive, setIsActive] = useState(false);
-const isTest = [74, 1, 47].includes(venue.id);
 const cardRef = React.useRef(null);
 React.useEffect(()=>{
-  if(!isTest) return;
   const el=cardRef.current; if(!el) return;
-  if(_tcCount===0)window.addEventListener('scroll',_tcScroll,{passive:true});
-  _tcCount++;
-  _tcCards.set(venue.id,{el,set:setIsActive});
-  _tcUpdate();
-  return ()=>{_tcCards.delete(venue.id);_tcCount--;if(_tcCount===0)window.removeEventListener('scroll',_tcScroll);};
-},[isTest]);
+  hlRegister(String(venue.id), el, setIsActive);
+  return ()=>hlUnregister(String(venue.id));
+},[]);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
 const vibeLine=getVibeLine(venue);
-const cardBorder = hov ? C.goldD : (isTest && isActive) ? C.goldD : C.border;
-const cardShadow = hov ? "var(--c-shdw-h)" : (isTest && isActive) ? "0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)" : "var(--c-shdw-f)";
+const cardBorder = hov ? C.goldD : isActive ? C.goldD : C.border;
+const cardShadow = hov ? "var(--c-shdw-h)" : isActive ? "0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)" : "var(--c-shdw-f)";
 return React.createElement("div", {
 ref: cardRef,
 onClick:()=>onOpen(String(venue.id)),
@@ -1062,17 +1054,56 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 });
 
+// Horizontal slider card tracker (for UCard)
+const _hCards = new Map();
+let _hCont = null, _hRaf = null;
+function _hUpdate() {
+  if (!_hCont) return;
+  const cr = _hCont.getBoundingClientRect();
+  const cx = cr.left + cr.width / 2;
+  let best = null, minD = Infinity;
+  for (const [uid, { el }] of _hCards) {
+    const r = el.getBoundingClientRect();
+    const d = Math.abs(r.left + r.width / 2 - cx);
+    if (d < minD) { minD = d; best = uid; }
+  }
+  for (const [uid, { set }] of _hCards) set(uid === best);
+}
+function _hScroll() {
+  if (_hRaf) return;
+  _hRaf = requestAnimationFrame(() => { _hRaf = null; _hUpdate(); });
+}
+
 const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap, imgHeight, hideVibes }) {
 const [hov, setHov] = useState(false);
+const [isActive, setIsActive] = useState(false);
+const cardRef = React.useRef(null);
+React.useEffect(() => {
+  const el = cardRef.current; if (!el) return;
+  if (!_hCont) {
+    let p = el.parentElement;
+    while (p) { const s = window.getComputedStyle(p); if (s.overflowX==='auto'||s.overflowX==='scroll') { _hCont=p; break; } p=p.parentElement; }
+    if (_hCont) _hCont.addEventListener('scroll', _hScroll, { passive: true });
+  }
+  _hCards.set(String(venue.id), { el, set: setIsActive });
+  _hUpdate();
+  return () => {
+    _hCards.delete(String(venue.id));
+    if (_hCards.size === 0 && _hCont) { _hCont.removeEventListener('scroll', _hScroll); _hCont = null; }
+  };
+}, []);
 const just = venue.status==="justopened";
 const acc  = just ? C.gold : C.purple;
 const vibeLine=getVibeLine(venue);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
+const hBorder = hov ? (just?C.goldD:"rgba(110,75,195,0.5)") : isActive ? C.goldD : C.border;
+const hShadow = hov ? "0 8px 36px rgba(0,0,0,0.55)" : isActive ? "0 0 0 1.5px rgba(201,168,76,0.22), 0 4px 22px rgba(201,168,76,0.07)" : "0 2px 14px rgba(0,0,0,0.4)";
 return React.createElement("div", {
+ref: cardRef,
 onClick:()=>onOpen(venue.id),
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
-style:{ background:C.card, border:"1px solid "+(hov?(just?C.goldD:"rgba(110,75,195,0.5)"):C.border), borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hov?"0 8px 36px rgba(0,0,0,0.55)":"0 2px 14px rgba(0,0,0,0.4)", transition:"transform 0.24s,box-shadow 0.24s,border-color 0.24s", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
+style:{ background:C.card, border:"1px solid "+hBorder, borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hShadow, transition:"transform 0.24s,box-shadow 0.3s ease,border-color 0.3s ease", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
 },
 React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:imgHeight||190 }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
