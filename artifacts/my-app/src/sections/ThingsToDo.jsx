@@ -102,6 +102,16 @@ export function DetailModal({ item, type, saved, onSave, onClose }) {
     return () => document.removeEventListener("keydown", fn);
   }, [onClose]);
 
+  useEffect(() => {
+    const body = document.body;
+    const html = document.documentElement;
+    const prevB = body.style.overflow;
+    const prevH = html.style.overflow;
+    body.style.overflow = "hidden";
+    html.style.overflow = "hidden";
+    return () => { body.style.overflow = prevB; html.style.overflow = prevH; };
+  }, []);
+
   const curatedLine = isGame && item.note
     ? `${item.note} at ${item.venue}.`
     : (!isGame && item.desc ? item.desc.split(/\.\s/)[0] + "." : null);

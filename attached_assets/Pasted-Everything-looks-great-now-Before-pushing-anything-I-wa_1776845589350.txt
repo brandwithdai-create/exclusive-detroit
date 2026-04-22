@@ -1,0 +1,53 @@
+Everything looks great now. Before pushing anything, I want one final stability and release pass with a very careful scope.
+
+Please do this in order:
+
+1. Run a full app QA pass across all sections that were touched, especially venues, saved, map, events, concerts, hotels, and game tickets.
+2. Confirm the highlight behavior is stable long term:
+    * only one card can ever be highlighted at once
+    * previous card always clears when detail is closed
+    * previous card always clears when another card becomes active
+    * no stuck gold ring after scrolling back up or down
+    * no regressions in light mode or dark mode
+3. Check for UI smoothness and consistency:
+    * no stuck states
+    * no overlapping cards or broken spacing
+    * no background scrolling behind modals/detail cards
+    * all buttons sized consistently
+    * save/unsave behavior consistent everywhere
+    * detail cards open correctly everywhere they should
+4. Verify links throughout the app:
+    * no broken Book Now links
+    * no broken Tickets links
+    * no broken hotel links
+    * no broken event/concert/game links
+    * make sure every CTA goes to the correct destination
+5. Verify map behavior:
+    * pins open the correct item every time
+    * saved filter works correctly
+    * hotels are included where expected
+    * heart/saved view frames saved places correctly
+    * category chips center correctly without over-zooming
+6. Verify data consistency:
+    * no duplicate cards
+    * no incorrect venue images
+    * no incorrect addresses or misplaced pins
+    * no section routing issues
+7. Keep this pass cost-conscious:
+    * do not run unnecessary agent loops
+    * do not refactor unrelated code
+    * only make minimal fixes if a real issue is found
+    * avoid touching anything that is already working
+
+After QA is complete:
+8. If everything passes, commit and push the latest stable version to GitHub.
+9. Then confirm Vercel production is deployed successfully from the latest GitHub commit.
+10. Send me a short final report with:
+
+* any bugs found
+* what was fixed
+* GitHub push complete
+* Vercel deployment complete
+* production URL verified
+
+Do not make random changes. This is a final polish, stability, and deployment pass only.

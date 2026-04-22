@@ -97,6 +97,16 @@ export function HotelDetailModal({ hotel, places, saved, onSave, onClose }) {
     return () => document.removeEventListener("keydown", fn);
   }, [onClose]);
 
+  React.useEffect(() => {
+    const body = document.body;
+    const html = document.documentElement;
+    const prevB = body.style.overflow;
+    const prevH = html.style.overflow;
+    body.style.overflow = "hidden";
+    html.style.overflow = "hidden";
+    return () => { body.style.overflow = prevB; html.style.overflow = prevH; };
+  }, []);
+
   const cta = getBookingCTA(hotel);
   const curatedLine = hotel.desc ? hotel.desc.split(/\.\s/)[0] + "." : null;
 
