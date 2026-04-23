@@ -1847,7 +1847,7 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53r
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,margin:0}},"About Detroit"),
 React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke,marginTop:6}},"An insider guide to Detroit.")
 ),
-React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 56px",display:"flex",flexDirection:"column",gap:36}},
+React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 0"}},
 React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:16,padding:"14px 18px",display:"flex",flexDirection:"row",gap:16,alignItems:"center"}},
 React.createElement("div",{style:{flex:1,display:"flex",flexDirection:"column",minWidth:0,textAlign:"left"}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.goldL,margin:"0 0 2px"}},"Creator & Founder"),
@@ -1867,7 +1867,9 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 React.createElement("div",{style:{width:96,height:96,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)"}},
 React.createElement("img",{src:"/creator.jpg",alt:"Dai",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
 )
+)
 ),
+React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"40px 22px 56px",display:"flex",flexDirection:"column",gap:36}},
 [["Detroit Is Not What You Think","Forget the headlines. Detroit has quietly become one of the most interesting cities in America for food, nightlife, art, and architecture. The people who know, know."],
 ["When to Visit","Late May through October is peak season. Summer rooftops are unmatched. Winter has its own moody energy - the hidden bars hit different when it's snowing outside. Jazz Fest in September. Movement Electronic Music Festival in May."],
 ["Getting Around","Downtown is walkable. Midtown is a short Uber from Downtown. Corktown is 10 minutes west. The QLine connects Midtown to Downtown."],
