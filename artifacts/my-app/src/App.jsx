@@ -1844,7 +1844,8 @@ React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5
 const About=()=>React.createElement("div",null,
 React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"The City Brief"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"About Detroit")
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,margin:0}},"About Detroit"),
+React.createElement("p",{style:{fontFamily:"'DM Sans',sans-serif",fontSize:"0.88rem",color:C.bone,fontWeight:300,lineHeight:1.7,marginTop:6}},"A curated guide to the city \u2014 from someone who actually knows it.")
 ),
 React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 56px",display:"flex",flexDirection:"column",gap:36}},
 React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:16,padding:"14px 18px",display:"flex",flexDirection:"row",gap:16,alignItems:"center"}},
@@ -1852,7 +1853,7 @@ React.createElement("div",{style:{flex:1,display:"flex",flexDirection:"column",m
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.goldL,margin:"0 0 2px"}},"Creator & Founder"),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.3rem",fontWeight:400,color:C.white,margin:"0 0 2px",lineHeight:1.1}},"Hi, I'm Dai"),
 React.createElement("p",{style:{fontSize:"0.75rem",color:C.smoke,fontWeight:300,letterSpacing:"0.02em",margin:"0 0 6px"}},"Born and raised in Detroit."),
-React.createElement("p",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:"0 0 5px"}},"Every recommendation here is personal, current, and intentionally chosen \u2014 places I\u2019ve experienced, trust, and return to."),
+React.createElement("p",{style:{fontSize:"0.79rem",color:C.ash,fontWeight:300,lineHeight:1.45,margin:"0 0 5px"}},"Every recommendation here is personal, current, and intentionally chosen \u2014 places I\u2019ve experienced, trust, and return to."),
 React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontStyle:"italic",fontSize:"0.9rem",color:C.gold,lineHeight:1.35,margin:"0 0 8px"}},"\u201cIf you know, you know\u2026 & if you don\u2019t, now you do.\u201d"),
 React.createElement("a",{href:"https://www.instagram.com/the_lovelydai?igsh=Zmh1OHZrYzBhZmI1&utm_source=qr",target:"_blank",rel:"noopener noreferrer",className:"creator-cta",style:{display:"inline-flex",alignItems:"center",alignSelf:"flex-start",gap:6,padding:"7px 13px",borderRadius:100,border:"1.5px solid "+C.border,background:"var(--c-excl-bg)",color:C.ash,textDecoration:"none",cursor:"pointer",transition:"border-color 0.2s,color 0.2s,background 0.2s"}},
 React.createElement("svg",{width:12,height:12,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round",flexShrink:0},
