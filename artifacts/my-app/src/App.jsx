@@ -1642,12 +1642,12 @@ React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:400,color:"var(--c-
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center"}},
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center"}},
 ["Hidden Bars","Rooftops","Cocktail Lounges"].map(c=>
-React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"var(--c-hero-pill-bg)",backdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",WebkitBackdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",boxShadow:cat===c?"none":"var(--c-hero-btn-shadow)",padding:"7px var(--hero-pill-px)",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
+React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"var(--c-hero-pill-bg)",backdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",WebkitBackdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",boxShadow:cat===c?"none":"0 0 8px rgba(255,255,255,0.18),0 0 18px rgba(255,255,255,0.08)",padding:"7px var(--hero-pill-px)",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
 )
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center"}},
 ["Dinner","Happy Hour","Nightlife"].map(c=>
-React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"var(--c-hero-pill-bg)",backdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",WebkitBackdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",boxShadow:cat===c?"none":"var(--c-hero-btn-shadow)",padding:"7px var(--hero-pill-px)",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
+React.createElement("button",{key:c,onClick:()=>goCategory(c),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid "+C.gold,color:cat===c?C.black:C.goldL,background:cat===c?C.gold:"var(--c-hero-pill-bg)",backdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",WebkitBackdropFilter:cat===c?"none":"var(--c-hero-btn-blur)",boxShadow:cat===c?"none":"0 0 8px rgba(255,255,255,0.18),0 0 18px rgba(255,255,255,0.08)",padding:"7px var(--hero-pill-px)",borderRadius:100,cursor:"pointer",transition:"all 0.18s"}},c)
 )
 )
 ),
