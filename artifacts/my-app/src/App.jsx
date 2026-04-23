@@ -1508,7 +1508,7 @@ const gridTopRef = useRef(null);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
-s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes creatorGlow{0%,100%{transform:scale(1);filter:none}45%{transform:scale(1.02);filter:drop-shadow(0 0 8px rgba(201,168,76,0.65))}}';
 document.head.appendChild(s);
 return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
 },[]);
@@ -1848,7 +1848,7 @@ React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"An insider guide to Detroit.")
 ),
 React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 0"}},
-React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:16,padding:"14px 18px",display:"flex",flexDirection:"row",gap:16,alignItems:"center"}},
+React.createElement("div",{style:{display:"flex",flexDirection:"row",gap:16,alignItems:"center"}},
 React.createElement("div",{style:{flex:1,display:"flex",flexDirection:"column",minWidth:0,textAlign:"left"}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.goldL,margin:"0 0 2px"}},"Creator & Founder"),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.3rem",fontWeight:400,color:C.white,margin:"0 0 2px",lineHeight:1.1}},"Hi, I'm Dai"),
@@ -1864,7 +1864,7 @@ React.createElement("line",{x1:17.5,y1:6.5,x2:"17.51",y2:6.5})
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.08em"}},"@the_lovelydai")
 )
 ),
-React.createElement("div",{style:{width:96,height:96,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)"}},
+React.createElement("div",{style:{width:96,height:96,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)",animation:"creatorGlow 1.1s ease-in-out"}},
 React.createElement("img",{src:"/creator.jpg",alt:"Dai",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
 )
 )
