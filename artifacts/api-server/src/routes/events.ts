@@ -1,7 +1,10 @@
 import { Router } from "express";
+import rateLimit from "express-rate-limit";
 import { logger } from "../lib/logger";
 
 const router = Router();
+
+router.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 60, standardHeaders: true, legacyHeaders: false }));
 
 const TM_KEY = process.env.VITE_TICKETMASTER_KEY;
 const TM_BASE = "https://app.ticketmaster.com/discovery/v2/events.json";

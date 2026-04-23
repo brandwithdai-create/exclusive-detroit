@@ -1,5 +1,8 @@
 import { Router } from "express";
+import rateLimit from "express-rate-limit";
 import { logger } from "../lib/logger";
+
+const importLimiter = rateLimit({ windowMs: 60 * 60 * 1000, max: 10, standardHeaders: true, legacyHeaders: false });
 import { pool } from "@workspace/db";
 
 const router = Router();
@@ -186,7 +189,7 @@ router.get("/places/venue-photos", async (_req, res) => {
 // One-time endpoint: fetches Google Places photos for all venues and stores in DB.
 // Safe to call multiple times — skips venues already in DB (idempotent).
 // Cost: ~$4 total for all 88 venues. After this, no live API calls for venue photos.
-router.post("/places/import", async (req, res) => {
+router.post("/places/import", importLimiter, async (req, res) => {
   if (!KEY) {
     return res.status(500).json({ error: "GOOGLE_PLACES_KEY not configured" });
   }
