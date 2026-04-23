@@ -599,7 +599,7 @@ hours:"Mon 3pm-10pm | Tue-Thu 12pm-10pm | Fri 3pm-11pm | Sat 4pm-11pm | Sun Clos
 best:"Dinner / Date Night",
 exclusive:"Inside the Federal Reserve Building, one of downtown Detroit's most architecturally striking spaces. The fusion of Japanese technique with Caribbean and Korean flavors is completely its own thing.",
 badges:["firsttimer","locals"],
-reservationUrl:"https://www.sorayadetroit.com" },
+websiteUrl:"https://www.sorayadetroit.com" },
 
 { id:71, name:"Bash",                               hood:"Woodbridge",         cat:"Dinner",
 desc:"Bash Original Izakaya is a modern Japanese restaurant in Detroit's Woodbridge neighborhood, led by Executive Chef James Kim. Bold specialty rolls, refined sashimi, carefully balanced nigiri, pork gyoza, mushroom miso ramen, and an excellent sake selection. Outdoor patio seating in season.",
