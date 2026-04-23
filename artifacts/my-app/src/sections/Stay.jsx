@@ -280,12 +280,12 @@ export default function Stay({ isSavedHotel, toggleSavedHotel, onBack }) {
           </div>
         )}
       </div>
-      <div style={{ background:C.deep, padding: onBack ? "16px 22px 40px" : "64px 22px 40px", borderBottom:"1px solid "+C.border }}>
+      <div style={{ background:C.deep, padding: onBack ? "12px 22px 20px" : "32px 22px 20px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
           <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.8rem,5vw,3rem)", fontWeight:400, color:C.white, margin:0 }}>
             Where to Stay
           </h2>
-          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.88rem", color:C.ash, fontWeight:300, lineHeight:1.7, marginTop:12, maxWidth:560 }}>
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.88rem", color:C.ash, fontWeight:300, lineHeight:1.7, marginTop:6, maxWidth:560 }}>
             Curated hotels in Downtown, Midtown, and Corktown — chosen for character, location, and the full Detroit experience.
           </p>
         </div>
