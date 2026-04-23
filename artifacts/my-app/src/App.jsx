@@ -1506,10 +1506,11 @@ const favsRef = useRef(favs);
 favsRef.current = favs;
 const toastTimer = useRef(null);
 const gridTopRef = useRef(null);
+const heroGlowFired = useRef(false);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
-s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}.hero-title-glow{position:relative}.hero-title-glow.glow::after{content:"";position:absolute;inset:-10px -20px;border-radius:10px;box-shadow:0 0 28px rgba(212,175,55,0.16),0 0 60px rgba(212,175,55,0.07);opacity:1;transition:opacity 0.85s ease;pointer-events:none}.hero-title-glow.fade::after{opacity:0}';
 document.head.appendChild(s);
 return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
 },[]);
@@ -1522,6 +1523,20 @@ useEffect(()=>{
 const fn=e=>{if(e.key==="Escape")setModalId(null);};
 document.addEventListener("keydown",fn);
 return ()=>document.removeEventListener("keydown",fn);
+},[]);
+useEffect(()=>{
+if(heroGlowFired.current)return;
+heroGlowFired.current=true;
+let t1,t2;
+const run=()=>{
+const el=document.querySelector('.hero-title-glow');
+if(!el)return;
+el.classList.add('glow');
+t1=setTimeout(()=>{el.classList.add('fade');},900);
+t2=setTimeout(()=>{el.classList.remove('glow','fade');},1750);
+};
+const raf=requestAnimationFrame(()=>requestAnimationFrame(run));
+return()=>{cancelAnimationFrame(raf);clearTimeout(t1);clearTimeout(t2);};
 },[]);
 useEffect(()=>{
 if(!document.getElementById("exc-fonts")){
@@ -1635,7 +1650,7 @@ React.createElement("div",{style:{position:"absolute",width:400,height:400,botto
 ),
 React.createElement("div",{style:{position:"relative",zIndex:2,maxWidth:680,padding:"36px 22px 18px",textAlign:"center"}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.55rem",letterSpacing:"0.26em",textTransform:"uppercase",color:C.gold,marginBottom:16}},"If you know, you know."),
-React.createElement("h1",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(2.8rem,7vw,5.5rem)",fontWeight:300,lineHeight:0.92,color:C.white,marginBottom:20}},
+React.createElement("h1",{className:"hero-title-glow",style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(2.8rem,7vw,5.5rem)",fontWeight:300,lineHeight:0.92,color:C.white,marginBottom:20}},
 "Detroit",React.createElement("br"),React.createElement("em",{style:{fontStyle:"italic",color:C.goldL}},"Hidden Gems")
 ),
 React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:400,color:"var(--c-hero-sub)",maxWidth:480,margin:"0 auto 26px",lineHeight:1.82}},"The insider's guide to Detroit's most exclusive dining, cocktails, experiences, and hidden gems. Not for everyone — made for you."),
