@@ -1494,6 +1494,7 @@ const [userCoords,setUserCoords]=useState(null);
 const [geoError,setGeoError]  = useState(null);
 const [geoModal,setGeoModal]  = useState(false);
 const [theme,   setTheme]     = useState(()=>localStorage.getItem("ed-theme")||"system");
+const [aboutTick,setAboutTick]= useState(0);
 const [suggestName,setSuggestName]=useState("");
 const [suggestHood,setSuggestHood]=useState("");
 const [suggestNote,setSuggestNote]=useState("");
@@ -1579,7 +1580,7 @@ const savedEventObjects=savedEvents.map(id=>savedEventMeta[id]||ALL_STATIC_EVENT
 const savedHotelObjects=savedHotels.map(id=>HOTELS.find(h=>String(h.id)===String(id))).filter(Boolean);
 const totalSaves=favs.length+savedEvents.length+savedHotels.length;
 const modalVenue=findItem(modalId);
-const navTo=s=>{if(s!=="explore")setCat("all");setSection(s);window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;requestAnimationFrame(()=>{window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;});};
+const navTo=s=>{if(s!=="explore")setCat("all");setSection(s);if(s==="about")setAboutTick(t=>t+1);window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;requestAnimationFrame(()=>{window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;});};
 
 const ss=(prop,val)=>({[prop]:val});
 const row=(children,extra={})=>React.createElement("div",{style:{display:"flex",...extra}},children);
@@ -1841,7 +1842,7 @@ React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5
 )
 );
 
-const About=()=>React.createElement("div",null,
+const About=({tick=0}={})=>React.createElement("div",null,
 React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"The City Brief"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"About Detroit"),
@@ -1864,7 +1865,7 @@ React.createElement("line",{x1:17.5,y1:6.5,x2:"17.51",y2:6.5})
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.08em"}},"@the_lovelydai")
 )
 ),
-React.createElement("div",{style:{width:96,height:96,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)",animation:"creatorGlow 1.1s ease-in-out"}},
+React.createElement("div",{key:tick,style:{width:96,height:96,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)",animation:tick>0?"creatorGlow 1.1s ease-in-out":"none"}},
 React.createElement("img",{src:"/creator.jpg",alt:"Dai",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
 )
 )
@@ -1972,7 +1973,7 @@ section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
 section==="neighborhoods" && Areas(),
-section==="about"         && About(),
+section==="about"         && About({tick:aboutTick}),
 section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),
 section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")})
