@@ -138,7 +138,7 @@ hours:"Mon-Thu 7am-10:45pm | Fri-Sat 7am-11:45pm | Sun 7am-9:45pm", best:"Weekni
 exclusive:"Drinking inside the former Detroit Fire HQ. The original apparatus bays are still visible.",
 badges:["firsttimer"], reservationUrl:"https://www.opentable.com/r/the-apparatus-room-detroit" },
 
-{ id:8,  name:"The Living Room - Shinola Hotel",  hood:"Downtown",           cat:"Hotel Lounges",
+{ id:8,  name:"The Living Room - Shinola Hotel",  hood:"Downtown",           cat:"Cocktail Lounges",
 desc:"A curated Tuesday evening experience inside Detroit's most design-forward boutique hotel. Part gallery opening, part cocktail hour. Tuesdays only, 6-9pm.",
 vibes:["Tuesdays Only","Design Forward","Creative Crowd"], addr:"1400 Woodward Ave, Detroit, MI 48226",
 hours:"Tuesdays only 6pm-9pm | Hotel lobby open 24/7", best:"Tuesday Evening",
@@ -152,7 +152,7 @@ hours:"Mon-Thu 5pm-11pm | Fri 5pm-12am | Sat 4pm-12am | Sun 2pm-8pm", best:"Week
 exclusive:"Penthouse of the Metropolitan Building. Two outdoor fire pit terraces. One of the most dramatic views in the city.",
 badges:["firsttimer"], cats:["Cocktail Lounges"], reservationUrl:"https://www.opentable.com/r/the-monarch-club-detroit" },
 
-{ id:10, name:"The Conservatory - AC Hotel",      hood:"Midtown / Brush Park",cat:"Hotel Lounges",
+{ id:10, name:"The Conservatory - AC Hotel",      hood:"Midtown / Brush Park",cat:"Cocktail Lounges",
 desc:"A glass-enclosed bar connecting the AC Hotel Detroit to the restored Bonstelle Theatre. Spanish Modernisme design, gin-forward cocktails, Spanish tapas, and architecture unlike anything else in Detroit.",
 vibes:["Glass Conservatory","Spanish Tapas","Gin Cocktails"], addr:"10 Eliot St (corner Woodward and Eliot), Detroit, MI 48201",
 hours:"Mon-Thu 3pm-10pm | Fri-Sat 3pm-12am | Sun 3pm-10pm", best:"Pre-Show / Weeknight",
