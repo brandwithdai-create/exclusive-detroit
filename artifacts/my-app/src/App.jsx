@@ -1881,7 +1881,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 )
 ),
 React.createElement("div",{style:{width:96,height:96,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)"}},
-React.createElement("img",{src:"/creator.jpg",alt:"Dai",width:200,height:200,loading:"lazy",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
+React.createElement("img",{src:"/creator.jpg",alt:"Dai",width:200,height:200,loading:"eager",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
 )
 )
 ),
