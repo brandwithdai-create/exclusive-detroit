@@ -62,6 +62,7 @@ function CardImage({ src, alt, logo, height=200 }) {
     <div style={{ height, overflow:"hidden", background:C.deep, flexShrink:0, position:"relative" }}>
       <img
         src={src} alt={alt}
+        loading="lazy"
         onError={() => setErr(true)}
         style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}
       />

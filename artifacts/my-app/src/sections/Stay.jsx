@@ -61,6 +61,7 @@ function CardImage({ localSrc, placesPhoto, alt, height = 210 }) {
         key={src}
         src={src}
         alt={alt}
+        loading="lazy"
         onError={() => { setErr(true); setLoaded(true); }}
         onLoad={() => setLoaded(true)}
         style={{

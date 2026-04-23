@@ -1,0 +1,61 @@
+I’m getting very close to App Store submission. Please handle the following in one focused pass only. Keep this low-cost, minimal, and do not touch anything unrelated.
+
+1) Performance polish on image loading across cards
+Please implement the safe image-loading improvements that do NOT change design or behavior:
+- Compress and resize creator.jpg appropriately for its actual display size
+- Add explicit width/height to the creator image to prevent layout shift
+- Add loading="lazy" where safe on below-the-fold card images/components only
+- Review VenueImg, ThingsToDo CardImage, and hotel/stay card images for safe lazy loading
+- Do NOT lazy load anything that is above the fold on first render if it would make perceived performance worse
+- Do NOT change styling, cropping, spacing, gold rings, or layouts
+- Do NOT touch API/backend logic for this task
+
+After implementing, give me a short report:
+- exactly what files/components were changed
+- which images now lazy load
+- which image(s) were compressed/resized
+- confirmation that visual design is unchanged
+
+2) App icon asset verification
+I attached screenshots of my app icon set and the Add to Home Screen result. The icon looks crisp to me, but I want you to verify the real Xcode asset set is correct for App Store submission.
+Please confirm:
+- the actual AppIcon.appiconset in Xcode is the one being used
+- the 1024x1024 App Store icon is correct
+- there is no transparency issue
+- there are no missing required icon slots for iPhone submission
+- no blurry or wrong source file is being pulled into the asset catalog
+If there are duplicate or unnecessary files in the folder, tell me exactly which ones matter and which do not.
+
+3) Location permission verification
+I believe NSLocationWhenInUseUsageDescription is already included.
+Please verify in the actual iOS app target/configuration that:
+- NSLocationWhenInUseUsageDescription exists
+- the purpose string is present and correct
+- location permission flow is App Store-safe
+Also confirm the in-app location explainer screen matches the actual permission behavior.
+
+4) Font legibility / Apple submission readiness
+I want an audit of text legibility for App Store readiness.
+I know Apple focuses on legibility and Larger Text/Dynamic Type, so:
+- identify any text in the app that is unusually small or risks being hard to read
+- identify any text that truncates, overlaps, or becomes weak at larger text sizes
+- tell me exactly where it is (screen, section, component)
+- prioritize anything likely to be an App Review or usability concern
+Do NOT do a broad redesign. This is an audit + only flag issues first unless something is a tiny safe fix.
+
+5) Final metadata sanity check
+Please confirm that the current app setup is aligned with these values unless there is a technical reason it should differ:
+
+App Name: Exclusive
+Subtitle: Hidden spots & experiences
+Bundle ID: com.exclusivecityguide.app
+SKU: EXCL-IOS-2026-01
+
+If Bundle ID should match an existing configured identifier already in the project, tell me exactly what it currently is and whether changing it now would be a mistake.
+
+Important guardrails:
+- Do NOT break anything
+- Do NOT alter links, events, games, concerts, or map behavior
+- Do NOT change UI styling unless it is part of the tiny safe image optimization work above
+- Keep this isolated, low-risk, and low-cost
+- Return one concise report with findings and only the changes actually made
