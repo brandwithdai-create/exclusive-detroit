@@ -1845,7 +1845,7 @@ const About=()=>React.createElement("div",null,
 React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"The City Brief"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white,margin:0}},"About Detroit"),
-React.createElement("p",{style:{fontFamily:"'DM Sans',sans-serif",fontSize:"0.88rem",color:C.bone,fontWeight:300,lineHeight:1.7,marginTop:6}},"A curated guide to the city \u2014 from someone who actually knows it.")
+React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke,marginTop:6}},"An insider guide to Detroit.")
 ),
 React.createElement("div",{style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 56px",display:"flex",flexDirection:"column",gap:36}},
 React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:16,padding:"14px 18px",display:"flex",flexDirection:"row",gap:16,alignItems:"center"}},
