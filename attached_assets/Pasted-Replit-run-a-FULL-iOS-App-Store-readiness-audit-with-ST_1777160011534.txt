@@ -1,0 +1,210 @@
+Replit, run a FULL iOS App Store readiness audit with STRICT cost control.
+
+CRITICAL RULE:
+Do NOT change ANYTHING unless I explicitly approve it first.
+No silent fixes. No UI tweaks. No refactors. No “improvements.”
+Audit only → report → wait for approval.
+
+COST CONTROL:
+- One single-pass audit only
+- No loops or repeated scans
+- Do not rebuild unnecessarily
+- Do not touch unrelated files
+- Only inspect what is required for App Store approval risk
+- Prefer reading over executing
+
+--------------------------------------------------
+
+1. MINIMUM FUNCTIONALITY (Apple Guideline 4.2)
+Verify this is clearly an app, not a website wrapper.
+
+Check:
+- Saved (favorites) works and persists
+- Near Me works (distance + sorting)
+- Map interaction (pan, zoom, category filtering)
+- Curated content (not empty, not generic)
+- Navigation feels native (tabs, flows)
+- No empty states or “coming soon”
+- No placeholder/demo/test content
+
+FLAG if:
+- Anything feels like static web content
+- Features don’t add real user value
+
+--------------------------------------------------
+
+2. PERMISSIONS (HIGH RISK)
+Check Info.plist:
+
+- NSLocationWhenInUseUsageDescription exists
+- Text clearly explains WHY location is used
+
+Verify behavior:
+- Location is NOT requested on app launch
+- Only requested when user taps Near Me or similar
+- App still works if permission is denied
+
+--------------------------------------------------
+
+3. PRIVACY / DATA SAFETY
+Audit for:
+
+- No exposed API keys in frontend
+- No localhost/test endpoints
+- HTTPS only
+- No hidden tracking scripts
+- No undeclared analytics
+
+Confirm:
+- Google Places API is NOT called at runtime
+- Venue images are static (no live fetch dependency)
+- External APIs (Ticketmaster/Eventbrite) are safe and read-only
+
+FLAG anything that could conflict with App Privacy labels
+
+--------------------------------------------------
+
+4. LINKS / EXTERNAL NAVIGATION (VERY HIGH RISK)
+Audit ALL CTA buttons:
+
+- Book Now
+- View Rooms
+- Get Tickets
+- Visit Website
+
+Check:
+- No broken links
+- No wrong destinations
+- No homepage redirects when booking page exists
+- Labels match behavior
+
+DO NOT FIX — REPORT ONLY
+
+--------------------------------------------------
+
+5. PAYMENTS / MONETIZATION
+Verify:
+
+- No digital purchases outside Apple IAP
+- No hidden paid features
+- External booking links are for real-world services only
+
+FLAG anything that could trigger rejection under payment rules
+
+--------------------------------------------------
+
+6. PERFORMANCE / STABILITY
+Check:
+
+- App launches without crash
+- No freezing or blank screens
+- Images load consistently (no flicker/mismatch)
+- Map loads properly
+- No bottom gap (iOS PWA issue)
+- Smooth scrolling
+- Works on iPhone screen sizes
+
+--------------------------------------------------
+
+7. MAP + LOCATION LOGIC
+Verify:
+
+- Pins are accurate
+- Hotels appear correctly
+- Category filters reposition map correctly
+- Hidden Bars zoom is not too tight
+- Saved map view fits all saved locations
+- Near Me shows distance in miles
+- Works even if location is denied
+
+--------------------------------------------------
+
+8. SAVED SYSTEM
+Verify:
+
+- Save/unsave works
+- Saved items persist
+- Hotels can be saved
+- No blank cards in Saved
+- Buttons work directly from Saved
+- Highlight state clears properly
+
+--------------------------------------------------
+
+9. CONTENT QUALITY (REJECTION RISK)
+Check:
+
+- Every venue has:
+  - Name
+  - Image
+  - Description
+  - Category
+  - CTA button
+- No duplicate entries
+- No missing images
+- No incorrect images
+- No placeholder text
+- No incomplete cards
+
+--------------------------------------------------
+
+10. CATEGORY STRUCTURE (FINAL STATE)
+Verify NOTHING has drifted from approved structure:
+
+Hero:
+- Hidden Bars, Rooftops, Cocktail Lounges, Dinner, Happy Hour, Nightlife
+
+Map:
+- All Venues, Hidden Bars, Rooftops, Dinner, Cocktail Lounges, Hotels,
+  Sports Bars, Happy Hour, Nightlife, Coffee Shops & Bakeries,
+  Lunch, Breakfast, Outdoor Activities
+
+Explore:
+- Same as Map (minus Hotels in Explore if applicable)
+
+Ensure:
+- NO Date Night
+- NO area filters (Midtown, Downtown, Corktown)
+- NO Comedy/Live Events category
+
+--------------------------------------------------
+
+11. APP STORE METADATA READINESS
+Verify:
+
+- App Name: Exclusive
+- Subtitle: Hidden spots & experiences
+- Privacy policy URL exists
+- App icon ready (no transparency)
+- Screenshots match real UI
+- Bundle ID correct
+- Version/build set
+- Reviewer notes ready
+
+--------------------------------------------------
+
+12. FINAL BUILD SAFETY
+Confirm:
+
+- Production mode enabled
+- No dev/test code
+- No console errors visible
+- No unused permissions
+- No background API loops
+- No cost-generating processes running unintentionally
+
+--------------------------------------------------
+
+OUTPUT FORMAT (REQUIRED):
+
+Critical rejection risks (must fix before submit):
+High priority issues:
+Medium priority issues:
+Safe / approved:
+Anything unclear that needs my approval before fixing:
+
+--------------------------------------------------
+
+REMINDER:
+DO NOT fix anything yet.
+WAIT for my approval before making ANY changes.
