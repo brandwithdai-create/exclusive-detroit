@@ -145,12 +145,12 @@ hours:"Tuesdays only 6pm-9pm | Hotel lobby open 24/7", best:"Tuesday Evening",
 exclusive:"One night a week, the most design-obsessed hotel in Detroit opens its living room.",
 badges:["firsttimer","locals"], websiteUrl:"https://www.shinolahotel.com" },
 
-{ id:9,  name:"The Monarch Club",                 hood:"Downtown",           cat:"Hotel Lounges",
+{ id:9,  name:"The Monarch Club",                 hood:"Downtown",           cat:"Cocktail Lounges",
 desc:"A rooftop cocktail lounge at the penthouse of the beautifully restored Metropolitan Building. Mid-century inspired, fire pit terraces, craft cocktails, and a view of Detroit that rewrites the narrative.",
 vibes:["Rooftop Penthouse","City Views","Fire Pits"], addr:"33 John R St, Penthouse, Detroit, MI 48226",
 hours:"Mon-Thu 5pm-11pm | Fri 5pm-12am | Sat 4pm-12am | Sun 2pm-8pm", best:"Weeknight / Weekend",
 exclusive:"Penthouse of the Metropolitan Building. Two outdoor fire pit terraces. One of the most dramatic views in the city.",
-badges:["firsttimer"], cats:["Cocktail Lounges"], reservationUrl:"https://www.opentable.com/r/the-monarch-club-detroit" },
+badges:["firsttimer"], cats:[], reservationUrl:"https://www.opentable.com/r/the-monarch-club-detroit" },
 
 { id:10, name:"The Conservatory - AC Hotel",      hood:"Midtown / Brush Park",cat:"Cocktail Lounges",
 desc:"A glass-enclosed bar connecting the AC Hotel Detroit to the restored Bonstelle Theatre. Spanish Modernisme design, gin-forward cocktails, Spanish tapas, and architecture unlike anything else in Detroit.",
@@ -913,8 +913,8 @@ style:{ display:full?"flex":"inline-block", alignItems:full?"center":undefined, 
 }, cta.label);
 }
 
-const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports Bars":"⚾️","Hidden Bars":"🚪","Cocktail Lounges":"🥃","Rooftops":"🌆","Hotel Lounges":"🥃","Alley Spots":"🌟","Nightlife":"🌙","Outdoor Activities":"🍃","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
-const EMOJI_PRIORITY=["Cocktail Lounges","Hotel Lounges","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports Bars","Rooftops","Nightlife","Outdoor Activities","Alley Spots"];
+const CAT_EMOJI={"Breakfast":"🍳","Coffee Shops & Bakeries":"☕","Lunch":"🥪","Dinner":"🍽️","Happy Hour":"🥂","Sports Bars":"⚾️","Hidden Bars":"🚪","Cocktail Lounges":"🥃","Rooftops":"🌆","Alley Spots":"🌟","Nightlife":"🌙","Outdoor Activities":"🍃","African Restaurant":"🌍","Pan-Asian Restaurant":"🍜","Immersive Entertainment":"🌆","Luxury Hotel":"✨"};
+const EMOJI_PRIORITY=["Cocktail Lounges","Hidden Bars","Dinner","Lunch","Breakfast","Coffee Shops & Bakeries","Happy Hour","Sports Bars","Rooftops","Nightlife","Outdoor Activities","Alley Spots"];
 function getEmojiForVenue(venue){const all=[venue.cat,...(venue.cats||[])];for(const c of EMOJI_PRIORITY){if(all.includes(c)&&CAT_EMOJI[c])return CAT_EMOJI[c];}return CAT_EMOJI[venue.cat]||"✨";}
 function getVibeLine(venue){const emoji=getEmojiForVenue(venue);const vibes=venue.vibes||[];if(!vibes.length)return null;const parts=vibes.slice(0,2).map(v=>v.toLowerCase());return emoji+" "+parts.join(" · ");}
 function getInsiderTip(venue){if(!venue.best)return null;return "💡 Best: "+venue.best;}
@@ -955,7 +955,6 @@ const CATEGORY_IMG_POOL = {
 "Hidden Bars":["1470337458703-46ad1756a187","1566417713940-fe7c737a9ef2","1551634979-2e9bb8c7dd5d"],
 "Cocktail Lounges":["1513558161293-cdaf765ed2fd","1470337458703-46ad1756a187","1543007630-9359431a5a9d"],
 "Nightlife":["1492684223066-81342ee5ff30","1504701954957-2010ec3bcec1","1517457373958-b7bdd4587205"],
-"Hotel Lounges":["1542314831-068cd1dbfeeb","1571896349842-33c89424de2d","1513558161293-cdaf765ed2fd"],
 "Happy Hour":["1414235077428-338989a2e8c0","1517248135467-4c7edcad34c4","1470337458703-46ad1756a187"],
 "Lunch":["1414235077428-338989a2e8c0","1517248135467-4c7edcad34c4","1550966871-3ed3ccd8aede"],
 "Dinner":["1414235077428-338989a2e8c0","1550966871-3ed3ccd8aede","1517248135467-4c7edcad34c4"],
