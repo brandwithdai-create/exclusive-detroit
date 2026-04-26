@@ -49,5 +49,7 @@
         <true/>
         <key>NSLocationWhenInUseUsageDescription</key>
         <string>Exclusive uses your location to show nearby hidden gems, bars, and experiences in Detroit.</string>
+        <key>ITSAppUsesNonExemptEncryption</key>
+        <false/>
 </dict>
 </plist>

@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Exclusive',
   webDir: 'www',
   server: {
-url:'https://exclusivedetroitapp.vercel.app',
+url:'https://exclusivedetroitapp.com',
     cleartext: false
   }
 };
