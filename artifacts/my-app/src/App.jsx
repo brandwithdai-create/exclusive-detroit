@@ -1205,6 +1205,7 @@ const [mapReady,setMapReady]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
 const [showList,setShowList]=React.useState(false);
 const [hotelDetail,setHotelDetail]=React.useState(null);
+const [mapHotelModal,setMapHotelModal]=React.useState(null);
 const mapVenuePool=mapCat==="Hotels"?MAP_HOTELS:[...ALL,...UPCOMING,...MAP_HOTELS];
 
 const hasSaves=favs.length>0;
@@ -1361,9 +1362,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 ),
 React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:5,marginBottom:8}},hotelDetail.desc.length>90?hotelDetail.desc.slice(0,90)+"\u2026":hotelDetail.desc),
 React.createElement("div",{style:{display:"flex",gap:10}},
-hdCta
-?React.createElement("a",{href:hdCta,target:"_blank",rel:"noopener noreferrer",style:{flex:1,display:"flex",alignItems:"center",justifyContent:"center",padding:"9px",background:C.gold,color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500,textDecoration:"none"}},"Book Now")
-:React.createElement("span",{style:{flex:1}}),
+React.createElement("button",{onClick:()=>{const fh=HOTELS.find(h=>String(h.id)===String(hotelDetail.id));setMapHotelModal(fh||hotelDetail);setHotelDetail(null);},style:{flex:1,display:"flex",alignItems:"center",justifyContent:"center",padding:"9px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details"),
 React.createElement("button",{onClick:()=>toggleSavedHotel(String(hotelDetail.id)),title:hdSv?"Saved":"Save",style:{flex:"0 0 auto",width:38,height:38,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:hdSv?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(hdSv?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:hdSv?C.gold:"var(--c-modal-save-clr)",fontSize:"1rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},hdSv?"\u2665":"\u2661")
 )
 )
@@ -1474,7 +1473,8 @@ React.createElement("button",{onClick:()=>selected.cat==="Hotels"?toggleSavedHot
 )
 ),
 hotelDetailSheet,
-listPanel
+listPanel,
+mapHotelModal&&React.createElement(HotelDetailModal,{hotel:mapHotelModal,places:null,saved:isSavedHotel(mapHotelModal.id),onSave:toggleSavedHotel,onClose:()=>setMapHotelModal(null)})
 );}
 
 export default function App() {
