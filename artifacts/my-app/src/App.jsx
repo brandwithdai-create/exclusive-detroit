@@ -1035,8 +1035,8 @@ style:{ background:C.card, border:"1px solid "+cardBorder, borderRadius:12, curs
 React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood)
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood)
 ),
 venue.distMi!==undefined&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.62rem",letterSpacing:"0.1em",color:C.purple}},"◉ "+venue.distMi.toFixed(1)+" mi away"),
 (venue.badges||[]).length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:5 }}, (venue.badges||[]).map(b=>React.createElement(Chip,{key:b,type:b}))),
@@ -1107,8 +1107,8 @@ style:{ background:C.card, border:"1px solid "+hBorder, borderRadius:12, cursor:
 React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:imgHeight||190 }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:acc }}, venue.cat),
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood)
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:acc }}, venue.cat),
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood)
 ),
 React.createElement("div", { style:{ display:"flex", gap:5 }}, React.createElement(Chip,{type:venue.status})),
 React.createElement("h3", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}, venue.name),
@@ -1152,9 +1152,9 @@ React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue
 ),
 React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold, fontWeight:400 }}, venue.cat),
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold, fontWeight:400 }}, venue.cat),
 React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:14 }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.49rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--c-modal-hood)" }}, venue.hood),
+React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--c-modal-hood)" }}, venue.hood),
 React.createElement("button", { onClick:onClose, style:{ background:"none", border:"none", color:"var(--c-modal-close)", cursor:"pointer", fontSize:"1.15rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:36, minHeight:36, display:"flex", alignItems:"center", justifyContent:"center", lineHeight:1, padding:0 }}, "✕")
 )),
 badges.length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:6 }}, badges.map(b=>React.createElement(Chip,{key:b,type:b}))),
@@ -1357,7 +1357,7 @@ hdImg&&React.createElement("img",{src:hdImg,alt:hotelDetail.name,style:{width:"1
 React.createElement("div",{style:{flex:1,minWidth:0}},
 React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:2}},"Hotel"),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},hotelDetail.name),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},hotelDetail.hood)
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},hotelDetail.hood)
 )
 ),
 React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:5,marginBottom:8}},hotelDetail.desc.length>90?hotelDetail.desc.slice(0,90)+"\u2026":hotelDetail.desc),
@@ -1396,9 +1396,9 @@ React.createElement("div",{style:{width:48,height:48,borderRadius:8,flexShrink:0
 img&&React.createElement("img",{src:img,alt:v.name,loading:"lazy",style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
 ),
 React.createElement("div",{style:{flex:1,minWidth:0}},
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.39rem",letterSpacing:"0.12em",textTransform:"uppercase",color:C.gold,marginBottom:2}},v.cat),
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.12em",textTransform:"uppercase",color:C.gold,marginBottom:2}},v.cat),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},v.name),
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.37rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)",marginTop:2}},v.hood)
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.39rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)",marginTop:2}},v.hood)
 ),
 saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexShrink:0}},"\u2665")
 );
@@ -1462,7 +1462,7 @@ selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"10
 React.createElement("div",{style:{flex:1,minWidth:0}},
 React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:2}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood)
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood)
 )
 ),
 React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:5,marginBottom:8}},selected.desc.length>90?selected.desc.slice(0,90)+"\u2026":selected.desc),
