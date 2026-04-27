@@ -1,8 +1,67 @@
 uploads = []
-outputs = []
 
 [[generated]]
 id = "gIp6mP0oHjto1x17Ybfay"
 uri = "file://artifacts/my-app/public/detroit-skyline.png"
 type = "image"
 title = "detroit skyline renaissance center dusk"
+
+[[outputs]]
+id = "3eiJBrx1BuMSNf14FLuZ7"
+uri = "file://screenshots_resized/IMG_7075_1777264700614.png"
+type = "image"
+title = "Screenshot 1 — Home/Hero"
+
+[[outputs]]
+id = "YbDXQY6x4lYzGUz-nchs3"
+uri = "file://screenshots_resized/IMG_6989_1777264700614.png"
+type = "image"
+title = "Screenshot 2 — Opening Soon"
+
+[[outputs]]
+id = "w1XQoxZeZXyttAiGpAH8S"
+uri = "file://screenshots_resized/IMG_7030_1777264700614.png"
+type = "image"
+title = "Screenshot 3 — Cocktail Lounges"
+
+[[outputs]]
+id = "igpPhjAqPec9_ZqSS7kB_"
+uri = "file://screenshots_resized/IMG_7034_1777264700614.png"
+type = "image"
+title = "Screenshot 4 — Map View"
+
+[[outputs]]
+id = "aqfbHqAvUEivYZP2u8_4F"
+uri = "file://screenshots_resized/IMG_6991_1777264700614.png"
+type = "image"
+title = "Screenshot 5 — Venue Detail (Cannelle)"
+
+[[outputs]]
+id = "50DF-TUrzO--sREqCoCRY"
+uri = "file://screenshots_resized/IMG_7021_1777264700614.png"
+type = "image"
+title = "Screenshot 6 — Near Me / Barda"
+
+[[outputs]]
+id = "fbSil4M9Bkf-IAEbMzqaz"
+uri = "file://screenshots_resized/IMG_7010_1777264700614.png"
+type = "image"
+title = "Screenshot 7 — Saved Spots"
+
+[[outputs]]
+id = "kveEO7Sny1cqGkpRcHL--"
+uri = "file://screenshots_resized/IMG_6995_1777264700614.png"
+type = "image"
+title = "Screenshot 8 — Events / Tigers"
+
+[[outputs]]
+id = "iFNiDXPAnN6ETxJv3XSyH"
+uri = "file://screenshots_resized/IMG_7012_1777264700614.png"
+type = "image"
+title = "Screenshot 9 — Where to Stay"
+
+[[outputs]]
+id = "50qdxHrRacdq3pajqhBPb"
+uri = "file://screenshots_resized/IMG_6992_1777264700614.png"
+type = "image"
+title = "Screenshot 10 — About Detroit"
