@@ -1146,7 +1146,7 @@ html.style.overflow = prevHtmlOverflow;
 }, []);
 return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}),
-React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92dvh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
+React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
 React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
 React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:240 })
 ),
@@ -1198,10 +1198,11 @@ const MAP_HOTELS=HOTELS.map(h=>({id:h.id,name:h.name,hood:h.hood,addr:h.addr,des
 const TILE_DARK="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
 const TILE_LIGHT="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
 function MapView({isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}){
-const isDark=theme==="dark"||(theme==="system"&&window.matchMedia("(prefers-color-scheme:dark)").matches);
+const isDark=theme==="dark"||(theme==="system"&&(window.matchMedia?.("(prefers-color-scheme:dark)")?.matches===true));
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
+const [mapError,setMapError]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
 const [showList,setShowList]=React.useState(false);
 const [hotelDetail,setHotelDetail]=React.useState(null);
@@ -1256,18 +1257,20 @@ window.removeEventListener("orientationchange",onOrient);
 },[]);
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
+let ro=null;let map=null;let t=null;
+try{
 const exactH=Math.max(400,window.visualViewport?.height||window.innerHeight||window.screen?.height||800);
 containerRef.current.style.height=`${exactH}px`;
-const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
+map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
-const forceRedraw=(m)=>{m.invalidateSize();m.setView(m.getCenter(),m.getZoom(),{animate:false});};
+const forceRedraw=(m)=>{try{m.invalidateSize();m.setView(m.getCenter(),m.getZoom(),{animate:false});}catch(e){console.warn("[ExclusiveDetroit] map redraw error",e);}};
 forceRedraw(map);
 setMapReady(true);
-const ro=new ResizeObserver(()=>{if(mapRef.current)forceRedraw(mapRef.current);});
-ro.observe(containerRef.current);
-const t=setTimeout(()=>{if(mapRef.current)forceRedraw(mapRef.current);},300);
-return()=>{clearTimeout(t);ro.disconnect();map.remove();mapRef.current=null;};
+if(typeof ResizeObserver!=="undefined"&&containerRef.current){ro=new ResizeObserver(()=>{if(mapRef.current)forceRedraw(mapRef.current);});ro.observe(containerRef.current);}
+t=setTimeout(()=>{if(mapRef.current)forceRedraw(mapRef.current);},300);
+}catch(e){console.error("[ExclusiveDetroit] Leaflet map init failed",e);setMapError(true);}
+return()=>{if(t)clearTimeout(t);if(ro)ro.disconnect();if(map)try{map.remove();}catch(e2){console.warn("[ExclusiveDetroit] map cleanup error",e2);}mapRef.current=null;};
 },[]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
@@ -1405,6 +1408,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
+if(mapError)return React.createElement("div",{style:{position:"fixed",top:0,left:0,width:"100%",height:"100%",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:isDark?"#000":"#f4f0e8",color:isDark?"#F5F2EE":"#1A1A1A",fontFamily:"sans-serif",textAlign:"center",padding:24,gap:16}},React.createElement("div",{style:{fontSize:"2rem"}},"🗺"),React.createElement("p",{style:{fontSize:"0.9rem",lineHeight:1.6,maxWidth:280}},"The map couldn't load on this device. Try switching to the Explore tab to browse venues."),React.createElement("button",{onClick:()=>navTo("explore"),style:{background:"#C9A84C",color:"#0A0808",border:"none",borderRadius:100,padding:"12px 28px",fontFamily:"sans-serif",fontSize:"0.85rem",cursor:"pointer",marginTop:8}},"Browse Venues"));
 return React.createElement("div",{ref:outerRef,style:{position:"fixed",top:0,left:0,width:"100%",height:"100%",minHeight:"400px",overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#000000":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
@@ -1980,7 +1984,7 @@ React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44r
 )
 );
 
-return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100dvh",fontSize:15,lineHeight:1.6}},
+return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100vh",fontSize:15,lineHeight:1.6}},
 NavBar(),
 React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))"}},
 section==="explore"       && Explore(),

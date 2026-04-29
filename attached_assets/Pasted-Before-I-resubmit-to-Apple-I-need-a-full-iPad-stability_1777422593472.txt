@@ -1,0 +1,75 @@
+Before I resubmit to Apple, I need a full iPad stability and compatibility audit.
+
+Apple rejected the app because it showed a blank screen and became unresponsive on iPad Air 11-inch (M3), iPadOS 26.4.1.
+
+Do NOT change the app design, content, venue data, APIs, categories, links, or styling unless required to fix an actual iPad bug.
+
+Please do the following:
+
+1. Test the production app on iPad/tablet viewport sizes, especially:
+- iPad Air 11-inch
+- iPad Pro 11-inch
+- iPad landscape and portrait
+- iPhone compatibility mode on iPad if applicable
+
+2. Confirm the app does NOT depend on the fallback error screen.
+The fallback is only a safety net. The real app must load normally.
+
+3. Check for and fix any iPad-specific issues:
+- blank screen on cold launch
+- frozen or unresponsive launch
+- JavaScript runtime errors
+- map not rendering
+- map height returning 0
+- layout collapsing
+- cards overflowing or overlapping
+- buttons not tappable
+- bottom safe-area gaps
+- horizontal scrolling bugs
+- slow initial load
+- broken images
+- failed event/game API loading
+- white/black empty screen during startup
+
+4. Verify the Leaflet map works correctly on iPad:
+- map appears immediately
+- markers load
+- category filters work
+- venue cards open correctly
+- “View Details” works
+- saved/heart behavior works
+- map does not collapse or disappear
+- map remains usable in portrait and landscape
+
+5. Verify all main user paths on iPad:
+- launch app
+- switch tabs
+- open Explore
+- open Map
+- tap category filters
+- open venue detail cards
+- save and unsave venues
+- open Saved tab
+- open Hotels/Where to Stay
+- open Sports Tickets, Events, Concerts
+- tap external buttons
+- return to app
+
+6. Performance requirements:
+- no blank screen at launch
+- no long frozen state
+- no console errors
+- no uncaught promise errors
+- no infinite loading
+- no layout jump that makes the app look broken
+- smooth scrolling and tapping on iPad
+
+7. After fixes, please provide:
+- the exact files changed
+- what iPad issue each change fixes
+- confirmation that design/data/content were not changed
+- confirmation that the production build was tested
+- confirmation that the app loads normally on iPad without needing the fallback error screen
+
+Important:
+Keep this minimal and focused. No new APIs. No unnecessary refactors. No background processes. No bulk operations. No changes to venue data or app content.
