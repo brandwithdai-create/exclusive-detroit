@@ -1240,7 +1240,7 @@ document.documentElement.style.background=phtmlbg;
 React.useLayoutEffect(()=>{
 const forceRedraw=(m)=>{m.invalidateSize();m.setView(m.getCenter(),m.getZoom(),{animate:false});};
 const setExactHeight=()=>{
-const height=window.visualViewport?.height||window.innerHeight;
+const height=Math.max(400,window.visualViewport?.height||window.innerHeight||window.screen?.height||800);
 if(outerRef.current){outerRef.current.style.height=`${height}px`;}
 if(containerRef.current){containerRef.current.style.height=`${height}px`;}
 requestAnimationFrame(()=>{if(mapRef.current)forceRedraw(mapRef.current);});
@@ -1256,7 +1256,7 @@ window.removeEventListener("orientationchange",onOrient);
 },[]);
 React.useEffect(()=>{
 if(!containerRef.current||mapRef.current)return;
-const exactH=window.visualViewport?.height||window.innerHeight;
+const exactH=Math.max(400,window.visualViewport?.height||window.innerHeight||window.screen?.height||800);
 containerRef.current.style.height=`${exactH}px`;
 const map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
@@ -1405,7 +1405,7 @@ saved&&React.createElement("span",{style:{color:C.gold,fontSize:"0.85rem",flexSh
 })
 )
 );
-return React.createElement("div",{ref:outerRef,style:{position:"fixed",top:0,left:0,width:"100%",height:"100%",overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#000000":"#f4f0e8"}},
+return React.createElement("div",{ref:outerRef,style:{position:"fixed",top:0,left:0,width:"100%",height:"100%",minHeight:"400px",overflow:"hidden",overscrollBehavior:"none",zIndex:0,background:isDark?"#000000":"#f4f0e8"}},
 // ── Filter chip row ──
 React.createElement("div",{
 style:{position:"absolute",top:"calc(68px + env(safe-area-inset-top))",left:0,right:0,background:"var(--c-nav-bg)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderBottom:"1px solid var(--c-mzoom-sep)",padding:"10px 16px",display:"flex",gap:8,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",touchAction:"pan-x",zIndex:600},
