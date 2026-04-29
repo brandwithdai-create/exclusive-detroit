@@ -1,0 +1,75 @@
+Please do one final iPad stress/random behavior test before Apple resubmission.
+
+Goal: confirm the app does not crash, freeze, show a blank screen, or become unresponsive under real Apple-review-style behavior.
+
+Test on iPad sizes:
+- iPad Air 11-inch portrait
+- iPad Air 11-inch landscape
+- iPad Pro 11-inch portrait
+- Standard iPad portrait
+
+Please test:
+
+1. Cold launch stress
+- fully close app
+- reopen app
+- repeat multiple times
+- confirm no blank screen and no crash
+
+2. Network stress
+- open with normal internet
+- open with slow internet
+- briefly disconnect internet during launch
+- reconnect internet
+- open app with no internet if possible
+- confirm app shows visible UI/fallback and does not crash
+
+3. Rapid tap stress
+- quickly tap bottom tabs back and forth
+- Explore → Map → Saved → About → back again
+- rapidly open and close venue detail modals
+- rapidly save/unsave hearts
+- rapidly change map filters
+- confirm no frozen state or console errors
+
+4. Orientation stress
+- open in portrait
+- rotate to landscape
+- rotate back to portrait
+- open map
+- open venue detail
+- rotate again
+- confirm layout does not collapse and map stays usable
+
+5. Map stress
+- pan map
+- zoom map
+- tap multiple pins
+- open and close map detail cards
+- switch categories while a card is open
+- confirm Leaflet does not crash
+
+6. Image stress
+- open multiple venue cards quickly
+- close and reopen the same card
+- scroll fast through Explore
+- open Hotels, Things To Do, and About
+- confirm images load fast, no blank image boxes, no broken images
+
+7. Background/resume stress
+- open app
+- send it to background
+- reopen after a moment
+- switch tabs
+- confirm no blank screen or frozen UI
+
+8. Final check
+Please report:
+- exact iPad viewports tested
+- whether any bug/crash/freeze happened
+- whether offline/slow internet was tested
+- whether any console errors appeared
+- whether any files were changed
+- confirmation production build is still live and clean
+
+Do not change design, data, links, categories, APIs, or layout unless a real bug is found.
