@@ -985,7 +985,7 @@ return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=75`
 }
 
 const _imgCache = new Set();
-const VenueImg = React.memo(function VenueImg({ src, fallbackSrc, alt, height=190 }) {
+const VenueImg = React.memo(function VenueImg({ src, fallbackSrc, alt, height=190, priority=false }) {
 const initialSrc = src || fallbackSrc || null;
 const [activeSrc, setActiveSrc] = useState(initialSrc);
 const [loaded, setLoaded] = useState(() => !!initialSrc && _imgCache.has(initialSrc));
@@ -1005,7 +1005,7 @@ else { setFailed(true); }
 };
 const handleLoad = () => { if (activeSrc) _imgCache.add(activeSrc); setLoaded(true); };
 return React.createElement("div", { style:{ height, overflow:"hidden", background:"linear-gradient(160deg,#2a1f14 0%,#1c150e 100%)", flexShrink:0, position:"relative" } },
-activeSrc && !failed && React.createElement("img", { src:activeSrc, alt:alt||"", loading:"lazy", decoding:"async", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:loaded?"none":"opacity 0.35s ease", position:"absolute", inset:0 }, onLoad:handleLoad, onError:handleError }),
+activeSrc && !failed && React.createElement("img", { src:activeSrc, alt:alt||"", loading:priority?"eager":"lazy", fetchPriority:priority?"high":"auto", decoding:"async", style:{ width:"100%", height:"100%", objectFit:"cover", display:"block", opacity:loaded?1:0, transition:loaded?"none":"opacity 0.35s ease", position:"absolute", inset:0 }, onLoad:handleLoad, onError:handleError }),
 failed && React.createElement("div", { style:{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:8 } },
 React.createElement("span", { style:{ fontSize:"2rem", opacity:0.35 } }, "🥃"),
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.38rem", letterSpacing:"0.18em", color:"rgba(201,168,76,0.38)", textTransform:"uppercase" } }, "Detroit")
@@ -1013,7 +1013,7 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 );
 });
 
-const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap }) {
+const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false }) {
 const [hov, setHov] = useState(false);
 const cardRef = React.useRef(null);
 React.useEffect(()=>{
@@ -1032,7 +1032,7 @@ onClick:()=>{setHov(false);onOpen(String(venue.id));},
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+cardBorder, borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:cardShadow, transition:"transform 0.24s,box-shadow 0.3s ease,border-color 0.3s ease", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
 },
-React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name }),
+React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, priority }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
@@ -1104,7 +1104,7 @@ onClick:()=>{setHov(false);onOpen(venue.id);},
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+hBorder, borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:hShadow, transition:"transform 0.24s,box-shadow 0.3s ease,border-color 0.3s ease", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
 },
-React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:imgHeight||190 }),
+React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:imgHeight||190, priority:i===0 }),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:acc }}, venue.cat),
@@ -1148,7 +1148,7 @@ return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
 React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
-React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:240 })
+React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:240, priority:true })
 ),
 React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
@@ -1684,7 +1684,7 @@ React.createElement("button",{onClick:()=>{setGeoModal(false);setGeoError(null);
 );
 
 const grid=(items,onOpen,animKey)=>React.createElement("div",{key:animKey,style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
-items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i,photoMap}))
+items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i,photoMap,priority:i<4}))
 );
 
 const Explore=()=>React.createElement("div",null,

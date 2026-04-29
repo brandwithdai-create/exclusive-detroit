@@ -1,0 +1,88 @@
+Final pre-resubmission audit.
+
+I do NOT want a second App Store rejection. Please do one final deep stability, performance, and visual audit for BOTH iPhone and iPad.
+
+Do not change design, content, venue data, links, categories, APIs, colors, typography, or layout unless required to fix a real bug or performance issue.
+
+Main goals:
+1. No crashes
+2. No blank screens
+3. No frozen states
+4. Smooth iPhone experience
+5. Smooth iPad compatibility mode experience
+6. Faster venue image loading
+
+Please check iPhone thoroughly:
+- cold launch
+- slow network launch
+- Explore tab
+- Map tab
+- venue cards
+- venue detail modals
+- image loading
+- save/unsave hearts
+- Saved tab
+- Hotels / Where to Stay
+- Sports Tickets
+- Events
+- Concerts
+- external buttons
+- back/close behavior
+- scrolling
+- bottom nav
+- light and dark mode if applicable
+
+Please check iPad thoroughly across multiple sizes:
+- iPad Air 11-inch
+- iPad Pro 11-inch
+- iPad 10.9-inch / standard iPad size
+- portrait and landscape
+- iPhone compatibility mode if applicable
+
+For iPad, specifically verify:
+- no blank screen on launch
+- no unresponsive launch
+- no JavaScript errors
+- map renders correctly
+- Leaflet does not crash
+- map height never collapses
+- venue cards open correctly
+- images load correctly
+- modals fit correctly
+- buttons are tappable
+- scrolling is smooth
+- no layout overlap
+- no weird safe-area gaps
+
+Image performance issue:
+In TestFlight, venue card/detail images were taking around 1.5 to 2 seconds to appear. Please optimize image loading without changing the selected images or venue data.
+
+Please check for:
+- images not preloading
+- images loading too late when opening cards
+- missing width/height causing layout delay
+- heavy image files that can be safely compressed or optimized
+- lazy loading that is too aggressive
+- cache issues
+- repeated image fetching
+- broken image fallback behavior
+
+Important image rules:
+- Do not replace venue images
+- Do not use Google Places API
+- Do not add new APIs
+- Do not add background processes
+- Prefer static/local caching, preloading, compression, or loading strategy fixes only
+- Keep changes minimal and safe
+
+After the audit, please report:
+1. Every issue found
+2. Every file changed
+3. What was fixed
+4. Confirmation iPhone was tested
+5. Confirmation iPad was tested across multiple sizes
+6. Confirmation no design/data/content changes were made
+7. Confirmation production build is clean
+8. Confirmation there are no console errors, no crashes, and no blank screens
+
+Please be extremely thorough but do not over-refactor. This is the final App Store resubmission check.
