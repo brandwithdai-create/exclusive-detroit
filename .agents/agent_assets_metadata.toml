@@ -71,3 +71,15 @@ id = "Opz0H9FuuoD4zRVd-EJjk"
 uri = "file://screenshots_resized/IMG_7081_1777265151190.png"
 type = "image"
 title = "Screenshot — Cocktail Lounges / The Skip"
+
+[[outputs]]
+id = "LUiR1dBF2UZTvoNZ9ffYm"
+uri = "file://attached_assets/passport_photo_600.jpg"
+type = "image"
+title = "Passport Photo — 600×600px (76KB)"
+
+[[outputs]]
+id = "62gtuiylcwmhoZ5pQKTcR"
+uri = "file://attached_assets/passport_photo_1200.jpg"
+type = "image"
+title = "Passport Photo — 1200×1200px (254KB)"
