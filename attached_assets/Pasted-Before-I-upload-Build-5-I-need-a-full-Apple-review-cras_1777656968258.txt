@@ -1,0 +1,84 @@
+Before I upload Build 5, I need a full Apple-review crash audit. The first two rejections were both blank/unresponsive launch failures, first on iPad Air 11-inch M3 / iPadOS 26.4.1 and then on iPhone 17 Pro Max / iOS 26.4.2. I need this confirmed resolved from every angle before I rebuild.
+
+Please do not make broad changes. I need a forensic test report first.
+
+Test the latest commit with the updated www URL as a real Capacitor iOS production app, not just responsive browser mode.
+
+Required checks:
+
+1. Fresh install cold launch  
+- uninstall app fully  
+- install fresh build  
+- first launch with clean cache  
+- confirm no blank screen  
+- confirm app renders home screen
+
+2. iPhone Apple environment simulation  
+- iPhone 17 Pro Max or closest equivalent  
+- iOS 26.4.2 or closest available  
+- Wi-Fi launch  
+- cellular launch  
+- force close and reopen  
+- restart device/simulator and reopen  
+- rotate portrait/landscape if supported  
+- confirm no blank screen, no crash, no console errors
+
+3. iPad Apple environment simulation  
+- iPad Air 11-inch M3 or closest equivalent  
+- iPadOS 26.4.1 or closest available  
+- same fresh install/cold launch process  
+- confirm no blank screen, no crash, no unresponsive state
+
+4. Network and remote URL audit  
+- confirm the built iOS app loads https://www.exclusivedetroitapp.com directly  
+- confirm there is no 301/302 redirect  
+- confirm HTTP 200  
+- confirm no mixed content, CORS, CSP, MIME, asset, module, or JS bundle loading errors  
+- confirm Vercel serves the app reliably from a clean request
+
+5. WKWebView/Capacitor audit  
+- inspect real WKWebView logs if possible  
+- confirm the Capacitor bridge initializes  
+- confirm remote URL loading is allowed  
+- confirm no navigation policy block  
+- confirm no white screen before React mounts
+
+6. React/app runtime audit  
+- confirm React mounts successfully  
+- confirm ErrorBoundary is active  
+- confirm window.onerror and window.unhandledrejection are active  
+- confirm all localStorage reads/writes are safely wrapped  
+- confirm service worker/cache cannot serve stale broken assets  
+- confirm no production-only minified JS crash
+
+7. Functional crash audit after launch  
+Test every main area:
+- hero/home
+- map
+- venue cards
+- venue detail modals
+- saved spots
+- events
+- hotels/Where to Stay
+- About screen
+- light mode
+- dark mode
+- navigation between all tabs/sections
+- image loading/fallbacks
+- geolocation permission denied/allowed/unavailable
+- share button
+- booking/external links
+
+8. Stress tests  
+- open/close app repeatedly  
+- force quit/reopen repeatedly  
+- slow network simulation  
+- offline launch, then reconnect  
+- rapid tapping between sections  
+- rotate while map/modal is open  
+- clear storage and relaunch  
+- low-storage/localStorage failure simulation if possible
+
+Please give me a pass/fail table for each test, plus any logs. I do not want “looks good” or “no crash paths” unless it was tested under real clean-install Apple-review conditions.
+
+The goal is to confirm Build 5 will not show a blank page or crash on Apple’s clean review devices before I download Xcode and upload again.
