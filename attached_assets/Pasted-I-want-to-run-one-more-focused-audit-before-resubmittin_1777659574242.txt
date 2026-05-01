@@ -1,0 +1,36 @@
+I want to run one more focused audit before resubmitting, specifically targeting the “blank page on launch” Apple rejection.
+
+This is not about making changes yet — I need you to verify each of these and confirm clearly:
+
+🔴 Launch & Rendering (highest priority)
+- Confirm there are ZERO uncaught JavaScript errors on cold launch (clean session, no cache)
+- Confirm the app renders a visible UI immediately on load (loading state/skeleton), not after any API call resolves
+- Confirm the app does not depend on any network response before mounting React
+
+🔴 Network / Environment
+- Confirm all production environment variables are present and not undefined at runtime
+- Confirm no SDK (Supabase, Firebase, etc.) is being initialized with missing values
+
+🟠 WebView / Capacitor
+- Confirm index.html successfully loads and executes even if the remote URL is slow or fails
+- Confirm there are no http:// or mixed-content requests that would be blocked by WKWebView
+- Confirm the splash/launch screen does NOT dismiss before the web content is ready
+
+🟡 React / App Boot
+- Confirm the app does not block rendering during auth/session checks
+- Confirm a loading UI is shown while any auth or initialization runs
+- Confirm the entire app is wrapped in an error boundary to prevent white screen on component crash
+
+🟡 iPad-specific (since Apple reviewed on iPad first)
+- Confirm layout renders correctly at ~820px+ widths
+- Confirm no CSS or viewport issues (including 100vh) can prevent rendering on iPad
+
+🟢 Build validation
+- Confirm the production build (not dev) was tested locally from dist/
+- Confirm the app was tested in Safari specifically
+- Confirm all JS/CSS assets load correctly at the production URL (no broken paths)
+- Confirm no console errors occur within the first 5 seconds of launch
+
+This is specifically to eliminate any remaining causes of a blank screen on fresh install.
+
+Please verify each category clearly and let me know if anything here fails or needs adjustment before I proceed.
