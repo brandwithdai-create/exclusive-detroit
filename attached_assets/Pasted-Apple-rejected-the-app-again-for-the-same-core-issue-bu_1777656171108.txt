@@ -1,0 +1,28 @@
+Apple rejected the app again for the same core issue, but this time on iPhone.
+
+Review environment:
+- Device: iPhone 17 Pro Max
+- iOS: 26.4.2
+- Version reviewed: 1.0 (4)
+- Issue: “The app launched to a blank page.”
+- Internet connection: Active
+
+This is now the second rejection for a blank/crash-style launch failure, first on iPad and now on iPhone. TestFlight works for me, but Apple is repeatedly seeing a blank page on clean review devices. This means we need to stop doing only normal viewport checks and investigate cold-start failure paths.
+
+Please do a deep launch-failure audit focused on why Apple would see a blank white page before the app renders.
+
+Check specifically:
+1. Capacitor remote URL loading: confirm the iOS build is loading https://exclusivedetroitapp.com correctly on fresh install.
+2. Vercel availability: confirm the site returns 200 status globally, with no redirects, auth, region issue, bot protection, timeout, or intermittent deploy problem.
+3. WKWebView restrictions: check if any JavaScript, asset, module, CSP, mixed content, CORS, MIME type, or service worker issue could break only inside iOS WKWebView.
+4. Blank screen before React mounts: add or verify a static HTML fallback/loading state so Apple never sees a blank page even if React JS fails.
+5. JavaScript bundle failure: inspect whether any import, syntax, optional API, or minified production error could stop React from mounting.
+6. Service worker/cache: check if an old cached asset or bad cache can cause blank launch on clean or review devices.
+7. Remote images/assets: confirm no asset dependency can block the initial app render.
+8. Console and network logs from a real iPhone WKWebView/Capacitor build, not just browser responsive mode.
+9. Fresh install test: uninstall the app completely, reinstall from TestFlight, launch on cellular and Wi-Fi, force close/reopen, airplane mode/offline launch, and rotate.
+10. Add temporary diagnostic logging or a visible fallback screen that records whether the failure is: remote URL not reached, JS failed, React mount failed, asset load failed, or runtime exception.
+
+Important: do not tell me “no crash paths” unless this is tested in the same conditions Apple used: fresh install, iPhone 17 Pro Max/iOS 26.4.2 equivalent, Capacitor WKWebView, production build, clean cache.
+
+Please identify the actual root cause before making broad changes. If you need to make a fix, keep it minimal and explain exactly what changed.

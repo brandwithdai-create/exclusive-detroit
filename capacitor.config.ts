@@ -5,7 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Exclusive',
   webDir: 'www',
   server: {
-url:'https://exclusivedetroitapp.com',
+url:'https://www.exclusivedetroitapp.com',
     cleartext: false
   }
 };
