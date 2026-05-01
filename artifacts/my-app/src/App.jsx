@@ -1496,7 +1496,7 @@ const [nearMe,  setNearMe]    = useState(false);
 const [userCoords,setUserCoords]=useState(null);
 const [geoError,setGeoError]  = useState(null);
 const [geoModal,setGeoModal]  = useState(false);
-const [theme,   setTheme]     = useState(()=>localStorage.getItem("ed-theme")||"system");
+const [theme,   setTheme]     = useState(()=>{try{return localStorage.getItem("ed-theme")||"system";}catch{return "system";}});
 const [aboutTick,setAboutTick]= useState(0);
 const [suggestName,setSuggestName]=useState("");
 const [suggestHood,setSuggestHood]=useState("");
@@ -1536,7 +1536,7 @@ s.textContent="*{box-sizing:border-box;margin:0;padding:0}a{text-decoration:none
 document.head.appendChild(s);
 }
 },[]);
-useEffect(()=>{localStorage.setItem("savedSpots",JSON.stringify(favs));},[favs]);
+useEffect(()=>{try{localStorage.setItem("savedSpots",JSON.stringify(favs));}catch(e){}},[favs]);
 useEffect(()=>{
 if(aboutTick===0)return;
 let t1,t2;
@@ -1555,9 +1555,9 @@ return()=>{cancelAnimationFrame(raf);clearTimeout(t1);clearTimeout(t2);};
 const [savedEvents,setSavedEvents]=useState(()=>{try{return JSON.parse(localStorage.getItem("savedEvents")||"[]");}catch{return [];}});
 const [savedEventMeta,setSavedEventMeta]=useState(()=>{try{return JSON.parse(localStorage.getItem("savedEventMeta")||"{}");}catch{return {};}});
 const [savedHotels,setSavedHotels]=useState(()=>{try{return JSON.parse(localStorage.getItem("savedHotels")||"[]");}catch{return [];}});
-useEffect(()=>{localStorage.setItem("savedEvents",JSON.stringify(savedEvents));},[savedEvents]);
-useEffect(()=>{localStorage.setItem("savedEventMeta",JSON.stringify(savedEventMeta));},[savedEventMeta]);
-useEffect(()=>{localStorage.setItem("savedHotels",JSON.stringify(savedHotels));},[savedHotels]);
+useEffect(()=>{try{localStorage.setItem("savedEvents",JSON.stringify(savedEvents));}catch(e){}},[savedEvents]);
+useEffect(()=>{try{localStorage.setItem("savedEventMeta",JSON.stringify(savedEventMeta));}catch(e){}},[savedEventMeta]);
+useEffect(()=>{try{localStorage.setItem("savedHotels",JSON.stringify(savedHotels));}catch(e){}},[savedHotels]);
 const isSavedEvent=id=>savedEvents.includes(String(id));
 const toggleSavedEvent=(id,item)=>{const sid=String(id);const removing=savedEvents.includes(sid);setSavedEvents(prev=>{if(prev.includes(sid)){setSavedEventMeta(m=>{const n={...m};delete n[sid];return n;});return prev.filter(x=>x!==sid);}else{if(item)setSavedEventMeta(m=>({...m,[sid]:item}));return[...prev,sid];}});showToast(removing?"Removed from saves":"\u2665 Saved to your list");};
 const isSavedHotel=id=>savedHotels.includes(String(id));
@@ -1568,7 +1568,7 @@ const html=document.documentElement;
 if(theme==="dark")html.setAttribute("data-theme","dark");
 else if(theme==="light")html.setAttribute("data-theme","light");
 else html.removeAttribute("data-theme");
-localStorage.setItem("ed-theme",theme);
+try{localStorage.setItem("ed-theme",theme);}catch(e){}
 },[theme]);
 useEffect(()=>{if(geoError){const t=setTimeout(()=>setGeoError(null),20000);return()=>clearTimeout(t);}},[geoError]);
 
