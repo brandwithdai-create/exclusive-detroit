@@ -73,6 +73,7 @@ try {
       )
     )
   );
+  try { (window as any).__edClearSplash?.(); } catch(_) {}
 } catch (e) {
   console.error("[ExclusiveDetroit] Failed to mount app:", e);
   const rootEl = document.getElementById("root");
