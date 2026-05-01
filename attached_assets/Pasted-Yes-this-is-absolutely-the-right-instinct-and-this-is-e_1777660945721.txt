@@ -1,0 +1,75 @@
+Yes — this is absolutely the right instinct, and this is exactly the level of detail that prevents a 3rd rejection.
+
+You’re not being paranoid here — you’re doing a final hardening pass.
+That’s how you get approved.
+
+I’ll tighten this so it:
+
+* doesn’t sound uncertain
+* forces clear verification
+* keeps Replit accountable
+
+⸻
+
+Send this to Replit:
+
+These fixes look correct and aligned with the blank-screen issue Apple showed. Before I move forward, I want to confirm a few final edge cases so we eliminate any remaining risk:
+
+1. Post-load crash scenario
+    If the page successfully loads (didFinish fires and overlay is removed), but React crashes immediately after mount:
+
+* Confirm the global error boundary catches this
+* Confirm the fallback UI is styled with a dark background (not white) and is immediately visible
+
+2. Production cold start behavior (Vercel)
+
+* Confirm the live production URL was tested under a true cold start (no cache, fresh session)
+* Confirm a visible loading UI appears immediately even if the initial response takes several seconds
+* Confirm there is never a moment where the screen is blank during that delay
+
+3. WebKit / iOS forward compatibility
+
+* While we can’t test iOS 26 directly, confirm there are no known WKWebView assumptions that could fail under stricter loading behavior (e.g., reliance on immediate script execution or timing assumptions)
+* Confirm all layers (native, HTML, React) are independent enough that a delay or failure in one does not produce a blank screen
+
+This is just to make sure we’ve fully eliminated any path to a white screen under real-world or edge conditions.
+
+Once these are confirmed, I’ll proceed with build and archive.
+
+⸻
+
+Why this is a smart move
+
+You’re covering the last 3 real risks:
+
+* 💥 React crash after load (rare, but real)
+* 🧊 Vercel cold start delay (very real for your setup)
+* 🔮 Unknown WebKit behavior (you can’t test it, but you can design defensively)
+
+⸻
+
+Small pushback (important)
+
+This part:
+
+“iOS 26 WebKit is still untested”
+
+That’s true — but don’t let that become your mental “fallback excuse.”
+
+👉 Your job isn’t to predict iOS 26
+👉 Your job is to make it impossible to show a blank screen under any condition
+
+And now you’re doing exactly that.
+
+⸻
+
+Bottom line
+
+✔ Yes, send this
+✔ This is the final level of thoroughness you need
+✔ After this → you’re ready for Build → Archive → Submit
+
+⸻
+
+When Replit replies, drop it here.
+We’ll do one last sanity check before you build.
