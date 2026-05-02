@@ -1,0 +1,58 @@
+Pause all fixes. Do not change code unless I approve it.
+
+We made many changes over 4 hours, and before I archive or submit, I need a full regression/stability audit to make sure nothing unnecessary broke the live website or iOS app.
+
+Please perform diagnostics only and give me a pass/fail checklist with evidence.
+
+Verify:
+
+1. Git / change audit
+- List every file changed since the last known stable App Store build.
+- Explain why each changed file was necessary.
+- Confirm no unrelated UI, routing, venue data, map logic, booking links, categories, images, or CSS were changed.
+
+2. Website production audit
+- Confirm https://www.exclusivedetroitapp.com loads correctly.
+- Confirm homepage/Explorer loads normally.
+- Confirm venue cards open normally.
+- Confirm external booking/reservation links work from the website.
+- Confirm no console errors on load or during venue-card interactions.
+- Confirm no service worker is registered or controlling the page.
+- Confirm /sw.js is not serving an active service worker.
+
+3. iOS native audit
+- Confirm capacitor.config.ts uses https://www.exclusivedetroitapp.com.
+- Confirm MainViewController.swift only contains the minimal load-safety logic needed.
+- Confirm there is no lifecycle reload handler, no didBecomeActive reload, no force homepage reload after launch.
+- Confirm WKWebView uses clear/transparent background to prevent white flash.
+- Confirm the native overlay/failsafe cannot interfere after successful load.
+- Confirm Xcode builds successfully from ios/App/App.xcworkspace.
+
+4. Regression flow audit
+Please test these exact flows:
+- Cold launch app.
+- Open Explorer.
+- Open a venue card.
+- Tap a booking/reservation link.
+- Return to Exclusive.
+- Confirm the same venue card remains open.
+- Confirm no “Unable to load page.”
+- Confirm no bounce back to Safari.
+- Confirm no reset to hero.
+- Test map view.
+- Test hotel card/details flow.
+- Test saved/favorite heart.
+- Test opening/closing several cards.
+- Test light mode and dark mode if applicable.
+- Test iPhone viewport and iPad viewport.
+
+5. Final risk assessment
+Tell me honestly:
+- What changed that was truly necessary?
+- What changed that might have been unnecessary?
+- Is there any code you recommend reverting?
+- Is the live website affected by any native iOS changes?
+- Is Build 5 safer than Build 4?
+- Would you submit this to Apple, yes or no?
+
+Do not make any new changes during this audit unless you find a critical build-blocking issue and ask me first.
