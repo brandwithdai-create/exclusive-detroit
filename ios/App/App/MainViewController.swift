@@ -6,7 +6,6 @@ class MainViewController: CAPBridgeViewController {
 
     private var loadOverlay: UIView?
     private var loadLabel: UILabel?
-    private var loadButton: UIButton?
     private var didSuccessfullyLoad = false
     private var failsafeItem: DispatchWorkItem?
     private var progressObserver: NSKeyValueObservation?
@@ -24,11 +23,8 @@ class MainViewController: CAPBridgeViewController {
             wv.scrollView.backgroundColor = UIColor.clear
 
             // KVO on estimatedProgress — fires directly from WebKit, bypasses
-            // Capacitor's delegate chain entirely.
-            //
-            // Intentionally NOT invalidated after first success so it also detects
-            // reloads triggered by WKWebView content-process restarts. After success,
-            // it calls clearStaleOverlay() instead of hideLoadOverlay().
+            // Capacitor's delegate chain. Kept alive after first success so it
+            // also catches reloads from WKWebView content-process restarts.
             progressObserver = wv.observe(\.estimatedProgress, options: [.new]) { [weak self] webView, change in
                 guard let self = self else { return }
                 guard let progress = change.newValue, progress >= 1.0 else { return }
@@ -37,8 +33,6 @@ class MainViewController: CAPBridgeViewController {
                       url.absoluteString != "about:blank" else { return }
                 DispatchQueue.main.async {
                     if self.didSuccessfullyLoad {
-                        // Post-success reload (content-process restart, etc.)
-                        // Clear any overlay that might have reappeared.
                         self.clearStaleOverlay()
                     } else {
                         self.hideLoadOverlay()
@@ -47,15 +41,11 @@ class MainViewController: CAPBridgeViewController {
             }
         }
 
-        // External links open in system Safari (UIApplication.shared.open),
-        // not SFSafariViewController — so the app goes to the background.
-        // iOS may terminate it under memory pressure. When the user taps the
-        // "< Exclusive" back button in Safari, iOS does a cold launch that
-        // looks like an app-resume. This observer handles the second scenario:
-        // if the app was NOT terminated but the WKWebView content-process was
-        // killed while backgrounded, the WKWebView will be at about:blank on
-        // resume. Capacitor's delegation handler calls webView.reload() on
-        // termination, but if that reload hasn't started yet, we trigger it here.
+        // External links open via UIApplication.shared.open (system Safari).
+        // The app goes to the background; iOS may terminate it. On return, if
+        // the WKWebView content-process was killed, it will be at about:blank.
+        // Capacitor's handler calls webView.reload() on termination, but this
+        // catches the edge case where that hasn't fired yet when we become active.
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(appDidBecomeActive),
@@ -69,8 +59,8 @@ class MainViewController: CAPBridgeViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Belt-and-suspenders: every time this VC becomes visible (after returning
-        // from Safari, after any modal), ensure no stale overlay is blocking the user.
+        // Every time this VC becomes visible (after returning from Safari, any
+        // modal, or background), clear any stale overlay immediately.
         if didSuccessfullyLoad {
             clearStaleOverlay()
         }
@@ -82,8 +72,6 @@ class MainViewController: CAPBridgeViewController {
         guard didSuccessfullyLoad else { return }
         guard let wv = webView else { return }
         let url = wv.url?.absoluteString ?? ""
-        // If WKWebView is blank after the app comes to foreground, the content
-        // process was likely killed while backgrounded. Reload silently.
         if url.isEmpty || url == "about:blank" {
             if let serverURL = bridge?.config.serverURL {
                 wv.load(URLRequest(url: serverURL))
@@ -98,8 +86,6 @@ class MainViewController: CAPBridgeViewController {
     // MARK: - Overlay
 
     private func showLoadOverlay() {
-        // Guard prevents a second overlay from appearing on the same VC instance.
-        // The only caller is viewDidLoad(), but this ensures safety.
         guard !didSuccessfullyLoad else { return }
 
         let overlay = UIView()
@@ -122,21 +108,8 @@ class MainViewController: CAPBridgeViewController {
         message.numberOfLines = 0
         message.translatesAutoresizingMaskIntoConstraints = false
 
-        let retryBtn = UIButton(type: .system)
-        retryBtn.setTitle("Tap to retry", for: .normal)
-        retryBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
-        retryBtn.setTitleColor(MainViewController.appGold, for: .normal)
-        retryBtn.layer.borderColor = MainViewController.appGold.withAlphaComponent(0.4).cgColor
-        retryBtn.layer.borderWidth = 0.5
-        retryBtn.layer.cornerRadius = 4
-        retryBtn.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
-        retryBtn.translatesAutoresizingMaskIntoConstraints = false
-        retryBtn.alpha = 0
-        retryBtn.addTarget(self, action: #selector(retryLoad), for: .touchUpInside)
-
         overlay.addSubview(title)
         overlay.addSubview(message)
-        overlay.addSubview(retryBtn)
         view.addSubview(overlay)
 
         NSLayoutConstraint.activate([
@@ -149,13 +122,10 @@ class MainViewController: CAPBridgeViewController {
             message.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
             message.leadingAnchor.constraint(equalTo: overlay.leadingAnchor, constant: 32),
             message.trailingAnchor.constraint(equalTo: overlay.trailingAnchor, constant: -32),
-            retryBtn.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 24),
-            retryBtn.centerXAnchor.constraint(equalTo: overlay.centerXAnchor),
         ])
 
         loadOverlay = overlay
         loadLabel = message
-        loadButton = retryBtn
     }
 
     private func hideLoadOverlay() {
@@ -169,13 +139,11 @@ class MainViewController: CAPBridgeViewController {
             overlay.removeFromSuperview()
             self.loadOverlay = nil
             self.loadLabel = nil
-            self.loadButton = nil
         }
     }
 
-    /// Removes any visible overlay without the didSuccessfullyLoad guard.
-    /// Called after first success to sweep up any overlay that reappeared due
-    /// to state edge cases (content-process restart, app-resume timing, etc.).
+    /// Removes any visible overlay unconditionally — used after first success
+    /// to sweep up any overlay that reappeared (content-process restart, etc.).
     private func clearStaleOverlay() {
         failsafeItem?.cancel()
         failsafeItem = nil
@@ -186,28 +154,7 @@ class MainViewController: CAPBridgeViewController {
             overlay.removeFromSuperview()
             self.loadOverlay = nil
             self.loadLabel = nil
-            self.loadButton = nil
         }
-    }
-
-    private func showNetworkError() {
-        failsafeItem?.cancel()
-        failsafeItem = nil
-        guard !didSuccessfullyLoad, let label = loadLabel else { return }
-        label.text = "Unable to load.\nPlease check your connection."
-        label.textColor = MainViewController.appGold
-        UIView.animate(withDuration: 0.3) {
-            self.loadButton?.alpha = 1
-        }
-    }
-
-    @objc private func retryLoad() {
-        guard let label = loadLabel, let btn = loadButton else { return }
-        label.text = "Loading..."
-        label.textColor = MainViewController.appGold.withAlphaComponent(0.6)
-        UIView.animate(withDuration: 0.2) { btn.alpha = 0 }
-        webView?.reload()
-        startFailsafe(delay: 60)
     }
 
     // MARK: - Failsafe
@@ -216,23 +163,29 @@ class MainViewController: CAPBridgeViewController {
         failsafeItem?.cancel()
         let item = DispatchWorkItem { [weak self] in
             guard let self = self, !self.didSuccessfullyLoad else { return }
-            // If the WKWebView is still actively loading, give it 30 more seconds
-            // rather than surfacing an error. Slow TestFlight / cellular connections
-            // can take well over 20 seconds to receive and render the page.
+
+            // If WKWebView is actively loading, extend and keep waiting.
             if self.webView?.isLoading == true {
                 self.startFailsafe(delay: 30)
                 return
             }
+
+            // If the WKWebView has a real URL, the page loaded but the
+            // progress observer may have missed it — hide overlay cleanly.
             if let url = self.webView?.url,
                !url.absoluteString.isEmpty,
                url.absoluteString != "about:blank" {
-                // The WKWebView has a real URL — page loaded but progress observer
-                // may have missed it. Dismiss the overlay cleanly.
                 self.hideLoadOverlay()
-            } else {
-                // Truly no network or server unreachable. Show error + retry button.
-                self.showNetworkError()
+                return
             }
+
+            // Page not loaded and not actively loading — silently reload and
+            // keep waiting. The web layer will show its own offline UI if
+            // the network is truly unavailable. No native error screen.
+            if let serverURL = self.bridge?.config.serverURL {
+                self.webView?.load(URLRequest(url: serverURL))
+            }
+            self.startFailsafe(delay: 60)
         }
         failsafeItem = item
         DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: item)
