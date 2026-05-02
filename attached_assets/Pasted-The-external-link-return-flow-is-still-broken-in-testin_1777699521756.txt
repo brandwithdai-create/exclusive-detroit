@@ -1,0 +1,39 @@
+The external-link return flow is still broken in testing.
+
+Actual behavior in simulator (Mac cloud only):
+1. I open a venue card.
+2. I tap an external booking/reservation link.
+3. Safari opens.
+4. I tap the “Exclusive” button in the top-left to return to the app.
+5. The app briefly says “Unable to load page.”
+6. Then it jumps back to the reservation/Safari screen.
+7. Then it bounces back into Exclusive at the venue card.
+8. Then it automatically bounces again to the Explorer hero screen.
+
+Important:
+This is NOT happening on my physical iPhone and NOT happening when using the live domain in a browser. This issue only appears in the iOS simulator on the Mac cloud environment.
+
+Still, this behavior is unstable and risky for App Review.
+
+Expected behavior:
+When returning from an external link, Exclusive should resume exactly where I left off — same venue card open — with no “Unable to load page,” no bounce to Safari, no auto-navigation, and no reset to the hero screen.
+
+Likely cause:
+The didBecomeActive / blank-webview reload logic is too aggressive and is firing during the SFSafariViewController return lifecycle. It should not force-load the homepage or reset state when returning from an external browser/reservation flow.
+
+Please adjust the logic so:
+- External links open cleanly outside the WKWebView.
+- Returning to Exclusive does not trigger a homepage reload unless the WKWebView is truly unrecoverable.
+- Do not show the “Unable to load page” overlay during normal external-link return.
+- Preserve the current app route/card state.
+- Add guards so lifecycle reload logic does not fire immediately after SFSafariViewController/external link return.
+
+After fixing, verify:
+1. Cold launch works.
+2. Venue card stays open after returning from a booking link.
+3. No “Unable to load page” appears during return.
+4. No bounce back to Safari/reservation page.
+5. No automatic reset to Explorer hero.
+6. Xcode build succeeds.
+
+If this is simulator-only behavior, confirm whether it is caused by simulator lifecycle quirks vs real-device WKWebView behavior before making aggressive reload changes.

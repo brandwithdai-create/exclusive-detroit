@@ -10,19 +10,16 @@ class MainViewController: CAPBridgeViewController {
     private var failsafeItem: DispatchWorkItem?
     private var progressObserver: NSKeyValueObservation?
     private var urlObserver: NSKeyValueObservation?
-    private var lifecycleObserver: NSObjectProtocol?
 
     private static let appBg   = UIColor(red: 0.039, green: 0.039, blue: 0.039, alpha: 1.0)
     private static let appGold = UIColor(red: 0.788, green: 0.659, blue: 0.298, alpha: 1.0)
-    private static let appURL  = URL(string: "https://www.exclusivedetroitapp.com")!
 
     override func viewDidLoad() {
         view.backgroundColor = MainViewController.appBg
         super.viewDidLoad()
 
         if let wv = webView {
-            // isOpaque = false makes WKWebView transparent before the page paints,
-            // preventing the white flash on cold launch.
+            // Transparent WKWebView prevents white flash before the page paints.
             wv.isOpaque = false
             wv.backgroundColor = UIColor.clear
             wv.scrollView.backgroundColor = UIColor.clear
@@ -37,7 +34,8 @@ class MainViewController: CAPBridgeViewController {
                 DispatchQueue.main.async { self.hideLoadOverlay() }
             }
 
-            // When WKWebView URL changes to a real URL, reset the failsafe clock.
+            // When WKWebView URL moves to a real URL, extend the failsafe clock so a
+            // slow connection gets more time before the error screen appears.
             urlObserver = wv.observe(\.url, options: [.new]) { [weak self] _, _ in
                 guard let self = self, !self.didSuccessfullyLoad else { return }
                 guard let url = self.webView?.url,
@@ -47,17 +45,6 @@ class MainViewController: CAPBridgeViewController {
             }
         }
 
-        // When the app returns to the foreground (including after SFSafariViewController
-        // is dismissed), check whether the WKWebView loaded. If it is still blank,
-        // force-load the app URL so the user is never stuck on a dark screen.
-        lifecycleObserver = NotificationCenter.default.addObserver(
-            forName: UIApplication.didBecomeActiveNotification,
-            object: nil,
-            queue: .main
-        ) { [weak self] _ in
-            self?.handleAppBecameActive()
-        }
-
         showLoadOverlay()
         startFailsafe(delay: 20)
     }
@@ -65,21 +52,6 @@ class MainViewController: CAPBridgeViewController {
     deinit {
         progressObserver?.invalidate()
         urlObserver?.invalidate()
-        if let obs = lifecycleObserver {
-            NotificationCenter.default.removeObserver(obs)
-        }
-    }
-
-    // MARK: - App lifecycle
-
-    private func handleAppBecameActive() {
-        guard !didSuccessfullyLoad else { return }
-        guard let wv = webView else { return }
-        let currentURL = wv.url?.absoluteString ?? ""
-        guard currentURL.isEmpty || currentURL == "about:blank" else { return }
-        // WKWebView is still blank — force-load the app URL directly.
-        wv.load(URLRequest(url: MainViewController.appURL))
-        startFailsafe(delay: 30)
     }
 
     // MARK: - Overlay
@@ -157,8 +129,8 @@ class MainViewController: CAPBridgeViewController {
         failsafeItem?.cancel()
         let item = DispatchWorkItem { [weak self] in
             guard let self = self, !self.didSuccessfullyLoad else { return }
-            // If the WKWebView has a real URL by now, the page loaded but the
-            // progress observer missed it — just hide the overlay cleanly.
+            // If the WKWebView has a real URL the page loaded; the progress observer
+            // may have missed it — hide the overlay cleanly without showing an error.
             if let url = self.webView?.url,
                !url.absoluteString.isEmpty,
                url.absoluteString != "about:blank" {
