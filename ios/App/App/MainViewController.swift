@@ -21,8 +21,11 @@ class MainViewController: CAPBridgeViewController {
         super.viewDidLoad()
 
         if let wv = webView {
-            wv.scrollView.backgroundColor = MainViewController.appBg
-            wv.backgroundColor = MainViewController.appBg
+            // isOpaque = false makes WKWebView transparent before the page paints,
+            // preventing the white flash on cold launch.
+            wv.isOpaque = false
+            wv.backgroundColor = UIColor.clear
+            wv.scrollView.backgroundColor = UIColor.clear
 
             // Hide overlay once the page finishes loading.
             progressObserver = wv.observe(\.estimatedProgress, options: [.new]) { [weak self] webView, change in
