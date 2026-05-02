@@ -9,6 +9,7 @@ class MainViewController: CAPBridgeViewController {
     private var didSuccessfullyLoad = false
     private var failsafeItem: DispatchWorkItem?
     private var progressObserver: NSKeyValueObservation?
+    private var urlObserver: NSKeyValueObservation?
 
     private static let appBg   = UIColor(red: 0.039, green: 0.039, blue: 0.039, alpha: 1.0)
     private static let appGold = UIColor(red: 0.788, green: 0.659, blue: 0.298, alpha: 1.0)
@@ -21,22 +22,35 @@ class MainViewController: CAPBridgeViewController {
             wv.scrollView.backgroundColor = MainViewController.appBg
             wv.backgroundColor = MainViewController.appBg
 
+            // Hide overlay when page finishes loading (estimatedProgress reaches 1.0).
             progressObserver = wv.observe(\.estimatedProgress, options: [.new]) { [weak self] webView, change in
-                guard let self = self else { return }
+                guard let self = self, !self.didSuccessfullyLoad else { return }
                 guard let progress = change.newValue, progress >= 1.0 else { return }
                 guard let url = webView.url,
                       !url.absoluteString.isEmpty,
                       url.absoluteString != "about:blank" else { return }
                 DispatchQueue.main.async { self.hideLoadOverlay() }
             }
+
+            // When the WKWebView URL changes to a real URL, we know loading has started.
+            // Reset the failsafe with more time so a slow connection doesn't trigger a
+            // false "Unable to load" before the page has had a chance to render.
+            urlObserver = wv.observe(\.url, options: [.new]) { [weak self] _, _ in
+                guard let self = self, !self.didSuccessfullyLoad else { return }
+                guard let url = self.webView?.url,
+                      !url.absoluteString.isEmpty,
+                      url.absoluteString != "about:blank" else { return }
+                DispatchQueue.main.async { self.extendFailsafe() }
+            }
         }
 
         showLoadOverlay()
-        startFailsafe()
+        startFailsafe(delay: 20)
     }
 
     deinit {
         progressObserver?.invalidate()
+        urlObserver?.invalidate()
     }
 
     // MARK: - Overlay
@@ -87,6 +101,8 @@ class MainViewController: CAPBridgeViewController {
         failsafeItem = nil
         progressObserver?.invalidate()
         progressObserver = nil
+        urlObserver?.invalidate()
+        urlObserver = nil
         guard !didSuccessfullyLoad, let overlay = loadOverlay else { return }
         didSuccessfullyLoad = true
         UIView.animate(withDuration: 0.25, animations: {
@@ -106,14 +122,33 @@ class MainViewController: CAPBridgeViewController {
         label.textColor = MainViewController.appGold
     }
 
-    // MARK: - Failsafe (15 s)
+    // MARK: - Failsafe
 
-    private func startFailsafe() {
+    // Called on launch. If the WKWebView URL never moves off about:blank in 20 s,
+    // we check whether the page actually loaded before deciding to show an error.
+    private func startFailsafe(delay: Double) {
+        failsafeItem?.cancel()
         let item = DispatchWorkItem { [weak self] in
-            self?.showNetworkError()
+            guard let self = self, !self.didSuccessfullyLoad else { return }
+            // If the WKWebView has a real URL the page loaded; progress observer
+            // may have missed it (e.g. iOS 26 simulator quirk). Just hide the overlay.
+            if let url = self.webView?.url,
+               !url.absoluteString.isEmpty,
+               url.absoluteString != "about:blank" {
+                self.hideLoadOverlay()
+            } else {
+                self.showNetworkError()
+            }
         }
         failsafeItem = item
-        DispatchQueue.main.asyncAfter(deadline: .now() + 15, execute: item)
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: item)
+    }
+
+    // Called when the URL observer detects the WKWebView has started loading a real URL.
+    // Resets the failsafe clock to give the page 30 more seconds to finish rendering.
+    private func extendFailsafe() {
+        guard !didSuccessfullyLoad else { return }
+        startFailsafe(delay: 30)
     }
 }
 
