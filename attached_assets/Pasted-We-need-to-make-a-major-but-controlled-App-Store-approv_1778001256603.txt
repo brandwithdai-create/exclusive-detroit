@@ -1,0 +1,349 @@
+We need to make a major but controlled App Store approval update.
+
+Apple rejected the app under Guideline 4.2 Minimum Functionality. Their feedback means the app currently appears too similar to a web browsing/content guide experience. Apple’s guideline focuses on whether the app provides enough utility, interaction, and app-like value beyond simply displaying curated content.
+
+Important context:
+- The app is currently stable and has no known bugs.
+- Do not rebuild the visual identity.
+- Do not change the luxury tone.
+- Do not make the UI feel busy.
+- Do not add paid APIs.
+- Do not add live Google Places calls.
+- Do not add background services.
+- Do not remove or disrupt current map, venue cards, saved spots, links, categories, images, or existing flows.
+- Keep font sizing, spacing, card styling, buttons, gradients, borders, and overall tone consistent with the current app.
+- Use existing static venue data wherever possible.
+- Any new feature should feel integrated into the current Exclusive Detroit experience, not bolted on.
+
+Goal:
+Transform Exclusive Detroit from a curated city guide into a true app experience with personalization, planning, tracking, and repeat engagement.
+
+We are adding five connected app-like systems:
+
+1. Taste Profile
+2. Build My Night
+3. Detroit Insider Passport
+4. Check-In / Visited Tracker
+5. First-Launch Guided App Experience / App Review Demo Path
+
+These should work together as one clean experience:
+Choose your vibe → build a curated night → visit/check in → collect passport stamps → return to track your Detroit lifestyle.
+
+SECTION 1 — Taste Profile
+
+Purpose:
+Taste Profile makes the app personal instead of static. It gives each user a curated identity inside the app and allows future recommendations to feel tailored.
+
+What it should do:
+- Let the user choose their Detroit vibe.
+- Save the selected profile locally on-device.
+- Use the profile to influence Build My Night suggestions.
+- Let the user update it later in settings/profile area.
+
+Suggested vibe options:
+- Luxe Dinner
+- Hidden Bar
+- Soft Life Sunday
+- Romantic Date Night
+- Girls Night
+- Art & Culture
+- Hotel Lounge Energy
+- Lowkey Local
+- Downtown Insider
+
+UX direction:
+- Keep this elegant and minimal.
+- Do not make it feel like a long quiz.
+- Use a short card-based selector, maybe 6–9 choices max.
+- User can select one primary vibe and optionally a few interests.
+- The copy should sound luxury and curated, not childish or gamified.
+
+Example screen copy:
+“Choose your Detroit vibe.”
+“Exclusive will personalize your nights, saved spots, and insider picks around your taste.”
+
+Implementation notes:
+- Store locally using existing local storage pattern.
+- No login required.
+- No backend required.
+- No API required.
+- Must work offline once data is loaded.
+
+SECTION 2 — Build My Night
+
+Purpose:
+Build My Night is the core utility feature. It turns the app from “places to browse” into “a tool that plans a curated experience.”
+
+What it should do:
+- Let the user generate a 2–3 stop itinerary from existing static venue data.
+- Use selected Taste Profile and chosen occasion/vibe.
+- Include stops such as dinner, cocktails, dessert, hotel lounge, art/culture, hidden gem, late night, etc.
+- Let user save the itinerary locally.
+- Let user view itinerary stops on the map.
+- Let user share the itinerary using the native iOS share sheet if possible.
+
+Suggested Build My Night options:
+- Date Night
+- Girls Night
+- Solo Reset
+- Luxe Dinner + Drinks
+- Hidden Gems
+- Late Night
+- Weekend Energy
+- Soft Life Sunday
+
+Example itinerary format:
+“Your Night”
+1. Start Here — cocktail/lounge
+2. Dinner Move — restaurant
+3. After — dessert, lounge, or hidden gem
+
+Each stop should show:
+- Venue name
+- Subtitle/neighborhood
+- Category
+- Image
+- Why it fits this night
+- View Details
+- Save
+- Open on Map
+
+UX direction:
+- This should not look like a random AI chatbot.
+- It should feel editorial, curated, and premium.
+- Use existing venue card styles.
+- Keep it visually calm: one main itinerary card, not too many buttons.
+- Avoid making the homepage cluttered.
+
+Implementation notes:
+- Use deterministic logic from existing static venue data.
+- No AI API.
+- No Google Places API.
+- No runtime paid calls.
+- No background generation.
+- Itinerary should be generated instantly client-side.
+- Saved itinerary should persist locally.
+- If venue data lacks tags, add lightweight tags locally in the data model only where necessary.
+
+SECTION 3 — Detroit Insider Passport
+
+Purpose:
+The Passport creates repeat engagement and makes the app feel collectible and app-native. This is the “come back again” loop.
+
+What it should do:
+- Give users a Detroit Insider Passport inside the app.
+- Users earn stamps when they check in, mark a place visited, or complete an itinerary stop.
+- Passport should have clean progress categories, not too many.
+
+Suggested passport categories:
+- Hidden Bars
+- Luxe Dining
+- Detroit Classics
+- Art & Culture
+- Hotel Energy
+- Date Night
+- Downtown Insider
+
+Example copy:
+“Your Detroit Insider Passport”
+“Collect stamps as you explore curated spots across the city.”
+
+Possible stamp states:
+- Locked
+- Visited
+- Stamped
+- Completed category
+
+UX direction:
+- Elegant, not childish.
+- Think luxury membership/passport, not arcade game.
+- Use refined icons, subtle badges, soft dividers, and existing app styling.
+- Keep the passport screen clean with progress cards.
+
+Implementation notes:
+- Store passport progress locally.
+- No account required.
+- No backend.
+- No QR scanning required for this version.
+- Do not require exact GPS verification yet unless it can be done safely and minimally.
+- “Mark Visited” can unlock a stamp for now.
+- Keep it simple and reliable for review.
+
+SECTION 4 — Check-In / Visited Tracker
+
+Purpose:
+This gives the app personal history. It proves users are not just reading content; they are actively tracking their real Detroit experiences.
+
+What it should do:
+Add user actions to venue cards:
+- Want to Go
+- Been Here / Visited
+- Loved It
+- Not My Vibe, optional only if it fits cleanly
+
+Create a “My Detroit” or “Visited” area where users can see:
+- Places they’ve visited
+- Places they want to visit
+- Stamps earned
+- Saved itineraries
+- Possibly notes if simple
+
+Optional but useful:
+- Add a tiny private note field per visited venue:
+  “What did you order?”
+  “Who did you go with?”
+  “Worth going back?”
+
+UX direction:
+- Keep the interaction elegant and quick.
+- Avoid cluttering venue cards with too many visible buttons.
+- Maybe use one small “Track” or “Add to My Detroit” button that opens options.
+- Existing heart/save functionality should remain unchanged.
+
+Implementation notes:
+- Local storage only.
+- No login.
+- No backend.
+- Must not break current saved spots.
+- If possible, connect “Been Here” to Passport stamps automatically.
+- If possible, connect completed Build My Night stops to check-ins/passport progress.
+
+SECTION 5 — First-Launch Guided App Experience / App Review Demo Path
+
+Purpose:
+This is extremely important for Apple review. Apple may not discover the new functionality unless it is obvious. The first-launch flow should guide reviewers through the app-like experience immediately.
+
+What it should do:
+On first launch only, show a clean guided flow:
+1. Welcome to Exclusive Detroit
+2. Choose your Taste Profile
+3. Build your first night
+4. Save itinerary
+5. View Passport / My Detroit progress
+
+This should make the app’s value obvious within 30–60 seconds.
+
+Example copy:
+“Exclusive Detroit is your curated lifestyle guide for planning, saving, and tracking elevated experiences across the city.”
+
+“Start Your Detroit Experience”
+
+Requirements:
+- Must be skippable.
+- Must not annoy returning users.
+- Store completion locally.
+- Add a way to restart this guide from Settings/About for App Review if useful.
+- Do not use a generic website-style onboarding page. Make it feel like a native app setup flow.
+
+App Review demo consideration:
+Add a visible but subtle entry point such as:
+- “Start Your Detroit Experience”
+- “Build My Night”
+- “My Detroit Passport”
+
+Apple should not have to hunt for these features.
+
+NAVIGATION / UI INTEGRATION
+
+We need to avoid making the app busy.
+
+Preferred clean structure:
+- Keep existing main app flow.
+- Add one new main entry point called either “My Detroit” or “Experience.”
+- Inside that section, organize:
+  - Taste Profile
+  - Build My Night
+  - Passport
+  - Visited / Want to Go
+  - Saved Itineraries
+
+Possible bottom/hero navigation labels:
+- Explore
+- Map
+- Build
+- My Detroit
+
+Do not add five separate tabs/buttons everywhere. The five features should feel like one connected system.
+
+DESIGN REQUIREMENTS
+
+All new screens must match the existing app:
+- Same font family
+- Same title sizes
+- Same subtitle sizes
+- Same button style
+- Same card radius
+- Same spacing rhythm
+- Same luxury tone
+- Same light/dark mode behavior
+- Same responsive behavior on iPhone and iPad
+- No mismatched default browser styles
+- No plain HTML form look
+- No cluttered checkbox-heavy UI
+
+Tone:
+- Curated
+- Luxury
+- Insider
+- Editorial
+- Calm
+- Premium
+
+Avoid:
+- Childish gamification
+- Loud badges
+- Cheap-looking progress bars
+- Too many emojis
+- Generic travel app language
+- AI-looking chatbot UI
+- Busy dashboards
+
+TECHNICAL GUARDRAILS
+
+Cost control:
+- Do not add paid APIs.
+- Do not use Google Places live calls.
+- Do not add AI calls.
+- Do not add background processes.
+- Do not add recurring fetch loops.
+- Use existing static venue data.
+- Use local storage / existing storage pattern.
+- Keep client-side logic deterministic and lightweight.
+
+Stability:
+- Do not modify stable map behavior unless needed.
+- Do not change current venue card structure unless needed.
+- Do not break saved spots.
+- Do not change existing links or CTAs.
+- Do not change current image handling unless needed.
+- Test on iPhone and iPad portrait/landscape.
+- Confirm no console errors.
+- Confirm no white screen or loading issues.
+- Confirm all new flows work in light and dark mode.
+
+IMPLEMENTATION PLAN REQUEST
+
+Before coding, please provide:
+1. Files you plan to touch
+2. Data fields you need to add
+3. Exact navigation/UI placement
+4. How local storage will work
+5. How each feature connects to the others
+6. Any risks to the current stable app
+7. A testing checklist
+
+After implementation, please provide:
+1. Pass/fail checklist
+2. Screens/flows added
+3. Confirmation that existing map, saved spots, venue cards, categories, booking links, and share behavior still work
+4. Confirmation that the app still works on iPhone and iPad
+5. Confirmation that there are no console errors
+6. Confirmation that no paid APIs or background calls were added
+
+FINAL APP REVIEW POSITIONING
+
+After these changes, the app should be positioned as:
+
+Exclusive Detroit is a personalized luxury city companion that helps users choose their taste profile, build curated nights out, save and track experiences, collect Detroit Insider Passport stamps, and manage their personal history of places they want to visit or have already experienced.
+
+This is not just a web guide. It is an interactive, personalized, locally stored, app-based planning and tracking experience.
