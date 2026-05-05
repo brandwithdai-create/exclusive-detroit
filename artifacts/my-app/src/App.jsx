@@ -3,6 +3,7 @@ import { hlRegister, hlUnregister } from "./cardHighlight.js";
 import L from "leaflet";
 import ThingsToDo, { DetailModal } from "./sections/ThingsToDo.jsx";
 import Stay, { HotelDetailModal } from "./sections/Stay.jsx";
+import MyDetroit, { TASTE_OPTIONS } from "./sections/MyDetroit.jsx";
 // fetchPlacePhotos intentionally NOT imported here — venue cards use static images only
 import { GAMES, DETROIT_EVENTS, CONCERTS, HOTELS, fmtDate, getTicketCTA, getBookingCTA } from "./data/eventsData.js";
 
@@ -1013,7 +1014,7 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 );
 });
 
-const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false }) {
+const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false }) {
 const [hov, setHov] = useState(false);
 const cardRef = React.useRef(null);
 React.useEffect(()=>{
@@ -1032,7 +1033,10 @@ onClick:()=>{setHov(false);onOpen(String(venue.id));},
 onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
 style:{ background:C.card, border:"1px solid "+cardBorder, borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:cardShadow, transition:"transform 0.24s,box-shadow 0.3s ease,border-color 0.3s ease", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
 },
-React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, priority }),
+React.createElement("div",{style:{position:"relative",flexShrink:0}},
+React.createElement(VenueImg,{src:dbSrc||fallbackSrc,fallbackSrc,alt:venue.name,priority}),
+isVis&&React.createElement("div",{style:{position:"absolute",top:8,right:8,width:22,height:22,borderRadius:"50%",background:"rgba(201,168,76,0.92)",border:"1.5px solid rgba(255,255,255,0.55)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"0.6rem",color:"#0A0A0A",fontWeight:700,zIndex:2,lineHeight:1,userSelect:"none"}},"✓")
+),
 React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
@@ -1126,7 +1130,7 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 });
 
-function Modal({ venue, isFav, onFav, onClose, photoMap }) {
+function Modal({ venue, isFav, onFav, onClose, photoMap, isVis=false, onVisit }) {
 if (!venue) return null;
 const isV = typeof venue.id === "number";
 const badges = venue.badges||[];
@@ -1180,6 +1184,14 @@ React.createElement("span", { style:{ fontSize:"0.81rem", color:"var(--c-modal-v
 React.createElement("div", { style:{ display:"flex", gap:10, alignItems:"center" }},
 React.createElement(CTA, { venue, full:true }),
 React.createElement("button", { onClick:()=>onFav(String(venue.id)), title:isFav?"Saved":"Save", style:{ width:38, height:38, flexShrink:0, display:"inline-flex", alignItems:"center", justifyContent:"center", padding:0, background:isFav?"rgba(201,168,76,0.15)":"var(--c-modal-save-bg)", border:"1.5px solid "+(isFav?"rgba(201,168,76,0.7)":"var(--c-modal-save-bdr)"), color:isFav?C.gold:"var(--c-modal-save-clr)", fontSize:"1rem", borderRadius:8, cursor:"pointer", transition:"all 0.18s" }}, isFav?"\u2665":"\u2661")
+),
+React.createElement("div",{style:{marginTop:8}},
+React.createElement("button",{
+onClick:()=>onVisit&&onVisit(String(venue.id)),
+style:{width:"100%",padding:"10px 0",background:"transparent",border:"1px solid "+(isVis?"rgba(201,168,76,0.35)":"var(--c-border)"),borderRadius:8,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.14em",textTransform:"uppercase",color:isVis?"var(--c-gold)":"var(--c-ash)",cursor:"pointer",transition:"all 0.18s",display:"flex",alignItems:"center",justifyContent:"center",gap:8}},
+React.createElement("span",{style:{fontSize:"0.65rem",lineHeight:1}},isVis?"✓":"○"),
+isVis?"Visited":"Mark as Visited"
+)
 )
 )
 )
@@ -1558,6 +1570,13 @@ const [savedHotels,setSavedHotels]=useState(()=>{try{return JSON.parse(localStor
 useEffect(()=>{try{localStorage.setItem("savedEvents",JSON.stringify(savedEvents));}catch(e){}},[savedEvents]);
 useEffect(()=>{try{localStorage.setItem("savedEventMeta",JSON.stringify(savedEventMeta));}catch(e){}},[savedEventMeta]);
 useEffect(()=>{try{localStorage.setItem("savedHotels",JSON.stringify(savedHotels));}catch(e){}},[savedHotels]);
+const [visited,setVisited]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-visited")||"[]");}catch{return [];}});
+const [taste,setTaste]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-taste")||"[]");}catch{return [];}});
+const [onboardDone,setOnboardDone]=useState(()=>{try{return localStorage.getItem("ed-onboarded")==="1";}catch{return false;}});
+const [onboardStep,setOnboardStep]=useState(0);
+const [onboardTaste,setOnboardTaste]=useState([]);
+useEffect(()=>{try{localStorage.setItem("ed-visited",JSON.stringify(visited));}catch(e){}},[visited]);
+useEffect(()=>{try{localStorage.setItem("ed-taste",JSON.stringify(taste));}catch(e){}},[taste]);
 const isSavedEvent=id=>savedEvents.includes(String(id));
 const toggleSavedEvent=(id,item)=>{const sid=String(id);const removing=savedEvents.includes(sid);setSavedEvents(prev=>{if(prev.includes(sid)){setSavedEventMeta(m=>{const n={...m};delete n[sid];return n;});return prev.filter(x=>x!==sid);}else{if(item)setSavedEventMeta(m=>({...m,[sid]:item}));return[...prev,sid];}});showToast(removing?"Removed from saves":"\u2665 Saved to your list");};
 const isSavedHotel=id=>savedHotels.includes(String(id));
@@ -1581,6 +1600,8 @@ const removing=cur.includes(sid);
 setFavs(removing?cur.filter(f=>f!==sid):[...cur,sid]);
 showToast(removing?"Removed from saves":"♥ Saved to your list");
 },[showToast]);
+const isVisited=useCallback(id=>visited.includes(String(id)),[visited]);
+const toggleVisited=useCallback(id=>{const sid=String(id);const removing=visited.includes(sid);setVisited(prev=>removing?prev.filter(x=>x!==sid):[...prev,sid]);showToast(removing?"Removed from visited":"✓ Marked as visited");},[visited,showToast]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{if(chipRowRef.current){const label=c==="all"?"All Venues":c;const btns=chipRowRef.current.querySelectorAll("button");for(const btn of btns){if(btn.textContent.trim()===label){const row=chipRowRef.current;const target=btn.offsetLeft-(row.clientWidth/2)+(btn.offsetWidth/2);row.scrollTo({left:Math.max(0,target),behavior:"smooth"});break;}}}if(gridTopRef.current&&filtersRef.current){const navEl=document.querySelector("nav");const navH=navEl?navEl.offsetHeight:68;const filterH=filtersRef.current.offsetHeight;const gridAbsTop=gridTopRef.current.getBoundingClientRect().top+window.scrollY;window.scrollTo({top:Math.max(0,gridAbsTop-navH-filterH),behavior:"smooth"});}},80);},[]);
 const switchCat=useCallback(c=>{const savedLeft=chipRowRef.current?.scrollLeft??0;setCat(c);requestAnimationFrame(()=>{if(chipRowRef.current)chipRowRef.current.scrollLeft=savedLeft;if(gridTopRef.current){const gridTop=gridTopRef.current.getBoundingClientRect().top;const stickyBottom=filtersRef.current?filtersRef.current.getBoundingClientRect().bottom:0;window.scrollTo({top:window.scrollY+(gridTop-stickyBottom),behavior:"instant"});}});},[]);
 const doGetLocation=()=>{navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{if(gridTopRef.current&&filtersRef.current){const navEl=document.querySelector("nav");const navH=navEl?navEl.offsetHeight:68;const filterH=filtersRef.current.offsetHeight;const gridAbsTop=gridTopRef.current.getBoundingClientRect().top+window.scrollY;window.scrollTo({top:Math.max(0,gridAbsTop-navH-filterH),behavior:"smooth"});}},120);},err=>{if(err.code===1){if(navigator.permissions){navigator.permissions.query({name:"geolocation"}).then(r=>{if(r.state==="denied")setGeoError("Location is blocked in your browser settings. Go to Settings \u2192 Browser \u2192 Location and allow this site, then try again.");else setGeoError(null);}).catch(()=>setGeoError(null));}else{setGeoError(null);}}else{setGeoError("Couldn't get your location \u2014 please try again.");}});};
@@ -1613,7 +1634,7 @@ React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSi
 ),
 React.createElement("div",{style:{display:"flex",gap:8,alignItems:"center",overflow:"visible"}},
 React.createElement("div",{style:{display:"flex",gap:12,alignItems:"center",overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",overflow:"visible"}},
-[["explore","Explore"],["map","Map"],["favorites","Saves"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
+[["explore","Explore"],["map","Map"],["favorites","Saves"],["my-detroit","My Detroit"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
 React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.59rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1.5px solid "+C.gold:"1.5px solid transparent",display:"inline-flex",alignItems:"center",gap:5,whiteSpace:"nowrap",flexShrink:0}},
 l,
 s==="favorites"&&totalSaves>0&&React.createElement("span",{style:{background:C.gold,color:C.black,borderRadius:100,padding:"1px 5px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",minWidth:14,textAlign:"center",display:"inline-block"}},totalSaves)
@@ -1684,7 +1705,7 @@ React.createElement("button",{onClick:()=>{setGeoModal(false);setGeoError(null);
 );
 
 const grid=(items,onOpen,animKey)=>React.createElement("div",{key:animKey,style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
-items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i,photoMap,priority:i<4}))
+items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i,photoMap,priority:i<4,isVis:isVisited(String(v.id))}))
 );
 
 const Explore=()=>React.createElement("div",null,
@@ -1994,7 +2015,8 @@ section==="neighborhoods" && Areas(),
 section==="about"         && About({tick:aboutTick}),
 section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),
-section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")})
+section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")}),
+section==="my-detroit"    && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:ALL})
 ),
 section!=="map"&&section!=="settings"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},
@@ -2020,7 +2042,36 @@ React.createElement("span",null,"Detroit Edition v5.0")
 )
 ),
 GeoModal(),
-modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null),photoMap}),
+modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null),photoMap,isVis:isVisited(modalId),onVisit:toggleVisited}),
+!onboardDone&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.96)",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 22px"}},
+React.createElement("div",{style:{background:"var(--c-deep)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:22,padding:"44px 28px 36px",maxWidth:400,width:"100%",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.8)"}},
+React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-onboarded","1");}catch(e){}setOnboardDone(true);},style:{position:"absolute",top:16,right:16,background:"none",border:"none",color:"var(--c-smoke)",cursor:"pointer",fontSize:"1.15rem",padding:8,lineHeight:1,minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}},"✕"),
+onboardStep===0&&React.createElement(React.Fragment,null,
+React.createElement("div",{style:{textAlign:"center",marginBottom:28}},
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.26em",color:"var(--c-gold)",textTransform:"uppercase",marginBottom:8}},"EXCLUSIVE"),
+React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"2.4rem",fontWeight:300,color:"var(--c-white)",lineHeight:1}},"Detroit")
+),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.3,marginBottom:10,textAlign:"center"}},"The insider's guide to Detroit."),
+React.createElement("p",{style:{fontSize:"0.84rem",fontWeight:300,color:"var(--c-ash)",lineHeight:1.78,marginBottom:28,textAlign:"center"}},"Hidden bars, rooftops, late nights, and the places locals actually go."),
+React.createElement("button",{onClick:()=>setOnboardStep(1),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"14px 0",cursor:"pointer",width:"100%",fontWeight:600}},"Begin →")
+),
+onboardStep===1&&React.createElement(React.Fragment,null,
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.3,marginBottom:5}},"How do you Detroit?"),
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-smoke)",marginBottom:16}},"Pick up to 3 — sets up your guide."),
+React.createElement("div",{style:{display:"flex",flexWrap:"wrap",gap:7,marginBottom:22}},
+TASTE_OPTIONS.map(opt=>{
+const sel=onboardTaste.includes(opt.id);
+const dis=!sel&&onboardTaste.length>=3;
+return React.createElement("button",{key:opt.id,onClick:()=>{if(sel){setOnboardTaste(onboardTaste.filter(t=>t!==opt.id));}else if(!dis){setOnboardTaste([...onboardTaste,opt.id]);}},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.09em",textTransform:"uppercase",padding:"6px 11px",borderRadius:100,border:"1px solid "+(sel?"var(--c-gold)":"var(--c-border)"),background:sel?"rgba(201,168,76,0.1)":"transparent",color:sel?"var(--c-gold)":dis?"var(--c-borders)":"var(--c-ash)",cursor:dis?"default":"pointer",opacity:dis?0.4:1,transition:"all 0.15s"}},opt.label);
+})
+),
+React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:8}},
+React.createElement("button",{onClick:()=>{if(onboardTaste.length>0)setTaste(onboardTaste);try{localStorage.setItem("ed-onboarded","1");}catch(e){}setOnboardDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"13px 0",cursor:"pointer",width:"100%",fontWeight:600}},onboardTaste.length>0?"Set My Detroit →":"Continue →"),
+React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-onboarded","1");}catch(e){}setOnboardDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",background:"transparent",color:"var(--c-smoke)",border:"none",cursor:"pointer",padding:"8px 0",width:"100%"}},"Skip for now")
+)
+)
+)
+),
 React.createElement(Toast,{msg:toast.msg,vis:toast.vis})
 );
 }
