@@ -1,0 +1,145 @@
+This audit confirms the root cause. Please proceed with a targeted logic + UI correction pass using the audit findings.
+
+1. Fix the tag system first  
+The current getVenueTags() function has two critical bugs:
+- It ignores existing v.tags, even though many venues already have correct inline tags.
+- The current VTAGS override object is mapped to wrong venue IDs and is causing incorrect results.
+
+Required fix:
+- Update getVenueTags() so it includes existing v.tags as a primary source.
+- Remove/delete the incorrect VTAGS mappings that are based on wrong IDs.
+- Rebuild VTAGS only as supplemental tags for venues missing enough data.
+- Do not let VTAGS override correct inline venue tags unless explicitly intended.
+- Add “Alley Spots” to CAT_TAGS since it currently has no default tags.
+
+2. Apply the audit corrections  
+Use the audit you just provided as the source of truth.
+
+Important examples:
+- Tin Roof Detroit must be High Energy, Chill, Group Friendly, Rooftop, Drinks, Late Night. It must not be Calm or Elevated.
+- Morning should only show breakfast, brunch, coffee, bakery, or true morning/daytime outdoor spots.
+- Happy Hour should only show confirmed real happy hour venues.
+- Date Night / Elevated should prioritize upscale dinner/date-friendly spots, then polished lounges.
+
+3. Confirm Happy Hour venues  
+Only these confirmed real happy hour venues should be tagged happyHour:
+- Standby
+- London Chop House
+- Ima Izakaya
+- Experience Zuzu
+- Ima Midtown
+- Eatori Market
+- Mezcal
+- La Lanterna
+- Oak & Reel
+- Central Kitchen + Bar
+- HopCat Detroit
+- Detroit Shipping Co.
+
+Do not include:
+- The Peterboro
+- The Apparatus Room
+- Bakersfield
+unless there is explicit happy hour info in the static data.
+
+4. Change time buttons  
+Update Build My Night time buttons to only:
+- Morning
+- Afternoon
+- Night
+
+Remove:
+- Evening
+- Late Night
+
+Night should handle dinner, cocktails, lounges, rooftops, and late-night as appropriate based on selected energy and venue tags.
+
+5. Remove extra Build button  
+There is currently both a Build My Night button and a Build button. Remove the extra Build button. Keep one clear button:
+“BUILD MY NIGHT ✨”
+
+6. Remove inactive bookmark icon  
+Remove the little bookmark icon on the side of each Build My Night result card because it is not clickable and looks confusing.
+
+7. Make itinerary result cards clickable  
+Every Build My Night result card must be clickable and open the venue detail modal.
+
+8. Make Saved cards fully clickable  
+Every Saved card must be clickable and open the relevant detail/booking modal:
+- Saved spots open venue details
+- Saved events open event/ticket detail or existing event flow
+- Saved hotel stays open the hotel detail/booking flow
+
+9. Fix Saved card consistency  
+Saved Spots, Saved Events, and Saved Stays should all use the same card shape and layout system.
+
+Fix:
+- Saved Events and Saved Stays should match Saved Spots card height, border radius, spacing, arrow style, and clickable behavior.
+- The arrow on Saved Events and Saved Stays should match the Saved Spots arrow direction/style.
+- Do not use different oversized cards for events/hotels in this tab.
+
+10. Passport visual fixes  
+The Passport is closer, but still needs correction.
+
+Fix:
+- Remove the separate bordered box around the “7 venues visited” progress area.
+- The progress area should blend into the passport page itself.
+- The whole Passport area should look like an actual passport book page, not a separate card or sheet of paper.
+- Add more physical passport-book feeling: left binding/crease, page edge, paper texture, subtle watermark, rounded book edge.
+- Scatter venue stamps naturally across the passport page like a real passport.
+- Remove the box/frame around each venue stamp.
+- Keep the building outline idea, but make the building drawings more detailed and realistic.
+- Venue stamps should look like ink printed directly onto the passport page.
+
+11. Disable repeated stamp animation  
+The Hidden Gem Hunter stamp animation should not appear every time the Passport tab is opened.
+
+Stamp animation should only trigger when:
+- a user marks a venue as visited, and
+- a new venue stamp or badge is actually earned.
+
+12. Add bottom navigation  
+Add the bottom navigation from the mockup:
+- Explore
+- Map
+- Itinerary
+- About
+
+Use the same style as the mockup:
+- icon above label
+- active Itinerary icon/label in gold
+- dark/luxury bottom bar in dark mode
+- clean light-mode version
+- respect iPhone safe area
+- keep the existing top nav too
+
+The purpose is to make navigation easier so users do not always have to tap the top of the screen.
+
+13. Testing checklist required  
+After implementation, confirm:
+- getVenueTags uses v.tags correctly
+- broken VTAGS mappings removed
+- supplemental VTAGS rebuilt correctly
+- Morning only shows morning-appropriate venues
+- Afternoon only shows afternoon/lunch/daytime/happy-hour appropriate venues
+- Night shows appropriate dinner/drinks/late-night venues
+- Happy Hour only shows the confirmed happy hour venues
+- Tin Roof is no longer Calm or Elevated
+- Build My Night only has Morning / Afternoon / Night
+- Extra Build button removed
+- Bookmark icons removed from itinerary result cards
+- Itinerary result cards open venue detail modal
+- Saved cards all match visually
+- Saved cards are clickable
+- Passport progress blends into passport page
+- Passport looks like an actual passport book page
+- Venue stamps are scattered and building-outline based
+- Stamp animation only triggers when a new stamp is earned
+- Bottom nav added and works
+- Light mode works
+- Dark mode works
+- No APIs
+- No new dependencies unless approved
+- No background calls
+- No console errors
+- Existing Explore, Map, Itinerary, Saved, Passport, About, Settings, venue modals, booking links, and saved functionality still work

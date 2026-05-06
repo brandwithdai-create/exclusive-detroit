@@ -20,7 +20,7 @@ export const TASTE_OPTIONS = [
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Venue tag system — category defaults + per-venue overrides
+// Venue tag system — category defaults + inline v.tags + supplemental overrides
 // ─────────────────────────────────────────────────────────────────────────────
 const CAT_TAGS = {
   "Breakfast":               ["morning","brunch","food","calm"],
@@ -34,87 +34,97 @@ const CAT_TAGS = {
   "Nightlife":               ["lateNight","highEnergy"],
   "Sports Bars":             ["chill","sportsBar","groupFriendly"],
   "Outdoor Activities":      ["outdoor","daytime","groupFriendly"],
+  "Alley Spots":             ["outdoor","chill","groupFriendly"],
 };
 
-// Per-venue tag overrides (keyed by venue ID as string)
+// Supplemental tags for venues that need additions beyond v.tags + CAT_TAGS.
+// These only ADD tags — they never override the venue's own inline tags.
 const VTAGS = {
-  "1":  ["dinner","elevated","dateNight","calm","food"],          // London Chop House
-  "5":  ["dinner","elevated","dateNight","food"],                 // Antietam
-  "7":  ["drinks","cocktail","elevated","lateNight","dateNight"], // Standby
-  "9":  ["dinner","elevated","dateNight","calm","food"],          // Prime + Proper
-  "10": ["dinner","food","calm"],                                  // Roast
-  "13": ["dinner","lunch","food","chill"],                         // Ima
-  "17": ["drinks","cocktail","elevated","rooftop"],               // Wright & Co
-  "25": ["dinner","food","calm"],                                  // (Roast alt)
-  "30": ["drinks","cocktail","lateNight"],                         // Downtown bar
-  "34": ["drinks","cocktail","elevated","lateNight"],             // The Peterboro
-  "35": ["drinks","cocktail","elevated","lateNight"],             // The Shelby
-  "37": ["outdoor","groupFriendly","sports","daytime"],           // Topgolf
-  "38": ["dinner","elevated","dateNight","calm","food"],          // Detroit Athletic Club
-  "39": ["dinner","elevated","dateNight","calm","food"],          // Apparatus Room
-  "40": ["drinks","cocktail","elevated","hidden","calm"],         // Sugar House
-  "41": ["drinks","cocktail","elevated","rooftop","lateNight"],  // Sixty K
-  "44": ["dinner","elevated","dateNight","food"],                 // Chartreuse
-  "46": ["drinks","cocktail","elevated","dateNight","lateNight"],// The Peterboro (alt)
-  "47": ["dinner","elevated","dateNight","calm","food"],          // Sexy Steak
-  "55": ["drinks","cocktail","rooftop","elevated","dateNight"],  // High Bar
-  "67": ["drinks","cocktail","elevated","dateNight","lateNight"],// Candy Bar
-  "71": ["dinner","food","chill"],                                 // Baobab Fare
-  "73": ["dinner","elevated","dateNight","calm","food"],          // Parc Detroit
-  "74": ["drinks","cocktail","hidden","lateNight","calm"],        // Bad Luck Bar
-  "75": ["dinner","food","chill"],
-  "76": ["drinks","cocktail","elevated","rooftop","dateNight"],   // Townhouse
-  "77": ["dinner","elevated","food"],
-  "78": ["dinner","food","chill"],
-  "79": ["lunch","food","chill"],
-  "80": ["drinks","cocktail","lateNight"],
-  "81": ["drinks","cocktail","elevated"],
-  "82": ["dinner","food"],
-  "83": ["drinks","cocktail"],
-  "84": ["drinks","cocktail","hidden","lateNight"],
-  "85": ["dinner","elevated","food"],
-  "86": ["drinks","cocktail","chill"],
-  "87": ["dinner","food","chill"],
-  "88": ["drinks","cocktail","elevated","dateNight"],
-  "89": ["dinner","elevated","dateNight","food"],
-  "90": ["drinks","cocktail","elevated","lateNight"],             // TWT
-  "91": ["drinks","cocktail","elevated","dateNight","lateNight"], // Candy Bar (v2)
-  "92": ["drinks","cocktail","elevated","rooftop"],               // High Bar (v2)
-  "93": ["drinks","cocktail","calm","hidden"],                    // Skip
-  "94": ["drinks","cocktail","elevated","dateNight","lateNight"], // Candy Bar
-  "95": ["drinks","cocktail","elevated","rooftop","dateNight"],   // Wright & Company
-  "96": ["dinner","elevated","dateNight","food"],                 // Townhouse
-  "97": ["drinks","cocktail","chill"],
-  "98": ["dinner","food"],
-  "99": ["drinks","cocktail","elevated"],
+  // Cocktail Lounges — no inline tags, need supplements
+  "3":  ["chill","lateNight"],
+  "5":  ["hidden","chill","outdoor"],
+  "6":  ["elevated","dateNight","morning","food"],
+  "8":  ["elevated","dateNight","calm"],
+  "9":  ["rooftop"],
+  "10": ["elevated","calm","dateNight"],
+  "13": ["hidden","chill"],
+  "30": ["elevated","dateNight","food","lateNight"],
+  // Happy Hour supplement
+  "4":  ["happyHour"],
+  // Sports Bars supplement
+  "18": ["rooftop"],
+  // Nightlife supplements
+  "20": ["chill","drinks"],
+  "21": ["hidden"],
+  "23": ["groupFriendly"],
+  "88": ["drinks","groupFriendly"],
+  "89": ["drinks","groupFriendly"],
+  // Dinner — no inline tags, need supplements
+  "11": ["dateNight"],
+  "24": ["elevated","dateNight","calm"],
+  "32": ["chill","groupFriendly"],
+  "65": ["lateNight"],
+  "69": ["elevated","dateNight"],
+  "70": ["elevated","dateNight"],
+  "71": ["dateNight","chill"],
+  "72": ["chill","groupFriendly"],
+  "73": ["elevated","dateNight","calm"],
+  "85": ["rooftop"],
+  "90": ["happyHour","elevated","dateNight"],
+  // Happy Hour category — add dinner/elevated
+  "51": ["dinner","elevated","dateNight"],
+  "52": ["food","chill","dinner"],
+  "53": ["elevated","dateNight","food","dinner"],
+  // Lunch — add happyHour to confirmed HH venues, other supplements
+  "55": ["happyHour","dinner","chill"],
+  "56": ["happyHour"],
+  "57": ["chill"],
+  "63": ["dinner","chill","groupFriendly"],
+  "64": ["dinner","chill","groupFriendly"],
+  "78": ["chill"],
+  "91": ["happyHour","drinks"],
+  "92": ["happyHour","chill","groupFriendly"],
+  "93": ["happyHour","chill","groupFriendly"],
+  // Coffee/Bakery supplements
+  "46": ["lateNight","highEnergy","drinks"],
+  "68": ["highEnergy"],
+  // Breakfast supplements
+  "45": ["chill"],
+  // Outdoor — add morning
+  "26": ["morning","calm"],
+  "27": ["morning"],
+  "28": ["morning","calm"],
+  // Alley Spots — add drinks
+  "15": ["drinks","outdoor"],
+  "16": ["lateNight","highEnergy","drinks"],
 };
 
 function getVenueTags(v) {
   const id    = String(v.id);
-  const spec  = VTAGS[id]   || [];
-  const cat   = CAT_TAGS[v.cat] || [];
+  const own   = v.tags || [];                                           // venue's own inline tags (primary source)
+  const sup   = VTAGS[id] || [];                                        // supplemental additions
+  const cat   = CAT_TAGS[v.cat] || [];                                  // category defaults
   const hours = (v.hours||"").includes("2am")||(v.hours||"").includes("3am") ? ["lateNight"] : [];
-  return [...new Set([...spec, ...cat, ...hours])];
+  return [...new Set([...own, ...sup, ...cat, ...hours])];
 }
 
 function hasT(v, t) { return getVenueTags(v).includes(t); }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Build My Night — strict filtering
+// Build My Night — Morning / Afternoon / Night
 // ─────────────────────────────────────────────────────────────────────────────
 function buildNight(when, who, energy, all) {
   const pool = fn => all.filter(fn);
-  const dinner   = pool(v => hasT(v,"dinner"));
   const morning  = pool(v => hasT(v,"morning") || hasT(v,"brunch"));
   const lunch    = pool(v => hasT(v,"lunch"));
   const hh       = pool(v => hasT(v,"happyHour"));
+  const dinner   = pool(v => hasT(v,"dinner"));
   const drinks   = pool(v => hasT(v,"drinks") || hasT(v,"cocktail"));
   const lateN    = pool(v => hasT(v,"lateNight"));
   const elevated = pool(v => hasT(v,"elevated"));
   const calm     = pool(v => hasT(v,"calm"));
   const chill    = pool(v => hasT(v,"chill") || v.cat==="Sports Bars");
   const highE    = pool(v => hasT(v,"highEnergy") || v.cat==="Nightlife");
-  const dateN    = pool(v => hasT(v,"dateNight"));
   const rooftop  = pool(v => hasT(v,"rooftop") || v.cat==="Rooftops");
 
   const used = new Set();
@@ -130,22 +140,24 @@ function buildNight(when, who, energy, all) {
   let stops = [];
 
   if (when === "morning") {
-    stops = [or(morning), or(morning), or(rooftop, pool(v => v.cat==="Outdoor Activities"))];
-  } else if (when === "afternoon") {
-    stops = [or(lunch, pool(v=>hasT(v,"food"))), or(hh, drinks), or(drinks)];
-  } else if (when === "late") {
-    if (!lateN.length) return { stops:[], reason:"No late-night venues match this selection. Try Evening instead." };
     stops = [
-      or(lateN.filter(v=>hasT(v,"dinner")), lateN.filter(v=>hasT(v,"food"))),
-      or(lateN.filter(v=>hasT(v,"drinks"))),
-      or(lateN),
+      or(morning),
+      or(morning),
+      or(rooftop.filter(v=>v.cat!=="Nightlife"), pool(v => v.cat==="Outdoor Activities")),
     ];
-  } else { // evening
+  } else if (when === "afternoon") {
+    stops = [
+      or(lunch, pool(v=>hasT(v,"food"))),
+      or(hh, drinks),
+      or(drinks, hh),
+    ];
+  } else {
+    // Night — handles all evening + late-night combinations
     if (energy === "calm") {
       stops = [
         or(dinner.filter(v=>hasT(v,"calm")||hasT(v,"elevated")), dinner),
         or(drinks.filter(v=>hasT(v,"calm")||hasT(v,"elevated")), drinks),
-        or(drinks.filter(v=>hasT(v,"calm")), drinks),
+        or(drinks.filter(v=>hasT(v,"calm")||hasT(v,"hidden")), drinks),
       ];
     } else if (energy === "chill") {
       stops = [
@@ -155,32 +167,44 @@ function buildNight(when, who, energy, all) {
       ];
     } else if (energy === "elevated") {
       const isDN   = who === "date";
-      const dPool  = isDN ? dinner.filter(v=>hasT(v,"elevated")&&hasT(v,"dateNight")) : dinner.filter(v=>hasT(v,"elevated"));
-      const dkPool = isDN ? drinks.filter(v=>hasT(v,"elevated")&&hasT(v,"dateNight")) : elevated.filter(v=>hasT(v,"drinks"));
+      const dPool  = isDN
+        ? dinner.filter(v=>hasT(v,"elevated")&&hasT(v,"dateNight"))
+        : dinner.filter(v=>hasT(v,"elevated"));
+      const dkPool = isDN
+        ? drinks.filter(v=>hasT(v,"elevated")&&hasT(v,"dateNight"))
+        : elevated.filter(v=>hasT(v,"drinks"));
       if (!dPool.length && !dkPool.length && !elevated.length) {
         return { stops:[], reason:"Not enough elevated venues for this combination." };
       }
-      stops = [or(dPool, dinner.filter(v=>hasT(v,"elevated")), dinner), or(dkPool, elevated.filter(v=>hasT(v,"drinks")), drinks), or(dkPool, elevated.filter(v=>hasT(v,"drinks")), drinks)];
-    } else { // highEnergy
-      stops = [or(dinner), or(highE, drinks), or(lateN.filter(v=>hasT(v,"highEnergy")), lateN, highE)];
+      stops = [
+        or(dPool, dinner.filter(v=>hasT(v,"elevated")), dinner),
+        or(dkPool, elevated.filter(v=>hasT(v,"drinks")), drinks),
+        or(dkPool, elevated.filter(v=>hasT(v,"drinks")||hasT(v,"rooftop")), rooftop, drinks),
+      ];
+    } else {
+      // highEnergy
+      stops = [
+        or(dinner),
+        or(highE, drinks),
+        or(lateN.filter(v=>hasT(v,"highEnergy")), lateN, highE),
+      ];
     }
   }
 
   const clean = stops.filter(Boolean);
-  return { stops: clean, reason: clean.length < 2 ? "Not enough matching spots for this combination. Try another time or vibe." : "" };
+  return { stops: clean, reason: clean.length < 2 ? "Not enough matching spots for this combination. Try a different vibe." : "" };
 }
 
 function getStopLabel(i, when, energy) {
   const m = {
-    morning:           ["MORNING STOP","BRUNCH SPOT","MORNING VIEWS"],
-    afternoon:         ["LUNCH STOP","HAPPY HOUR","AFTERNOON COCKTAILS"],
-    late:              ["LATE EATS","NIGHTCAP","AFTER HOURS"],
-    evening_calm:      ["DINNER STOP","COCKTAIL BAR","NIGHTCAP"],
-    evening_chill:     ["DINNER STOP","LOCAL BAR","LATE DRINKS"],
-    evening_elevated:  ["DINNER STOP","ELEVATED LOUNGE","AFTER HOURS"],
-    evening_highenergy:["DINNER STOP","NIGHTLIFE SPOT","AFTER HOURS"],
+    morning:         ["MORNING STOP","BRUNCH SPOT","MORNING VIEWS"],
+    afternoon:       ["LUNCH STOP","HAPPY HOUR","AFTERNOON COCKTAILS"],
+    night_calm:      ["DINNER STOP","COCKTAIL BAR","NIGHTCAP"],
+    night_chill:     ["DINNER STOP","LOCAL BAR","LATE DRINKS"],
+    night_elevated:  ["DINNER STOP","ELEVATED LOUNGE","AFTER HOURS"],
+    night_highenergy:["DINNER STOP","NIGHTLIFE SPOT","AFTER HOURS"],
   };
-  const key = when==="evening" ? `evening_${energy}` : when;
+  const key = when==="night" ? `night_${energy}` : when;
   return (m[key] || m.morning)[i] || `STOP ${i+1}`;
 }
 
@@ -192,7 +216,6 @@ const si = { fill:"none", stroke:"currentColor", strokeWidth:1.4, strokeLinecap:
 const IconSunrise   = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><path d="M2,11 Q8,4 14,11"/><line x1="8" y1="2" x2="8" y2="1"/><line x1="2" y1="6" x2="1.2" y2="6"/><line x1="14" y1="6" x2="14.8" y2="6"/><line x1="3.5" y1="3.5" x2="2.8" y2="2.8"/><line x1="12.5" y1="3.5" x2="13.2" y2="2.8"/><line x1="1" y1="13" x2="15" y2="13"/></svg>;
 const IconSun       = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><circle cx="8" cy="8" r="3"/><line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/><line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/><line x1="3" y1="3" x2="4.1" y2="4.1"/><line x1="11.9" y1="11.9" x2="13" y2="13"/><line x1="13" y1="3" x2="11.9" y2="4.1"/><line x1="4.1" y1="11.9" x2="3" y2="13"/></svg>;
 const IconMoon      = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><path d="M12,9 Q12,13 8,14 Q4,15 2.5,11 Q1,7 4,5 Q5,4 7,4 Q5,7 7,9.5 Q9,12 12,9Z"/><line x1="12" y1="2" x2="12" y2="0.5"/><line x1="14" y1="4" x2="15.5" y2="4"/><line x1="13.1" y1="0.9" x2="14" y2="0"/></svg>;
-const IconCrescent  = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><path d="M10,2 Q15,4.5 15,9 Q15,14 10,14.5 Q5,15 3,12 Q7,11 8,8.5 Q9,6 10,2Z"/></svg>;
 const IconPerson    = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><circle cx="8" cy="5.5" r="2.5"/><path d="M3,14 Q3,10 8,10 Q13,10 13,14"/></svg>;
 const IconTwo       = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><circle cx="5.5" cy="5" r="2"/><circle cx="10.5" cy="5" r="2"/><path d="M1,14 Q1,11 5.5,11 Q10,11 10,14"/><path d="M10,11 Q13.5,11 15,14"/></svg>;
 const IconGroup     = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><circle cx="4" cy="5" r="1.8"/><circle cx="8.5" cy="4" r="2"/><circle cx="13" cy="5" r="1.8"/><path d="M1,14 Q1,11 4,11"/><path d="M3,14 Q3,10 8.5,10 Q14,10 14,14"/><path d="M13,11 Q16,11 16,14"/></svg>;
@@ -200,7 +223,6 @@ const IconLeaf      = () => <svg width="16" height="16" viewBox="0 0 16 16" styl
 const IconSmile     = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><circle cx="8" cy="8" r="6"/><path d="M5.5,9.5 Q8,12 10.5,9.5"/><circle cx="5.8" cy="7" r="0.5" fill="currentColor" stroke="none"/><circle cx="10.2" cy="7" r="0.5" fill="currentColor" stroke="none"/></svg>;
 const IconDiamond   = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><polygon points="8,1 14,7 8,15 2,7"/><line x1="2" y1="7" x2="14" y2="7"/><line x1="5" y1="1.8" x2="8" y2="7"/><line x1="11" y1="1.8" x2="8" y2="7"/></svg>;
 const IconLightning = () => <svg width="16" height="16" viewBox="0 0 16 16" style={{...si,strokeLinejoin:"round"}}><path d="M9.5,1 L5,9 L8.5,9 L6.5,15 L12,7 L8.5,7Z"/></svg>;
-const IconBookmark  = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><path d="M4,2 L12,2 L12,14 L8,11 L4,14Z"/></svg>;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Building SVG art for passport stamps
@@ -217,102 +239,108 @@ const CAT_BUILDING = {
   "Happy Hour":              "arches",
   "Lunch":                   "arches",
   "Outdoor Activities":      "modern",
+  "Alley Spots":             "artdeco",
 };
 
 function BuildingSVG({ type }) {
-  const s = { fill:"none", stroke:"currentColor", strokeWidth:1.25, strokeLinecap:"round", strokeLinejoin:"round" };
-  const f = { stroke:"none",  fill:"currentColor" };
+  const s = { fill:"none", stroke:"currentColor", strokeWidth:1.15, strokeLinecap:"round", strokeLinejoin:"round" };
+  const f = { stroke:"none", fill:"currentColor" };
   switch (type) {
     case "classic": return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <polyline points="4,17 36,3 68,17" style={s}/>
-        <rect x="4" y="17" width="64" height="2.5" style={{...f,opacity:.65}}/>
-        {[11,20.5,33.5,47,56.5].map(x=><rect key={x} x={x} y="19.5" width="2.5" height="18" style={{...f,opacity:.5}}/>)}
-        <rect x="4" y="37.5" width="64" height="2.5" style={{...f,opacity:.65}}/>
-        <path d="M31,37.5 L31,29 Q36,23 41,29 L41,37.5" style={s}/>
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <polyline points="4,20 36,3 68,20" style={s}/>
+        <rect x="4" y="20" width="64" height="2.5" style={{...f,opacity:.6}}/>
+        {[11,20.5,30,42,51.5,61].map(x=><rect key={x} x={x} y="22.5" width="2.5" height="20" style={{...f,opacity:.45}}/>)}
+        <rect x="4" y="42.5" width="64" height="2.5" style={{...f,opacity:.6}}/>
+        <path d="M31,42.5 L31,33 Q36,26 41,33 L41,42.5" style={s}/>
+        <line x1="4" y1="20" x2="4" y2="45" style={{...s,opacity:.45}}/>
+        <line x1="68" y1="20" x2="68" y2="45" style={{...s,opacity:.45}}/>
+        <path d="M26,20 L26,12 L30,10 L30,20" style={{...s,opacity:.55}}/>
+        <path d="M42,20 L42,12 L46,10 L46,20" style={{...s,opacity:.55}}/>
       </svg>
     );
     case "arches": return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <rect x="2" y="2" width="68" height="3" style={{...f,opacity:.65}}/>
-        <path d="M7,40 L7,22 Q7,12 16,12 Q25,12 25,22 L25,40" style={s}/>
-        <path d="M28,40 L28,22 Q28,12 36,12 Q44,12 44,22 L44,40" style={s}/>
-        <path d="M47,40 L47,22 Q47,12 56,12 Q65,12 65,22 L65,40" style={s}/>
-        <rect x="2" y="40" width="68" height="2" style={{...f,opacity:.65}}/>
-        <rect x="23" y="12" width="5" height="28" style={{...f,opacity:.35}}/>
-        <rect x="43" y="12" width="5" height="28" style={{...f,opacity:.35}}/>
-      </svg>
-    );
-    case "pagoda": return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <path d="M36,2 L52,13 L20,13Z" style={s}/>
-        <path d="M20,13 C14,15 8,13 4,10" style={s}/>
-        <path d="M52,13 C58,15 64,13 68,10" style={s}/>
-        <rect x="18" y="13" width="36" height="2" style={{...f,opacity:.5}}/>
-        <path d="M22,15 L50,15 L58,26 L14,26Z" style={s}/>
-        <path d="M14,26 C8,28 2,26 0,23" style={s}/>
-        <path d="M58,26 C64,28 70,26 72,23" style={s}/>
-        <rect x="14" y="26" width="44" height="14" style={s}/>
-        <rect x="29" y="30" width="14" height="10" rx="1" style={s}/>
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <rect x="2" y="2" width="68" height="3" style={{...f,opacity:.6}}/>
+        <path d="M7,46 L7,24 Q7,12 16,12 Q25,12 25,24 L25,46" style={s}/>
+        <path d="M28,46 L28,24 Q28,12 36,12 Q44,12 44,24 L44,46" style={s}/>
+        <path d="M47,46 L47,24 Q47,12 56,12 Q65,12 65,24 L65,46" style={s}/>
+        <rect x="2" y="46" width="68" height="2" style={{...f,opacity:.6}}/>
+        <line x1="25" y1="12" x2="28" y2="12" style={{...s,opacity:.4}}/>
+        <line x1="44" y1="12" x2="47" y2="12" style={{...s,opacity:.4}}/>
+        <rect x="10" y="36" width="12" height="10" rx="0" style={{...s,opacity:.5}}/>
+        <rect x="31" y="36" width="10" height="10" rx="0" style={{...s,opacity:.5}}/>
+        <rect x="50" y="36" width="12" height="10" rx="0" style={{...s,opacity:.5}}/>
       </svg>
     );
     case "cafe": return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <rect x="4" y="14" width="64" height="26" style={s}/>
-        <rect x="4" y="14" width="64" height="3.5" style={{...f,opacity:.55}}/>
-        <path d="M2,21 L70,21 L64,30 L8,30Z" style={s}/>
-        {[16,26,36,46,56].map(x=><line key={x} x1={x} y1="21" x2={x-3} y2="30" style={{stroke:"currentColor",strokeWidth:.9,opacity:.45}}/>)}
-        <rect x="8" y="32" width="18" height="8" style={s}/>
-        <rect x="46" y="32" width="18" height="8" style={s}/>
-        <rect x="30" y="33" width="12" height="7" style={s}/>
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <rect x="4" y="16" width="64" height="30" style={s}/>
+        <rect x="4" y="16" width="64" height="4" style={{...f,opacity:.5}}/>
+        <path d="M2,24 L70,24 L64,34 L8,34Z" style={s}/>
+        {[16,26,36,46,56].map(x=><line key={x} x1={x} y1="24" x2={x-3} y2="34" style={{stroke:"currentColor",strokeWidth:.85,opacity:.4}}/>)}
+        <rect x="8" y="36" width="18" height="10" style={s}/>
+        <rect x="46" y="36" width="18" height="10" style={s}/>
+        <rect x="30" y="37" width="12" height="9" style={s}/>
+        <line x1="36" y1="3" x2="36" y2="16" style={{stroke:"currentColor",strokeWidth:1.2,opacity:.6}}/>
+        <line x1="30" y1="6" x2="42" y2="6" style={{stroke:"currentColor",strokeWidth:1.2,opacity:.5}}/>
       </svg>
     );
     case "artdeco": return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <rect x="30" y="2" width="12" height="5" style={s}/>
-        <rect x="24" y="7" width="24" height="5" style={s}/>
-        <rect x="16" y="12" width="40" height="5" style={s}/>
-        <rect x="8" y="17" width="56" height="23" style={s}/>
-        {[18,28,44,54].map(x=><line key={x} x1={x} y1="17" x2={x} y2="40" style={{stroke:"currentColor",strokeWidth:.8,opacity:.38}}/>)}
-        <rect x="29" y="32" width="14" height="8" style={s}/>
-        <rect x="8" y="40" width="56" height="2" style={{...f,opacity:.6}}/>
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <rect x="31" y="1" width="10" height="5" style={s}/>
+        <rect x="25" y="6" width="22" height="5" style={s}/>
+        <rect x="17" y="11" width="38" height="5" style={s}/>
+        <rect x="8" y="16" width="56" height="30" style={s}/>
+        {[20,30,42,52].map(x=><line key={x} x1={x} y1="16" x2={x} y2="46" style={{stroke:"currentColor",strokeWidth:.75,opacity:.35}}/>)}
+        <rect x="30" y="34" width="12" height="12" style={s}/>
+        <rect x="8" y="46" width="56" height="2" style={{...f,opacity:.55}}/>
+        <line x1="36" y1="1" x2="36" y2="6" style={{stroke:"currentColor",strokeWidth:1.5,opacity:.6,strokeLinecap:"round"}}/>
+        <rect x="34" y="0" width="4" height="1.5" style={{...f,opacity:.7}}/>
       </svg>
     );
     case "modern": return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <rect x="20" y="4" width="32" height="36" style={s}/>
-        {[28,36,44].map(x=><line key={x} x1={x} y1="4" x2={x} y2="40" style={{stroke:"currentColor",strokeWidth:.7,opacity:.42}}/>)}
-        {[12,20,28].map(y=><line key={y} x1="20" y1={y} x2="52" y2={y} style={{stroke:"currentColor",strokeWidth:.7,opacity:.42}}/>)}
-        <line x1="36" y1="4" x2="36" y2="0" style={{stroke:"currentColor",strokeWidth:1.5,strokeLinecap:"round"}}/>
-        <rect x="4" y="18" width="16" height="22" style={s}/>
-        <rect x="52" y="18" width="16" height="22" style={s}/>
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <rect x="20" y="5" width="32" height="40" style={s}/>
+        {[28,36,44].map(x=><line key={x} x1={x} y1="5" x2={x} y2="45" style={{stroke:"currentColor",strokeWidth:.65,opacity:.38}}/>)}
+        {[13,21,29,37].map(y=><line key={y} x1="20" y1={y} x2="52" y2={y} style={{stroke:"currentColor",strokeWidth:.65,opacity:.38}}/>)}
+        <line x1="36" y1="5" x2="36" y2="0" style={{stroke:"currentColor",strokeWidth:1.5,strokeLinecap:"round"}}/>
+        <rect x="4" y="20" width="16" height="25" style={s}/>
+        <rect x="52" y="20" width="16" height="25" style={s}/>
+        {[26,32,38].map(y=><line key={y} x1="4" y1={y} x2="20" y2={y} style={{stroke:"currentColor",strokeWidth:.6,opacity:.35}}/>)}
+        {[26,32,38].map(y=><line key={y+"r"} x1="52" y1={y} x2="68" y2={y} style={{stroke:"currentColor",strokeWidth:.6,opacity:.35}}/>)}
       </svg>
     );
     case "dome": return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <path d="M18,26 Q18,4 54,4 Q54,4 54,26Z" style={s}/>
-        <rect x="6" y="24" width="60" height="3.5" style={{...f,opacity:.5}}/>
-        <rect x="4" y="27.5" width="64" height="12.5" style={s}/>
-        {[10,20,30,42,52,62].map(x=><rect key={x} x={x} y="27.5" width="2" height="12.5" style={{...f,opacity:.38}}/>)}
-        <path d="M28,40 L28,33 Q36,27 44,33 L44,40" style={s}/>
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <path d="M16,28 Q16,3 56,3 Q56,3 56,28Z" style={s}/>
+        <line x1="36" y1="3" x2="36" y2="28" style={{stroke:"currentColor",strokeWidth:.7,opacity:.35}}/>
+        <line x1="24" y1="6" x2="36" y2="28" style={{stroke:"currentColor",strokeWidth:.7,opacity:.35}}/>
+        <line x1="48" y1="6" x2="36" y2="28" style={{stroke:"currentColor",strokeWidth:.7,opacity:.35}}/>
+        <rect x="6" y="26" width="60" height="3.5" style={{...f,opacity:.5}}/>
+        <rect x="4" y="29.5" width="64" height="16.5" style={s}/>
+        {[10,20,30,42,52,62].map(x=><rect key={x} x={x} y="29.5" width="2" height="16.5" style={{...f,opacity:.35}}/>)}
+        <path d="M27,46 L27,37 Q36,30 45,37 L45,46" style={s}/>
       </svg>
     );
     case "warehouse": return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <polygon points="36,2 4,14 68,14" style={s}/>
-        <rect x="4" y="14" width="64" height="26" style={s}/>
-        <circle cx="18" cy="26" r="6" style={s}/>
-        <circle cx="36" cy="26" r="6" style={s}/>
-        <circle cx="54" cy="26" r="6" style={s}/>
-        <rect x="26" y="34" width="20" height="6" style={s}/>
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <polygon points="36,2 4,16 68,16" style={s}/>
+        <rect x="4" y="16" width="64" height="30" style={s}/>
+        <circle cx="16" cy="28" r="6.5" style={s}/>
+        <circle cx="36" cy="28" r="6.5" style={s}/>
+        <circle cx="56" cy="28" r="6.5" style={s}/>
+        <rect x="27" y="38" width="18" height="8" style={s}/>
+        <line x1="4" y1="16" x2="4" y2="46" style={{...s,opacity:.4}}/>
+        <line x1="68" y1="16" x2="68" y2="46" style={{...s,opacity:.4}}/>
       </svg>
     );
     default: return (
-      <svg viewBox="0 0 72 42" width="72" height="42">
-        <rect x="4" y="8" width="64" height="32" style={s}/>
-        <rect x="4" y="8" width="64" height="4" style={{...f,opacity:.5}}/>
-        <rect x="30" y="28" width="12" height="12" style={s}/>
-        {[10,22,40,52].map(x=><rect key={x} x={x} y="14" width="10" height="10" style={s}/>)}
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <rect x="4" y="10" width="64" height="36" style={s}/>
+        <rect x="4" y="10" width="64" height="4" style={{...f,opacity:.5}}/>
+        <rect x="30" y="30" width="12" height="16" style={s}/>
+        {[10,22,40,52].map(x=><rect key={x} x={x} y="16" width="10" height="10" style={s}/>)}
       </svg>
     );
   }
@@ -333,6 +361,9 @@ const STAMP_PALETTE = [
 ];
 const STAMP_ROTS = [-6,4,-3,7,-8,2,-5,6,-2,5,-7,3];
 
+// Y scatter offsets — organic vertical offset for each stamp slot
+const SCATTER_Y = [0,-14,8,-6,14,-10,4,-18,6,-12,2,-8,10,-4,16,-10];
+
 function getStampStyle(v) {
   const n = parseInt(String(v.id).replace(/\D/g,"")) || 0;
   return { ...STAMP_PALETTE[n % STAMP_PALETTE.length], rot: STAMP_ROTS[n % STAMP_ROTS.length] };
@@ -345,14 +376,14 @@ function getStampDate(index) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// VenueStamp — a single passport stamp for a visited venue
+// VenueStamp — ink-on-paper look, no box border
 // ─────────────────────────────────────────────────────────────────────────────
 function VenueStamp({ v, index, isNew }) {
   const { hex, rgb, rot } = getStampStyle(v);
   const btype = CAT_BUILDING[v.cat] || "classic";
   const portrait = index % 3 === 1;
-  const w = portrait ? 120 : 150;
-  const h = portrait ? 110 :  92;
+  const w = portrait ? 118 : 148;
+  const h = portrait ? 108 :  90;
   const serial = "DET-" + String(v.id).padStart(4,"0");
   const date   = getStampDate(index);
 
@@ -362,38 +393,34 @@ function VenueStamp({ v, index, isNew }) {
       style={{
         width:w, height:h, flexShrink:0,
         display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
-        border:`1.5px solid ${hex}`,
-        boxShadow:`0 0 0 2.5px rgba(${rgb},0.09), inset 0 0 0 3px rgba(${rgb},0.04)`,
-        background:`radial-gradient(ellipse at 50% 38%, rgba(${rgb},0.13) 0%, rgba(${rgb},0.04) 60%, transparent 85%)`,
+        background:`radial-gradient(ellipse at 50% 45%, rgba(${rgb},0.22) 0%, rgba(${rgb},0.08) 55%, transparent 80%)`,
         borderRadius:4, transform:`rotate(${rot}deg)`,
         padding:portrait?"6px 8px 8px":"5px 10px 7px",
         position:"relative", overflow:"hidden", boxSizing:"border-box",
         color: hex,
+        filter:`drop-shadow(0 0 5px rgba(${rgb},0.28))`,
       }}
     >
       {/* Diagonal VISITED watermark */}
-      <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-18deg)",...MONO,fontSize:"0.26rem",letterSpacing:"0.32em",color:`rgba(${rgb},0.07)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none",zIndex:0 }}>
+      <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-18deg)",...MONO,fontSize:"0.24rem",letterSpacing:"0.32em",color:`rgba(${rgb},0.09)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none",zIndex:0 }}>
         VISITED
       </span>
+      {/* Outer ink ring — simulates rubber stamp border */}
+      <div style={{ position:"absolute",inset:4,borderRadius:3,border:`1.5px dashed rgba(${rgb},0.5)`,pointerEvents:"none",zIndex:0 }}/>
       <div style={{ position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:2,width:"100%" }}>
-        {/* Building art */}
-        <div style={{ opacity:.72, lineHeight:0 }}>
+        <div style={{ opacity:.78, lineHeight:0 }}>
           <BuildingSVG type={btype}/>
         </div>
-        {/* Venue name */}
-        <div style={{ ...SERIF,fontSize:"0.82rem",fontWeight:700,color:hex,lineHeight:1.1,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.03em",marginTop:1 }}>
+        <div style={{ ...SERIF,fontSize:"0.80rem",fontWeight:700,color:hex,lineHeight:1.1,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.03em",marginTop:1 }}>
           {v.name.length>14 ? v.name.slice(0,13)+"…" : v.name}
         </div>
-        {/* Neighborhood */}
-        <div style={{ ...MONO,fontSize:"0.27rem",letterSpacing:"0.18em",color:hex,opacity:.65,textTransform:"uppercase" }}>
+        <div style={{ ...MONO,fontSize:"0.25rem",letterSpacing:"0.18em",color:hex,opacity:.65,textTransform:"uppercase" }}>
           {v.hood.toUpperCase()}
         </div>
-        {/* Date */}
-        <div style={{ ...MONO,fontSize:"0.25rem",letterSpacing:"0.1em",color:hex,opacity:.48,textTransform:"uppercase" }}>
+        <div style={{ ...MONO,fontSize:"0.22rem",letterSpacing:"0.1em",color:hex,opacity:.46,textTransform:"uppercase" }}>
           {date}
         </div>
-        {/* Serial */}
-        <div style={{ ...MONO,fontSize:"0.23rem",letterSpacing:"0.07em",color:hex,opacity:.38 }}>
+        <div style={{ ...MONO,fontSize:"0.20rem",letterSpacing:"0.07em",color:hex,opacity:.36 }}>
           {serial}
         </div>
       </div>
@@ -412,17 +439,18 @@ function StampOverlay({ venue, onDone }) {
     <div style={{ position:"fixed",inset:0,zIndex:9990,display:"flex",alignItems:"center",justifyContent:"center",pointerEvents:"none",background:"rgba(6,4,2,0.58)" }}>
       <div className="stamp-overlay-press" style={{
         display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",
-        width:230, height:188, border:`2px solid rgba(${rgb},0.85)`,
+        width:230, height:188, border:`2px dashed rgba(${rgb},0.75)`,
         boxShadow:`0 0 0 5px rgba(${rgb},0.08), 0 0 0 8px rgba(${rgb},0.04)`,
         background:`radial-gradient(ellipse at 48% 40%, rgba(${rgb},0.22) 0%, rgba(8,5,2,0.97) 72%)`,
         borderRadius:6, transform:`rotate(${rot}deg)`, padding:"18px 20px", position:"relative", overflow:"hidden",
         color: hex,
+        filter:`drop-shadow(0 0 12px rgba(${rgb},0.4))`,
       }}>
         <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-18deg)",...MONO,fontSize:"0.3rem",letterSpacing:"0.38em",color:`rgba(${rgb},0.06)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none" }}>
           VISITED
         </span>
         <div style={{ position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:4 }}>
-          <div style={{ opacity:.75,lineHeight:0 }}><BuildingSVG type={btype}/></div>
+          <div style={{ opacity:.78,lineHeight:0 }}><BuildingSVG type={btype}/></div>
           <div style={{ ...SERIF,fontSize:"1.4rem",fontWeight:700,color:hex,lineHeight:1.1,textTransform:"uppercase",textAlign:"center",marginTop:4 }}>
             {venue.name}
           </div>
@@ -479,20 +507,21 @@ function ChipBtn({ val, current, onSet, label, icon }) {
   );
 }
 
-function ResultCard({ v, stopLabel, photoMap }) {
+function ResultCard({ v, stopLabel, photoMap, onOpen }) {
   const [pressed, setPressed] = useState(false);
   const thumb = photoMap?.[String(v.id)];
   return (
     <div
+      onClick={() => onOpen && onOpen(String(v.id))}
       onMouseDown={()=>setPressed(true)} onMouseUp={()=>setPressed(false)} onMouseLeave={()=>setPressed(false)} onTouchStart={()=>setPressed(true)} onTouchEnd={()=>setPressed(false)}
-      style={{ display:"flex", alignItems:"stretch", gap:12, background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:10, overflow:"hidden", transform:pressed?"scale(0.975)":"scale(1)", transition:"transform 0.08s" }}
+      style={{ display:"flex", alignItems:"stretch", gap:12, background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:10, overflow:"hidden", transform:pressed?"scale(0.975)":"scale(1)", transition:"transform 0.08s", cursor:"pointer" }}
     >
       {/* Thumbnail */}
       <div style={{ width:68, flexShrink:0, background: thumb ? "var(--c-deep)" : venueGradient(v), position:"relative", overflow:"hidden" }}>
         {thumb && <img src={thumb} alt="" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover" }}/>}
       </div>
       {/* Text */}
-      <div style={{ flex:1, padding:"12px 4px 12px 0", minWidth:0 }}>
+      <div style={{ flex:1, padding:"12px 14px 12px 0", minWidth:0 }}>
         <div style={{ ...MONO,fontSize:"0.4rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"var(--c-goldD)",marginBottom:3 }}>{stopLabel}</div>
         <div style={{ ...SERIF,fontSize:"1.05rem",fontWeight:600,color:"var(--c-white)",lineHeight:1.2,marginBottom:3 }}>{v.name}</div>
         <div style={{ fontSize:"0.73rem",color:"var(--c-ash)",lineHeight:1.45,marginBottom:4 }}>
@@ -500,16 +529,16 @@ function ResultCard({ v, stopLabel, photoMap }) {
         </div>
         <div style={{ ...MONO,fontSize:"0.4rem",letterSpacing:"0.08em",textTransform:"uppercase",color:"var(--c-smoke)" }}>{v.cat} · {v.hood}</div>
       </div>
-      {/* Bookmark */}
+      {/* Arrow (indicates clickable) */}
       <div style={{ display:"flex",alignItems:"center",paddingRight:14,color:"var(--c-borders)" }}>
-        <IconBookmark/>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
       </div>
     </div>
   );
 }
 
-function TonightTab({ allVenues, photoMap }) {
-  const [when,    setWhen]    = useState("evening");
+function TonightTab({ allVenues, photoMap, onOpenVenue }) {
+  const [when,    setWhen]    = useState("night");
   const [who,     setWho]     = useState("date");
   const [energy,  setEnergy]  = useState("elevated");
   const [result,  setResult]  = useState(null);
@@ -533,36 +562,17 @@ function TonightTab({ allVenues, photoMap }) {
     }, 700);
   }
 
-  function handleRebuild() {
-    if (!result || building) return;
-    setBuilding(true); setResult(null);
-    setTimeout(() => {
-      setResult(buildNight(when, who, energy, allVenues));
-      setBuilding(false);
-    }, 500);
-  }
-
   return (
-    <div style={{ padding:"24px 20px 64px", maxWidth:680, margin:"0 auto" }}>
+    <div style={{ padding:"24px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
-      <div style={{ display:"flex",alignItems:"flex-start",justifyContent:"space-between",marginBottom:6 }}>
-        <div>
-          <h2 style={{ ...SERIF,fontSize:"1.9rem",fontWeight:400,color:"var(--c-white)",margin:0,lineHeight:1.1 }}>
-            Build My Night ✨
-          </h2>
-          <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.07em",color:"var(--c-smoke)",margin:"7px 0 0" }}>
-            Answer three questions. We'll craft the perfect night.
-          </p>
-        </div>
-        {result && !building && (
-          <button
-            onClick={handleRebuild}
-            style={{ ...MONO,fontSize:"0.46rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-border)",background:"transparent",color:"var(--c-smoke)",padding:"7px 13px",borderRadius:6,cursor:"pointer",marginTop:4,flexShrink:0 }}
-          >
-            REBUILD
-          </button>
-        )}
+      <div style={{ marginBottom:6 }}>
+        <h2 style={{ ...SERIF,fontSize:"1.9rem",fontWeight:400,color:"var(--c-white)",margin:0,lineHeight:1.1 }}>
+          Build My Night ✨
+        </h2>
+        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.07em",color:"var(--c-smoke)",margin:"7px 0 0" }}>
+          Answer three questions. We'll craft the perfect night.
+        </p>
       </div>
 
       {/* Q1 — When */}
@@ -573,8 +583,7 @@ function TonightTab({ allVenues, photoMap }) {
         <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
           <ChipBtn val="morning"   current={when} onSet={setWhen} label="Morning"    icon={<IconSunrise/>}/>
           <ChipBtn val="afternoon" current={when} onSet={setWhen} label="Afternoon"  icon={<IconSun/>}/>
-          <ChipBtn val="evening"   current={when} onSet={setWhen} label="Evening"    icon={<IconMoon/>}/>
-          <ChipBtn val="late"      current={when} onSet={setWhen} label="Late Night" icon={<IconCrescent/>}/>
+          <ChipBtn val="night"     current={when} onSet={setWhen} label="Night"      icon={<IconMoon/>}/>
         </div>
       </div>
 
@@ -649,17 +658,15 @@ function TonightTab({ allVenues, photoMap }) {
                 YOUR NIGHT
               </p>
               <div style={{ position:"relative" }}>
-                {/* Gold connecting line */}
                 <div style={{ position:"absolute",left:14,top:20,bottom:20,width:2,background:"linear-gradient(180deg,var(--c-goldD) 0%,rgba(201,168,76,0.2) 100%)",borderRadius:1 }}/>
                 <div style={{ display:"flex",flexDirection:"column",gap:16 }}>
                   {result.stops.map((v,i) => (
                     <div key={v.id} style={{ display:"flex",gap:14,alignItems:"flex-start" }}>
-                      {/* Number circle */}
                       <div style={{ width:30,height:30,borderRadius:"50%",border:"1.5px solid var(--c-goldD)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...MONO,fontSize:"0.5rem",color:"var(--c-gold)",background:"var(--c-deep)",position:"relative",zIndex:1,marginTop:20 }}>
                         {i+1}
                       </div>
                       <div style={{ flex:1,minWidth:0 }}>
-                        <ResultCard v={v} stopLabel={getStopLabel(i,when,energy)} photoMap={photoMap}/>
+                        <ResultCard v={v} stopLabel={getStopLabel(i,when,energy)} photoMap={photoMap} onOpen={onOpenVenue}/>
                       </div>
                     </div>
                   ))}
@@ -676,12 +683,13 @@ function TonightTab({ allVenues, photoMap }) {
 // ─────────────────────────────────────────────────────────────────────────────
 // Saved tab — unified card for spots, events, stays
 // ─────────────────────────────────────────────────────────────────────────────
-function SavedCard({ thumb, thumbGradient, title, cat, sub, onRemove, href, ctaLabel }) {
+function SavedCard({ thumb, thumbGradient, title, cat, sub, onRemove, onCardClick }) {
   const [pressed, setPressed] = useState(false);
   return (
     <div
+      onClick={onCardClick}
       onMouseDown={()=>setPressed(true)} onMouseUp={()=>setPressed(false)} onMouseLeave={()=>setPressed(false)} onTouchStart={()=>setPressed(true)} onTouchEnd={()=>setPressed(false)}
-      style={{ display:"flex",alignItems:"stretch",background:"var(--c-card)",border:"1px solid var(--c-border)",borderRadius:10,overflow:"hidden",transform:pressed?"scale(0.975)":"scale(1)",transition:"transform 0.08s" }}
+      style={{ display:"flex",alignItems:"stretch",background:"var(--c-card)",border:"1px solid var(--c-border)",borderRadius:10,overflow:"hidden",transform:pressed?"scale(0.975)":"scale(1)",transition:"transform 0.08s", cursor: onCardClick ? "pointer" : "default" }}
     >
       {/* Thumb */}
       <div style={{ width:68,flexShrink:0,background:thumbGradient||"var(--c-deep)",position:"relative",overflow:"hidden" }}>
@@ -693,18 +701,15 @@ function SavedCard({ thumb, thumbGradient, title, cat, sub, onRemove, href, ctaL
         <div style={{ ...SERIF,fontSize:"1.05rem",fontWeight:600,color:"var(--c-white)",lineHeight:1.2,marginBottom:3 }}>{title}</div>
         <div style={{ ...MONO,fontSize:"0.41rem",letterSpacing:"0.06em",textTransform:"uppercase",color:"var(--c-smoke)" }}>{sub}</div>
       </div>
-      {/* Actions */}
+      {/* Actions — consistent arrow right */}
       <div style={{ display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:8,padding:"0 12px",flexShrink:0 }}>
-        <button onClick={onRemove} style={{ background:"none",border:"none",cursor:"pointer",color:"#C05050",fontSize:"1.1rem",padding:"4px",lineHeight:1,display:"flex" }}>♥</button>
-        {href ? (
-          <a href={href} target="_blank" rel="noopener noreferrer" style={{ color:"var(--c-borders)",lineHeight:0,display:"flex" }}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"><line x1="2" y1="12" x2="12" y2="2"/><polyline points="5,2 12,2 12,9"/></svg>
-          </a>
-        ) : (
-          <span style={{ color:"var(--c-borders)",lineHeight:0,display:"flex" }}>
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
-          </span>
-        )}
+        <button
+          onClick={e=>{e.stopPropagation(); onRemove(e);}}
+          style={{ background:"none",border:"none",cursor:"pointer",color:"#C05050",fontSize:"1.1rem",padding:"4px",lineHeight:1,display:"flex" }}
+        >♥</button>
+        <span style={{ color:"var(--c-borders)",lineHeight:0,display:"flex" }}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"><line x1="2" y1="7" x2="12" y2="7"/><polyline points="8,3 12,7 8,11"/></svg>
+        </span>
       </div>
     </div>
   );
@@ -713,7 +718,7 @@ function SavedCard({ thumb, thumbGradient, title, cat, sub, onRemove, href, ctaL
 function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, onUnsaveEvent, onUnsaveHotel, onOpenVenue, photoMap }) {
   const empty = !savedVenues.length && !savedEventItems.length && !savedHotelItems.length;
   return (
-    <div style={{ padding:"24px 20px 64px", maxWidth:680, margin:"0 auto" }}>
+    <div style={{ padding:"24px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
       {empty ? (
         <div style={{ textAlign:"center",padding:"40px 0" }}>
           <p style={{ ...SERIF,fontSize:"1.1rem",fontStyle:"italic",color:"var(--c-smoke)",lineHeight:1.7 }}>
@@ -739,7 +744,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                     cat={v.cat.toUpperCase()}
                     sub={v.hood}
                     onRemove={e=>{e.stopPropagation();toggleFav&&toggleFav(String(v.id));}}
-                    href={null}
+                    onCardClick={()=>onOpenVenue&&onOpenVenue(String(v.id))}
                   />
                 ))}
               </div>
@@ -763,12 +768,11 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                       key={item.id}
                       thumb={item.image}
                       thumbGradient="linear-gradient(135deg,#0a1020 0%,#060810 100%)"
-                      title={item.label}
+                      title={item.title||(item.team&&item.opponent?item.team+" vs. "+item.opponent:item.team||"Event")}
                       cat={badge}
                       sub={sub}
                       onRemove={e=>{e.stopPropagation();onUnsaveEvent&&onUnsaveEvent(item.id,item);}}
-                      href={cta?.url}
-                      ctaLabel={cta?.label}
+                      onCardClick={cta?.url ? ()=>window.open(cta.url,"_blank","noopener") : undefined}
                     />
                   );
                 })}
@@ -792,11 +796,10 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                       thumb={h.image}
                       thumbGradient="linear-gradient(135deg,#0a0e1a 0%,#060810 100%)"
                       title={h.name}
-                      cat={`${h.hood || "Detroit"} · Hotel`.toUpperCase()}
+                      cat={`${h.hood||"Detroit"} · Hotel`.toUpperCase()}
                       sub={h.price_from ? `From ${h.price_from}/night` : h.hood}
                       onRemove={e=>{e.stopPropagation();onUnsaveHotel&&onUnsaveHotel(h.id);}}
-                      href={cta?.url}
-                      ctaLabel={cta?.label}
+                      onCardClick={cta?.url ? ()=>window.open(cta.url,"_blank","noopener") : undefined}
                     />
                   );
                 })}
@@ -810,7 +813,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Passport tab
+// Passport tab — physical passport book design
 // ─────────────────────────────────────────────────────────────────────────────
 function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone }) {
   const [isDark, setIsDark] = useState(() => {
@@ -829,25 +832,40 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone 
     [visited, allVenues]
   );
 
-  const total    = visitedVenues.length;
+  const total     = visitedVenues.length;
   const milestone = 20;
-  const pct      = total===0 ? 0 : Math.min(100, Math.round((total/milestone)*100));
-  const stamps   = visitedVenues.slice(0, 16); // max 16 stamps on page
+  const pct       = total===0 ? 0 : Math.min(100, Math.round((total/milestone)*100));
+  const stamps    = visitedVenues.slice(0, 16);
 
-  // Passport page background
-  const pageBg = isDark
-    ? "linear-gradient(148deg,#1d1609 0%,#120e06 100%)"
-    : "linear-gradient(148deg,#f0e8cc 0%,#e4d8b0 100%)";
-  const lineColor  = isDark ? "rgba(201,168,76,0.055)" : "rgba(100,70,20,0.08)";
-  const wmColor    = isDark ? "rgba(201,168,76,0.025)" : "rgba(100,70,20,0.05)";
-  const borderClr  = isDark ? "rgba(201,168,76,0.10)"  : "rgba(100,70,20,0.22)";
-  const headerText = isDark ? "rgba(201,168,76,0.45)"  : "rgba(80,50,15,0.55)";
+  // Theme-aware colors
+  const pageBg     = isDark
+    ? "linear-gradient(152deg,#1e1608 0%,#130e06 60%,#0f0b04 100%)"
+    : "linear-gradient(152deg,#f2e8cc 0%,#e6d9b2 60%,#ddd0a8 100%)";
+  const spineBg    = isDark
+    ? "linear-gradient(90deg,#0c0904 0%,#181108 100%)"
+    : "linear-gradient(90deg,#b8a060 0%,#c8b070 100%)";
+  const lineColor  = isDark ? "rgba(201,168,76,0.05)" : "rgba(100,70,20,0.07)";
+  const wmColor    = isDark ? "rgba(201,168,76,0.022)" : "rgba(100,70,20,0.045)";
+  const borderClr  = isDark ? "rgba(201,168,76,0.09)"  : "rgba(100,70,20,0.2)";
+  const headerText = isDark ? "rgba(201,168,76,0.42)"  : "rgba(80,50,15,0.52)";
   const subText    = isDark ? "var(--c-smoke)"          : "rgba(70,45,10,0.6)";
+  const countColor = isDark ? "var(--c-white)"          : "rgba(50,30,5,0.88)";
+  const goldClr    = isDark ? "var(--c-gold)"           : "rgba(120,85,20,0.85)";
+  const spineText  = isDark ? "rgba(201,168,76,0.22)"   : "rgba(60,35,8,0.3)";
+  const stitchClr  = isDark ? "rgba(201,168,76,0.14)"   : "rgba(80,50,15,0.2)";
+  const progressBg = isDark ? "rgba(201,168,76,0.1)"    : "rgba(100,70,20,0.12)";
+  const progressFg = isDark
+    ? "linear-gradient(90deg,var(--c-goldD),var(--c-gold))"
+    : "linear-gradient(90deg,rgba(120,85,20,0.65),rgba(160,115,30,0.85))";
+
+  // Stamp area height: 2 columns, each row ~105px apart, plus padding
+  const stampRows = Math.max(1, Math.ceil(stamps.length / 2));
+  const stampAreaH = stampRows * 108 + 60;
 
   return (
-    <div style={{ padding:"24px 20px 64px", maxWidth:680, margin:"0 auto" }}>
+    <div style={{ padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
-      {/* Stamp overlay */}
+      {/* Stamp overlay — only fires when newly earned */}
       {overlayVenueId && (
         <StampOverlay
           venue={allVenues.find(v=>String(v.id)===String(overlayVenueId)) || {id:overlayVenueId,name:"Venue",hood:"Detroit",cat:"Dinner"}}
@@ -855,69 +873,113 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone 
         />
       )}
 
-      {/* Stats bar */}
-      <div style={{ background:"var(--c-card)",border:"1px solid var(--c-border)",borderRadius:12,padding:"20px 20px 16px",marginBottom:20 }}>
-        <div style={{ display:"flex",alignItems:"flex-end",justifyContent:"space-between",marginBottom:12 }}>
-          <div style={{ display:"flex",alignItems:"baseline",gap:10 }}>
-            <span style={{ ...SERIF,fontSize:"2.4rem",fontWeight:400,color:"var(--c-white)",lineHeight:1 }}>{total}</span>
-            <span style={{ fontSize:"0.86rem",color:"var(--c-smoke)",fontWeight:300 }}>
-              venue{total!==1?"s":""} visited
-            </span>
+      {/* Passport book */}
+      <div style={{
+        display:"flex",
+        borderRadius:14,
+        overflow:"hidden",
+        boxShadow: isDark
+          ? "0 16px 60px rgba(0,0,0,0.75), 0 2px 10px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(201,168,76,0.06)"
+          : "0 16px 60px rgba(0,0,0,0.35), 0 2px 10px rgba(0,0,0,0.2)",
+      }}>
+
+        {/* Left spine / binding */}
+        <div style={{
+          width:24, flexShrink:0,
+          background:spineBg,
+          borderRight:`1px solid ${borderClr}`,
+          position:"relative",
+          display:"flex", flexDirection:"column", alignItems:"center",
+          paddingTop:16, paddingBottom:16,
+          overflow:"hidden",
+        }}>
+          {/* Spine label text (vertical) */}
+          <div style={{
+            writingMode:"vertical-rl", textOrientation:"mixed",
+            ...MONO, fontSize:"0.21rem", letterSpacing:"0.22em", textTransform:"uppercase",
+            color:spineText, transform:"rotate(180deg)",
+            flex:1, display:"flex", alignItems:"center", justifyContent:"center",
+          }}>
+            DETROIT
           </div>
-          <span style={{ ...MONO,fontSize:"0.46rem",letterSpacing:"0.1em",color:"var(--c-gold)" }}>
-            {stamps.length} / 16 stamps
-          </span>
-        </div>
-        <div style={{ background:"var(--c-borders)",borderRadius:100,height:2,overflow:"hidden",marginBottom:7 }}>
-          <div style={{ height:"100%",width:pct+"%",background:"linear-gradient(90deg,var(--c-goldD),var(--c-gold))",borderRadius:100,transition:"width 0.7s ease" }}/>
-        </div>
-        <p style={{ ...MONO,fontSize:"0.41rem",letterSpacing:"0.06em",color:subText,margin:0 }}>
-          {total===0 ? "Open any venue and mark it as visited to begin" : `${pct}% of your first ${milestone} discovered`}
-        </p>
-      </div>
-
-      {/* Passport book page */}
-      <div style={{ borderRadius:10, overflow:"hidden", boxShadow:"0 8px 32px rgba(0,0,0,0.45)" }}>
-
-        {/* Passport header strip */}
-        <div style={{ background:"var(--c-deep)", border:`1px solid ${borderClr}`, borderBottom:"none", borderRadius:"10px 10px 0 0", padding:"14px 20px 12px", textAlign:"center" }}>
-          <div style={{ ...MONO,fontSize:"0.3rem",letterSpacing:"0.32em",textTransform:"uppercase",color:"var(--c-goldD)" }}>EXCLUSIVE DETROIT</div>
-          <div style={{ ...SERIF,fontSize:"1.08rem",fontWeight:400,color:"var(--c-gold)",margin:"3px 0 2px" }}>Insider Passport</div>
-          <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.16em",textTransform:"uppercase",color:headerText }}>DETROIT INSIDER PASSPORT</div>
+          {/* Binding stitch marks */}
+          {[0,1,2,3,4,5,6,7].map(i => (
+            <div key={i} style={{
+              position:"absolute", width:10, height:1.5, borderRadius:1,
+              background:stitchClr,
+              top:(40 + i * 55)+"px", left:"50%", transform:"translateX(-50%)",
+            }}/>
+          ))}
+          {/* Binding crease lines */}
+          <div style={{ position:"absolute",inset:0,backgroundImage:`repeating-linear-gradient(180deg,transparent 0px,transparent 6px,rgba(0,0,0,0.04) 6px,rgba(0,0,0,0.04) 7px)`,pointerEvents:"none" }}/>
         </div>
 
-        {/* Parchment stamp area */}
-        <div style={{ background:pageBg, border:`1px solid ${borderClr}`, borderTop:"none", borderRadius:"0 0 10px 10px", padding:"28px 16px 32px", position:"relative", overflow:"hidden" }}>
+        {/* Main page */}
+        <div style={{ flex:1, background:pageBg, position:"relative", overflow:"hidden", minWidth:0 }}>
 
-          {/* Horizontal page lines */}
+          {/* Horizontal ruled lines */}
           <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(0deg,transparent 0px,transparent 28px,${lineColor} 28px,${lineColor} 29px)` }}/>
 
-          {/* Circular watermark */}
-          <div style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:240,height:240,borderRadius:"50%",border:`1px solid ${wmColor}`,pointerEvents:"none" }}/>
-          <div style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:200,height:200,borderRadius:"50%",border:`1px solid ${wmColor}`,pointerEvents:"none" }}/>
+          {/* Circular watermark rings */}
+          <div style={{ position:"absolute",top:"45%",left:"50%",transform:"translate(-50%,-50%)",width:260,height:260,borderRadius:"50%",border:`1px solid ${wmColor}`,pointerEvents:"none" }}/>
+          <div style={{ position:"absolute",top:"45%",left:"50%",transform:"translate(-50%,-50%)",width:210,height:210,borderRadius:"50%",border:`1px solid ${wmColor}`,pointerEvents:"none" }}/>
+          <div style={{ position:"absolute",top:"45%",left:"50%",transform:"translate(-50%,-50%)",width:155,height:155,borderRadius:"50%",border:`1px solid ${wmColor}`,pointerEvents:"none" }}/>
 
-          {/* DETROIT watermark text */}
-          <div style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-28deg)",...MONO,fontSize:"3.5rem",letterSpacing:"0.24em",color:wmColor,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none" }}>
+          {/* DETROIT diagonal watermark */}
+          <div style={{ position:"absolute",top:"42%",left:"50%",transform:"translate(-50%,-50%) rotate(-25deg)",...MONO,fontSize:"3.2rem",letterSpacing:"0.26em",color:wmColor,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none" }}>
             DETROIT
           </div>
 
-          {/* Stamp grid */}
-          <div style={{ position:"relative",zIndex:1,display:"flex",flexWrap:"wrap",gap:"18px 12px",justifyContent:"center",alignItems:"flex-start" }}>
-            {stamps.map((v,i) => (
-              <VenueStamp key={String(v.id)} v={v} index={i} isNew={false} />
-            ))}
+          {/* Header — integrated progress, no separate card */}
+          <div style={{ padding:"18px 20px 14px", borderBottom:`1px solid ${borderClr}`, position:"relative", zIndex:1 }}>
+            <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.32em",textTransform:"uppercase",color:headerText,marginBottom:4 }}>
+              EXCLUSIVE DETROIT
+            </div>
+            <div style={{ ...SERIF,fontSize:"1.12rem",fontWeight:400,color:goldClr,marginBottom:10 }}>
+              Insider Passport
+            </div>
+            {/* Progress row */}
+            <div style={{ display:"flex",alignItems:"center",gap:10,marginBottom:8 }}>
+              <span style={{ ...SERIF,fontSize:"2rem",fontWeight:400,color:countColor,lineHeight:1 }}>{total}</span>
+              <span style={{ fontSize:"0.82rem",color:subText,fontWeight:300,flex:1 }}>
+                venue{total!==1?"s":""} visited
+              </span>
+              <span style={{ ...MONO,fontSize:"0.38rem",letterSpacing:"0.08em",color:headerText,flexShrink:0 }}>
+                {stamps.length} / 16 stamps
+              </span>
+            </div>
+            <div style={{ background:progressBg, borderRadius:100, height:2, overflow:"hidden", marginBottom:6 }}>
+              <div style={{ height:"100%",width:pct+"%",background:progressFg,borderRadius:100,transition:"width 0.7s ease" }}/>
+            </div>
+            <p style={{ ...MONO,fontSize:"0.38rem",letterSpacing:"0.05em",color:subText,margin:0 }}>
+              {total===0 ? "Open any venue and tap ✓ visited to begin" : `${pct}% toward your first ${milestone} discoveries`}
+            </p>
           </div>
 
-          {total === 0 && (
-            <p style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.08em",color:"rgba(201,168,76,0.25)",textAlign:"center",position:"relative",zIndex:1,marginTop:20,marginBottom:0 }}>
-              Visit venues and mark them as visited to earn stamps
-            </p>
-          )}
+          {/* Stamp scatter area */}
+          <div style={{ minHeight:stampAreaH, position:"relative", padding:"14px 10px 18px", zIndex:1 }}>
+            {stamps.length === 0 ? (
+              <p style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.08em",color:`rgba(201,168,76,0.2)`,textAlign:"center",paddingTop:28,marginBottom:0 }}>
+                Visit venues and mark them as visited to earn stamps
+              </p>
+            ) : (
+              <div style={{ display:"flex",flexWrap:"wrap",gap:"4px 6px",justifyContent:"space-around",alignItems:"flex-start" }}>
+                {stamps.map((v, i) => (
+                  <div
+                    key={String(v.id)}
+                    style={{ transform:`translateY(${SCATTER_Y[i] || 0}px)`, flexShrink:0 }}
+                  >
+                    <VenueStamp v={v} index={i} isNew={false}/>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
 
-          {/* Footer */}
-          <div style={{ position:"relative",zIndex:1,textAlign:"center",marginTop:26,paddingTop:16,borderTop:`1px solid ${borderClr}` }}>
-            <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.22em",color:headerText,textTransform:"uppercase" }}>
-              YOUR JOURNEY. YOUR CITY. YOUR STAMPS.
+          {/* Page footer */}
+          <div style={{ padding:"12px 20px 18px", borderTop:`1px solid ${borderClr}`, textAlign:"center", position:"relative", zIndex:1 }}>
+            <div style={{ ...MONO,fontSize:"0.26rem",letterSpacing:"0.24em",textTransform:"uppercase",color:headerText }}>
+              YOUR JOURNEY · YOUR CITY · YOUR STAMPS
             </div>
           </div>
         </div>
@@ -955,7 +1017,7 @@ export default function MyDetroit({
   const [subTab, setSubTab] = useState("tonight");
 
   // Stamp overlay — only fires when visited array gains a new entry
-  const prevVisitedRef  = useRef(null);
+  const prevVisitedRef = useRef(null);
   const [overlayId, setOverlayId] = useState(null);
 
   useEffect(() => {
@@ -993,7 +1055,7 @@ export default function MyDetroit({
         </div>
       </div>
 
-      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap}/>}
+      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue}/>}
       {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap}/>}
       {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)}/>}
     </div>
