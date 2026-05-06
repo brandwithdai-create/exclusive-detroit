@@ -4,6 +4,7 @@ import L from "leaflet";
 import ThingsToDo, { DetailModal } from "./sections/ThingsToDo.jsx";
 import Stay, { HotelDetailModal } from "./sections/Stay.jsx";
 import MyDetroit, { TASTE_OPTIONS } from "./sections/MyDetroit.jsx";
+import Onboarding from "./sections/Onboarding.jsx";
 // fetchPlacePhotos intentionally NOT imported here — venue cards use static images only
 import { GAMES, DETROIT_EVENTS, CONCERTS, HOTELS, fmtDate, getTicketCTA, getBookingCTA } from "./data/eventsData.js";
 
@@ -1658,6 +1659,7 @@ const [userCoords,setUserCoords]=useState(null);
 const [geoError,setGeoError]  = useState(null);
 const [geoModal,setGeoModal]  = useState(false);
 const [theme,   setTheme]     = useState(()=>{try{return localStorage.getItem("ed-theme")||"system";}catch{return "system";}});
+const [showOnboarding,setShowOnboarding]=useState(()=>{try{return!localStorage.getItem("ed-onboarding-done");}catch{return true;}});
 const [aboutTick,setAboutTick]= useState(0);
 const [suggestName,setSuggestName]=useState("");
 const [suggestHood,setSuggestHood]=useState("");
@@ -2187,6 +2189,16 @@ React.createElement("span",null,"Share Exclusive Detroit")
 )
 )
 )),
+settingsCard(React.createElement(React.Fragment,null,
+settingsHeader("App Tour"),
+React.createElement("div",{style:{padding:"14px 20px 18px",display:"flex",flexDirection:"column",gap:8}},
+React.createElement("p",{style:{fontSize:"0.875rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:"0 0 6px"}},"Replay the intro tour that shows the app's key features."),
+React.createElement("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
+React.createElement("button",{onClick:function(){setShowOnboarding(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"10px 22px",borderRadius:100,border:"1px solid var(--c-goldD)",background:"rgba(201,168,76,0.08)",color:C.gold,cursor:"pointer",transition:"all 0.2s"}},"View App Tour"),
+React.createElement("button",{onClick:function(){try{localStorage.removeItem("ed-onboarding-done");}catch(e){}setShowOnboarding(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"10px 22px",borderRadius:100,border:"1px solid "+C.border,background:"transparent",color:C.smoke,cursor:"pointer",transition:"all 0.2s"}},"Reset Tour ↺")
+)
+)
+)),
 React.createElement("div",{style:{textAlign:"center",paddingTop:10,display:"flex",flexDirection:"column",alignItems:"center",gap:7}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke,margin:0}},"Detroit Edition v5.0"),
 React.createElement("a",{href:"/privacy",target:"_blank",rel:"noopener noreferrer",style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke,textDecoration:"none",display:"inline-flex",alignItems:"center",gap:4,minHeight:44,padding:"4px 8px",opacity:0.75}},"Privacy Policy\u00a0\u2192")
@@ -2207,6 +2219,7 @@ section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),
 section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")})
 ),
+showOnboarding&&React.createElement(Onboarding,{onDone:function(){setShowOnboarding(false);}}),
 section!=="map"&&section!=="settings"&&section!=="itinerary"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},
 React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:28,paddingBottom:24,borderBottom:"1px solid "+C.border}},
