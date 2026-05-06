@@ -1061,18 +1061,20 @@ const ICONS=[
 return React.createElement("div",{style:{
   width:48,height:54,flexShrink:0,
   display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-  background:`radial-gradient(ellipse at 50% 40%, rgba(${rgb},0.28) 0%, rgba(${rgb},0.09) 55%, transparent 82%)`,
+  background:`radial-gradient(ellipse at 50% 40%, rgba(${rgb},0.44) 0%, rgba(${rgb},0.18) 55%, transparent 82%)`,
   borderRadius:3,transform:`rotate(${rot}deg)`,
   position:"relative",overflow:"hidden",boxSizing:"border-box",
-  filter:`drop-shadow(0 0 6px rgba(${rgb},0.30))`,
+  filter:`drop-shadow(0 0 9px rgba(${rgb},0.52)) drop-shadow(0 0 3px rgba(${rgb},0.28))`,
 }},
-  React.createElement("div",{style:{position:"absolute",inset:2,borderRadius:2,border:`1.2px dashed rgba(${rgb},0.52)`,pointerEvents:"none"}}),
-  React.createElement("svg",{width:28,height:20,viewBox:"0 0 28 20",style:{overflow:"visible",marginBottom:1,opacity:.88}},ICONS),
-  React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.26rem",letterSpacing:"0.18em",color:hex,opacity:.72,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
-  dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.05em",color:hex,opacity:.44,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
+  React.createElement("div",{style:{position:"absolute",inset:2,borderRadius:2,border:`1.5px dashed rgba(${rgb},0.75)`,pointerEvents:"none"}}),
+  React.createElement("svg",{width:28,height:20,viewBox:"0 0 28 20",style:{overflow:"visible",marginBottom:1,opacity:1}},ICONS),
+  React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.26rem",letterSpacing:"0.18em",color:hex,opacity:.92,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
+  dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.05em",color:hex,opacity:.68,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
 );}
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
+const [justVisited, setJustVisited] = React.useState(false);
+const _jvTimer = React.useRef(null);
 const cardRef = React.useRef(null);
 React.useEffect(()=>{
   const el=cardRef.current; if(!el) return;
@@ -1107,7 +1109,7 @@ React.createElement("p", { style:{ fontSize:"0.78rem", color:C.ash, fontWeight:3
 React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:4 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v})))
 ),
 React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,display:"flex",alignItems:"stretch",overflow:"hidden"}},
-React.createElement("div",{onClick:e=>{e.stopPropagation();onVisit&&onVisit(String(venue.id));},style:{flex:1,display:"flex",alignItems:"center",gap:8,padding:"9px 10px",cursor:"pointer",minWidth:0,transition:"background 0.18s"},onMouseEnter:e=>{e.currentTarget.style.background="rgba(201,168,76,0.05)";},onMouseLeave:e=>{e.currentTarget.style.background="transparent";}},
+React.createElement("div",{onClick:e=>{e.stopPropagation();onVisit&&onVisit(String(venue.id));if(!isVis){clearTimeout(_jvTimer.current);setJustVisited(true);_jvTimer.current=setTimeout(()=>setJustVisited(false),2000);}},style:{flex:1,display:"flex",alignItems:"center",gap:8,padding:"9px 10px",cursor:"pointer",minWidth:0,transition:"background 0.3s",background:justVisited?"rgba(201,168,76,0.06)":"transparent"},onPointerEnter:e=>{if(!justVisited)e.currentTarget.style.background="rgba(201,168,76,0.05)";},onPointerLeave:e=>{if(!justVisited)e.currentTarget.style.background="transparent";}},
 isVis?React.createElement(CardStamp,{venue,date:visitedDate}):React.createElement("div",{style:{width:36,height:36,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"50%",border:"1px solid rgba(201,168,76,0.22)"}},
 React.createElement("svg",{width:15,height:13,viewBox:"0 0 15 13",fill:"none",stroke:C.goldD,strokeWidth:1.3,strokeLinecap:"round",strokeLinejoin:"round"},
 React.createElement("path",{d:"M1 12h13M4 12V7.5L7.5 3l3.5 4.5V12"}),
@@ -1119,7 +1121,7 @@ React.createElement("div",{style:{fontSize:"0.64rem",color:C.smoke,fontWeight:30
 React.createElement("div",{style:{width:1,background:C.borderS,flexShrink:0,margin:"8px 0"}}),
 React.createElement("button",{onClick:e=>{e.stopPropagation();onOpen(String(venue.id));},style:{display:"flex",alignItems:"center",justifyContent:"center",gap:4,padding:"9px 11px",background:"none",border:"none",cursor:"pointer",color:C.goldL,fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",flexShrink:0,whiteSpace:"nowrap",transition:"color 0.18s"}},"VIEW DETAILS",React.createElement("span",{style:{fontSize:"0.72rem",lineHeight:1}},"→")),
 React.createElement("div",{style:{width:1,background:C.borderS,flexShrink:0,margin:"8px 0"}}),
-React.createElement("button",{onClick:e=>{e.stopPropagation();onFav(String(venue.id));},onMouseDown:e=>e.preventDefault(),style:{background:"none",border:"none",cursor:"pointer",color:isFav?C.gold:C.bone,fontSize:"1.05rem",padding:"9px 10px",display:"inline-flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"color 0.18s"}},isFav?"\u2665":"\u2661")
+React.createElement("button",{onClick:e=>{e.stopPropagation();onFav(String(venue.id));},onMouseDown:e=>e.preventDefault(),style:{background:"none",border:"none",cursor:"pointer",color:isFav?C.gold:C.bone,fontSize:"1.05rem",width:38,display:"inline-flex",alignItems:"center",justifyContent:"center",flexShrink:0,padding:0,transition:"color 0.18s"}},isFav?"\u2665":"\u2661")
 )
 );
 });
