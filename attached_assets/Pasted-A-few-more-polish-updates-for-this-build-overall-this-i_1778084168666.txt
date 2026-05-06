@@ -1,0 +1,149 @@
+A few more polish updates for this build — overall this is looking MUCH better. The new map card positioning is a huge improvement and the passport direction is finally getting close to the luxury vibe I want. Please make the following refinements carefully and consistently across the app:
+
+1. PASSPORT STAMPS / BUILDINGS
+- I do NOT want the same building illustration reused over and over on the passport page or the venue card stamps.
+- Right now the buildings feel too cartoonish and repetitive.
+- Please redesign the passport stamp illustrations so they feel:
+  - more architectural
+  - more elegant
+  - more realistic
+  - inspired by REAL iconic architecture around the world
+- Examples of inspiration:
+  - Parisian storefronts
+  - NYC brownstones
+  - Art Deco towers
+  - Japanese minimalist buildings
+  - Mediterranean arches
+  - Historic theaters
+  - Modern luxury hotels
+  - European cafés
+- Each venue should feel visually unique.
+- Create a larger library of stamp/building variants so the same icon is not repeated constantly.
+
+2. PASSPORT STAMP DATES
+- The date shown under each passport stamp MUST be the ACTUAL date the user clicked “Add to Passport” / visited.
+- Right now some dates appear random or inaccurate.
+- The saved visit date should:
+  - persist permanently
+  - never randomly regenerate
+  - always reflect the true visit date
+- Use the real local device date at the exact moment the user stamps the venue.
+
+3. PASSPORT FONT LEGIBILITY
+- The small text underneath passport stamps is too tiny and difficult to read.
+- Increase the font size slightly throughout the passport section so it remains elegant but fully legible.
+- Also do a full typography audit across the ENTIRE app:
+  - no text should be too small to comfortably read
+  - make sure font sizing aligns with Apple readability/accessibility standards
+  - preserve the luxury aesthetic while improving readability
+
+4. MAP TAB INTERACTIONS
+The new floating venue preview card on the map is MUCH better.
+
+However:
+- If the user taps ANY blank space on the map, the preview card should dismiss/close immediately.
+- If the user switches filter pills (Hidden Bars, Rooftops, Dinner, etc.), the currently open preview card should also dismiss automatically.
+- The card should never stay floating awkwardly when context changes.
+
+5. PRIVACY POLICY
+My Privacy Policy needs to be visible and accessible for Apple review compliance.
+Please:
+- add a clickable “Privacy Policy” link inside the About tab/settings area
+- make sure it is easy to find
+- make it open properly in-app or externally
+- ensure bottom navigation/buttons never cover it
+
+6. EXPLORE PAGE IMAGE LOADING BUGS
+Some venue cards on the Explore page occasionally fail to load images and instead show fallback emojis (like the cocktail emoji).
+
+Please investigate all image-loading logic and fix:
+- lazy loading issues
+- broken image fallbacks
+- caching inconsistencies
+- race conditions
+- failed image state handling
+
+I want venue images to reliably populate every time.
+
+7. REMOVE EXTRA BLANK SPACE ABOVE HEADERS
+There is still unnecessary blank space above several page headers.
+
+Examples:
+- above the Explore hero skyline image
+- above certain section headers/pages
+
+Please tighten the vertical spacing so the content starts higher and feels more premium and intentional.
+There should NOT be large dead empty gaps before content begins.
+
+8. PASSPORT COUNTERS MUST BE ACCURATE
+The passport currently says:
+“16 / 16 stamps”
+and
+“100% toward your first 20 discoveries”
+
+Those numbers must be dynamically accurate based on:
+- the ACTUAL number of venues in the app
+- the ACTUAL number visited
+- the REAL completion percentage
+
+Do not hardcode placeholder values.
+
+9. NOTIFICATION POPUP REFINEMENT
+The notification popup is close, but:
+- the bell icon is too large and aggressive
+- some of the text is too small to comfortably read
+
+Please:
+- slightly reduce the bell size
+- rebalance spacing/scale
+- improve text readability
+
+ALSO:
+When the user taps “Yes, Notify Me”:
+- add a subtle luxury bell-ring animation
+- a soft premium microinteraction
+- elegant and minimal (not cheesy)
+- small bell wobble/ring effect with gentle glow feedback
+
+10. VENUE CARD “VISITED” FOOTER REDESIGN (OPTION 3)
+For the footer INSIDE venue cards below “Visit Website / Book Now”:
+Please use the new Option 3 design direction only.
+
+Important:
+- This change is ONLY for INSIDE the venue cards.
+- Do NOT redesign the outside Explore feed cards.
+
+The footer should:
+- feel luxury + editorial
+- include the passport stamp styling
+- feel integrated into the card
+- not look generic
+- not feel like a default checkbox/button
+
+State 1:
+- elegant “Add to Passport” interaction
+
+State 2 after tapping:
+- transformed luxury passport-stamped state
+- includes REAL visit date
+- premium glow/subtle texture
+- feels collectible and satisfying
+
+Please match the visual direction from the latest approved mockups exactly.
+
+11. BUILD MY NIGHT → SAVE PLAN FEATURE
+After Build My Night generates an itinerary:
+- add a “Save Plan” button beneath the generated night
+- when tapped:
+  - save the itinerary locally
+  - place it under its own category/tab section:
+    “Saved Plans”
+- preserve:
+  - venue order
+  - categories
+  - selected vibe/energy settings
+  - generated plan details
+
+This should feel like saving a curated night out, not just bookmarking random venues.
+
+Please keep all styling cohesive with the existing luxury aesthetic and avoid anything that feels generic, bulky, or overly app-like.

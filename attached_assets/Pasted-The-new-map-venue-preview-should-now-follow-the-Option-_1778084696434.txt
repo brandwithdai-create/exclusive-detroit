@@ -1,0 +1,80 @@
+The new map venue preview should now follow the Option 4 “Pin-Connected Card” design exactly. This direction is significantly better than the bottom sheet because it keeps the map visible, feels more luxury/editorial, and solves the issue of the bottom navigation covering buttons.
+
+MAP VENUE PREVIEW — NEW DESIGN DIRECTION
+Please redesign the map venue preview cards to match the attached Option 4 mockup as closely as possible.
+
+Core behavior:
+- When a map pin is tapped:
+  - a compact floating venue card appears BESIDE the selected pin
+  - not attached to the bottom of the screen
+- The card should visually connect to the selected map pin using:
+  - a thin glowing gold line
+  - subtle animated glow
+  - elegant connection point
+- The selected map pin should also:
+  - slightly enlarge
+  - glow softly
+  - feel “active”
+
+CARD DESIGN
+The floating card should:
+- be much more compact than the current version
+- keep the luxury aesthetic
+- feel editorial and intentional
+- NOT block half the map
+
+Layout structure:
+- small image thumbnail on the LEFT
+- text stack on the RIGHT
+- compact typography hierarchy
+
+Include:
+- category label (“Locals Know” etc.)
+- venue name
+- neighborhood
+- very short teaser description (2 lines max)
+- View Details button
+- heart/save button
+
+The card should feel:
+- premium
+- lightweight
+- fast
+- elegant
+- almost like Apple Maps meets a luxury hotel app
+
+INTERACTION BEHAVIOR
+- Tapping empty map space should dismiss the card immediately
+- Switching filter pills should dismiss the current card immediately
+- Selecting another pin should:
+  - smoothly animate the card to the new location
+  - reconnect the gold line to the newly selected pin
+
+ANIMATION
+Please add subtle premium animation:
+- soft fade/scale in
+- gentle glow pulse on selected pin
+- gold connector line subtly illuminating when card appears
+
+Avoid:
+- anything cartoonish
+- anything overly flashy
+- harsh movement
+- heavy shadows
+
+SPACING + SIZE
+The current preview card is still too large vertically.
+
+Please:
+- reduce total card footprint significantly
+- keep more map visible at all times
+- maintain enough padding for readability
+- preserve Apple accessibility standards
+
+IMAGE LOADING
+The floating preview card must:
+- preload images properly
+- never show blank states or emoji placeholders
+- gracefully fallback only if absolutely necessary
+
+This new floating connected-card system should become the standard interaction pattern for the entire map experience.

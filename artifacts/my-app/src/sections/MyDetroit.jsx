@@ -230,16 +230,16 @@ const IconLightning = () => <svg width="16" height="16" viewBox="0 0 16 16" styl
 const CAT_BUILDING = {
   "Dinner":                  "classic",
   "Cocktail Lounges":        "artdeco",
-  "Hidden Bars":             "dome",
+  "Hidden Bars":             "brownstone",
   "Rooftops":                "modern",
   "Breakfast":               "cafe",
   "Coffee Shops & Bakeries": "cafe",
-  "Nightlife":               "warehouse",
+  "Nightlife":               "theater",
   "Sports Bars":             "warehouse",
   "Happy Hour":              "arches",
-  "Lunch":                   "arches",
-  "Outdoor Activities":      "modern",
-  "Alley Spots":             "artdeco",
+  "Lunch":                   "mediterranean",
+  "Outdoor Activities":      "japanese",
+  "Alley Spots":             "boutique",
 };
 
 function BuildingSVG({ type }) {
@@ -335,6 +335,86 @@ function BuildingSVG({ type }) {
         <line x1="68" y1="16" x2="68" y2="46" style={{...s,opacity:.4}}/>
       </svg>
     );
+    case "brownstone": return (
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <rect x="5" y="10" width="27" height="38" style={s}/>
+        <rect x="36" y="14" width="31" height="34" style={s}/>
+        <rect x="5" y="10" width="27" height="3.5" style={{...f,opacity:.48}}/>
+        <rect x="36" y="14" width="31" height="3.5" style={{...f,opacity:.48}}/>
+        <path d="M5,10 L5,4 L32,4 L32,10" style={s}/>
+        <rect x="9" y="16" width="8" height="9" style={s}/>
+        <rect x="21" y="16" width="8" height="9" style={s}/>
+        <rect x="9" y="30" width="8" height="9" style={s}/>
+        <rect x="21" y="30" width="8" height="9" style={s}/>
+        <rect x="40" y="20" width="8" height="9" rx="1" style={s}/>
+        <rect x="52" y="20" width="9" height="9" rx="1" style={s}/>
+        <rect x="40" y="34" width="8" height="9" rx="1" style={s}/>
+        <rect x="52" y="34" width="9" height="9" rx="1" style={s}/>
+        <path d="M15,48 L15,40 Q18.5,36 22,40 L22,48" style={s}/>
+        <path d="M44,48 L44,40 Q48,35 52,40 L52,48" style={s}/>
+        <line x1="8" y1="6" x2="8" y2="10" style={{...s,opacity:.5,strokeLinecap:"round"}}/>
+      </svg>
+    );
+    case "theater": return (
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <path d="M4,28 Q4,5 36,5 Q68,5 68,28" style={s}/>
+        <rect x="4" y="28" width="64" height="18" style={s}/>
+        <rect x="4" y="28" width="64" height="3" style={{...f,opacity:.42}}/>
+        <path d="M18,28 L18,16 Q36,8 54,16 L54,28" style={{...s,opacity:.55}}/>
+        {[14,24,34,44,54].map(x=><line key={x} x1={x} y1="28" x2={x} y2="46" style={{stroke:"currentColor",strokeWidth:.7,opacity:.28}}/>)}
+        <rect x="28" y="34" width="16" height="12" style={s}/>
+        <rect x="8" y="33" width="10" height="8" style={s}/>
+        <rect x="54" y="33" width="10" height="8" style={s}/>
+        <line x1="12" y1="2" x2="12" y2="5" style={{stroke:"currentColor",strokeWidth:1.2,opacity:.48,strokeLinecap:"round"}}/>
+        <line x1="36" y1="2" x2="36" y2="5" style={{stroke:"currentColor",strokeWidth:1.2,opacity:.48,strokeLinecap:"round"}}/>
+        <line x1="60" y1="2" x2="60" y2="5" style={{stroke:"currentColor",strokeWidth:1.2,opacity:.48,strokeLinecap:"round"}}/>
+      </svg>
+    );
+    case "japanese": return (
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <path d="M2,22 L36,4 L70,22" style={{...s,strokeWidth:1.4}}/>
+        <rect x="8" y="22" width="56" height="3" style={{...f,opacity:.42}}/>
+        <rect x="14" y="25" width="44" height="18" style={s}/>
+        <path d="M8,43 L64,43" style={{...s,strokeWidth:1.2,opacity:.55}}/>
+        <rect x="2" y="43" width="68" height="3" style={{...f,opacity:.38}}/>
+        <rect x="19" y="30" width="9" height="13" style={s}/>
+        <rect x="32" y="30" width="8" height="13" style={s}/>
+        <rect x="44" y="30" width="9" height="13" style={s}/>
+        {[24,38,54].map(x=><line key={x} x1={x} y1="25" x2={x} y2="43" style={{stroke:"currentColor",strokeWidth:.6,opacity:.26}}/>)}
+        <line x1="36" y1="4" x2="36" y2="1" style={{stroke:"currentColor",strokeWidth:1.5,strokeLinecap:"round"}}/>
+        <line x1="30" y1="1" x2="42" y2="1" style={{stroke:"currentColor",strokeWidth:1,strokeLinecap:"round",opacity:.5}}/>
+      </svg>
+    );
+    case "mediterranean": return (
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <rect x="2" y="4" width="68" height="4" style={{...f,opacity:.48}}/>
+        <path d="M6,46 L6,30 Q6,18 14,18 Q22,18 22,30 L22,46" style={s}/>
+        <path d="M25,46 L25,30 Q25,18 36,18 Q47,18 47,30 L47,46" style={s}/>
+        <path d="M50,46 L50,30 Q50,18 58,18 Q66,18 66,30 L66,46" style={s}/>
+        <rect x="2" y="46" width="68" height="2" style={{...f,opacity:.52}}/>
+        <rect x="2" y="8" width="68" height="10" style={s}/>
+        {[10,20,30,42,52,62].map(x=><line key={x} x1={x} y1="8" x2={x} y2="18" style={{stroke:"currentColor",strokeWidth:.68,opacity:.3}}/>)}
+        <rect x="10" y="36" width="8" height="10" style={{...s,opacity:.58}}/>
+        <rect x="30" y="36" width="12" height="10" style={{...s,opacity:.58}}/>
+        <rect x="54" y="36" width="8" height="10" style={{...s,opacity:.58}}/>
+      </svg>
+    );
+    case "boutique": return (
+      <svg viewBox="0 0 72 48" width="72" height="48">
+        <rect x="4" y="10" width="64" height="36" style={s}/>
+        <rect x="4" y="10" width="64" height="4.5" style={{...f,opacity:.48}}/>
+        <path d="M2,14.5 Q36,22 70,14.5" style={{...s,opacity:.55}}/>
+        <rect x="10" y="19" width="14" height="11" rx="1" style={s}/>
+        <rect x="30" y="19" width="12" height="11" rx="1" style={s}/>
+        <rect x="48" y="19" width="14" height="11" rx="1" style={s}/>
+        <rect x="27" y="34" width="18" height="12" style={s}/>
+        <rect x="8" y="34" width="12" height="9" style={s}/>
+        <rect x="52" y="34" width="12" height="9" style={s}/>
+        <line x1="4" y1="10" x2="4" y2="4" style={{stroke:"currentColor",strokeWidth:1.2,opacity:.48,strokeLinecap:"round"}}/>
+        <line x1="68" y1="10" x2="68" y2="4" style={{stroke:"currentColor",strokeWidth:1.2,opacity:.48,strokeLinecap:"round"}}/>
+        <line x1="4" y1="4" x2="68" y2="4" style={{stroke:"currentColor",strokeWidth:1,opacity:.38,strokeLinecap:"round"}}/>
+      </svg>
+    );
     default: return (
       <svg viewBox="0 0 72 48" width="72" height="48">
         <rect x="4" y="10" width="64" height="36" style={s}/>
@@ -378,14 +458,14 @@ function getStampDate(index) {
 // ─────────────────────────────────────────────────────────────────────────────
 // VenueStamp — ink-on-paper look, no box border
 // ─────────────────────────────────────────────────────────────────────────────
-function VenueStamp({ v, index, isNew, onOpen }) {
+function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
   const { hex, rgb, rot } = getStampStyle(v);
   const btype = CAT_BUILDING[v.cat] || "classic";
   const portrait = index % 3 === 1;
   const w = portrait ? 118 : 148;
   const h = portrait ? 108 :  90;
   const serial = "DET-" + String(v.id).padStart(4,"0");
-  const date   = getStampDate(index);
+  const date   = propDate || getStampDate(index);
 
   return (
     <div
@@ -897,7 +977,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
 // ─────────────────────────────────────────────────────────────────────────────
 // Passport tab — physical passport book design
 // ─────────────────────────────────────────────────────────────────────────────
-function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone, onOpenVenue }) {
+function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone, onOpenVenue, visitedDates }) {
   const [isDark, setIsDark] = useState(() => {
     try { return document.documentElement.getAttribute("data-theme") !== "light"; } catch { return true; }
   });
@@ -917,7 +997,7 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
   const total     = visitedVenues.length;
   const milestone = 20;
   const pct       = total===0 ? 0 : Math.min(100, Math.round((total/milestone)*100));
-  const stamps    = visitedVenues.slice(0, 16);
+  const stamps    = visitedVenues;
 
   // Theme-aware colors
   const pageBg     = isDark
@@ -1031,8 +1111,8 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
               <span style={{ fontSize:"0.82rem",color:subText,fontWeight:300,flex:1 }}>
                 venue{total!==1?"s":""} visited
               </span>
-              <span style={{ ...MONO,fontSize:"0.38rem",letterSpacing:"0.08em",color:headerText,flexShrink:0 }}>
-                {stamps.length} / 16 stamps
+              <span style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.08em",color:headerText,flexShrink:0 }}>
+                {total} / {allVenues.length} stamped
               </span>
             </div>
             <div style={{ background:progressBg, borderRadius:100, height:2, overflow:"hidden", marginBottom:6 }}>
@@ -1051,14 +1131,20 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
               </p>
             ) : (
               <div style={{ display:"flex",flexWrap:"wrap",gap:"4px 6px",justifyContent:"space-around",alignItems:"flex-start" }}>
-                {stamps.map((v, i) => (
-                  <div
-                    key={String(v.id)}
-                    style={{ transform:`translateY(${SCATTER_Y[i] || 0}px)`, flexShrink:0 }}
-                  >
-                    <VenueStamp v={v} index={i} isNew={false} onOpen={onOpenVenue}/>
-                  </div>
-                ))}
+                {stamps.map((v, i) => {
+                  const rawDate = visitedDates?.[String(v.id)];
+                  const displayDate = rawDate
+                    ? new Date(rawDate).toLocaleDateString("en-US",{month:"short",day:"2-digit",year:"numeric"}).toUpperCase().replace(",","")
+                    : null;
+                  return (
+                    <div
+                      key={String(v.id)}
+                      style={{ transform:`translateY(${SCATTER_Y[i % SCATTER_Y.length] || 0}px)`, flexShrink:0 }}
+                    >
+                      <VenueStamp v={v} index={i} isNew={false} onOpen={onOpenVenue} date={displayDate}/>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -1100,7 +1186,7 @@ export default function MyDetroit({
   visited, taste, onTasteChange, onOpenVenue, navTo, allVenues,
   savedVenues, savedEventItems, savedHotelItems,
   toggleFav, onUnsaveEvent, onUnsaveHotel, photoMap,
-  savedPlans, onSavePlan, onDeletePlan,
+  savedPlans, onSavePlan, onDeletePlan, visitedDates,
 }) {
   const [subTab, setSubTab] = useState("tonight");
 
@@ -1145,7 +1231,7 @@ export default function MyDetroit({
 
       {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan}/>}
       {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap} savedPlans={savedPlans||[]} onDeletePlan={onDeletePlan}/>}
-      {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue}/>}
+      {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue} visitedDates={visitedDates}/>}
     </div>
   );
 }

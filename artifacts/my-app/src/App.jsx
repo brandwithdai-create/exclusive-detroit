@@ -1312,6 +1312,7 @@ containerRef.current.style.height=`${exactH}px`;
 map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
 mapRef.current=map;
+map.on("click",()=>{setSelected(null);});
 const forceRedraw=(m)=>{try{m.invalidateSize();m.setView(m.getCenter(),m.getZoom(),{animate:false});}catch(e){console.warn("[ExclusiveDetroit] map redraw error",e);}};
 forceRedraw(map);
 setMapReady(true);
@@ -1338,7 +1339,7 @@ const pin=isNew?"#C8AEFF":"#C9A84C";
 const glow=isNew?"rgba(200,174,255,0.45)":"rgba(201,168,76,0.45)";
 const mHtml=`<div style="width:13px;height:13px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.75);box-shadow:0 0 8px ${glow};cursor:pointer"></div>`;
 const icon=L.divIcon({className:"",html:mHtml,iconSize:[13,13],iconAnchor:[6,6]});
-const m=L.marker(coord,{icon}).addTo(map).on("click",()=>{if(v.cat==="Hotels"){setHotelDetail(v);setSelected(null);}else{setHotelDetail(null);setSelected(v);}});
+const m=L.marker(coord,{icon}).addTo(map).on("click",(e)=>{L.DomEvent.stopPropagation(e);if(v.cat==="Hotels"){setHotelDetail(v);setSelected(null);}else{setHotelDetail(null);setSelected(v);}});
 markersRef.current.set(String(v.id),{marker:m,pin,glow});
 });
 },[mapCat,mapReady,showSavedOnly,favs,savedHotels]);
@@ -1466,7 +1467,7 @@ onTouchStart:e=>e.stopPropagation(),onTouchMove:e=>e.stopPropagation()
 MAP_FILTER_CATS.map(c=>{
 const active=mapCat===c;
 const ico=MAP_CAT_ICONS[c]||"·";
-return React.createElement("button",{key:c,onClick:()=>setMapCat(c),style:{display:"inline-flex",alignItems:"center",gap:5,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(active?"transparent":"var(--c-mzoom-bdr)"),color:active?"var(--c-btn-cta-txt)":"var(--c-mzoom-color)",background:active?C.gold:"var(--c-mzoom-bg)",padding:"7px 13px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0,boxShadow:active?"0 2px 8px rgba(0,0,0,0.18)":"none",transition:"all 0.2s",fontWeight:active?500:400}},
+return React.createElement("button",{key:c,onClick:()=>{setMapCat(c);setSelected(null);},style:{display:"inline-flex",alignItems:"center",gap:5,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid "+(active?"transparent":"var(--c-mzoom-bdr)"),color:active?"var(--c-btn-cta-txt)":"var(--c-mzoom-color)",background:active?C.gold:"var(--c-mzoom-bg)",padding:"7px 13px",borderRadius:100,cursor:"pointer",whiteSpace:"nowrap",flexShrink:0,boxShadow:active?"0 2px 8px rgba(0,0,0,0.18)":"none",transition:"all 0.2s",fontWeight:active?500:400}},
 React.createElement("span",{style:{fontSize:"0.6rem",lineHeight:1}},ico),
 c==="all"?"All Venues":c
 );})
@@ -1603,6 +1604,7 @@ useEffect(()=>{try{localStorage.setItem("savedHotels",JSON.stringify(savedHotels
 const [visited,setVisited]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-visited")||"[]");}catch{return [];}});
 const [taste,setTaste]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-taste")||"[]");}catch{return [];}});
 const [notifDone,setNotifDone]=useState(()=>{try{return localStorage.getItem("ed-notif-prompted")==="1";}catch{return false;}});
+const [notifRinging,setNotifRinging]=useState(false);
 useEffect(()=>{try{localStorage.setItem("ed-visited",JSON.stringify(visited));}catch(e){}},[visited]);
 useEffect(()=>{try{localStorage.setItem("ed-taste",JSON.stringify(taste));}catch(e){}},[taste]);
 const [visitedDates,setVisitedDates]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-visited-dates")||"{}");}catch{return {};}});
@@ -1986,6 +1988,8 @@ React.createElement("span",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300
 )
 )
 )
+),React.createElement("div",{style:{textAlign:"center",paddingTop:12,paddingBottom:6}},
+React.createElement("a",{href:"/privacy",target:"_blank",rel:"noopener noreferrer",style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(201,168,76,0.38)",textDecoration:"none",display:"inline-block",padding:"8px 16px",border:"1px solid rgba(201,168,76,0.14)",borderRadius:100}},"\u2014 Privacy Policy \u2014")
 )
 )
 );
@@ -2070,7 +2074,7 @@ section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
 section==="neighborhoods" && Areas(),
-section==="itinerary"     && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:ALL,savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,toggleFav,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel,photoMap,savedPlans,onSavePlan:savePlan,onDeletePlan:deletePlan}),
+section==="itinerary"     && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:ALL,savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,toggleFav,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel,photoMap,savedPlans,onSavePlan:savePlan,onDeletePlan:deletePlan,visitedDates}),
 section==="about"         && About({tick:aboutTick}),
 section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),
@@ -2103,16 +2107,17 @@ BottomNav(),
 GeoModal(),
 modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null),photoMap,isVis:isVisited(modalId),onVisit:toggleVisited}),
 !notifDone&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.96)",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 22px"}},
-React.createElement("div",{style:{background:"var(--c-deep)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:22,padding:"44px 28px 40px",maxWidth:400,width:"100%",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.8)"}},
-React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{position:"absolute",top:16,right:16,background:"none",border:"none",color:"var(--c-smoke)",cursor:"pointer",fontSize:"1.15rem",padding:8,lineHeight:1,minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}},"✕"),
+React.createElement("style",null,"@keyframes bellRing{0%,100%{transform:rotate(0) scale(1)}8%{transform:rotate(-14deg) scale(1.04)}22%{transform:rotate(14deg) scale(1.04)}38%{transform:rotate(-10deg) scale(1.02)}52%{transform:rotate(10deg) scale(1.02)}66%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}@keyframes bellPulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,0.55),0 0 0 0 rgba(201,168,76,0.3)}45%{box-shadow:0 0 0 12px rgba(201,168,76,0.06),0 0 22px 4px rgba(201,168,76,0.22)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0),0 0 0 0 rgba(201,168,76,0)}}"),
+React.createElement("div",{style:{background:"var(--c-deep)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:22,padding:"38px 28px 34px",maxWidth:400,width:"100%",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.8)"}},
+React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{position:"absolute",top:16,right:16,background:"none",border:"none",color:"var(--c-smoke)",cursor:"pointer",fontSize:"1.05rem",padding:8,lineHeight:1,minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}},"✕"),
 React.createElement("div",{style:{textAlign:"center"}},
-React.createElement("div",{style:{width:52,height:52,borderRadius:"50%",border:"1.5px solid rgba(201,168,76,0.4)",background:"rgba(201,168,76,0.08)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 24px",fontSize:"1.5rem"}},"🔔"),
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.26em",color:"var(--c-gold)",textTransform:"uppercase",marginBottom:10}},"EXCLUSIVE DETROIT"),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.75rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.2,marginBottom:14}},"Stay in the know, Detroit."),
-React.createElement("p",{style:{fontSize:"0.84rem",fontWeight:300,color:"var(--c-ash)",lineHeight:1.78,marginBottom:32}},"Get curated picks, tonight reminders, and exclusive last-minute drops."),
+React.createElement("div",{style:{width:40,height:40,borderRadius:"50%",border:"1.5px solid rgba(201,168,76,0.45)",background:"rgba(201,168,76,0.09)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:"1.1rem",transformOrigin:"50% 20%",animation:notifRinging?"bellRing 0.68s ease forwards, bellPulse 0.68s ease forwards":"none"}},"\uD83D\uDD14"),
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.26em",color:"var(--c-gold)",textTransform:"uppercase",marginBottom:10}},"EXCLUSIVE DETROIT"),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.75rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.2,marginBottom:12}},"Stay in the know, Detroit."),
+React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:300,color:"var(--c-ash)",lineHeight:1.75,marginBottom:28}},"Get curated picks, tonight reminders, and exclusive last-minute drops."),
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:10}},
-React.createElement("button",{onClick:()=>{try{if(typeof Notification!=="undefined"&&Notification.permission==="default"){Notification.requestPermission();}localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"15px 0",cursor:"pointer",width:"100%",fontWeight:600,transition:"opacity 0.15s"}},"YES, NOTIFY ME"),
-React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",background:"transparent",color:"var(--c-smoke)",border:"none",cursor:"pointer",padding:"10px 0",width:"100%"}},"Not Now")
+React.createElement("button",{onClick:()=>{setNotifRinging(true);setTimeout(()=>{try{if(typeof Notification!=="undefined"&&Notification.permission==="default"){Notification.requestPermission();}localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);setNotifRinging(false);},720);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"15px 0",cursor:"pointer",width:"100%",fontWeight:600,transition:"opacity 0.15s"}},"YES, NOTIFY ME"),
+React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",background:"transparent",color:"var(--c-smoke)",border:"none",cursor:"pointer",padding:"10px 0",width:"100%"}},"Not Now")
 )
 )
 )
