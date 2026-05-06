@@ -1866,7 +1866,7 @@ React.createElement("span",{style:{color:"rgba(201,168,76,0.68)",fontSize:"0.42r
 React.createElement("div",{style:{flex:1,height:1,background:"linear-gradient(to right,rgba(201,168,76,0.42),rgba(201,168,76,0.04))"}})
 ),
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center",marginTop:14,width:"100%"}},
-React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",width:"100%",maxWidth:460,padding:"0 16px",boxSizing:"border-box"}},
+React.createElement("div",{style:{display:"flex",gap:14,justifyContent:"center",width:"100%",maxWidth:460,padding:"0 16px",boxSizing:"border-box"}},
 ...[
 {k:"sports",label:"SPORTS\nTICKETS",img:"/hero-cards/sports.jpg",fn:()=>{setDoTab("games");navTo("things-to-do");}},
 {k:"concerts",label:"CONCERTS",img:"/hero-cards/concerts.jpg",fn:()=>{setDoTab("concerts");navTo("things-to-do");}},
