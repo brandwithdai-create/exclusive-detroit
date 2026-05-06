@@ -1,0 +1,112 @@
+We need one more correction pass before moving forward. Please do not rebuild the entire app right now. The app is visually beautiful, but the new Itinerary/Passport experience feels too plain and some logic is incorrect. I want the app to remain luxury, but feel more fun, interactive, and app-like.
+
+Targeted corrections:
+
+1. Remove “Choose for Me” completely  
+The current Choose for Me card/animation does not feel strong enough. Remove this section from the For You tab for now.
+
+2. Fix itinerary logic with strict eligibility rules  
+The itinerary cannot recommend places that do not match the selected criteria.
+
+Current issue:
+- Morning selected, but London Chop House and Candy Bar appeared.
+- That should never happen if they are not open/appropriate for morning.
+- Happy Hour selections should only show venues that are actually happy hour venues or explicitly tagged for happy hour.
+
+Rules:
+- Morning = breakfast, brunch, coffee, bakeries only.
+- Afternoon = lunch, cafés, daytime activities, happy hour only if actually tagged as happy hour.
+- Evening = dinner first, then cocktails/lounge/experience.
+- Late Night = late-night food/drinks only, based on actual late-night tags/hours.
+- Happy Hour = only venues explicitly tagged as happy hour.
+- Date Night / 2 of Us + Elevated = upscale, cute, romantic, polished spots; restaurant first, then lounge/cocktails.
+- Calm = quiet/intimate/low-noise places.
+- Chill = casual/easygoing sports bars, dive bars, low-pressure spots.
+- Elevated = luxury/upscale/date-night/hotel lounge/refined.
+- High Energy = nightlife, party, busy/lively spots.
+
+Do not use broad fallback that breaks the user’s intent. If there are not enough matches, show fewer suggestions or say “Try another time or vibe” instead of showing wrong places.
+
+3. Add or verify venue tags manually  
+If the current static venue data does not have enough info to make accurate recommendations, add minimal local tags to existing venues only. Do not invent new venues.
+
+Suggested tags:
+- morning
+- brunch
+- lunch
+- dinner
+- coffee
+- happyHour
+- lateNight
+- calm
+- chill
+- elevated
+- highEnergy
+- dateNight
+- groupFriendly
+- food
+- drinks
+
+The itinerary should choose from these verified tags, not random categories.
+
+4. Redesign Passport completely  
+The current Passport stamps still look like random bubbles/shapes. I do not want circles, eggs, rectangles, or floating badge blobs.
+
+Make the Passport look like a real passport page with stamp marks:
+- Use actual passport stamp-inspired layouts.
+- Stamps should look like ink marks layered on a passport page.
+- Include details like:
+  - DETROIT
+  - ADMITTED
+  - ENTRY
+  - VISITED
+  - date-style text
+  - category label
+  - small serial/passport-style numbers
+- Stamps can be rectangular, oval, or circular, but they must look like real stamp marks, not UI bubbles.
+- Each stamp should be different and visually tied to the badge name.
+- Add slight rotation, faded ink, thin borders, imperfect stamp texture if possible with CSS.
+- The page should feel like a luxury travel passport page.
+
+5. Add real stamp animation  
+When a user marks a venue as visited and earns a new stamp:
+- Show a large temporary stamp overlay.
+- It should feel like a physical stamp pressing onto the screen.
+- Then it fades/settles into the Passport.
+- Keep it classy, but make it fun and noticeable.
+- No new dependencies.
+
+6. Add more luxury-fun microinteractions  
+The app is beautiful but too plain. Add tasteful app-like motion without making it cartoonish:
+- Buttons should have subtle press/scale feedback.
+- Itinerary results should reveal smoothly.
+- Passport stamp earned should feel satisfying.
+- Cards can have subtle entrance movement.
+- Keep everything smooth and premium.
+
+7. Do not redesign the whole app  
+Keep:
+- current fonts
+- current luxury tone
+- current colors
+- current layout language
+- current map/card/modal behavior
+- light/dark mode
+
+This is a targeted interaction + logic + passport correction pass, not a full rebuild.
+
+8. Testing checklist required  
+After coding, confirm:
+- Morning never shows closed/night-only venues.
+- Happy Hour only shows true happy hour venues.
+- Date Night/Elevated gives food first and actually date-friendly venues.
+- Calm/Chill/Elevated/High Energy return different appropriate results.
+- Choose for Me is removed.
+- Passport looks like real passport stamps, not bubbles.
+- Stamp animation triggers when a new stamp is earned.
+- Light mode and dark mode both work.
+- No APIs.
+- No new dependencies.
+- No background calls.
+- No console errors.
+- Existing Explore, Map, Itinerary, Saved, Passport, About, Settings, venue modal, saves, and booking links still work.
