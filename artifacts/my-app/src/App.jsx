@@ -1249,6 +1249,7 @@ function MapView({isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,i
 const isDark=theme==="dark"||(theme==="system"&&(window.matchMedia?.("(prefers-color-scheme:dark)")?.matches===true));
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
+const [selectedPinPos,setSelectedPinPos]=React.useState(null);
 const [mapReady,setMapReady]=React.useState(false);
 const [mapError,setMapError]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
@@ -1346,7 +1347,7 @@ markersRef.current.set(String(v.id),{marker:m,pin,glow});
 React.useEffect(()=>{
 if(selectedMarkerRef.current){const{marker:m,pin,glow}=selectedMarkerRef.current;m.setIcon(L.divIcon({className:"",html:`<div style="width:13px;height:13px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.75);box-shadow:0 0 8px ${glow};cursor:pointer"></div>`,iconSize:[13,13],iconAnchor:[6,6]}));selectedMarkerRef.current=null;}
 const activeId=selected?String(selected.id):hotelDetail?String(hotelDetail.id):null;
-if(activeId){const entry=markersRef.current.get(activeId);if(entry){const{marker:m,pin,glow}=entry;m.setIcon(L.divIcon({className:"",html:`<div style="width:26px;height:26px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.9);box-shadow:0 0 0 4px ${glow},0 3px 14px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;font-size:10px;color:rgba(10,8,4,0.85)">★</div>`,iconSize:[26,26],iconAnchor:[13,13]}));selectedMarkerRef.current=entry;}}
+if(activeId){const entry=markersRef.current.get(activeId);if(entry){const{marker:m,pin,glow}=entry;m.setIcon(L.divIcon({className:"",html:`<div style="width:30px;height:30px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.96);box-shadow:0 0 0 5px rgba(201,168,76,0.26),0 0 20px rgba(201,168,76,0.58),0 4px 14px rgba(0,0,0,0.42);display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(10,8,4,0.9)">★</div>`,iconSize:[30,30],iconAnchor:[15,15]}));selectedMarkerRef.current=entry;}}
 },[selected,hotelDetail,mapCat,mapReady,showSavedOnly,favs,savedHotels]);
 React.useEffect(()=>{
 if(prevMapCatRef.current===mapCat)return;
@@ -1381,11 +1382,31 @@ if(selected){const coord=COORDS[String(selected.id)];if(coord)map.panTo(coord,{a
 const t=setTimeout(()=>{map.invalidateSize();},360);
 return()=>clearTimeout(t);
 },[selected]);
+React.useEffect(()=>{
+setSelectedPinPos(null);
+if(!selected||!mapRef.current)return;
+const coord=COORDS[String(selected.id)];
+if(!coord)return;
+const updatePos=()=>{if(!mapRef.current)return;const pt=mapRef.current.latLngToContainerPoint(coord);setSelectedPinPos({x:pt.x,y:pt.y});};
+const timer=setTimeout(()=>{updatePos();mapRef.current?.on("move",updatePos);mapRef.current?.on("zoom",updatePos);},360);
+return()=>{clearTimeout(timer);try{mapRef.current?.off("move",updatePos);mapRef.current?.off("zoom",updatePos);}catch(e){}};
+},[selected]);
 const zoomMap=d=>{const m=mapRef.current;if(!m)return;d>0?m.zoomIn():m.zoomOut();};
 const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitude:lat,longitude:lng}=pos.coords;setUserPos({lat,lng});const m=mapRef.current;if(m)m.setView([lat,lng],15,{animate:true});});};
 const reCenter=()=>{const m=mapRef.current;if(!m)return;m.setView([42.3314,-83.0458],14,{animate:true});};
 const selImgFallback=selected?getVenueFallbackImage(selected):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
+const PIN_CARD_W=248,PIN_CARD_H=88,_PIN_R=7,_CONN_GAP=22;
+let pinCardL=0,pinCardT=0,pinConnL=0,pinConnT=0,pinConnW=0,pinOnLeft=false;
+if(selectedPinPos&&selected){
+const mW=outerRef.current?.offsetWidth||window.innerWidth;
+const mH=outerRef.current?.offsetHeight||window.innerHeight;
+pinOnLeft=selectedPinPos.x>mW*0.5;
+if(pinOnLeft){pinCardL=Math.max(8,selectedPinPos.x-_CONN_GAP-PIN_CARD_W-_PIN_R);pinConnL=pinCardL+PIN_CARD_W;pinConnW=Math.max(4,selectedPinPos.x-_PIN_R-pinConnL);}
+else{pinConnL=selectedPinPos.x+_PIN_R;pinCardL=Math.min(mW-PIN_CARD_W-8,pinConnL+_CONN_GAP);pinConnW=Math.max(4,pinCardL-pinConnL);}
+pinCardT=Math.max(136,Math.min(mH-82-PIN_CARD_H,selectedPinPos.y-PIN_CARD_H/2));
+pinConnT=selectedPinPos.y;
+}
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
 const PILL={fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1px solid var(--c-mzoom-bdr)",color:"var(--c-mzoom-color)",background:"var(--c-mzoom-bg)",padding:"7px 14px",borderRadius:100,cursor:"pointer",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",boxShadow:"0 2px 14px rgba(0,0,0,0.22)",pointerEvents:"auto",display:"inline-flex",alignItems:"center",whiteSpace:"nowrap"};
 const lv=mapVenuePool.filter(v=>{
@@ -1501,22 +1522,21 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 )
 ),
 !mapHotelModal&&React.createElement("button",{onClick:reCenter,style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",right:14,zIndex:900,touchAction:"manipulation"}},"⊕  Re-center"),
-// ── Floating map preview card ──
-React.createElement("div",{style:{position:"absolute",bottom:"calc(66px + env(safe-area-inset-bottom))",right:12,width:224,background:"var(--c-sheet-bg)",border:"1px solid var(--c-sheet-bdr)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 8px 32px rgba(0,0,0,0.45),0 2px 8px rgba(0,0,0,0.25)",transform:selected?"translateY(0) scale(1)":"translateY(8px) scale(0.96)",opacity:selected?1:0,transition:"all 0.25s cubic-bezier(0.32,0.72,0,1)",pointerEvents:selected?"auto":"none"}},
-selected&&React.createElement(React.Fragment,null,
-React.createElement("button",{onClick:()=>setSelected(null),style:{position:"absolute",top:7,right:8,background:"rgba(0,0,0,0.4)",border:"none",color:"rgba(255,255,255,0.85)",fontSize:"0.72rem",cursor:"pointer",width:22,height:22,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,lineHeight:1,padding:0}},"✕"),
-React.createElement("div",{style:{height:112,overflow:"hidden",background:"var(--c-border)",flexShrink:0}},
-selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})
-),
-React.createElement("div",{style:{padding:"10px 12px 12px"}},
-React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:2}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.0rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood),
-React.createElement("p",{style:{fontSize:"0.7rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.5,marginTop:5,marginBottom:9,overflow:"hidden",display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical"}},selected.desc.length>90?selected.desc.slice(0,90)+"\u2026":selected.desc),
-React.createElement("div",{style:{display:"flex",gap:8}},
-React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"8px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:7,cursor:"pointer",fontWeight:500}},"View Details"),
-React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{flex:"0 0 auto",width:34,height:34,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:isFav(selected.id)?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(isFav(selected.id)?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:isFav(selected.id)?C.gold:"var(--c-modal-save-clr)",fontSize:"0.9rem",borderRadius:7,cursor:"pointer",transition:"all 0.18s"}},isFav(selected.id)?"\u2665":"\u2661")
-)
+// ── Pin-connected venue card ──
+selectedPinPos&&selected&&React.createElement(React.Fragment,null,
+React.createElement("div",{style:{position:"absolute",left:pinConnL,top:pinConnT-0.75,width:pinConnW,height:1.5,background:pinOnLeft?"linear-gradient(270deg,rgba(201,168,76,0.92) 0%,rgba(201,168,76,0.15) 100%)":"linear-gradient(90deg,rgba(201,168,76,0.15) 0%,rgba(201,168,76,0.92) 100%)",boxShadow:"0 0 8px rgba(201,168,76,0.5)",zIndex:1090,pointerEvents:"none"}}),
+React.createElement("div",{style:{position:"absolute",left:(pinOnLeft?pinConnL:pinConnL+pinConnW)-3.5,top:pinConnT-3.5,width:7,height:7,borderRadius:"50%",background:C.gold,boxShadow:"0 0 12px rgba(201,168,76,0.95)",zIndex:1092,pointerEvents:"none"}}),
+React.createElement("div",{style:{position:"absolute",left:pinCardL,top:pinCardT,width:PIN_CARD_W,background:"rgba(10,8,6,0.96)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 14px 44px rgba(0,0,0,0.72),0 2px 10px rgba(0,0,0,0.4)",display:"flex",flexDirection:"row",animation:"cardPopIn 0.22s cubic-bezier(0.32,0.72,0,1) both",touchAction:"manipulation"}},
+React.createElement("div",{style:{width:80,flexShrink:0,overflow:"hidden",background:"rgba(20,12,4,0.8)",position:"relative",minHeight:PIN_CARD_H}},
+selImg&&React.createElement("img",{src:selImg,alt:selected.name,loading:"eager",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})),
+React.createElement("div",{style:{flex:1,padding:"10px 11px 10px",display:"flex",flexDirection:"column",minWidth:0}},
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.16em",textTransform:"uppercase",color:C.gold,display:"block",marginBottom:2}},
+(selected.badges||[]).includes("locals")?"LOCALS KNOW":(selected.badges||[]).includes("hidden")?"HIDDEN GEM":selected.cat.toUpperCase()),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"#F5F2EE",lineHeight:1.15,margin:"0 0 1px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.38rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(245,242,238,0.4)",display:"block",marginBottom:6}},selected.hood),
+React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:"auto"}},
+React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.1em",textTransform:"uppercase",background:"none",border:"none",color:C.gold,cursor:"pointer",padding:0,display:"flex",alignItems:"center",gap:3,touchAction:"manipulation"}},"VIEW DETAILS\u00a0\u2192"),
+React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{background:"none",border:"none",color:isFav(selected.id)?C.gold:"rgba(245,242,238,0.38)",fontSize:"0.95rem",cursor:"pointer",padding:"2px 5px",lineHeight:1,transition:"color 0.15s",touchAction:"manipulation"}},isFav(selected.id)?"\u2665":"\u2661"))
 )
 )),
 hotelDetailSheet,
@@ -1555,7 +1575,7 @@ const gridTopRef = useRef(null);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
-s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes cardPopIn{0%{opacity:0;transform:scale(0.88)}100%{opacity:1;transform:scale(1)}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
 document.head.appendChild(s);
 return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
 },[]);
