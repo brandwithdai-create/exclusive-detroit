@@ -1845,13 +1845,19 @@ React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center",
 React.createElement("button",{onClick:activateNearMe,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.purple,color:C.purple,background:"var(--c-purple-btn-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",boxShadow:"var(--c-hero-btn-shadow)",padding:"9px var(--hero-purple-px)",borderRadius:100,cursor:"pointer"}},"◉ Near Me"),
 React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",border:"1.5px solid "+C.purple,color:C.purple,background:"var(--c-purple-btn-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",boxShadow:"var(--c-hero-btn-shadow)",padding:"9px var(--hero-purple-px)",borderRadius:100,cursor:"pointer"}},"View Map →")
 ),
-React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center",marginTop:"var(--hero-acts-mt)"}},
-React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center"}},
-React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.59rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"2px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"12px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🏟 Sports Tickets"),
-React.createElement("button",{onClick:()=>{setDoTab("concerts");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.59rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"2px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"12px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🎵 Concerts")
-),
-React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center"}},
-React.createElement("button",{onClick:()=>navTo("stay"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.59rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"2px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"12px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🏨 Hotel Stays")
+React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center",marginTop:"var(--hero-acts-mt)",width:"100%"}},
+React.createElement("div",{style:{display:"flex",gap:8,justifyContent:"center",width:"100%",maxWidth:460,padding:"0 16px",boxSizing:"border-box"}},
+...[
+{k:"sports",label:"SPORTS\nTICKETS",img:"/hero-cards/sports.jpg",fn:()=>{setDoTab("games");navTo("things-to-do");}},
+{k:"concerts",label:"CONCERTS",img:"/hero-cards/concerts.jpg",fn:()=>{setDoTab("concerts");navTo("things-to-do");}},
+{k:"hotels",label:"HOTEL\nSTAYS",img:"/hero-cards/hotels.jpg",fn:()=>navTo("stay")},
+].map(({k,label,img,fn})=>
+React.createElement("button",{key:k,onClick:fn,style:{flex:1,position:"relative",height:128,borderRadius:14,overflow:"hidden",border:"1px solid rgba(201,168,76,0.20)",padding:0,cursor:"pointer",background:"#0a0808",boxShadow:"0 6px 24px rgba(0,0,0,0.55)",touchAction:"manipulation"}},
+React.createElement("img",{src:img,alt:"",loading:"eager",decoding:"async",fetchPriority:"high",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block"}}),
+React.createElement("div",{style:{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.48) 52%,rgba(0,0,0,0.78) 100%)"}}),
+React.createElement("span",{style:{position:"absolute",bottom:10,left:0,right:0,textAlign:"center",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"#fff",fontWeight:600,lineHeight:1.4,padding:"0 4px",display:"block",whiteSpace:"pre-line"}},label)
+)
+)
 )
 )
 )
