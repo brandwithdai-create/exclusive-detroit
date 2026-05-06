@@ -1729,9 +1729,9 @@ const [savedPlans,setSavedPlans]=useState(()=>{try{const raw=JSON.parse(localSto
 useEffect(()=>{try{localStorage.setItem("ed-visited-dates",JSON.stringify(visitedDates));}catch(e){}},[visitedDates]);
 useEffect(()=>{try{localStorage.setItem("ed-saved-plans",JSON.stringify(savedPlans));}catch(e){}},[savedPlans]);
 const isSavedEvent=id=>savedEvents.includes(String(id));
-const toggleSavedEvent=(id,item)=>{const sid=String(id);const removing=savedEvents.includes(sid);setSavedEvents(prev=>{if(prev.includes(sid)){setSavedEventMeta(m=>{const n={...m};delete n[sid];return n;});return prev.filter(x=>x!==sid);}else{if(item)setSavedEventMeta(m=>({...m,[sid]:item}));return[...prev,sid];}});showToast(removing?"Removed from saves":"\u2665 Saved to your list");};
+const toggleSavedEvent=(id,item)=>{const sid=String(id);setSavedEvents(prev=>{if(prev.includes(sid)){setSavedEventMeta(m=>{const n={...m};delete n[sid];return n;});return prev.filter(x=>x!==sid);}else{if(item)setSavedEventMeta(m=>({...m,[sid]:item}));return[...prev,sid];}});};
 const isSavedHotel=id=>savedHotels.includes(String(id));
-const toggleSavedHotel=id=>{const removing=savedHotels.includes(String(id));setSavedHotels(prev=>prev.includes(String(id))?prev.filter(x=>x!==String(id)):[...prev,String(id)]);showToast(removing?"Removed from saves":"\u2665 Saved to your list");};
+const toggleSavedHotel=id=>{setSavedHotels(prev=>prev.includes(String(id))?prev.filter(x=>x!==String(id)):[...prev,String(id)]);};
 
 useEffect(()=>{
 const html=document.documentElement;
@@ -1749,8 +1749,7 @@ const sid=String(id);
 const cur=favsRef.current;
 const removing=cur.includes(sid);
 setFavs(removing?cur.filter(f=>f!==sid):[...cur,sid]);
-showToast(removing?"Removed from saves":"♥ Saved to your list");
-},[showToast]);
+},[]);
 const isVisited=useCallback(id=>visited.includes(String(id)),[visited]);
 const toggleVisited=useCallback(id=>{const sid=String(id);const removing=visited.includes(sid);setVisited(prev=>removing?prev.filter(x=>x!==sid):[...prev,sid]);if(!removing){const d=new Date();setVisitedDates(prev=>({...prev,[sid]:d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}).toUpperCase()}));}else{setVisitedDates(prev=>{const n={...prev};delete n[sid];return n;});};},[visited]);
 const getVisitedDate=useCallback(id=>visitedDates[String(id)]||null,[visitedDates]);
