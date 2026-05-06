@@ -817,11 +817,42 @@ const CAT_IMG_FB = {
   "Outdoor Activities":      "1534224373688-37be267ede82",
   "Alley Spots":             "1470337458703-46ad1756a187",
 };
+// Per-venue Unsplash IDs — mirrors App.jsx VENUE_IMG_MAP so thumbnails match the main venue cards
+const THUMB_IMG_MAP = {
+  1:"1470337458703-46ad1756a187",2:"1514362545857-3bc16c4c7d1b",3:"1566417713940-fe7c737a9ef2",
+  4:"1513558161293-cdaf765ed2fd",5:"1551634979-2e9bb8c7dd5d",6:"1543007630-9359431a5a9d",
+  7:"1470337458703-46ad1756a187",8:"1542314831-068cd1dbfeeb",9:"1571896349842-33c89424de2d",
+  10:"1514362545857-3bc16c4c7d1b",11:"1477959858617-67f85cf4f1df",13:"1441974231531-c6227db76b6e",
+  15:"1566417713940-fe7c737a9ef2",16:"1492684223066-81342ee5ff30",17:"1579952363873-27f3bade9f55",
+  18:"1540747913346-19e5df342091",19:"1568522271747-01fa3a0e3a57",20:"1504701954957-2010ec3bcec1",
+  21:"1517457373958-b7bdd4587205",22:"1501281668745-26d60d196ba7",23:"1501281668745-26d60d196ba7",
+  24:"1559339352-11d035aa65de",25:"1550966871-3ed3ccd8aede",26:"1534224373688-37be267ede82",
+  27:"1507003211169-0a1dd7228f2d",28:"1534224373688-37be267ede82",30:"1513558161293-cdaf765ed2fd",
+  31:"1566417713940-fe7c737a9ef2",32:"1414235077428-338989a2e8c0",33:"1492684223066-81342ee5ff30",
+  34:"1414235077428-338989a2e8c0",35:"1517248135467-4c7edcad34c4",36:"1559339352-11d035aa65de",
+  37:"1550966871-3ed3ccd8aede",38:"1414235077428-338989a2e8c0",39:"1517248135467-4c7edcad34c4",
+  40:"1559339352-11d035aa65de",41:"1551634979-2e9bb8c7dd5d",42:"1533089860892-a7c6f0a88666",
+  43:"1525351484163-7529414f2171",44:"1533089860892-a7c6f0a88666",45:"1525351484163-7529414f2171",
+  46:"1509042239860-f550ce710b93",47:"1524350876685-274059332603",48:"1509042239860-f550ce710b93",
+  49:"1524350876685-274059332603",50:"1533089860892-a7c6f0a88666",51:"1550966871-3ed3ccd8aede",
+  52:"1517248135467-4c7edcad34c4",53:"1513558161293-cdaf765ed2fd",55:"1414235077428-338989a2e8c0",
+  56:"1517248135467-4c7edcad34c4",57:"1414235077428-338989a2e8c0",63:"1550966871-3ed3ccd8aede",
+  64:"1414235077428-338989a2e8c0",65:"1550966871-3ed3ccd8aede",67:"1558618666-fcd25c85cd64",
+  68:"1543007630-9359431a5a9d",69:"1414235077428-338989a2e8c0",70:"1517248135467-4c7edcad34c4",
+  71:"1514362545857-3bc16c4c7d1b",72:"1550966871-3ed3ccd8aede",73:"1414235077428-338989a2e8c0",
+  74:"1559339352-11d035aa65de",75:"1517248135467-4c7edcad34c4",76:"1550966871-3ed3ccd8aede",
+  77:"1517248135467-4c7edcad34c4",78:"1414235077428-338989a2e8c0",79:"1543007630-9359431a5a9d",
+  80:"1550966871-3ed3ccd8aede",81:"1470337458703-46ad1756a187",82:"1517248135467-4c7edcad34c4",
+  83:"1533089860892-a7c6f0a88666",84:"1559339352-11d035aa65de",85:"1477959858617-67f85cf4f1df",
+  86:"1525351484163-7529414f2171",87:"1579952363873-27f3bade9f55",
+};
 function getResultImg(v, photoMap) {
   if (photoMap?.[String(v.id)]) return photoMap[String(v.id)];
   if (v.image) return v.image;
+  const directId = THUMB_IMG_MAP[v.id];
+  if (directId) return `https://images.unsplash.com/photo-${directId}?auto=format&fit=crop&w=120&q=80`;
   const id = CAT_IMG_FB[v.cat] || "1470337458703-46ad1756a187";
-  return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=400&q=70`;
+  return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=120&q=80`;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -878,7 +909,7 @@ function ResultCard({ v, stopLabel, photoMap, onOpen }) {
     >
       {/* Thumbnail — always shows an image */}
       <div style={{ width:68, flexShrink:0, background:venueGradient(v), position:"relative", overflow:"hidden" }}>
-        <img src={thumb} alt="" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover" }}/>
+        <img src={thumb} alt="" loading="eager" decoding="async" fetchPriority="high" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0,transition:"opacity 0.22s ease" }} onLoad={e=>{e.target.style.opacity="1";}} onError={e=>{e.target.style.opacity="1";}}/>
       </div>
       {/* Text */}
       <div style={{ flex:1, padding:"12px 14px 12px 0", minWidth:0 }}>

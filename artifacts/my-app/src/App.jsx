@@ -975,14 +975,14 @@ const CATEGORY_IMG_POOL = {
 "Luxury Hotel":["1542314831-068cd1dbfeeb","1571896349842-33c89424de2d","1559339352-11d035aa65de"],
 };
 const DEFAULT_IMG_POOL=["1470337458703-46ad1756a187","1414235077428-338989a2e8c0","1477959858617-67f85cf4f1df","1513558161293-cdaf765ed2fd","1492684223066-81342ee5ff30"];
-function getVenueFallbackImage(venue){
+function getVenueFallbackImage(venue,w=800){
 if(venue.image)return venue.image;
 const directId=VENUE_IMG_MAP[venue.id];
-if(directId)return `https://images.unsplash.com/photo-${directId}?auto=format&fit=crop&w=800&q=75`;
+if(directId)return `https://images.unsplash.com/photo-${directId}?auto=format&fit=crop&w=${w}&q=75`;
 const pool=CATEGORY_IMG_POOL[venue.cat]||DEFAULT_IMG_POOL;
 const seed=String(venue.id).split("").reduce((a,c)=>a+c.charCodeAt(0),0);
 const id=pool[seed%pool.length];
-return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=800&q=75`;
+return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=75`;
 }
 
 const _imgCache = new Set();
@@ -1487,7 +1487,7 @@ return()=>{clearTimeout(timer);try{mapRef.current?.off("dragstart",onDrag);}catc
 const zoomMap=d=>{const m=mapRef.current;if(!m)return;d>0?m.zoomIn():m.zoomOut();};
 const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitude:lat,longitude:lng}=pos.coords;setUserPos({lat,lng});const m=mapRef.current;if(m)m.setView([lat,lng],15,{animate:true});});};
 const reCenter=()=>{const m=mapRef.current;if(!m)return;m.setView([42.3314,-83.0458],14,{animate:true});};
-const selImgFallback=selected?getVenueFallbackImage(selected):null;
+const selImgFallback=selected?getVenueFallbackImage(selected,160):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selected.image||selImgFallback):null;
 const PIN_CARD_W=Math.min(260,(outerRef.current?.offsetWidth||window.innerWidth)-16),PIN_CARD_H=90,_PIN_R=22;
 let pinCardL=0,pinCardT=0;
@@ -1616,7 +1616,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 // ── Pin venue card — appears directly above (or below) the tapped pin ──
 selectedPinPos&&selected&&React.createElement("div",{onClick:()=>{if(selected.cat==="Hotels"){const fh=HOTELS.find(h=>String(h.id)===String(selected.id));setMapHotelModal(fh||selected);setSelected(null);}else{setModalId(String(selected.id));setSelected(null);}},style:{position:"absolute",left:pinCardL,top:pinCardT,width:PIN_CARD_W,background:"rgba(10,8,6,0.96)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 14px 44px rgba(0,0,0,0.72),0 2px 10px rgba(0,0,0,0.4)",display:"flex",flexDirection:"row",animation:"cardPopIn 0.22s cubic-bezier(0.32,0.72,0,1) both",touchAction:"manipulation",cursor:"pointer"}},
 React.createElement("div",{style:{width:80,flexShrink:0,overflow:"hidden",background:"rgba(20,12,4,0.8)",position:"relative",minHeight:PIN_CARD_H}},
-selImg&&React.createElement("img",{src:selImg,alt:selected.name,loading:"eager",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})),
+selImg&&React.createElement("img",{src:selImg,alt:selected.name,loading:"eager",decoding:"async",fetchPriority:"high",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block",opacity:0,transition:"opacity 0.22s ease"},onLoad:e=>{e.target.style.opacity="1";},onError:e=>{e.target.style.display="none";}})),
 React.createElement("div",{style:{flex:1,padding:"10px 11px 10px",display:"flex",flexDirection:"column",minWidth:0}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.16em",textTransform:"uppercase",color:C.gold,display:"block",marginBottom:2}},
 (selected.badges||[]).includes("locals")?"LOCALS KNOW":(selected.badges||[]).includes("hidden")?"HIDDEN GEM":selected.cat.toUpperCase()),
