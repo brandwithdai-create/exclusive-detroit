@@ -716,6 +716,16 @@ function ResultCard({ v, stopLabel, photoMap, onOpen }) {
   );
 }
 
+// ── Dynamic concierge summary sentence ───────────────────────────────────────
+function buildNightSummary(when, who, energy) {
+  const timeWord = { morning:"morning coffee and brunch run", afternoon:"afternoon in Detroit", night:"late-night experience in Detroit" }[when] || "night in Detroit";
+  const whoSuffix = { solo:"— just you.", date:"for two.", group:"for a group." }[who] || "for you.";
+  const vibe = { calm:"a calm, intimate", chill:"a relaxed", elevated:"a polished, elevated", highenergy:"a high-energy" }[energy] || "an elevated";
+  if (!when && !who && !energy) return "Answer the questions above and we'll craft your perfect Detroit night.";
+  if (who === "solo" && energy === "calm") return `We're building a quiet solo ${timeWord} ${whoSuffix}`;
+  return `We're building ${vibe} ${timeWord} ${whoSuffix}`;
+}
+
 function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
   const [when,    setWhen]    = useState("night");
   const [who,     setWho]     = useState("date");
@@ -723,13 +733,6 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
   const [result,  setResult]  = useState(null);
   const [building,setBuilding]= useState(false);
   const [btnPrs,  setBtnPrs]  = useState(false);
-
-  const energyDesc = {
-    calm:       "Quiet & intimate — hidden bars, candlelit rooms.",
-    chill:      "Casual & easygoing — no pressure, neighborhood spots.",
-    elevated:   "Luxury & polished — dinner first, then a proper lounge.",
-    highenergy: "Full send — nightlife, late, busy, bumping spots.",
-  }[energy] || "";
 
   function handleBuild() {
     if (building) return;
@@ -741,16 +744,23 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
     }, 700);
   }
 
+  // Step number circle
+  const StepNum = ({n}) => (
+    <div style={{ width:38,height:38,borderRadius:"50%",border:"1.5px solid var(--c-gold)",background:"rgba(201,168,76,0.12)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...MONO,fontSize:"0.7rem",fontWeight:600,color:"var(--c-gold)",zIndex:1,position:"relative" }}>
+      {n}
+    </div>
+  );
+
   return (
-    <div style={{ position:"relative", backgroundImage:"url('/detroit-skyline.jpg')", backgroundSize:"cover", backgroundPosition:"center 35%", minHeight:"100vh" }}>
-      {/* Cinematic overlay — adapts to light/dark mode via CSS var */}
-      <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",backdropFilter:"blur(1px)",WebkitBackdropFilter:"blur(1px)",pointerEvents:"none",zIndex:0 }}/>
+    <div style={{ position:"relative", backgroundImage:"url('/detroit-skyline.jpg')", backgroundSize:"cover", backgroundPosition:"50% 62%", minHeight:"100vh" }}>
+      {/* Cinematic overlay — no blur to keep image crisp */}
+      <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
       <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(90px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
-      <div style={{ marginBottom:22 }}>
+      <div style={{ marginBottom:28 }}>
         <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"var(--c-gold)",margin:"0 0 6px",opacity:0.8 }}>Personal Concierge</p>
-        <h2 style={{ ...SERIF,fontSize:"2.0rem",fontWeight:400,color:"var(--c-white)",margin:0,lineHeight:1.1 }}>
+        <h2 style={{ ...SERIF,fontSize:"2.2rem",fontWeight:400,color:"var(--c-white)",margin:0,lineHeight:1.1 }}>
           Build My Night ✨
         </h2>
         <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.07em",color:"var(--c-smoke)",margin:"8px 0 0" }}>
@@ -758,58 +768,76 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
         </p>
       </div>
 
-      {/* Q1 — When */}
-      <div style={{ marginTop:0, marginBottom:14, background:"var(--c-tonight-glass)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
-        <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
-          WHEN ARE YOU GOING OUT?
-        </p>
-        <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
-          <ChipBtn val="morning"   current={when} onSet={setWhen} label="Morning"    icon={<IconSunrise/>}/>
-          <ChipBtn val="afternoon" current={when} onSet={setWhen} label="Afternoon"  icon={<IconSun/>}/>
-          <ChipBtn val="night"     current={when} onSet={setWhen} label="Night"      icon={<IconMoon/>}/>
+      {/* Step flow — numbered 1→2→3 with dotted connector */}
+      <div style={{ position:"relative" }}>
+        {/* Dotted connector line behind the circles */}
+        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2px dashed rgba(201,168,76,0.35)",zIndex:0,pointerEvents:"none" }}/>
+
+        {/* Q1 — When */}
+        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:18 }}>
+          <StepNum n={1}/>
+          <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px",marginTop:0 }}>
+            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
+              When does your night begin?
+            </p>
+            <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
+              <ChipBtn val="morning"   current={when} onSet={setWhen} label="Morning"    icon={<IconSunrise/>}/>
+              <ChipBtn val="afternoon" current={when} onSet={setWhen} label="Afternoon"  icon={<IconSun/>}/>
+              <ChipBtn val="night"     current={when} onSet={setWhen} label="Night"      icon={<IconMoon/>}/>
+            </div>
+          </div>
+        </div>
+
+        {/* Q2 — Who */}
+        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:18 }}>
+          <StepNum n={2}/>
+          <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
+            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
+              Who's joining you?
+            </p>
+            <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
+              <ChipBtn val="solo"  current={who} onSet={setWho} label="Just Me" icon={<IconPerson/>}/>
+              <ChipBtn val="date"  current={who} onSet={setWho} label="2 of Us" icon={<IconTwo/>}/>
+              <ChipBtn val="group" current={who} onSet={setWho} label="Group"   icon={<IconGroup/>}/>
+            </div>
+          </div>
+        </div>
+
+        {/* Q3 — Energy */}
+        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:24 }}>
+          <StepNum n={3}/>
+          <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
+            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
+              What's the energy tonight?
+            </p>
+            <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
+              <ChipBtn val="calm"       current={energy} onSet={setEnergy} label="Calm"        icon={<IconLeaf/>}/>
+              <ChipBtn val="chill"      current={energy} onSet={setEnergy} label="Chill"       icon={<IconSmile/>}/>
+              <ChipBtn val="elevated"   current={energy} onSet={setEnergy} label="Elevated"    icon={<IconDiamond/>}/>
+              <ChipBtn val="highenergy" current={energy} onSet={setEnergy} label="High Energy" icon={<IconLightning/>}/>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Q2 — Who */}
-      <div style={{ marginBottom:14, background:"var(--c-tonight-glass)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
-        <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
-          WHO'S COMING?
+      {/* Dynamic summary card — updates live as user makes selections */}
+      <div style={{ marginBottom:16,padding:"18px 20px",background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,display:"flex",alignItems:"center",gap:14 }}>
+        <span style={{ fontSize:"1.1rem",opacity:0.75,flexShrink:0,color:"var(--c-gold)" }}>✦</span>
+        <p style={{ ...SERIF,fontSize:"1.0rem",fontStyle:"italic",color:"var(--c-white)",lineHeight:1.55,margin:0 }}>
+          {buildNightSummary(when, who, energy)}
         </p>
-        <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
-          <ChipBtn val="solo"  current={who} onSet={setWho} label="Just Me" icon={<IconPerson/>}/>
-          <ChipBtn val="date"  current={who} onSet={setWho} label="2 of Us" icon={<IconTwo/>}/>
-          <ChipBtn val="group" current={who} onSet={setWho} label="Group"   icon={<IconGroup/>}/>
-        </div>
       </div>
 
-      {/* Q3 — Energy */}
-      <div style={{ marginBottom:20, background:"var(--c-tonight-glass)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
-        <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
-          WHAT'S THE ENERGY?
-        </p>
-        <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:8 }}>
-          <ChipBtn val="calm"       current={energy} onSet={setEnergy} label="Calm"        icon={<IconLeaf/>}/>
-          <ChipBtn val="chill"      current={energy} onSet={setEnergy} label="Chill"       icon={<IconSmile/>}/>
-          <ChipBtn val="elevated"   current={energy} onSet={setEnergy} label="Elevated"    icon={<IconDiamond/>}/>
-          <ChipBtn val="highenergy" current={energy} onSet={setEnergy} label="High Energy" icon={<IconLightning/>}/>
-        </div>
-        {energyDesc && (
-          <p style={{ ...MONO,fontSize:"0.56rem",letterSpacing:"0.04em",color:"var(--c-smoke)",margin:0,lineHeight:1.6 }}>
-            {energyDesc}
-          </p>
-        )}
-      </div>
-
-      {/* Build button */}
+      {/* Build button — solid gold */}
       <button
         onClick={handleBuild}
         onMouseDown={()=>setBtnPrs(true)} onMouseUp={()=>setBtnPrs(false)} onMouseLeave={()=>setBtnPrs(false)} onTouchStart={()=>setBtnPrs(true)} onTouchEnd={()=>setBtnPrs(false)}
         style={{
           ...MONO, fontSize:"0.54rem", letterSpacing:"0.16em", textTransform:"uppercase",
-          width:"100%", padding:"15px 0", borderRadius:100,
-          border:"1.5px solid var(--c-goldD)", color:"var(--c-gold)",
-          background: building ? "rgba(201,168,76,0.06)" : "rgba(201,168,76,0.04)",
-          boxShadow: building ? "none" : "0 0 18px rgba(201,168,76,0.12)",
+          width:"100%", padding:"17px 0", borderRadius:100,
+          border:"none", color:"var(--c-btn-cta-txt)",
+          background: building ? "rgba(160,122,40,0.85)" : "linear-gradient(135deg,#C9A84C 0%,#A8872E 100%)",
+          boxShadow: building ? "none" : "0 4px 28px rgba(201,168,76,0.32)",
           cursor:"pointer", transition:"all 0.12s",
           transform: btnPrs ? "scale(0.97)" : "scale(1)",
         }}

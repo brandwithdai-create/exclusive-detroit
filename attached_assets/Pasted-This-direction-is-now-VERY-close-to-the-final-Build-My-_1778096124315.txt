@@ -1,0 +1,82 @@
+This direction is now VERY close to the final Build My Night experience.
+
+Key changes from the previous version:
+
+1. CHANGE THE BUTTON TEXT
+The bottom CTA should say:
+“BUILD MY NIGHT ✨”
+
+NOT:
+“Create My Route”
+
+We are not giving driving/navigation directions.
+This is a luxury concierge-style experience.
+
+2. KEEP THE DYNAMIC SUMMARY CARD
+I LOVE the personalized summary section:
+“We’re building a polished, elevated night in Detroit for two.”
+
+Please keep this dynamic.
+
+The sentence should automatically change based on:
+- Morning / Afternoon / Night
+- Just Me / 2 of Us / Group
+- Calm / Chill / Elevated / High Energy
+
+Examples:
+- “We’re building a relaxed rooftop afternoon in Detroit for a group.”
+- “We’re building an energetic late-night experience in Detroit for two.”
+- “We’re building a calm solo coffee and cocktail route through Detroit.”
+
+This makes the experience feel intelligent and curated.
+
+3. KEEP THE SKYLINE BACKGROUND
+The skyline direction is correct now.
+DO NOT remove the immersive Detroit skyline background.
+
+But:
+- use a sharper/higher-resolution skyline image
+- reduce blur significantly
+- increase clarity and contrast
+- keep the cinematic reflections on the water
+- maintain readability over the image
+- zoom the skyline OUT more so it resembles the mockup proportions
+- the current app version is too zoomed in
+- the skyline should feel expansive and cinematic, not cropped tightly
+- the image needs to be crystal clear, not soft/blurry
+
+The skyline should feel:
+luxury editorial + cinematic + premium travel guide.
+
+Also, I LOVE the color scheme in this latest mockup. It looks gorgeous and premium.
+
+4. KEEP THE STEP FLOW FROM OPTION 4
+The numbered 1 → 2 → 3 flow is MUCH better UX.
+
+Please keep:
+- the connected dotted flow line
+- larger spacing between sections
+- bigger buttons
+- cleaner hierarchy
+- longer vertical layout
+
+This version feels more premium, immersive, and intentional.
+
+5. MAKE THE EXPERIENCE TALLER
+The Build My Night section should feel like a full immersive experience — not a short widget.
+
+Extend the skyline/background down the entire section so the whole experience feels cinematic from top to bottom.
+
+6. LIGHT MODE NEEDS TO FEEL FLUID WITH THE APP
+Please make sure the light mode version flows naturally with the rest of the app’s existing light-mode palette.
+
+The previous dark/light mix felt disconnected.
+
+The light mode should still feel:
+- warm
+- elevated
+- editorial
+- luxury
+- soft gold accented
+
+It should visually transition naturally from the rest of the app instead of feeling like a separate theme.
