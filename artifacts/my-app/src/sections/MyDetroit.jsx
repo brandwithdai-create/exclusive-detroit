@@ -922,9 +922,11 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
   );
 
   return (
-    <div style={{ position:"relative", backgroundImage:"url('/detroit-skyline.jpg')", backgroundSize:"cover", backgroundPosition:"center 30%", minHeight:"calc(100dvh - 68px - env(safe-area-inset-top))" }}>
-      {/* Cinematic overlay — no blur to keep image crisp */}
-      <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
+    <div style={{ position:"relative", minHeight:"calc(100dvh - 68px - env(safe-area-inset-top))" }}>
+      {/* Background image — fixed 100dvh height so it never zooms when results load */}
+      <img src="/detroit-skyline.jpg" alt="" aria-hidden="true" style={{ position:"absolute",top:0,left:0,width:"100%",height:"100dvh",objectFit:"cover",objectPosition:"center 30%",pointerEvents:"none",userSelect:"none",zIndex:0,display:"block" }}/>
+      {/* Cinematic overlay — same fixed height as image */}
+      <div style={{ position:"absolute",top:0,left:0,width:"100%",height:"100dvh",background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
       <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
