@@ -1355,6 +1355,7 @@ const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef(new Map());
 const selectedMarkerRef=React.useRef(null);
+const riverPolyRef=React.useRef(null);
 const prevMapCatRef=React.useRef(mapCat);
 React.useLayoutEffect(()=>{
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
@@ -1403,6 +1404,7 @@ const exactH=Math.max(400,window.visualViewport?.height||window.innerHeight||win
 containerRef.current.style.height=`${exactH}px`;
 map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
+if(isDark){riverPolyRef.current=L.polygon([[42.332,-83.20],[42.323,-82.88],[42.285,-82.88],[42.294,-83.20]],{color:"transparent",fillColor:"#0A1830",fillOpacity:0.30,interactive:false}).addTo(map);}
 mapRef.current=map;
 map.on("click",()=>{setSelected(null);});
 const forceRedraw=(m)=>{try{m.invalidateSize();m.setView(m.getCenter(),m.getZoom(),{animate:false});}catch(e){console.warn("[ExclusiveDetroit] map redraw error",e);}};
@@ -1417,6 +1419,8 @@ React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 map.eachLayer(l=>{if(l instanceof L.TileLayer)map.removeLayer(l);});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
+if(riverPolyRef.current){map.removeLayer(riverPolyRef.current);riverPolyRef.current=null;}
+if(isDark){riverPolyRef.current=L.polygon([[42.332,-83.20],[42.323,-82.88],[42.285,-82.88],[42.294,-83.20]],{color:"transparent",fillColor:"#0A1830",fillOpacity:0.30,interactive:false}).addTo(map);}
 },[isDark]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
@@ -1599,6 +1603,16 @@ React.createElement("button",{onClick:()=>{setShowSavedOnly(s=>!s);setSelected(n
 React.createElement("svg",{viewBox:"0 0 24 24",width:17,height:17,fill:showSavedOnly?C.gold:"currentColor"},
 React.createElement("path",{d:"M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"})
 )
+),
+React.createElement("button",{onClick:reCenter,title:"Recenter map",style:{...CTRL,width:40,height:40,borderRadius:10,boxShadow:"0 4px 22px rgba(0,0,0,0.32)",border:"1px solid var(--c-mzoom-bdr)",display:"flex",alignItems:"center",justifyContent:"center",touchAction:"manipulation"}},
+React.createElement("svg",{viewBox:"0 0 24 24",width:17,height:17,fill:"none",stroke:C.gold,strokeWidth:1.6,strokeLinecap:"round",strokeLinejoin:"round"},
+React.createElement("circle",{cx:12,cy:12,r:7}),
+React.createElement("circle",{cx:12,cy:12,r:2,fill:C.gold,stroke:"none"}),
+React.createElement("line",{x1:12,y1:2,x2:12,y2:5}),
+React.createElement("line",{x1:12,y1:19,x2:12,y2:22}),
+React.createElement("line",{x1:2,y1:12,x2:5,y2:12}),
+React.createElement("line",{x1:19,y1:12,x2:22,y2:12})
+)
 )
 ),
 // ── Bottom bar: List | Legend | Re-center — each independently positioned to avoid iOS pointer-events:none inheritance bug ──
@@ -1614,7 +1628,6 @@ React.createElement("div",{style:{width:7,height:7,borderRadius:"50%",background
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",color:"var(--c-mzoom-color)",textTransform:"uppercase"}},"New / Soon")
 )
 ),
-!mapHotelModal&&React.createElement("button",{onClick:reCenter,style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",right:14,zIndex:900,touchAction:"manipulation"}},"⊕  Re-center"),
 // ── Pin venue card — appears directly above (or below) the tapped pin ──
 selectedPinPos&&selected&&React.createElement("div",{onClick:()=>{if(selected.cat==="Hotels"){const fh=HOTELS.find(h=>String(h.id)===String(selected.id));setMapHotelModal(fh||selected);setSelected(null);}else{setModalId(String(selected.id));setSelected(null);}},style:{position:"absolute",left:pinCardL,top:pinCardT,width:PIN_CARD_W,background:"rgba(10,8,6,0.96)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 14px 44px rgba(0,0,0,0.72),0 2px 10px rgba(0,0,0,0.4)",display:"flex",flexDirection:"row",animation:"cardPopIn 0.22s cubic-bezier(0.32,0.72,0,1) both",touchAction:"manipulation",cursor:"pointer"}},
 React.createElement("div",{style:{width:80,flexShrink:0,overflow:"hidden",background:"rgba(20,12,4,0.8)",position:"relative",minHeight:PIN_CARD_H}},
