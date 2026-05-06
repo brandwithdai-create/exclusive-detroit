@@ -1,0 +1,278 @@
+This mockup is the exact creative direction I want for the Itinerary / Passport update. Please use the attached image as the visual reference and mimic this layout, energy, and design style as closely as possible within the current app.
+
+Important: Do not rebuild the entire app. Keep the current luxury brand identity, fonts, colors, venue cards, map, modals, saved items, settings, and existing working flows. This is a targeted redesign of the Itinerary / Passport experience plus cleanup of the onboarding and filtering logic.
+
+GOAL
+
+The app needs to feel more like a real native app and less like a plain guide or website. I want it to stay luxurious, but also feel more fun, interactive, and polished. The attached mockup shows the exact direction: luxury black/gold, real passport-page styling, stamp animations, smart itinerary filtering, and a stronger App Store-ready experience.
+
+1. Remove the For You page inside Itinerary
+
+Inside the Itinerary tab, remove the “For You” section completely.
+
+The Itinerary internal tabs should now be:
+
+- Tonight
+- Saved
+- Passport
+
+The “For You” section is not needed anymore because Tonight already handles planning and personalization.
+
+2. Remove the current first-launch onboarding prompts
+
+Remove the first prompt that says “Exclusive Detroit / The insider’s guide to Detroit / Begin.”
+
+Remove the second prompt that says “How do you Detroit?”
+
+I do not want this two-step onboarding anymore. It feels unnecessary and slows down the app.
+
+3. Add a push notification opt-in screen instead
+
+Replace the onboarding with a clean, branded push notification pre-permission screen.
+
+Do not immediately trigger the iOS system prompt on app open. First show our custom branded prompt, then only trigger the real iOS permission prompt if the user taps yes.
+
+Suggested copy:
+
+Title:
+“Stay in the know, Detroit.”
+
+Body:
+“Get curated picks, tonight reminders, and exclusive last-minute drops.”
+
+Buttons:
+- “Yes, Notify Me”
+- “Not Now”
+
+Notification ideas:
+- Tonight Reminder: “Your date night itinerary starts in 2 hours.”
+- Last Call Alert: “Late-night spots you saved are closing soon.”
+- Weekend Drop: “New weekend picks just landed.”
+- Passport Reminder: “Did you make it to your spot? Mark it visited and collect your stamp.”
+- Reservation Nudge: “Your dinner move is picked — don’t wait too late to book.”
+- Hot Spot Alert: “A popular spot is buzzing tonight.”
+- Exclusive Drop: “A members-only offer unlocked just for you.”
+
+If push notifications require native Capacitor setup, do not fully implement without explaining the files/permissions first. But the custom pre-permission UI can be added now.
+
+4. Redesign the Passport to match the attached mockup
+
+The current passport page is not acceptable. It looks like shapes/bubbles. I want it to look like the mockup.
+
+The Passport should feel like a real luxury travel passport page.
+
+Visual direction:
+- Open passport page / passport spread feel
+- Textured paper background effect
+- Subtle line patterns, watermark details, and faded passport-page design
+- Stamps layered on top like real passport ink
+- Black/gold luxury framing
+- Each stamp should look different
+- Each stamp should look like an actual travel stamp, not a UI badge
+
+Stamp design requirements:
+- Use real passport-inspired stamp shapes:
+  - rectangular entry stamps
+  - oval stamps
+  - circular city stamps
+  - angled approval-style stamps
+  - border stamps
+- Each stamp should include details like:
+  - DETROIT
+  - ENTRY
+  - ADMITTED
+  - VISITED
+  - date-style text
+  - badge/category name
+  - tiny serial-number style text like DET-0425-001
+- Each stamp should visually match the badge:
+  - Hidden Gem Hunter = “Hidden Entry” / underground style
+  - Cocktail Connoisseur = cocktail/lounge stamp
+  - Night Owl = late-night / night-entry stamp
+  - Neighborhood Explorer = city/explore stamp
+  - The Regular = 5+ visits stamp
+  - Detroit Native = local status stamp
+  - Rooftop Society = skyline/elevated stamp
+  - Early Bird = morning ritual stamp
+- Stamps should be slightly rotated, imperfect, layered, and ink-like.
+- Use faded red, blue, green, purple, black, and gold ink tones where tasteful.
+- No giant bubbles.
+- No plain badge cards.
+- No random eggs, squares, or floating blobs.
+
+5. Add a real stamp animation
+
+When the user marks a venue as visited and earns a new stamp, I want an obvious but classy animation.
+
+Animation flow:
+1. User taps “Mark Visited.”
+2. A large stamp overlay appears on screen.
+3. It presses down like a real physical stamp.
+4. It briefly shows the earned stamp name.
+5. It fades away and the stamp is added to the Passport page.
+
+The attached mockup shows the idea:
+“Check in → stamp presses in → added to passport.”
+
+Keep it smooth, premium, and fun. No cartoon style. No new dependencies unless absolutely necessary and approved first.
+
+6. Fix Tonight / Build My Night strict filtering
+
+This is very important. The itinerary cannot show venues that do not match what the user selected.
+
+Current issue:
+Morning was selected, but London Chop House and Candy Bar appeared. That should never happen.
+
+Rules:
+- Morning = breakfast, brunch, coffee, bakeries only.
+- Afternoon = lunch, cafés, daytime activities, and happy hour only if actually tagged happy hour.
+- Evening = dinner first, then cocktails/lounge/experience.
+- Late Night = late-night food/drinks only, based on actual late-night tags/hours.
+- Happy Hour = only venues that actually have happy hour.
+- Date Night / 2 of Us + Elevated = upscale, romantic, cute, polished spots. Restaurant first, then lounge/cocktail/after spot.
+- Calm = quiet, intimate, low-noise, relaxed spots.
+- Chill = casual, easygoing, sports bars, dive bars, low-pressure neighborhood spots.
+- Elevated = luxury, upscale, date-night, hotel lounge, refined experiences.
+- High Energy = nightlife, party, lively, busy/bumping spots.
+
+Do not use a broad fallback that breaks user intent.
+
+If there are not enough matching venues, show fewer results or say something like:
+“Not enough matching spots for this combination. Try another time or vibe.”
+
+Do not show wrong places just to fill three cards.
+
+7. Add or verify manual venue tags
+
+If the current static data is not detailed enough, add minimal local tags to existing venues only. Do not invent new venues.
+
+Suggested tags:
+- morning
+- brunch
+- lunch
+- dinner
+- coffee
+- happyHour
+- lateNight
+- calm
+- chill
+- elevated
+- highEnergy
+- dateNight
+- groupFriendly
+- food
+- drinks
+- rooftop
+- hiddenGem
+
+The itinerary logic should choose from verified tags, not random category fallback.
+
+8. Improve Tonight tab design to match the mockup
+
+Use the attached mockup as the direction.
+
+Tonight should feel more app-like and less like a plain form.
+
+Keep:
+- clean luxury black/gold style
+- button chips
+- smooth selected states
+- premium spacing
+- clear results
+
+But make it feel more intentional:
+- Button press states
+- Smooth result reveal
+- Better itinerary cards
+- Clear labels like “Tonight,” “Happy Hour Spots,” “Your Night,” etc.
+- If a user selects Happy Hour, the list/cards must only show true happy hour venues.
+
+9. Saved section stays inside Itinerary
+
+Saved should remain inside Itinerary as its own internal tab.
+
+Keep saved spots, saved hotels, and saved events accessible. Do not remove the saved functionality.
+
+10. Keep top navigation clean
+
+Top nav should remain:
+
+Explore · Map · Itinerary · About
+
+Keep the settings gear exactly as it is.
+
+Do not bring back Areas or Saves as top nav tabs.
+
+11. Keep the luxury tone but add more fun
+
+The app is beautiful, but it needs more interaction and personality.
+
+Add tasteful microinteractions:
+- Button press/scale feedback
+- Smooth card reveal
+- Passport stamp animation
+- Itinerary result transition
+- Subtle hover/tap states
+- Refined motion that feels premium
+
+Do not make it childish. Think “luxury members-only city app,” not game app.
+
+12. Light and dark mode
+
+Everything must work in both light mode and dark mode:
+- Passport page
+- Stamp colors
+- Itinerary cards
+- Push notification prompt
+- Buttons
+- Text contrast
+- Modal overlays
+
+13. Stability and cost rules
+
+Do not add paid APIs.
+Do not add Google Places live calls.
+Do not add AI calls.
+Do not add background processes.
+Do not add new dependencies unless approved first.
+Do not break existing map behavior.
+Do not break venue details.
+Do not break booking links.
+Do not break saved items.
+Do not break light/dark mode.
+Do not break iPhone or iPad layouts.
+
+14. Before coding, confirm
+
+Before writing code, please confirm:
+- Exact files you will touch
+- How you will remove For You
+- How you will remove onboarding
+- How the notification prompt will work
+- How the Passport page will mimic the attached mockup
+- How the stamp animation will work
+- How you will enforce strict itinerary filtering
+- What tags need to be added or verified
+- Any risks
+
+15. After coding, provide a pass/fail checklist
+
+After implementation, confirm:
+- For You removed
+- Intro onboarding removed
+- Notification pre-permission screen added
+- Tonight/Saved/Passport remain inside Itinerary
+- Passport matches the attached mockup direction
+- Stamps look like real passport stamps
+- Stamp animation triggers when a new stamp is earned
+- Morning only shows morning-appropriate venues
+- Happy Hour only shows actual happy hour venues
+- Date Night/Elevated gives food first and appropriate date spots
+- Calm/Chill/Elevated/High Energy return different correct results
+- Light mode works
+- Dark mode works
+- No APIs added
+- No background calls
+- No new dependencies unless approved
+- No console errors
+- Existing Explore, Map, Itinerary, Saved, Passport, About, Settings, venue modal, booking links, and saves still work

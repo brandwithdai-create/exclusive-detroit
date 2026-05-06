@@ -1572,9 +1572,7 @@ useEffect(()=>{try{localStorage.setItem("savedEventMeta",JSON.stringify(savedEve
 useEffect(()=>{try{localStorage.setItem("savedHotels",JSON.stringify(savedHotels));}catch(e){}},[savedHotels]);
 const [visited,setVisited]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-visited")||"[]");}catch{return [];}});
 const [taste,setTaste]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-taste")||"[]");}catch{return [];}});
-const [onboardDone,setOnboardDone]=useState(()=>{try{return localStorage.getItem("ed-onboarded")==="1";}catch{return false;}});
-const [onboardStep,setOnboardStep]=useState(0);
-const [onboardTaste,setOnboardTaste]=useState([]);
+const [notifDone,setNotifDone]=useState(()=>{try{return localStorage.getItem("ed-notif-prompted")==="1";}catch{return false;}});
 useEffect(()=>{try{localStorage.setItem("ed-visited",JSON.stringify(visited));}catch(e){}},[visited]);
 useEffect(()=>{try{localStorage.setItem("ed-taste",JSON.stringify(taste));}catch(e){}},[taste]);
 const isSavedEvent=id=>savedEvents.includes(String(id));
@@ -2042,31 +2040,17 @@ React.createElement("span",null,"Detroit Edition v5.0")
 ),
 GeoModal(),
 modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null),photoMap,isVis:isVisited(modalId),onVisit:toggleVisited}),
-!onboardDone&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.96)",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 22px"}},
-React.createElement("div",{style:{background:"var(--c-deep)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:22,padding:"44px 28px 36px",maxWidth:400,width:"100%",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.8)"}},
-React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-onboarded","1");}catch(e){}setOnboardDone(true);},style:{position:"absolute",top:16,right:16,background:"none",border:"none",color:"var(--c-smoke)",cursor:"pointer",fontSize:"1.15rem",padding:8,lineHeight:1,minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}},"✕"),
-onboardStep===0&&React.createElement(React.Fragment,null,
-React.createElement("div",{style:{textAlign:"center",marginBottom:28}},
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.26em",color:"var(--c-gold)",textTransform:"uppercase",marginBottom:8}},"EXCLUSIVE"),
-React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"2.4rem",fontWeight:300,color:"var(--c-white)",lineHeight:1}},"Detroit")
-),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.3,marginBottom:10,textAlign:"center"}},"The insider's guide to Detroit."),
-React.createElement("p",{style:{fontSize:"0.84rem",fontWeight:300,color:"var(--c-ash)",lineHeight:1.78,marginBottom:28,textAlign:"center"}},"Hidden bars, rooftops, late nights, and the places locals actually go."),
-React.createElement("button",{onClick:()=>setOnboardStep(1),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"14px 0",cursor:"pointer",width:"100%",fontWeight:600}},"Begin →")
-),
-onboardStep===1&&React.createElement(React.Fragment,null,
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.3,marginBottom:5}},"How do you Detroit?"),
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-smoke)",marginBottom:16}},"Pick up to 3 — sets up your guide."),
-React.createElement("div",{style:{display:"flex",flexWrap:"wrap",gap:7,marginBottom:22}},
-TASTE_OPTIONS.map(opt=>{
-const sel=onboardTaste.includes(opt.id);
-const dis=!sel&&onboardTaste.length>=3;
-return React.createElement("button",{key:opt.id,onClick:()=>{if(sel){setOnboardTaste(onboardTaste.filter(t=>t!==opt.id));}else if(!dis){setOnboardTaste([...onboardTaste,opt.id]);}},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.09em",textTransform:"uppercase",padding:"6px 11px",borderRadius:100,border:"1px solid "+(sel?"var(--c-gold)":"var(--c-border)"),background:sel?"rgba(201,168,76,0.1)":"transparent",color:sel?"var(--c-gold)":dis?"var(--c-borders)":"var(--c-ash)",cursor:dis?"default":"pointer",opacity:dis?0.4:1,transition:"all 0.15s"}},opt.label);
-})
-),
-React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:8}},
-React.createElement("button",{onClick:()=>{if(onboardTaste.length>0)setTaste(onboardTaste);try{localStorage.setItem("ed-onboarded","1");}catch(e){}setOnboardDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"13px 0",cursor:"pointer",width:"100%",fontWeight:600}},onboardTaste.length>0?"Set My Detroit →":"Continue →"),
-React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-onboarded","1");}catch(e){}setOnboardDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",background:"transparent",color:"var(--c-smoke)",border:"none",cursor:"pointer",padding:"8px 0",width:"100%"}},"Skip for now")
+!notifDone&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.96)",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 22px"}},
+React.createElement("div",{style:{background:"var(--c-deep)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:22,padding:"44px 28px 40px",maxWidth:400,width:"100%",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.8)"}},
+React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{position:"absolute",top:16,right:16,background:"none",border:"none",color:"var(--c-smoke)",cursor:"pointer",fontSize:"1.15rem",padding:8,lineHeight:1,minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}},"✕"),
+React.createElement("div",{style:{textAlign:"center"}},
+React.createElement("div",{style:{width:52,height:52,borderRadius:"50%",border:"1.5px solid rgba(201,168,76,0.4)",background:"rgba(201,168,76,0.08)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 24px",fontSize:"1.5rem"}},"🔔"),
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.26em",color:"var(--c-gold)",textTransform:"uppercase",marginBottom:10}},"EXCLUSIVE DETROIT"),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.75rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.2,marginBottom:14}},"Stay in the know, Detroit."),
+React.createElement("p",{style:{fontSize:"0.84rem",fontWeight:300,color:"var(--c-ash)",lineHeight:1.78,marginBottom:32}},"Get curated picks, tonight reminders, and exclusive last-minute drops."),
+React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:10}},
+React.createElement("button",{onClick:()=>{try{if(typeof Notification!=="undefined"&&Notification.permission==="default"){Notification.requestPermission();}localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"15px 0",cursor:"pointer",width:"100%",fontWeight:600,transition:"opacity 0.15s"}},"YES, NOTIFY ME"),
+React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.12em",textTransform:"uppercase",background:"transparent",color:"var(--c-smoke)",border:"none",cursor:"pointer",padding:"10px 0",width:"100%"}},"Not Now")
 )
 )
 )
