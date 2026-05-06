@@ -1,0 +1,57 @@
+Please correct the passport stamp update. The last change affected the wrong area.
+
+There are TWO separate stamp areas:
+
+1. PASSPORT TAB / ACTUAL PASSPORT BOOK
+This is the big passport page inside Itinerary → Passport.
+
+Please revert this area mostly back to the previous better version.
+
+What I want for the Passport tab:
+- Keep the passport book/page the original warm passport-paper color from before.
+- Do NOT make the passport book dark in light mode.
+- Keep the detailed building-outline stamps we had before.
+- Keep the stamps smaller like they are now.
+- Keep the stamps slightly rotated/scattered so they feel like real passport stamps.
+- Keep the fuzzy/glowy color behind each stamp REMOVED.
+- The stamp itself should be a clean outline only.
+- The building drawings should stay detailed and elegant, like the better previous version.
+- Do not replace these with the simple generic stamp shapes.
+- Make sure each stamp still shows the real visited date from the day the user tapped Add to Passport.
+- Make the small location/date text legible, but do not make the stamps bulky.
+
+The only intended change to the Passport tab was:
+remove the fuzzy color glow behind the stamps + keep clean outlined building stamps + slight natural rotation.
+
+Also:
+- I want ALL stamps to feel unique, collectible, detailed, and premium.
+- Every stamp should have its own personality and silhouette.
+- Avoid anything cartoonish or playful.
+- The design direction should feel luxury travel editorial, vintage passport, boutique hotel branding, and collectible art.
+- Use refined line work and elegant proportions.
+- The stamps should feel like something from a luxury international passport or private members club — not stickers or gaming badges.
+
+2. OUTSIDE VENUE CARDS / CARD FOOTER STAMP
+This is the small stamp area on the venue cards after someone taps “Add to Passport.”
+
+THIS is the area that should use the new mockup style.
+
+For the venue card footer after visited:
+- Replace the current small boring stamp with real passport-style stamp variations.
+- Use many different stamp shapes and colors.
+- Shapes can include scalloped rectangle, oval, circle, shield, hexagon, rounded rectangle, ticket-stamp edge, arch, badge, etc.
+- These should look like actual passport/travel stamps, not plain icons.
+- Use the venue name, VISITED, the correct visited date, and a small icon/building line-art inside the stamp.
+- The stamp color should vary by venue.
+- The stamp should feel collectible and fun.
+- Every single stamp should look different and intentional.
+- No repeated generic layouts.
+- Keep them elegant and premium — never cartoonish.
+- This applies to all venue cards, including regular venues, opening soon venues, hotels, and any venue-style cards.
+
+Important:
+Do NOT change the Passport tab stamps into the new card-footer stamp style.
+The Passport tab should keep the elegant detailed building-outline stamp system.
+The outside venue cards should get the colorful passport-stamp mockup style.
+
+Please separate these two systems clearly in the code so future changes to one do not accidentally change the other.

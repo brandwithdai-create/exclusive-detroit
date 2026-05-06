@@ -226,7 +226,194 @@ const IconLightning = () => <svg width="16" height="16" viewBox="0 0 16 16" styl
 
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Passport stamp icons — category-specific line art (replaces building SVGs)
+// PASSPORT BOOK SYSTEM — CAT_BUILDING + BuildingSVG
+// Detailed architectural silhouettes for VenueStamp (passport tab) ONLY.
+// Never used in venue card footers — that system uses CardStamp in App.jsx.
+// ─────────────────────────────────────────────────────────────────────────────
+const CAT_BUILDING = {
+  "Cocktail Lounges":        ["deco","arch","classic"],
+  "Hidden Bars":             ["warehouse","loft","industrial"],
+  "Rooftops":                ["terrace","modern","tower"],
+  "Nightlife":               ["deco","modern","classic"],
+  "Coffee Shops & Bakeries": ["cottage","tudor","classic"],
+  "Dinner":                  ["arch","classic","deco"],
+  "Breakfast":               ["cottage","classic","tudor"],
+  "Sports Bars":             ["industrial","warehouse","classic"],
+  "Happy Hour":              ["classic","loft","deco"],
+  "Lunch":                   ["classic","cottage","arch"],
+  "Outdoor Activities":      ["pavilion","bridge","terrace"],
+  "Alley Spots":             ["loft","warehouse","industrial"],
+};
+function BuildingSVG({ type }) {
+  const s  = { stroke:"currentColor", fill:"none", strokeWidth:1.2, strokeLinecap:"round", strokeLinejoin:"round" };
+  const sd = { ...s, strokeWidth:0.6, opacity:0.52 };
+  switch(type) {
+    case "classic": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <path d="M8,22 L36,8 L64,22" style={s}/>
+        <line x1="8" y1="22" x2="64" y2="22" style={s}/>
+        <rect x="12" y="22" width="48" height="28" style={s}/>
+        {[20,30,42,52].map(x=><line key={x} x1={x} y1="22" x2={x} y2="50" style={{...s,strokeWidth:.85}}/>)}
+        <path d="M28,50 L28,38 Q28,34 36,34 Q44,34 44,38 L44,50" style={s}/>
+        {[[14,26],[26,26],[40,26],[52,26]].map(([x,y])=><rect key={x} x={x} y={y} width="6" height="6" style={sd}/>)}
+      </svg>
+    );
+    case "tower": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <line x1="36" y1="0" x2="36" y2="6" style={{...s,strokeWidth:1.6}}/>
+        <rect x="30" y="6" width="12" height="8" style={s}/>
+        <line x1="22" y1="14" x2="50" y2="14" style={sd}/>
+        <rect x="20" y="14" width="32" height="10" style={s}/>
+        <line x1="12" y1="24" x2="60" y2="24" style={sd}/>
+        <rect x="12" y="24" width="48" height="26" style={s}/>
+        {[32,38].map(x=><rect key={x} x={x} y={8} width="3" height="4" style={sd}/>)}
+        {[23,30,38,45].map(x=><rect key={x} x={x} y={16} width="3" height="5" style={sd}/>)}
+        {[14,22,30,38,46,54].map(x=><rect key={x} x={x} y={27} width="6" height="8" style={sd}/>)}
+      </svg>
+    );
+    case "warehouse": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <rect x="4" y="20" width="64" height="30" style={s}/>
+        <rect x="22" y="10" width="28" height="10" style={s}/>
+        <line x1="4" y1="20" x2="22" y2="20" style={s}/>
+        <line x1="50" y1="20" x2="68" y2="20" style={s}/>
+        {[8,24,40,56].map(x=><path key={x} d={`M${x},50 L${x},34 Q${x},28 ${x+7},28 Q${x+14},28 ${x+14},34 L${x+14},50`} style={s}/>)}
+        <line x1="4" y1="30" x2="68" y2="30" style={sd}/>
+        <rect x="28" y="38" width="16" height="12" style={{...s,strokeWidth:.8}}/>
+      </svg>
+    );
+    case "arch": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <path d="M4,10 L36,2 L68,10" style={s}/>
+        <rect x="4" y="10" width="64" height="5" style={s}/>
+        {[6,10,62,66].map(x=><line key={x} x1={x} y1="15" x2={x} y2="50" style={s}/>)}
+        <path d="M20,50 L20,26 Q20,14 36,14 Q52,14 52,26 L52,50" style={s}/>
+        <path d="M31,14 L36,10 L41,14" style={sd}/>
+        <line x1="0" y1="48" x2="72" y2="48" style={sd}/>
+      </svg>
+    );
+    case "tudor": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <rect x="8" y="26" width="56" height="24" style={s}/>
+        <path d="M4,26 L36,8 L68,26" style={s}/>
+        <path d="M4,30 L18,22 L32,30" style={{...s,strokeWidth:.9}}/>
+        <path d="M40,30 L54,22 L68,30" style={{...s,strokeWidth:.9}}/>
+        <line x1="8" y1="38" x2="64" y2="38" style={sd}/>
+        <line x1="22" y1="26" x2="34" y2="38" style={sd}/>
+        <line x1="50" y1="26" x2="38" y2="38" style={sd}/>
+        {[10,26,42,56].map(x=><rect key={x} x={x} y={29} width="8" height="7" rx="1" style={sd}/>)}
+        <path d="M29,50 L29,40 Q29,37 36,37 Q43,37 43,40 L43,50" style={s}/>
+      </svg>
+    );
+    case "deco": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <path d="M26,14 L26,10 L30,8 L30,6 L36,3 L42,6 L42,8 L46,10 L46,14" style={s}/>
+        <rect x="22" y="14" width="28" height="8" style={s}/>
+        <rect x="16" y="22" width="40" height="8" style={s}/>
+        <rect x="10" y="30" width="52" height="20" style={s}/>
+        {[14,20,28,36,44,52,58].map(x=><line key={x} x1={x} y1="30" x2={x} y2="50" style={{...sd,strokeWidth:.42}}/>)}
+        {[24,32,40].map(x=><rect key={x} x={x} y={33} width="6" height="9" style={sd}/>)}
+        <line x1="10" y1="40" x2="62" y2="40" style={sd}/>
+      </svg>
+    );
+    case "modern": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <rect x="18" y="4" width="36" height="46" style={s}/>
+        {[10,16,22,28,34,40,46].map(y=><line key={y} x1="18" y1={y} x2="54" y2={y} style={{...sd,strokeWidth:.32}}/>)}
+        {[24,30,36,42,48].map(x=><line key={x} x1={x} y1="4" x2={x} y2="50" style={{...sd,strokeWidth:.32}}/>)}
+        <rect x="26" y="0" width="20" height="5" style={{...s,strokeWidth:.9}}/>
+        <path d="M12,50 L12,46 L60,46 L60,50" style={{...s,strokeWidth:.9}}/>
+        <path d="M8,50 L8,48 L64,48 L64,50" style={sd}/>
+      </svg>
+    );
+    case "industrial": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <path d="M4,30 L16,16 L16,30 L28,16 L28,30 L40,16 L40,30 L52,16 L52,30 L64,16 L68,22 L68,30" style={s}/>
+        <rect x="4" y="30" width="64" height="20" style={s}/>
+        <rect x="54" y="12" width="7" height="18" style={{...s,strokeWidth:.9}}/>
+        <line x1="54" y1="10" x2="61" y2="10" style={sd}/>
+        {[8,22,36,50].map(x=><rect key={x} x={x} y={36} width="10" height="14" style={sd}/>)}
+      </svg>
+    );
+    case "loft": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <rect x="6" y="10" width="60" height="40" style={s}/>
+        <line x1="6" y1="10" x2="66" y2="10" style={{...s,strokeWidth:1.5}}/>
+        {[[8,12],[22,12],[36,12],[50,12],[8,28],[22,28],[36,28],[50,28]].map(([x,y])=>(
+          <rect key={`${x}-${y}`} x={x} y={y} width="12" height="11" style={{...s,strokeWidth:.9}}/>
+        ))}
+        {[8,22,36,50].flatMap(x=>[12,28].map(y=>(
+          <line key={`${x}-${y}`} x1={x+6} y1={y} x2={x+6} y2={y+11} style={{...sd,strokeWidth:.42}}/>
+        )))}
+        <path d="M50,10 L50,6 L56,4 L62,4 L66,6 L66,10" style={{...s,strokeWidth:.8}}/>
+      </svg>
+    );
+    case "bridge": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <path d="M2,40 Q36,8 70,40" style={s}/>
+        <line x1="0" y1="40" x2="72" y2="40" style={s}/>
+        {[12,20,28,36,44,52,60].map(x=>{
+          const yA = Math.round(40 - 32*Math.sin(Math.PI*x/72));
+          return <line key={x} x1={x} y1={40} x2={x} y2={yA} style={sd}/>;
+        })}
+        {[18,54].map(x=>(
+          <React.Fragment key={x}>
+            <line x1={x} y1={10} x2={x} y2={40} style={{...s,strokeWidth:1.4}}/>
+            <line x1={x-5} y1={20} x2={x+5} y2={20} style={sd}/>
+          </React.Fragment>
+        ))}
+        {[16,36,56].map(x=><path key={x} d={`M${x-5},46 Q${x},44 ${x+5},46`} style={{...sd,opacity:.35}}/>)}
+      </svg>
+    );
+    case "terrace": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <line x1="0" y1="30" x2="72" y2="30" style={{...s,strokeWidth:1.5}}/>
+        <rect x="4" y="22" width="64" height="8" style={s}/>
+        {Array.from({length:10},(_,i)=>7+i*6).map(x=><line key={x} x1={x} y1="22" x2={x} y2="30" style={{...sd,strokeWidth:.62}}/>)}
+        {[8,22,38,52].map(x=><rect key={x} x={x} y={12} width="9" height="10" rx="2" style={{...s,strokeWidth:.9}}/>)}
+        {[12,26,42,56].map(x=><path key={x} d={`M${x},12 Q${x-2},8 ${x},5 Q${x+2},8 ${x},12`} style={sd}/>)}
+        <path d="M2,22 L2,16 L10,16 L10,12 L16,12 L16,18 L22,18 L22,14 L28,14 L28,22" style={{...sd,opacity:.4}}/>
+        <path d="M44,22 L44,18 L50,18 L50,12 L58,12 L58,8 L62,8 L62,16 L68,16 L68,22" style={{...sd,opacity:.4}}/>
+      </svg>
+    );
+    case "pavilion": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <path d="M2,26 Q36,6 70,26" style={s}/>
+        <path d="M8,28 Q36,12 64,28" style={{...s,strokeWidth:.7,opacity:.5}}/>
+        {[8,20,36,52,64].map(x=><line key={x} x1={x} y1="28" x2={x} y2="50" style={s}/>)}
+        <line x1="6" y1="28" x2="66" y2="28" style={{...s,strokeWidth:1.4}}/>
+        <line x1="4" y1="50" x2="68" y2="50" style={s}/>
+        <line x1="0" y1="48" x2="72" y2="48" style={sd}/>
+        <circle cx="36" cy="18" r="4" style={{...sd,strokeWidth:.6}}/>
+      </svg>
+    );
+    case "cottage": return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <rect x="10" y="26" width="52" height="24" style={s}/>
+        <path d="M4,26 L36,8 L68,26" style={s}/>
+        <rect x="48" y="10" width="7" height="16" style={{...s,strokeWidth:.9}}/>
+        <rect x="10" y="38" width="24" height="12" style={{...s,strokeWidth:.9}}/>
+        {[14,22,30].map(x=><line key={x} x1={x} y1="38" x2={x} y2="50" style={{...sd,strokeWidth:.8}}/>)}
+        <line x1="8" y1="38" x2="36" y2="38" style={{...s,strokeWidth:1.0}}/>
+        <rect x="38" y="30" width="10" height="10" rx="1" style={sd}/>
+        <rect x="14" y="28" width="9" height="8" rx="1" style={sd}/>
+        <rect x="23" y="40" width="8" height="10" style={{...sd,strokeWidth:.8}}/>
+      </svg>
+    );
+    default: return (
+      <svg viewBox="0 0 72 52" width="72" height="52" style={{display:"block"}}>
+        <rect x="14" y="18" width="44" height="32" style={s}/>
+        <path d="M8,18 L36,6 L64,18" style={s}/>
+        <path d="M26,50 L26,38 Q26,34 36,34 Q46,34 46,38 L46,50" style={s}/>
+        {[[16,22],[26,22],[42,22],[52,22]].map(([x,y])=><rect key={x} x={x} y={y} width="7" height="7" style={sd}/>)}
+      </svg>
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VENUE CARD FOOTER SYSTEM — CAT_ICON + StampIconSVG
+// Used by StampOverlay (press animation). Card footer uses CardStamp (App.jsx).
 // ─────────────────────────────────────────────────────────────────────────────
 const CAT_ICON = {
   "Cocktail Lounges":        "cocktail",
@@ -516,13 +703,17 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
   const n = parseInt(String(v.id).replace(/\D/g,"")) || 0;
   const ink = getStampInk(n);
   const rot = STAMP_ROTS[n % STAMP_ROTS.length];
-  const offsetX = ((n*7)%9)-4;
-  const offsetY = ((n*13)%7)-3;
-  const shape = n % 10;
-  const { w, h } = STAMP_DIMS[shape];
+  const catArr = CAT_BUILDING[v.cat] || ["classic"];
+  const btype = catArr[n % catArr.length];
   const date = propDate || "VISITED";
-  const isLandscape = shape===1||shape===4;
-  const isPortrait  = shape===5||shape===7;
+
+  // 3 classic stamp frame shapes — cycle by venue id
+  const shape = n % 3; // 0=landscape rect, 1=portrait rect, 2=oval
+  const w = shape===1 ? 118 : 154;
+  const h = shape===1 ? 130 : shape===2 ? 88 : 94;
+  const isPortrait = shape === 1;
+  const isOval = shape === 2;
+  const svgScale = isPortrait ? 0.74 : 0.67;
 
   return (
     <div
@@ -530,29 +721,44 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
       onClick={() => onOpen && onOpen(String(v.id))}
       style={{
         width:w, height:h, flexShrink:0, position:"relative",
-        transform:`rotate(${rot}deg) translate(${offsetX}px,${offsetY}px)`,
+        color:ink,
+        transform:`rotate(${rot}deg) translate(${((n*7)%9)-4}px,${((n*13)%7)-3}px)`,
         cursor: onOpen ? "pointer" : "default",
       }}
     >
-      {/* SVG stamp frame with ink roughness filter */}
-      <StampOutline shape={shape} w={w} h={h} ink={ink} seed={n}/>
-      {/* Content */}
+      {/* Clean double-border frame — no fill, no glow, pure ink outline */}
+      <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{position:"absolute",inset:0,pointerEvents:"none"}}>
+        {isOval ? (
+          <>
+            <ellipse cx={w/2} cy={h/2} rx={w/2-5} ry={h/2-4} fill="none" stroke={ink} strokeWidth={1.4}/>
+            <ellipse cx={w/2} cy={h/2} rx={w/2-13} ry={h/2-11} fill="none" stroke={ink} strokeWidth={0.5} strokeDasharray="4 3" opacity={0.50}/>
+          </>
+        ) : (
+          <>
+            <rect x={4} y={4} width={w-8} height={h-8} rx="7" fill="none" stroke={ink} strokeWidth={1.4}/>
+            <rect x={10} y={10} width={w-20} height={h-20} rx="4" fill="none" stroke={ink} strokeWidth={0.5} opacity={0.46}/>
+          </>
+        )}
+      </svg>
+      {/* Content — building illustration + minimal text */}
       <div style={{
-        position:"absolute", inset:0, display:"flex", flexDirection:"column",
-        alignItems:"center", justifyContent:"center", boxSizing:"border-box",
-        padding: isLandscape ? "6px 18px" : isPortrait ? "14px 8px" : "10px",
+        position:"absolute", inset:0,
+        display:"flex", flexDirection:"column",
+        alignItems:"center", justifyContent:"center",
+        boxSizing:"border-box",
+        padding: isPortrait ? "18px 10px" : isOval ? "10px 22px" : "10px 18px",
         gap:2, textAlign:"center",
       }}>
-        <div style={{lineHeight:0, opacity:0.84, transform:"scale(0.76)", transformOrigin:"center"}}>
-          <StampIconSVG cat={v.cat} ink={ink}/>
+        <div style={{lineHeight:0, opacity:0.88, transform:`scale(${svgScale})`, transformOrigin:"center", marginBottom: isPortrait ? 1 : -2}}>
+          <BuildingSVG type={btype}/>
         </div>
-        <div style={{...SERIF, fontSize:isPortrait?"0.78rem":"0.72rem", fontWeight:700, color:ink, lineHeight:1.1, textTransform:"uppercase", letterSpacing:"0.04em", wordBreak:"break-word"}}>
+        <div style={{...SERIF, fontSize:isPortrait?"0.90rem":"0.80rem", fontWeight:700, color:ink, lineHeight:1.1, textTransform:"uppercase", letterSpacing:"0.03em"}}>
           {stampName(v.name)}
         </div>
-        <div style={{...MONO, fontSize:"0.34rem", letterSpacing:"0.14em", color:ink, opacity:0.70, textTransform:"uppercase"}}>
+        <div style={{...MONO, fontSize:"0.33rem", letterSpacing:"0.14em", color:ink, opacity:0.66, textTransform:"uppercase"}}>
           {v.hood.toUpperCase()}
         </div>
-        <div style={{...MONO, fontSize:"0.28rem", letterSpacing:"0.08em", color:ink, opacity:0.48}}>
+        <div style={{...MONO, fontSize:"0.28rem", letterSpacing:"0.07em", color:ink, opacity:0.48}}>
           {date}
         </div>
       </div>

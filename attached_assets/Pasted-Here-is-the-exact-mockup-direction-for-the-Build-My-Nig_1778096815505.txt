@@ -1,0 +1,58 @@
+Here is the exact mockup direction for the Build My Night screen:
+
+Use this image as the visual source of truth.
+
+The screen has a full dark luxury Detroit skyline background that fills the entire Build My Night page from under the top nav all the way to the bottom. The skyline is clear, sharp, zoomed out, and cinematic — not blurry, not overly cropped.
+
+At the top:
+- Small gold mono text: “PERSONAL CONCIERGE”
+- Large serif title: “Build My Night ✨”
+- Small subtitle: “Answer three questions. We’ll craft the perfect night.”
+
+Main layout:
+- A vertical numbered step timeline runs down the left side.
+- The timeline has glowing gold circles labeled 1, 2, and 3.
+- A dotted gold line connects the circles.
+- The dotted line slightly curves between each step, like a guided path.
+
+Question cards:
+Each question sits inside a translucent dark glass card with:
+- Rounded corners
+- Thin gold border
+- Subtle blur/glass effect
+- The Detroit skyline still visible behind it
+- Soft shadow/glow
+
+Step 1 card:
+Text: “When does your night begin?”
+Buttons: Morning, Afternoon, Night
+Night is selected with a filled gold gradient button and glow. Morning/Afternoon are dark transparent buttons with light borders.
+
+Step 2 card:
+Text: “Who’s joining you?”
+Buttons: Just Me, 2 of Us, Group
+2 of Us is selected with the same gold filled button/glow.
+
+Step 3 card:
+Text: “What’s the energy tonight?”
+Buttons: Calm, Chill, Elevated, High Energy
+Elevated is selected with the same gold filled button/glow. High Energy sits centered underneath the first row.
+
+Preview card:
+Near the bottom, there is a larger dark glass card with:
+- Sparkle icon on the left
+- Dynamic sentence: “We’re building a polished, elevated night in Detroit for two.”
+This sentence should change based on the user’s selected time, group size, and energy.
+
+Main CTA:
+Inside the preview card is a wide gold gradient button that says:
+“BUILD MY NIGHT ✨”
+Do not use “Create My Route.”
+
+Bottom navigation:
+The bottom nav is visible, dark, rounded, and app-like:
+Explore, Map, Itinerary, About.
+Itinerary is highlighted in gold.
+
+Overall feeling:
+This should feel like a luxury concierge / AI night builder, not a plain form. It needs to be polished, cinematic, fun, and native-app-like while still matching Exclusive Detroit’s luxury brand.

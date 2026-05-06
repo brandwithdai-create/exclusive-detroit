@@ -1,0 +1,27 @@
+Please rework the Itinerary → Build My Night screen to match the mockup much more closely.
+
+Current issue:
+The light and dark mode versions still do not look close enough to the mockup. The Detroit skyline/background image is still blurry, too zoomed in, and low quality. There is also a blank white/empty space underneath the skyline/background area before the footer. That gap needs to be completely removed.
+
+Design direction:
+Use the attached mockup as the source of truth. The Build My Night section should feel like a luxury “personal concierge” experience with:
+- Full-screen Detroit skyline background image behind the entire Build My Night content.
+- The image should extend all the way down to the bottom of the page/section, behind the button and content, with no blank white/empty gap underneath.
+- The image should be zoomed out like the mockup, not cropped too tight.
+- It must be crisp/high-quality, not blurry.
+- If needed, use one Google/API/image source call one time only to find a better Detroit skyline image, then save it as a static local asset. Do not leave any runtime API dependency.
+- Make sure light mode colors remain fluent with the app’s light mode palette, not too dark/heavy.
+- Make sure dark mode stays luxurious and polished like the mockup.
+
+Layout:
+- Keep the 1 / 2 / 3 vertical step timeline from the mockup.
+- The dotted/curved line should connect steps 1, 2, and 3 elegantly.
+- Step circles should sit on the left side.
+- Each question should sit in its own elevated translucent/glass card.
+- Cards should be spaced out more like the mockup, not cramped.
+- Buttons inside the cards should be slightly larger and easier to tap.
+- Keep the “Build My Night ✨” final button, NOT “Create My Route.”
+- Keep the preview text card: “We’re building a polished, elevated night in Detroit for two.” This text should dynamically change based on the user’s selections.
+
+Most important QA requirement:
+Do not mark this complete until the blank gap under the skyline/background image is fully gone in both light mode and dark mode. The skyline/background needs to visually continue to the bottom of the Build My Night section.
