@@ -1,0 +1,40 @@
+The image-card direction is right, but I want to refine it.
+
+Please keep this change limited to ONLY the three image cards:
+- Sports Tickets
+- Concerts
+- Hotel Stays
+
+Do not touch the skyline, hero text, category pills, Near Me/View Map buttons, nav, or anything else.
+
+Changes needed:
+
+1. Replace the current card images with stronger Detroit-specific images.
+   - Sports Tickets should feel directly Detroit sports-related — ideally Pistons/Tigers/Lions/Red Wings energy, stadium/arena/crowd, not generic sports.
+   - Concerts should feel like Detroit live music/concert nightlife, not generic stock concert imagery.
+   - Hotel Stays should feel like a luxury Detroit hotel, not a random resort/pool/hotel image.
+   - The images should match the current app color palette: dark, luxury, gold, black, moody, premium.
+
+2. It is okay to use one-time API/image sourcing to find better Detroit-relevant images, but once selected, save them as optimized static assets. No live/runtime API dependency.
+
+3. Fix the image glitch when scrolling.
+   - The cards briefly flash black / disappear while scrolling.
+   - Please make sure the images are stable, loaded, cached, and do not flicker or repaint weirdly.
+   - Use optimized static images, proper sizing, eager loading if needed, and no lazy-loading glitch on this hero section.
+
+4. Add the small luxury divider from the mockup between the Near Me / View Map buttons and the three image cards.
+   - Thin horizontal line
+   - Small gold diamond centered in the middle
+   - Subtle, elegant, not too large
+   - It should separate the CTA buttons from the image cards and make the section feel intentional.
+
+5. Space the three image cards out slightly more.
+   - Not huge gaps, just a little more breathing room between the cards so the section feels cleaner and more premium.
+   - Do not change the sizing of the hero buttons above — only the Sports Tickets / Concerts / Hotel Stays image cards spacing.
+
+6. Keep the three image cards clickable:
+   - Sports Tickets → Sports Tickets
+   - Concerts → Concerts
+   - Hotel Stays → Hotel Stays
+
+Again, this is only for the three image cards and the small divider above them. Do not change the rest of the hero.
