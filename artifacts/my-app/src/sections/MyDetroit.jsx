@@ -829,8 +829,18 @@ function getResultImg(v, photoMap) {
 // ─────────────────────────────────────────────────────────────────────────────
 function ChipBtn({ val, current, onSet, label, icon }) {
   const active  = current === val;
-  const isHighE = val === "highenergy" && active;
-  const [pressed, setPressed] = useState(false);
+  const isHighE = val === "highenergy";
+  const [pressed,  setPressed]  = useState(false);
+  const [animKey,  setAnimKey]  = useState(0);
+  const prevActiveRef = useRef(false);
+
+  useEffect(() => {
+    if (isHighE && active && !prevActiveRef.current) {
+      setAnimKey(k => k + 1);
+    }
+    prevActiveRef.current = active;
+  }, [active, isHighE]);
+
   return (
     <button
       onClick={() => onSet(val)}
@@ -838,19 +848,20 @@ function ChipBtn({ val, current, onSet, label, icon }) {
       style={{
         ...MONO, fontSize:"0.58rem", letterSpacing:"0.09em", textTransform:"uppercase",
         display:"flex", alignItems:"center", gap:6, padding:"9px 14px", borderRadius:8,
-        border:`1px solid ${active ? (isHighE ? "rgba(232,120,40,0.7)" : "rgba(201,168,76,0.55)") : "rgba(201,168,76,0.30)"}`,
-        background: active
-          ? (isHighE ? "linear-gradient(135deg,#E8832A 0%,#C96A16 100%)" : "linear-gradient(135deg,#C9A84C 0%,#A8872E 100%)")
-          : "var(--c-tonight-chip-bg)",
+        border:`1px solid ${active ? "rgba(201,168,76,0.55)" : "rgba(201,168,76,0.30)"}`,
+        background: active ? "linear-gradient(135deg,#C9A84C 0%,#A8872E 100%)" : "var(--c-tonight-chip-bg)",
         color: active ? "#0A0808" : "var(--c-tonight-chip-txt)",
-        boxShadow: active
-          ? (isHighE ? "0 2px 16px rgba(232,120,40,0.45)" : "0 2px 14px rgba(201,168,76,0.35)")
-          : "none",
+        boxShadow: active ? "0 2px 14px rgba(201,168,76,0.35)" : "none",
         cursor:"pointer", transition:"all 0.12s",
         transform: pressed ? "scale(0.91)" : "scale(1)", whiteSpace:"nowrap", flexShrink:0,
       }}
     >
-      <span style={{ opacity: active ? 1 : 0.7, flexShrink:0 }}>{icon}</span>
+      <span
+        key={isHighE ? animKey : undefined}
+        style={{ opacity: active ? 1 : 0.7, flexShrink:0, display:"inline-flex",
+          animation: isHighE && active && animKey > 0 ? "lightningPop 0.48s cubic-bezier(0.22,0.61,0.36,1) both" : "none"
+        }}
+      >{icon}</span>
       <span>{label}</span>
     </button>
   );
@@ -986,7 +997,9 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
               <ChipBtn val="calm"       current={energy} onSet={setEnergy} label="Calm"        icon={<IconLeaf/>}/>
               <ChipBtn val="chill"      current={energy} onSet={setEnergy} label="Chill"       icon={<IconSmile/>}/>
               <ChipBtn val="elevated"   current={energy} onSet={setEnergy} label="Elevated"    icon={<IconDiamond/>}/>
-              <ChipBtn val="highenergy" current={energy} onSet={setEnergy} label="High Energy" icon={<IconLightning/>}/>
+              <div style={{ width:"100%", display:"flex", justifyContent:"center" }}>
+                <ChipBtn val="highenergy" current={energy} onSet={setEnergy} label="High Energy" icon={<IconLightning/>}/>
+              </div>
             </div>
           </div>
         </div>

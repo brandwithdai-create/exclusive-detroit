@@ -432,3 +432,11 @@
 .fade-slide-up {
   animation: fadeSlideUp 0.32s ease both;
 }
+
+/* High Energy lightning bolt — brief pop when selected */
+@keyframes lightningPop {
+  0%   { transform: scale(1);    filter: none; }
+  22%  { transform: scale(1.44); filter: drop-shadow(0 0 5px rgba(201,168,76,0.95)) drop-shadow(0 0 10px rgba(201,168,76,0.55)); }
+  58%  { transform: scale(1.12); filter: drop-shadow(0 0 3px rgba(201,168,76,0.55)); }
+  100% { transform: scale(1);    filter: none; }
+}
