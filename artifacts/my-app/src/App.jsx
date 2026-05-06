@@ -1279,22 +1279,20 @@ style:{
   transform:visPrs?"scale(0.975)":"scale(1)",
 }},
 isVis
-? React.createElement("div",{style:{display:"flex",alignItems:"center",gap:16,padding:"14px 18px",background:`rgba(${_sc.rgb},0.06)`,border:`1.5px solid rgba(${_sc.rgb},0.28)`,borderRadius:12}},
-    React.createElement("div",{style:{flexShrink:0,width:100,height:72,position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}},
-      React.createElement("div",{style:{position:"absolute",inset:0,border:`2px dashed rgba(${_sc.rgb},0.6)`,borderRadius:5,pointerEvents:"none"}}),
-      React.createElement("div",{style:{position:"absolute",inset:5,border:`1px solid rgba(${_sc.rgb},0.25)`,borderRadius:2,pointerEvents:"none"}}),
-      React.createElement("div",{style:{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-12deg)",fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.25em",color:`rgba(${_sc.rgb},0.08)`,textTransform:"uppercase",whiteSpace:"nowrap",userSelect:"none",pointerEvents:"none"}},"VISITED"),
+? React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:`rgba(${_sc.rgb},0.06)`,border:`1.5px solid rgba(${_sc.rgb},0.28)`,borderRadius:12}},
+    React.createElement("div",{style:{flexShrink:0,width:64,height:40,position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}},
+      React.createElement("div",{style:{position:"absolute",inset:0,border:`2px dashed rgba(${_sc.rgb},0.6)`,borderRadius:4,pointerEvents:"none"}}),
+      React.createElement("div",{style:{position:"absolute",inset:4,border:`1px solid rgba(${_sc.rgb},0.22)`,borderRadius:2,pointerEvents:"none"}}),
       React.createElement("div",{style:{position:"relative",zIndex:1,textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",gap:1}},
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.26rem",letterSpacing:"0.18em",color:_sc.hex,opacity:.75,textTransform:"uppercase"}},"★ EXCLUSIVE DETROIT ★"),
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.12em",color:_sc.hex,lineHeight:1.1,textTransform:"uppercase"}},"VISITED"),
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.30rem",letterSpacing:"0.08em",color:_sc.hex,opacity:.72,textTransform:"uppercase"}},visitedDate||""),
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.24rem",letterSpacing:"0.12em",color:_sc.hex,opacity:.45,marginTop:1}},"✦  ✦  ✦")
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.14em",color:_sc.hex,opacity:.72,textTransform:"uppercase",lineHeight:1}},"★ EXCLUSIVE DETROIT ★"),
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.55rem",fontWeight:700,letterSpacing:"0.1em",color:_sc.hex,lineHeight:1.15,textTransform:"uppercase"}},"VISITED"),
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.06em",color:_sc.hex,opacity:.65,textTransform:"uppercase",lineHeight:1}},visitedDate?visitedDate.split(",")[0].toUpperCase():"")
       )
     ),
     React.createElement("div",{style:{flex:1,minWidth:0}},
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.58rem",fontWeight:700,letterSpacing:"0.14em",textTransform:"uppercase",color:_sc.hex,marginBottom:4}},"Visited"),
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.06em",color:`rgba(${_sc.rgb},0.75)`,marginBottom:4}},visitedDate||""),
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.04em",color:"var(--c-ash)",lineHeight:1.4}},"Added to your passport")
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",fontWeight:700,letterSpacing:"0.14em",textTransform:"uppercase",color:_sc.hex,marginBottom:3}},"Visited"),
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.06em",color:`rgba(${_sc.rgb},0.75)`,marginBottom:2}},visitedDate||""),
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.40rem",letterSpacing:"0.04em",color:"var(--c-ash)",lineHeight:1.4}},"Added to your passport")
     )
   )
 : React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:"rgba(201,168,76,0.05)",border:"1.5px dashed rgba(201,168,76,0.28)",borderRadius:12,textAlign:"left"}},
