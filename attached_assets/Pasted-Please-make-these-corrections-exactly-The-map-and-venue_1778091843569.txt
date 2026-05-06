@@ -1,0 +1,88 @@
+Please make these corrections exactly. The map and venue-card passport design are still not matching the intended behavior/design.
+
+1. MAP PIN → VENUE CARD BEHAVIOR
+
+The map card is still not fixed. Right now it feels like the venue card is “magnetized” to the pin and follows it while scrolling/moving the map. That makes the interaction feel glitchy.
+
+Please change the behavior:
+
+When a user taps a pin:
+- selected pin glows
+- a gold line animation shoots/travels from the pin to the venue preview card
+- the venue preview card pops in AFTER the line reaches it
+- then the card stays fixed in that chosen screen position
+
+Important:
+- the venue card should NOT keep following the pin while the map moves
+- it should NOT behave like a magnet
+- it should NOT constantly reposition while scrolling/panning
+- once opened, it stays in place until dismissed or another pin is selected
+
+There should be a visible gold trail/line connecting the selected pin to the fixed venue card position.
+
+If the map is panned after the card is open:
+- either keep the card fixed and hide/update the line cleanly
+- or dismiss the card on map drag
+But do not let it float around awkwardly.
+
+2. PASSPORT STAMP TEXT SIZE
+
+On the Passport page, the small text under each venue stamp is too tiny.
+
+Please increase the stamp detail text:
+- neighborhood
+- visit date
+- serial text if shown
+
+It must be readable on mobile. Do not make any text so small that users can barely read it.
+
+3. INSIDE VENUE CARD VISITED DESIGN IS WRONG
+
+Inside the full venue detail card, the “Stamped in Passport” design is still not correct.
+
+Please replace it with the attached reference design.
+
+The visited state should look like an old-school rectangular passport stamp, not a green pill/button.
+
+Design should include:
+
+LEFT:
+- rectangular passport-stamp graphic
+- wavy/perforated stamp edges
+- thin border
+- text inside stamp:
+  - EXCLUSIVE DETROIT
+  - VISITED
+  - actual visit date
+  - small decorative stars/details
+
+RIGHT:
+- text stack:
+  - VISITED
+  - actual visit date
+  - Added to your passport
+
+Style:
+- dark/luxury background in dark mode
+- matching light-mode version
+- stamp can rotate through different colors per venue: teal, purple, blue, red, green, gold
+- elegant, readable, not childish
+
+Before visited:
+- show the “ADD TO PASSPORT” design with the architectural icon and subtext:
+  - ADD TO PASSPORT
+  - Stamp this spot in your passport
+
+After clicked:
+- transform into the rectangular vintage passport stamp design shown in the screenshot.
+
+Date rule:
+- use the real local date the user clicked Add to Passport
+- persist the date permanently
+- same date must show in:
+  - venue detail card
+  - Passport tab stamp
+  - saved/visited state
+- do not regenerate random dates
+
+Remove the current green “Stamped in Passport” pill design entirely.

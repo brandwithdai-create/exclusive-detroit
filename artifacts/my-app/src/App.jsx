@@ -1182,6 +1182,9 @@ html.style.overflow = prevHtmlOverflow;
 };
 }, []);
 const [visPrs,setVisPrs]=useState(false);
+const _STAMP_COLORS=[{hex:"#C0463A",rgb:"192,70,58"},{hex:"#6B4DA0",rgb:"107,77,160"},{hex:"#3A6B9B",rgb:"58,107,155"},{hex:"#3A7A3A",rgb:"58,122,58"},{hex:"#C06B2A",rgb:"192,107,42"},{hex:"#2A7A8A",rgb:"42,122,138"},{hex:"#8B3A6B",rgb:"139,58,107"},{hex:"#6B5A2A",rgb:"107,90,42"}];
+const _sn=parseInt(String(venue.id).replace(/\D/g,""))||0;
+const _sc=_STAMP_COLORS[_sn%_STAMP_COLORS.length];
 return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
@@ -1230,15 +1233,22 @@ style:{
   transform:visPrs?"scale(0.975)":"scale(1)",
 }},
 isVis
-? React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:"rgba(34,90,52,0.18)",border:"1.5px solid rgba(68,180,90,0.38)",borderRadius:12,textAlign:"left"}},
-    React.createElement("div",{style:{width:40,height:40,borderRadius:"50%",background:"rgba(68,180,90,0.15)",border:"1.5px solid rgba(68,180,90,0.5)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
-      React.createElement("svg",{width:20,height:20,viewBox:"0 0 20 20",fill:"none"},
-        React.createElement("polyline",{points:"4,10 8,14 16,6",stroke:"rgba(90,210,110,0.95)",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"})
+? React.createElement("div",{style:{display:"flex",alignItems:"center",gap:16,padding:"14px 18px",background:`rgba(${_sc.rgb},0.06)`,border:`1.5px solid rgba(${_sc.rgb},0.28)`,borderRadius:12}},
+    React.createElement("div",{style:{flexShrink:0,width:100,height:72,position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}},
+      React.createElement("div",{style:{position:"absolute",inset:0,border:`2px dashed rgba(${_sc.rgb},0.6)`,borderRadius:5,pointerEvents:"none"}}),
+      React.createElement("div",{style:{position:"absolute",inset:5,border:`1px solid rgba(${_sc.rgb},0.25)`,borderRadius:2,pointerEvents:"none"}}),
+      React.createElement("div",{style:{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-12deg)",fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.25em",color:`rgba(${_sc.rgb},0.08)`,textTransform:"uppercase",whiteSpace:"nowrap",userSelect:"none",pointerEvents:"none"}},"VISITED"),
+      React.createElement("div",{style:{position:"relative",zIndex:1,textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",gap:1}},
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.26rem",letterSpacing:"0.18em",color:_sc.hex,opacity:.75,textTransform:"uppercase"}},"★ EXCLUSIVE DETROIT ★"),
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.7rem",fontWeight:700,letterSpacing:"0.12em",color:_sc.hex,lineHeight:1.1,textTransform:"uppercase"}},"VISITED"),
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.30rem",letterSpacing:"0.08em",color:_sc.hex,opacity:.72,textTransform:"uppercase"}},visitedDate||""),
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.24rem",letterSpacing:"0.12em",color:_sc.hex,opacity:.45,marginTop:1}},"✦  ✦  ✦")
       )
     ),
     React.createElement("div",{style:{flex:1,minWidth:0}},
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(90,210,110,0.92)",marginBottom:2}},"Stamped in Passport"),
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.08em",color:"rgba(90,210,110,0.55)"}},visitedDate||"Visited")
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.58rem",fontWeight:700,letterSpacing:"0.14em",textTransform:"uppercase",color:_sc.hex,marginBottom:4}},"Visited"),
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.06em",color:`rgba(${_sc.rgb},0.75)`,marginBottom:4}},visitedDate||""),
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.04em",color:"var(--c-ash)",lineHeight:1.4}},"Added to your passport")
     )
   )
 : React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:"rgba(201,168,76,0.05)",border:"1.5px dashed rgba(201,168,76,0.28)",borderRadius:12,textAlign:"left"}},
@@ -1285,6 +1295,7 @@ const isDark=theme==="dark"||(theme==="system"&&(window.matchMedia?.("(prefers-c
 const [mapCat,setMapCat]=React.useState("all");
 const [selected,setSelected]=React.useState(null);
 const [selectedPinPos,setSelectedPinPos]=React.useState(null);
+const [cardShowing,setCardShowing]=React.useState(false);
 const [mapReady,setMapReady]=React.useState(false);
 const [mapError,setMapError]=React.useState(false);
 const [showSavedOnly,setShowSavedOnly]=React.useState(false);
@@ -1418,13 +1429,19 @@ const t=setTimeout(()=>{map.invalidateSize();},360);
 return()=>clearTimeout(t);
 },[selected]);
 React.useEffect(()=>{
-setSelectedPinPos(null);
+setSelectedPinPos(null);setCardShowing(false);
 if(!selected||!mapRef.current)return;
 const coord=COORDS[String(selected.id)];
 if(!coord)return;
-const updatePos=()=>{if(!mapRef.current)return;const pt=mapRef.current.latLngToContainerPoint(coord);setSelectedPinPos({x:pt.x,y:pt.y});};
-const timer=setTimeout(()=>{updatePos();mapRef.current?.on("move",updatePos);mapRef.current?.on("zoom",updatePos);},360);
-return()=>{clearTimeout(timer);try{mapRef.current?.off("move",updatePos);mapRef.current?.off("zoom",updatePos);}catch(e){}};
+const onDrag=()=>setSelected(null);
+mapRef.current.on("dragstart",onDrag);
+const timer=setTimeout(()=>{
+  if(!mapRef.current)return;
+  const pt=mapRef.current.latLngToContainerPoint(coord);
+  setSelectedPinPos({x:pt.x,y:pt.y});
+  setTimeout(()=>setCardShowing(true),420);
+},360);
+return()=>{clearTimeout(timer);try{mapRef.current?.off("dragstart",onDrag);}catch(e){}};
 },[selected]);
 const zoomMap=d=>{const m=mapRef.current;if(!m)return;d>0?m.zoomIn():m.zoomOut();};
 const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitude:lat,longitude:lng}=pos.coords;setUserPos({lat,lng});const m=mapRef.current;if(m)m.setView([lat,lng],15,{animate:true});});};
@@ -1559,7 +1576,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 !mapHotelModal&&React.createElement("button",{onClick:reCenter,style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",right:14,zIndex:900,touchAction:"manipulation"}},"⊕  Re-center"),
 // ── Pin-connected venue card ──
 selectedPinPos&&selected&&React.createElement(React.Fragment,null,
-React.createElement("svg",{key:"connector-svg",style:{position:"absolute",left:Math.min(pinConnL,pinCardL+PIN_CARD_W),top:pinConnT-12,width:Math.abs(pinConnW)+8,height:24,overflow:"visible",zIndex:1090,pointerEvents:"none"},viewBox:`0 0 ${Math.abs(pinConnW)+8} 24`},
+React.createElement("svg",{key:"connector-svg",style:{position:"absolute",left:Math.min(pinConnL,pinCardL+PIN_CARD_W),top:pinConnT-12,width:Math.abs(pinConnW)+8,height:24,overflow:"visible",zIndex:1090,pointerEvents:"none",transition:"opacity 0.2s"},viewBox:`0 0 ${Math.abs(pinConnW)+8} 24`},
 React.createElement("defs",null,
 React.createElement("filter",{id:"glow-line"},
 React.createElement("feGaussianBlur",{stdDeviation:"2.5",result:"coloredBlur"}),
@@ -1574,7 +1591,7 @@ React.createElement("stop",{offset:"100%",stopColor:"rgba(201,168,76,0.12)"})
 React.createElement("line",{x1:pinOnLeft?Math.abs(pinConnW)+4:4,y1:12,x2:pinOnLeft?4:Math.abs(pinConnW)+4,y2:12,stroke:"url(#conn-grad)",strokeWidth:2,filter:"url(#glow-line)",strokeDasharray:Math.abs(pinConnW),strokeDashoffset:Math.abs(pinConnW),style:{animation:"connDraw 0.38s cubic-bezier(0.4,0,0.2,1) forwards"}}),
 React.createElement("circle",{cx:pinOnLeft?4:Math.abs(pinConnW)+4,cy:12,r:4,fill:C.gold,filter:"url(#glow-line)",style:{animation:"connDot 0.18s 0.3s ease forwards",opacity:0}})
 ),
-React.createElement("div",{style:{position:"absolute",left:pinCardL,top:pinCardT,width:PIN_CARD_W,background:"rgba(10,8,6,0.96)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 14px 44px rgba(0,0,0,0.72),0 2px 10px rgba(0,0,0,0.4)",display:"flex",flexDirection:"row",animation:"cardPopIn 0.22s cubic-bezier(0.32,0.72,0,1) both",touchAction:"manipulation"}},
+cardShowing&&React.createElement("div",{style:{position:"absolute",left:pinCardL,top:pinCardT,width:PIN_CARD_W,background:"rgba(10,8,6,0.96)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 14px 44px rgba(0,0,0,0.72),0 2px 10px rgba(0,0,0,0.4)",display:"flex",flexDirection:"row",animation:"cardPopIn 0.22s cubic-bezier(0.32,0.72,0,1) both",touchAction:"manipulation"}},
 React.createElement("div",{style:{width:80,flexShrink:0,overflow:"hidden",background:"rgba(20,12,4,0.8)",position:"relative",minHeight:PIN_CARD_H}},
 selImg&&React.createElement("img",{src:selImg,alt:selected.name,loading:"eager",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})),
 React.createElement("div",{style:{flex:1,padding:"10px 11px 10px",display:"flex",flexDirection:"column",minWidth:0}},

@@ -900,13 +900,13 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
         <div style={{ ...SERIF,fontSize:"0.80rem",fontWeight:700,color:hex,lineHeight:1.1,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.03em",marginTop:1 }}>
           {stampName(v.name)}
         </div>
-        <div style={{ ...MONO,fontSize:"0.25rem",letterSpacing:"0.18em",color:hex,opacity:.65,textTransform:"uppercase" }}>
+        <div style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.14em",color:hex,opacity:.72,textTransform:"uppercase" }}>
           {v.hood.toUpperCase()}
         </div>
-        <div style={{ ...MONO,fontSize:"0.22rem",letterSpacing:"0.1em",color:hex,opacity:.46,textTransform:"uppercase" }}>
+        <div style={{ ...MONO,fontSize:"0.40rem",letterSpacing:"0.08em",color:hex,opacity:.58,textTransform:"uppercase" }}>
           {date}
         </div>
-        <div style={{ ...MONO,fontSize:"0.20rem",letterSpacing:"0.07em",color:hex,opacity:.36 }}>
+        <div style={{ ...MONO,fontSize:"0.35rem",letterSpacing:"0.07em",color:hex,opacity:.40 }}>
           {serial}
         </div>
       </div>
