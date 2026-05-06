@@ -564,7 +564,8 @@ const STAMP_PALETTE = [
 const STAMP_ROTS = [-6,4,-3,7,-8,2,-5,6,-2,5,-7,3];
 
 // Y scatter offsets — organic vertical offset for each stamp slot
-const SCATTER_Y = [0,-14,8,-6,14,-10,4,-18,6,-12,2,-8,10,-4,16,-10];
+const SCATTER_Y = [0,-16,10,-8,18,-12,5,-22,8,-14,3,-9,13,-5,20,-11];
+const SCATTER_X = [0,6,-8,4,-5,10,-3,7,-10,2,8,-6,3,-9,5,-4];
 
 function getStampStyle(v) {
   const n = parseInt(String(v.id).replace(/\D/g,"")) || 0;
@@ -607,9 +608,9 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
 
   // 3 layout shapes cycling by index position
   const shape = index % 3; // 0=landscape, 1=portrait, 2=square
-  const w = shape === 1 ? 120 : shape === 2 ? 130 : 158;
-  const h = shape === 1 ? 126 : shape === 2 ? 122 : 98;
-  const svgScale = shape === 1 ? 0.78 : shape === 2 ? 0.84 : 0.74;
+  const w = shape === 1 ? 104 : shape === 2 ? 114 : 140;
+  const h = shape === 1 ? 110 : shape === 2 ? 106 : 85;
+  const svgScale = shape === 1 ? 0.68 : shape === 2 ? 0.73 : 0.64;
   const bv = n % 2; // border variant: 0=single dashed, 1=double dashed
 
   return (
@@ -1357,7 +1358,7 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
 
   // Stamp area height: 2 columns, each row ~105px apart, plus padding
   const stampRows = Math.max(1, Math.ceil(stamps.length / 2));
-  const stampAreaH = stampRows * 108 + 60;
+  const stampAreaH = stampRows * 94 + 60;
 
   return (
     <div style={{ padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
@@ -1465,14 +1466,14 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
                 Visit venues and mark them as visited to earn stamps
               </p>
             ) : (
-              <div style={{ display:"flex",flexWrap:"wrap",gap:"4px 6px",justifyContent:"space-around",alignItems:"flex-start" }}>
+              <div style={{ display:"flex",flexWrap:"wrap",gap:"6px 4px",justifyContent:"flex-start",alignItems:"flex-start" }}>
                 {stamps.map((v, i) => {
                   const rawDate = visitedDates?.[String(v.id)];
                   const displayDate = rawDate || null;
                   return (
                     <div
                       key={String(v.id)}
-                      style={{ transform:`translateY(${SCATTER_Y[i % SCATTER_Y.length] || 0}px)`, flexShrink:0 }}
+                      style={{ transform:`translateX(${SCATTER_X[i % SCATTER_X.length] || 0}px) translateY(${SCATTER_Y[i % SCATTER_Y.length] || 0}px)`, flexShrink:0 }}
                     >
                       <VenueStamp v={v} index={i} isNew={false} onOpen={onOpenVenue} date={displayDate}/>
                     </div>

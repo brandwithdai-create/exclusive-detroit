@@ -1870,8 +1870,8 @@ React.createElement("div",{style:{display:"flex",gap:14,justifyContent:"center",
 ].map(({k,label,img,fn})=>
 React.createElement("button",{key:k,onClick:fn,style:{flex:1,position:"relative",height:128,borderRadius:14,overflow:"hidden",border:"1px solid rgba(201,168,76,0.20)",padding:0,cursor:"pointer",background:"#0a0808",boxShadow:"0 6px 24px rgba(0,0,0,0.55)",touchAction:"manipulation",WebkitTransform:"translateZ(0)",transform:"translateZ(0)",willChange:"transform",WebkitBackfaceVisibility:"hidden",backfaceVisibility:"hidden"}},
 React.createElement("img",{src:img,alt:"",loading:"eager",decoding:"async",fetchPriority:"high",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block",WebkitTransform:"translateZ(0)",transform:"translateZ(0)"}}),
-React.createElement("div",{style:{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.48) 52%,rgba(0,0,0,0.78) 100%)",WebkitTransform:"translateZ(0)",transform:"translateZ(0)"}}),
-React.createElement("span",{style:{position:"absolute",bottom:10,left:0,right:0,textAlign:"center",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"#fff",fontWeight:600,lineHeight:1.4,padding:"0 4px",display:"block",whiteSpace:"pre-line"}},label)
+React.createElement("div",{style:{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.54) 40%,rgba(0,0,0,0.54) 60%,rgba(0,0,0,0.10) 100%)",WebkitTransform:"translateZ(0)",transform:"translateZ(0)"}}),
+React.createElement("span",{style:{position:"absolute",top:"50%",left:0,right:0,transform:"translateY(-50%)",textAlign:"center",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"#fff",fontWeight:600,lineHeight:1.4,padding:"0 4px",display:"block",whiteSpace:"pre-line"}},label)
 )
 )
 )
