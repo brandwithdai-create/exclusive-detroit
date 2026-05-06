@@ -271,17 +271,7 @@ export default function Stay({ isSavedHotel, toggleSavedHotel, onBack }) {
 
   return (
     <div>
-      <div style={{ background:C.deep, paddingTop: onBack ? 16 : 0, paddingLeft:22, paddingRight:22, paddingBottom: onBack ? 12 : 0 }}>
-        {onBack && (
-          <div style={{ maxWidth:1200, margin:"0 auto" }}>
-            <button onClick={onBack} style={{ background:"none", border:"none", cursor:"pointer", color:C.ash, fontFamily:"'DM Mono',monospace", fontSize:"0.62rem", letterSpacing:"0.18em", textTransform:"uppercase", padding:"12px 0", display:"inline-flex", alignItems:"center", gap:10, transition:"color 0.18s", minHeight:48 }}
-              onMouseEnter={e=>e.currentTarget.style.color=C.goldL} onMouseLeave={e=>e.currentTarget.style.color=C.ash}>
-              <span style={{ fontSize:"1.3rem", lineHeight:1, fontWeight:300, letterSpacing:0 }}>←</span>Back
-            </button>
-          </div>
-        )}
-      </div>
-      <div style={{ background:C.deep, padding: onBack ? "4px 22px 6px" : "8px 22px 8px", borderBottom:"1px solid "+C.border }}>
+      <div style={{ background:C.deep, padding:"10px 22px 10px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
           <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.15rem,3.2vw,1.85rem)", fontWeight:400, color:C.white, margin:"0 0 2px" }}>
             Where to Stay
