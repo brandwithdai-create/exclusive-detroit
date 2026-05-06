@@ -878,10 +878,10 @@ function ChipBtn({ val, current, onSet, label, icon }) {
       style={{
         ...MONO, fontSize:"0.58rem", letterSpacing:"0.09em", textTransform:"uppercase",
         display:"flex", alignItems:"center", gap:6, padding:"9px 14px", borderRadius:8,
-        border:`1px solid ${active?"var(--c-gold)":"var(--c-border)"}`,
-        background: active ? "rgba(201,168,76,0.1)" : "transparent",
-        color: active ? "var(--c-gold)" : "var(--c-ash)",
-        boxShadow: active ? "0 0 10px rgba(201,168,76,0.15)" : "none",
+        border:`1px solid ${active?"transparent":"rgba(201,168,76,0.28)"}`,
+        background: active ? "linear-gradient(135deg,#C9A84C 0%,#A8872E 100%)" : "rgba(10,7,3,0.45)",
+        color: active ? "#0A0808" : "var(--c-ash)",
+        boxShadow: active ? "0 2px 14px rgba(201,168,76,0.35)" : "none",
         cursor:"pointer", transition:"all 0.12s",
         transform: pressed ? "scale(0.91)" : "scale(1)", whiteSpace:"nowrap", flexShrink:0,
       }}
@@ -958,10 +958,10 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
   );
 
   return (
-    <div style={{ position:"relative", backgroundImage:"url('/detroit-skyline.jpg')", backgroundSize:"cover", backgroundPosition:"50% 62%", minHeight:"100vh" }}>
+    <div style={{ position:"relative", backgroundImage:"url('/detroit-skyline.jpg')", backgroundSize:"cover", backgroundPosition:"62% 42%", minHeight:"calc(100dvh - 68px - env(safe-area-inset-top))" }}>
       {/* Cinematic overlay — no blur to keep image crisp */}
       <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
-      <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(90px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
+      <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
       <div style={{ marginBottom:28 }}>
@@ -977,10 +977,10 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
       {/* Step flow — numbered 1→2→3 with dotted connector */}
       <div style={{ position:"relative" }}>
         {/* Dotted connector line behind the circles */}
-        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2px dashed rgba(201,168,76,0.35)",zIndex:0,pointerEvents:"none" }}/>
+        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2.5px dashed rgba(201,168,76,0.6)",zIndex:0,pointerEvents:"none" }}/>
 
         {/* Q1 — When */}
-        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:18 }}>
+        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:20 }}>
           <StepNum n={1}/>
           <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px",marginTop:0 }}>
             <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
@@ -995,7 +995,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
         </div>
 
         {/* Q2 — Who */}
-        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:18 }}>
+        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:20 }}>
           <StepNum n={2}/>
           <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
             <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
@@ -1010,7 +1010,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
         </div>
 
         {/* Q3 — Energy */}
-        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:24 }}>
+        <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:26 }}>
           <StepNum n={3}/>
           <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
             <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
@@ -1026,30 +1026,32 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
         </div>
       </div>
 
-      {/* Dynamic summary card — updates live as user makes selections */}
-      <div style={{ marginBottom:16,padding:"18px 20px",background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,display:"flex",alignItems:"center",gap:14 }}>
-        <span style={{ fontSize:"1.1rem",opacity:0.75,flexShrink:0,color:"var(--c-gold)" }}>✦</span>
-        <p style={{ ...SERIF,fontSize:"1.0rem",fontStyle:"italic",color:"var(--c-white)",lineHeight:1.55,margin:0 }}>
-          {buildNightSummary(when, who, energy)}
-        </p>
+      {/* Summary + CTA — single glass card matching mockup */}
+      <div style={{ background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:16,padding:"20px 20px 20px" }}>
+        {/* Summary text */}
+        <div style={{ display:"flex",alignItems:"flex-start",gap:12,marginBottom:18 }}>
+          <span style={{ fontSize:"1.3rem",color:"var(--c-gold)",flexShrink:0,lineHeight:1,marginTop:2 }}>✦</span>
+          <p style={{ ...SERIF,fontSize:"1.05rem",fontStyle:"italic",color:"var(--c-white)",lineHeight:1.6,margin:0 }}>
+            {buildNightSummary(when, who, energy)}
+          </p>
+        </div>
+        {/* Build button — solid gold */}
+        <button
+          onClick={handleBuild}
+          onMouseDown={()=>setBtnPrs(true)} onMouseUp={()=>setBtnPrs(false)} onMouseLeave={()=>setBtnPrs(false)} onTouchStart={()=>setBtnPrs(true)} onTouchEnd={()=>setBtnPrs(false)}
+          style={{
+            ...MONO, fontSize:"0.54rem", letterSpacing:"0.18em", textTransform:"uppercase",
+            width:"100%", padding:"18px 0", borderRadius:100,
+            border:"none", color:"#0A0808",
+            background: building ? "rgba(160,122,40,0.85)" : "linear-gradient(135deg,#C9A84C 0%,#A8872E 100%)",
+            boxShadow: building ? "none" : "0 4px 28px rgba(201,168,76,0.4)",
+            cursor:"pointer", transition:"all 0.12s",
+            transform: btnPrs ? "scale(0.97)" : "scale(1)",
+          }}
+        >
+          {building ? "Building your night…" : "BUILD MY NIGHT ✨"}
+        </button>
       </div>
-
-      {/* Build button — solid gold */}
-      <button
-        onClick={handleBuild}
-        onMouseDown={()=>setBtnPrs(true)} onMouseUp={()=>setBtnPrs(false)} onMouseLeave={()=>setBtnPrs(false)} onTouchStart={()=>setBtnPrs(true)} onTouchEnd={()=>setBtnPrs(false)}
-        style={{
-          ...MONO, fontSize:"0.54rem", letterSpacing:"0.16em", textTransform:"uppercase",
-          width:"100%", padding:"17px 0", borderRadius:100,
-          border:"none", color:"var(--c-btn-cta-txt)",
-          background: building ? "rgba(160,122,40,0.85)" : "linear-gradient(135deg,#C9A84C 0%,#A8872E 100%)",
-          boxShadow: building ? "none" : "0 4px 28px rgba(201,168,76,0.32)",
-          cursor:"pointer", transition:"all 0.12s",
-          transform: btnPrs ? "scale(0.97)" : "scale(1)",
-        }}
-      >
-        {building ? "Building your night…" : "BUILD MY NIGHT ✨"}
-      </button>
 
       {/* Building pulse */}
       {building && (

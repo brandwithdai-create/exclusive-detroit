@@ -2245,7 +2245,7 @@ React.createElement("a",{href:"/privacy",target:"_blank",rel:"noopener noreferre
 
 return React.createElement("div",{style:{background:C.black,color:C.bone,fontFamily:"'DM Sans',sans-serif",minHeight:"100vh",fontSize:15,lineHeight:1.6}},
 NavBar(),
-React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))",paddingBottom:"calc(52px + env(safe-area-inset-bottom))"}},
+React.createElement("div",{style:{paddingTop:"calc(68px + env(safe-area-inset-top))",paddingBottom:section==="itinerary"?"0":"calc(52px + env(safe-area-inset-bottom))"}},
 section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
@@ -2256,7 +2256,7 @@ section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),
 section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")})
 ),
-section!=="map"&&section!=="settings"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
+section!=="map"&&section!=="settings"&&section!=="itinerary"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},
 React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:28,paddingBottom:24,borderBottom:"1px solid "+C.border}},
 React.createElement("div",null,

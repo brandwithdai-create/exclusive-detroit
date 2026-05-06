@@ -1,0 +1,70 @@
+We need to revert the Passport tab itself back to the previous design/style.
+
+The FIRST screenshot I attached is the NEW version — this is NOT the direction I wanted for the actual passport page.
+
+The SECOND screenshot I attached is the OLD version — this is the version/style I want restored for the Passport tab itself.
+
+Please revert the Passport tab/page back to the older design from several checkpoints ago (approximately 5–6 checkpoints back). Specifically:
+
+Restore these elements from the OLD version:
+- The lighter cream/beige passport paper color
+- The subtle faded color glow behind the stamps
+- The dotted border style around the passport stamps
+- The more detailed building illustrations/icons
+- The “EXCLUSIVE DETROIT” tiny stamp text at the top of each stamp
+- The original typography/layout styling
+- The original overall passport-book aesthetic
+
+The OLD version felt:
+- more luxurious
+- more detailed
+- more collectible
+- more editorial
+- more realistic to an actual stamped passport page
+
+The NEW version feels too simplified and lost the personality/detail.
+
+Important clarification:
+The ONLY area that was supposed to change was the SMALL “visited/stamped” badge on the OUTSIDE of venue cards (the little badge that appears after clicking “Stamp This”).
+
+That smaller outside venue-card badge is where we wanted:
+- more unique stamp shapes
+- different colors
+- more realistic passport stamp styling
+- more collectible variations
+
+But the actual Passport tab/page itself was NOT supposed to be redesigned.
+
+Also, let’s simplify the stamp system overall:
+Do NOT create two completely different versions of stamps.
+
+Instead:
+- Use the SAME exact stamp design for each venue across the entire app.
+- The stamp shown inside the Passport tab should be the same stamp used on the outside of the venue card after clicking “Stamp This.”
+- The only difference should be size.
+- The outside venue-card version should simply be a smaller version of the exact same stamp from the Passport tab.
+
+For example:
+- The Bad Luck Bar stamp in the Passport tab should be the identical Bad Luck Bar stamp shown on the venue card — just scaled down smaller.
+- Same shape, same color, same illustration, same typography, same design language.
+
+This will make the app feel much more cohesive, collectible, premium, and intentional.
+
+Also:
+- Remove the little floating confirmation notes/toasts that say things like “Stamped in Passport” or “Removed from Visited.”
+- Those messages are unnecessary because the button state already communicates the action clearly.
+- The UI should feel cleaner and less repetitive.
+
+Additionally:
+- When a venue is stamped and the bottom section changes to “Visited,” that visited button/card is currently way too large.
+- Keep the “Visited” state the SAME overall size and footprint as the original “Add to Passport” button before it was clicked.
+- It should not expand taller or become a giant card after being stamped.
+- Preserve the same clean compact layout sizing.
+
+So:
+- Revert the Passport tab/page back to the OLD version/style
+- Keep the stamps slightly rotated/messy like real passport stamps
+- Restore the detailed building artwork and dotted borders
+- Use those same exact stamps everywhere else in the app as smaller collectible versions on venue cards
+- Remove unnecessary floating confirmation messages
+- Keep the stamped/visited UI compact and elegant
