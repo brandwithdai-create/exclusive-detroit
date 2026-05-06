@@ -897,12 +897,12 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
       style={{
         width:w, height:h, flexShrink:0,
         display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
-        background:`radial-gradient(ellipse at 50% 40%, rgba(${rgb},0.30) 0%, rgba(${rgb},0.10) 55%, transparent 82%)`,
-        borderRadius:4, transform:`rotate(${rot}deg)`,
+        background:"transparent",
+        borderRadius:4,
+        transform:`rotate(${rot}deg) translate(${((n*7)%9)-4}px, ${((n*13)%7)-3}px)`,
         padding:"5px 8px 6px",
         position:"relative", overflow:"hidden", boxSizing:"border-box",
         color: hex,
-        filter:`drop-shadow(0 0 10px rgba(${rgb},0.38))`,
         cursor: onOpen ? "pointer" : "default",
       }}
     >
@@ -1178,9 +1178,9 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
   }
 
   return (
-    <div style={{ position:"relative", backgroundImage:"url('/detroit-skyline.jpg')", backgroundSize:"cover", backgroundPosition:"center 35%" }}>
-      {/* Cinematic dark overlay */}
-      <div style={{ position:"absolute",inset:0,background:"rgba(4,2,1,0.82)",backdropFilter:"blur(2px)",WebkitBackdropFilter:"blur(2px)",pointerEvents:"none",zIndex:0 }}/>
+    <div style={{ position:"relative", backgroundImage:"url('/detroit-skyline.jpg')", backgroundSize:"cover", backgroundPosition:"center 35%", minHeight:"100vh" }}>
+      {/* Cinematic overlay — adapts to light/dark mode via CSS var */}
+      <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",backdropFilter:"blur(1px)",WebkitBackdropFilter:"blur(1px)",pointerEvents:"none",zIndex:0 }}/>
       <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(90px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
@@ -1195,7 +1195,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
       </div>
 
       {/* Q1 — When */}
-      <div style={{ marginTop:0, marginBottom:14, background:"rgba(10,7,3,0.70)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid rgba(201,168,76,0.14)",borderRadius:14,padding:"16px 18px" }}>
+      <div style={{ marginTop:0, marginBottom:14, background:"var(--c-tonight-glass)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
         <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHEN ARE YOU GOING OUT?
         </p>
@@ -1207,7 +1207,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
       </div>
 
       {/* Q2 — Who */}
-      <div style={{ marginBottom:14, background:"rgba(10,7,3,0.70)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid rgba(201,168,76,0.14)",borderRadius:14,padding:"16px 18px" }}>
+      <div style={{ marginBottom:14, background:"var(--c-tonight-glass)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
         <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHO'S COMING?
         </p>
@@ -1219,7 +1219,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
       </div>
 
       {/* Q3 — Energy */}
-      <div style={{ marginBottom:20, background:"rgba(10,7,3,0.70)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid rgba(201,168,76,0.14)",borderRadius:14,padding:"16px 18px" }}>
+      <div style={{ marginBottom:20, background:"var(--c-tonight-glass)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
         <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHAT'S THE ENERGY?
         </p>

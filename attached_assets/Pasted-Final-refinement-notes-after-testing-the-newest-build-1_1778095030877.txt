@@ -1,0 +1,84 @@
+Final refinement notes after testing the newest build:
+
+1. PASSPORT TAB — REMOVE THE FLOATING COLOR AURA
+The passport stamps themselves look much better now, but there’s still colored haze/glow floating around the stamps.
+
+Please remove ALL of the soft color fog/background glow behind the passport stamps.
+
+The stamps should look:
+- clean
+- inked
+- printed directly onto the passport page
+
+Keep ONLY:
+- the stamp outline
+- the venue illustration
+- the venue name
+- neighborhood
+- visited date
+
+No:
+- colored cloud
+- glow bloom
+- soft blur aura
+- floating gradient behind stamps
+
+Also:
+- rotate the stamps slightly at different angles
+- make them look naturally imperfect
+- slightly offset some placements
+- let them feel physically stamped into a real passport over time
+
+The goal is:
+vintage luxury passport aesthetic — not floating UI stickers.
+
+2. ITINERARY SCREEN — LIGHT MODE IS TOO DARK
+The redesign direction is correct, but the light mode styling became way too dark.
+
+Please rebalance it back toward the app’s luxury ivory/light aesthetic.
+
+What to change:
+- reduce the heavy black overlays
+- soften the darkness significantly
+- bring back warm ivory + cream tones
+- use elegant translucent glass panels instead of deep black cards
+- keep the skyline cinematic but lighter and more refined
+
+It should feel like:
+- luxury hotel concierge
+- editorial luxury travel
+- elevated lifestyle guide
+
+NOT:
+- gaming UI
+- nightclub dashboard
+- cyberpunk
+
+3. SKYLINE BACKGROUND SHOULD EXTEND TO THE BOTTOM
+Right now the skyline image cuts off too early and leaves a plain section underneath.
+
+The Detroit skyline background/photo should continue all the way down the full Build My Night section.
+
+Specifically:
+- extend the skyline image to the bottom of the itinerary experience
+- remove the abrupt cutoff
+- keep the cinematic Detroit background visible behind the entire experience
+- make it feel immersive and continuous
+
+4. MAP — MAKE THE ENTIRE VENUE CARD CLICKABLE
+The new map positioning is much better now.
+
+One final UX fix:
+the venue card itself is too small to tap precisely.
+
+Please make the ENTIRE floating venue card clickable:
+- image
+- title
+- black card background
+- text area
+- entire component
+
+Tapping anywhere on the venue card should open the venue details.
+
+Do not require users to tap only “View Details.”
+The whole card should behave as one large tap target.
