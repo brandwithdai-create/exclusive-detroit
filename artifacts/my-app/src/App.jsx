@@ -1710,8 +1710,7 @@ useEffect(()=>{try{localStorage.setItem("savedEventMeta",JSON.stringify(savedEve
 useEffect(()=>{try{localStorage.setItem("savedHotels",JSON.stringify(savedHotels));}catch(e){}},[savedHotels]);
 const [visited,setVisited]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-visited")||"[]");}catch{return [];}});
 const [taste,setTaste]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-taste")||"[]");}catch{return [];}});
-const [notifDone,setNotifDone]=useState(()=>{try{return localStorage.getItem("ed-notif-prompted")==="1";}catch{return false;}});
-const [notifRinging,setNotifRinging]=useState(false);
+
 useEffect(()=>{try{localStorage.setItem("ed-visited",JSON.stringify(visited));}catch(e){}},[visited]);
 useEffect(()=>{try{localStorage.setItem("ed-taste",JSON.stringify(taste));}catch(e){}},[taste]);
 const [visitedDates,setVisitedDates]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-visited-dates")||"{}");}catch{return {};}});
@@ -2214,22 +2213,6 @@ React.createElement("span",null,"Detroit Edition v5.0")
 BottomNav(),
 GeoModal(),
 modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null),photoMap,isVis:isVisited(modalId),onVisit:toggleVisited,visitedDate:getVisitedDate(String(modalId))}),
-!notifDone&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.96)",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 22px"}},
-React.createElement("style",null,"@keyframes bellRing{0%,100%{transform:rotate(0) scale(1)}8%{transform:rotate(-14deg) scale(1.04)}22%{transform:rotate(14deg) scale(1.04)}38%{transform:rotate(-10deg) scale(1.02)}52%{transform:rotate(10deg) scale(1.02)}66%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}@keyframes bellPulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,0.55),0 0 0 0 rgba(201,168,76,0.3)}45%{box-shadow:0 0 0 12px rgba(201,168,76,0.06),0 0 22px 4px rgba(201,168,76,0.22)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0),0 0 0 0 rgba(201,168,76,0)}}"),
-React.createElement("div",{style:{background:"var(--c-deep)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:20,padding:"22px 24px 18px",maxWidth:360,width:"100%",position:"relative",boxShadow:"0 24px 60px rgba(0,0,0,0.8)"}},
-React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{position:"absolute",top:12,right:12,background:"none",border:"none",color:"var(--c-smoke)",cursor:"pointer",fontSize:"1rem",padding:8,lineHeight:1,minWidth:32,minHeight:32,display:"flex",alignItems:"center",justifyContent:"center"}},"✕"),
-React.createElement("div",{style:{textAlign:"center"}},
-React.createElement("div",{style:{width:36,height:36,borderRadius:"50%",border:"1.5px solid rgba(201,168,76,0.45)",background:"rgba(201,168,76,0.09)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 10px",fontSize:"1rem",transformOrigin:"50% 20%",animation:notifRinging?"bellRing 0.68s ease forwards, bellPulse 0.68s ease forwards":"none"}},"\uD83D\uDD14"),
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.26em",color:"var(--c-gold)",textTransform:"uppercase",marginBottom:7}},"EXCLUSIVE DETROIT"),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.6rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.2,marginBottom:8}},"Stay in the know, Detroit."),
-React.createElement("p",{style:{fontSize:"0.86rem",fontWeight:300,color:"var(--c-ash)",lineHeight:1.65,marginBottom:16}},"Get curated picks, tonight reminders, and exclusive last-minute drops."),
-React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:8}},
-React.createElement("button",{onClick:()=>{setNotifRinging(true);setTimeout(()=>{try{if(typeof Notification!=="undefined"&&Notification.permission==="default"){Notification.requestPermission();}localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);setNotifRinging(false);},720);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"11px 0",cursor:"pointer",width:"100%",fontWeight:600,transition:"opacity 0.15s"}},"YES, NOTIFY ME"),
-React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",background:"transparent",color:"var(--c-smoke)",border:"none",cursor:"pointer",padding:"8px 0",width:"100%"}},"Not Now")
-)
-)
-)
-),
 React.createElement(Toast,{msg:toast.msg,vis:toast.vis})
 );
 }
