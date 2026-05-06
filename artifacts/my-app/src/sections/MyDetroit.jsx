@@ -572,7 +572,7 @@ function ResultCard({ v, stopLabel, photoMap, onOpen }) {
   );
 }
 
-function TonightTab({ allVenues, photoMap, onOpenVenue }) {
+function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
   const [when,    setWhen]    = useState("night");
   const [who,     setWho]     = useState("date");
   const [energy,  setEnergy]  = useState("elevated");
@@ -707,6 +707,14 @@ function TonightTab({ allVenues, photoMap, onOpenVenue }) {
                   ))}
                 </div>
               </div>
+              {onSavePlan && (
+                <button
+                  onClick={() => onSavePlan({ when, who, energy, stops: result.stops })}
+                  style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background:"rgba(201,168,76,0.08)", border:"1.5px solid var(--c-goldD)", color:"var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor:"pointer", transition:"all 0.15s" }}
+                >
+                  SAVE THIS NIGHT ✦
+                </button>
+              )}
             </>
           )}
         </div>
@@ -750,8 +758,8 @@ function SavedCard({ thumb, thumbGradient, title, cat, sub, onRemove, onCardClic
   );
 }
 
-function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, onUnsaveEvent, onUnsaveHotel, onOpenVenue, photoMap }) {
-  const empty = !savedVenues.length && !savedEventItems.length && !savedHotelItems.length;
+function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, onUnsaveEvent, onUnsaveHotel, onOpenVenue, photoMap, savedPlans, onDeletePlan }) {
+  const empty = !savedVenues.length && !savedEventItems.length && !savedHotelItems.length && (!savedPlans || !savedPlans.length);
   return (
     <div style={{ padding:"24px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
       {empty ? (
@@ -838,6 +846,45 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                     />
                   );
                 })}
+              </div>
+            </div>
+          )}
+
+          {/* Saved Plans */}
+          {savedPlans && savedPlans.length > 0 && (
+            <div style={{ marginTop: savedVenues.length||savedEventItems.length||savedHotelItems.length ? 30 : 0 }}>
+              <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14 }}>
+                <p style={{ ...MONO,fontSize:"0.5rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"var(--c-goldD)",margin:0 }}>SAVED PLANS</p>
+                <span style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.08em",color:"var(--c-smoke)" }}>{savedPlans.length} saved</span>
+              </div>
+              <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
+                {savedPlans.map(plan => (
+                  <div key={plan.id} style={{ background:"var(--c-card)",border:"1px solid var(--c-border)",borderRadius:10,overflow:"hidden" }}>
+                    <div style={{ padding:"12px 14px 8px",display:"flex",justifyContent:"space-between",alignItems:"flex-start" }}>
+                      <div>
+                        <div style={{ ...MONO,fontSize:"0.41rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-goldD)",marginBottom:3 }}>
+                          {plan.when&&plan.when.charAt(0).toUpperCase()+plan.when.slice(1)} · {plan.energy&&plan.energy.charAt(0).toUpperCase()+plan.energy.slice(1)}
+                        </div>
+                        <div style={{ ...SERIF,fontSize:"1rem",color:"var(--c-white)",lineHeight:1.2 }}>
+                          {(plan.stops||[]).length}-Stop Night
+                        </div>
+                        {plan.savedAt && <div style={{ ...MONO,fontSize:"0.38rem",color:"var(--c-smoke)",marginTop:2 }}>{plan.savedAt}</div>}
+                      </div>
+                      {onDeletePlan && (
+                        <button onClick={() => onDeletePlan(plan.id)} style={{ background:"none",border:"none",cursor:"pointer",color:"#C05050",fontSize:"1rem",padding:"4px",lineHeight:1,flexShrink:0 }}>♥</button>
+                      )}
+                    </div>
+                    <div style={{ padding:"0 14px 12px",display:"flex",flexDirection:"column" }}>
+                      {(plan.stops||[]).map((v,i) => (
+                        <div key={v.id} onClick={() => onOpenVenue&&onOpenVenue(String(v.id))} style={{ display:"flex",alignItems:"center",gap:8,cursor:"pointer",padding:"6px 0",borderTop:i===0?"none":"1px solid var(--c-borders)" }}>
+                          <div style={{ ...MONO,fontSize:"0.38rem",color:"var(--c-goldD)",letterSpacing:"0.12em",flexShrink:0,minWidth:16,textAlign:"center" }}>{i+1}</div>
+                          <div style={{ ...SERIF,fontSize:"0.9rem",color:"var(--c-white)",lineHeight:1.2,flex:1 }}>{v.name}</div>
+                          <div style={{ ...MONO,fontSize:"0.36rem",color:"var(--c-smoke)",letterSpacing:"0.08em",flexShrink:0 }}>{v.cat}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -1053,6 +1100,7 @@ export default function MyDetroit({
   visited, taste, onTasteChange, onOpenVenue, navTo, allVenues,
   savedVenues, savedEventItems, savedHotelItems,
   toggleFav, onUnsaveEvent, onUnsaveHotel, photoMap,
+  savedPlans, onSavePlan, onDeletePlan,
 }) {
   const [subTab, setSubTab] = useState("tonight");
 
@@ -1082,11 +1130,11 @@ export default function MyDetroit({
           <h2 style={{ ...SERIF,fontSize:"clamp(1.8rem,5vw,2.8rem)",fontWeight:400,color:"var(--c-white)",margin:"0 0 4px" }}>Itinerary</h2>
           <p style={{ fontSize:"0.84rem",color:"var(--c-smoke)",margin:0 }}>Curated to how you explore Detroit.</p>
         </div>
-        <div style={{ maxWidth:680, margin:"18px auto 0" }}>
+        <div style={{ maxWidth:680, margin:"8px auto 0" }}>
           <div style={{ display:"flex" }}>
             {TABS.map(t => (
               <button key={t.id} onClick={() => setSubTab(t.id)}
-                style={{ ...MONO,fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"12px 18px",background:"none",border:"none",cursor:"pointer",color:subTab===t.id?"var(--c-gold)":"var(--c-smoke)",borderBottom:subTab===t.id?"2px solid var(--c-gold)":"2px solid transparent",transition:"color 0.15s,border-color 0.15s",whiteSpace:"nowrap",flexShrink:0 }}
+                style={{ ...MONO,fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"8px 16px",background:"none",border:"none",cursor:"pointer",color:subTab===t.id?"var(--c-gold)":"var(--c-smoke)",borderBottom:subTab===t.id?"2px solid var(--c-gold)":"2px solid transparent",transition:"color 0.15s,border-color 0.15s",whiteSpace:"nowrap",flexShrink:0 }}
               >
                 {t.label}
               </button>
@@ -1095,8 +1143,8 @@ export default function MyDetroit({
         </div>
       </div>
 
-      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue}/>}
-      {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap}/>}
+      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan}/>}
+      {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap} savedPlans={savedPlans||[]} onDeletePlan={onDeletePlan}/>}
       {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue}/>}
     </div>
   );

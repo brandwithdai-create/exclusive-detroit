@@ -1,0 +1,188 @@
+Here’s the exact message to send to Replit:
+
+⸻
+
+Please implement the new venue card passport system EXACTLY like the attached mockup design (Option 6 + Option 2 combined). This should become the new standard footer layout for EVERY venue card across Explore, Map, Itinerary results, saved venues, etc.
+
+CRITICAL DESIGN REQUIREMENTS
+
+NEW CARD FOOTER LAYOUT (ALL VENUE CARDS)
+Replace the current generic “Mark as Visited” button completely.
+
+The new bottom section should have:
+
+LEFT SIDE:
+“Add to Passport” state before visited
+Small passport/building icon
+Text:
+ADD TO PASSPORT
+“Stamp this spot in your passport”
+
+AFTER CLICKING:
+The left section transforms into a colorful passport stamp section EXACTLY like the mockup.
+
+Requirements:
+
+* Generate a colorful circular passport stamp
+* Stamp should include:
+    * “Exclusive Detroit”
+    * “Visited”
+    * Correct visit date
+* Use the REAL current date the user clicked the button
+* Save the actual timestamp/date in state/storage
+* Dates must persist correctly everywhere:
+    * venue cards
+    * passport tab
+    * saved data
+* The date shown should ALWAYS be the actual day user clicked “Add to Passport”
+
+The visited state should show:
+
+* colorful circular stamp
+* VISITED label
+* formatted date underneath
+* “Added to your passport”
+
+MIDDLE:
+Large gold “VIEW DETAILS →” button
+Match mockup proportions exactly
+Larger than current buttons
+
+RIGHT:
+Heart/save button remains
+
+LAYOUT NOTES
+The footer must feel:
+
+* premium
+* compact
+* luxury
+* editorial
+* NOT cramped
+* NOT generic
+
+Use the exact visual balance from the mockup:
+
+* thin separators
+* aligned spacing
+* compact luxury footer
+* gold/cream/purple accents
+
+BUILD MY NIGHT — SAVE PLAN FEATURE
+After Build My Night generates the itinerary/cards, add a large button underneath:
+
+SAVE PLAN ✨
+(or “Save This Night” if that fits better visually)
+
+When clicked:
+
+* Save the generated itinerary
+* Add it into Saved tab
+* Create a new Saved subsection/category:
+    “Saved Plans”
+* Saved plans should preserve:
+    * selected venues
+    * order
+    * labels like Dinner Stop / Elevated Lounge / After Hours
+    * selected vibe filters
+
+MAP CARD REDESIGN (VERY IMPORTANT)
+Current issue:
+When clicking venue pins on map, the bottom sheet covers the navigation buttons and squishes the CTA.
+
+NEW SOLUTION:
+Replace bottom-sheet behavior with a floating side-preview card anchored near the selected pin.
+
+DESIGN:
+
+* Small floating preview card beside/right of pin
+* Small thumbnail image
+* Venue name
+* Tiny description
+* Category + neighborhood
+* View Details button
+
+This preview should:
+
+* NOT cover bottom nav
+* NOT block map controls
+* feel lightweight/minimal
+* disappear when deselected
+
+Then tapping “View Details” opens the full venue modal/card.
+
+Think Apple Maps / luxury concierge style preview.
+
+BOTTOM NAVIGATION
+Increase size of bottom navigation icons/buttons slightly.
+
+Also:
+
+* reduce wasted blank padding around bottom nav
+* make the navigation area tighter and cleaner
+* keep luxury spacing, but reduce dead space
+
+HEADER SPACING FIXES
+
+ABOUT HEADER:
+✅ Already fixed perfectly. Leave as-is.
+
+ITINERARY HEADER:
+Mostly fixed, but:
+
+* move the “Tonight / Saved / Passport” tabs slightly upward
+* reduce blank space between title/subtitle and those tabs
+* still keep comfortable spacing
+
+THINGS TO DO HEADER:
+Still WAY too tall.
+Needs to be approximately HALF the current height.
+
+WHERE TO STAY HEADER:
+Also still too tall.
+Needs same reduction.
+
+For both:
+
+* reduce vertical padding substantially
+* reduce blank dead space
+* optionally slightly reduce title size
+* preserve luxury aesthetic
+* keep back button spacing functional
+
+PASSPORT PAGE IMPROVEMENTS
+Keep the current vibe/theme.
+
+BUT:
+
+* make it look more like a REAL open passport book
+* book should fill most of the page vertically
+* reduce empty space underneath
+* stamps should be clickable
+* clicking stamp opens venue details
+* building illustrations on stamps should be more detailed
+* long venue names should auto-shorten/truncate elegantly so stamps never cut off text
+
+IMAGE LOADING BUG
+Investigate Build My Night cards for intermittent image loading failures.
+
+Example:
+Wright & Company image sometimes fails to render.
+
+Need:
+
+* preload images
+* proper fallback handling
+* eliminate blank/glitched image states
+
+FINAL NOTE
+Please match the attached mockup styling extremely closely:
+
+* typography
+* spacing
+* gold accents
+* compact footer proportions
+* passport stamp behavior
+* luxury aesthetic
+
+Do NOT redesign the visual direction — refine and implement the provided design faithfully.

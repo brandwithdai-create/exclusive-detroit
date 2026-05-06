@@ -1014,7 +1014,18 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 );
 });
 
-const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false }) {
+const CARD_STAMP_PALETTE=[{hex:"#C0463A",rgb:"192,70,58"},{hex:"#6B4DA0",rgb:"107,77,160"},{hex:"#3A6B9B",rgb:"58,107,155"},{hex:"#3A7A3A",rgb:"58,122,58"},{hex:"#C06B2A",rgb:"192,107,42"},{hex:"#2A7A8A",rgb:"42,122,138"},{hex:"#8B3A6B",rgb:"139,58,107"},{hex:"#6B5A2A",rgb:"107,90,42"}];
+function CardStamp({venue,date}){
+const n=parseInt(String(venue.id).replace(/\D/g,""))||0;
+const{hex,rgb}=CARD_STAMP_PALETTE[n%CARD_STAMP_PALETTE.length];
+return React.createElement("div",{style:{width:52,height:52,flexShrink:0,borderRadius:"50%",border:`1.5px dashed rgba(${rgb},0.7)`,background:`radial-gradient(ellipse at 50% 45%,rgba(${rgb},0.26) 0%,rgba(${rgb},0.08) 60%,transparent 100%)`,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",position:"relative",overflow:"hidden",boxSizing:"border-box",filter:`drop-shadow(0 0 4px rgba(${rgb},0.28))`}},
+React.createElement("div",{style:{position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:1.5}},
+React.createElement("svg",{width:14,height:12,viewBox:"0 0 14 12",fill:"none",stroke:hex,strokeWidth:1.2,strokeLinecap:"round",strokeLinejoin:"round"},
+React.createElement("path",{d:"M1 11h12M4 11V6.5L7 3l3 3.5V11"}),
+React.createElement("rect",{x:5.5,y:7.5,width:3,height:3.5})),
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:5.5,letterSpacing:0.8,color:hex,textTransform:"uppercase",fontWeight:600,lineHeight:1.2,textAlign:"center"}},"VISITED"),
+date&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:4.5,letterSpacing:0.4,color:hex,opacity:0.72,lineHeight:1.2,textAlign:"center"}},date.split(",")[0])));}
+const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
 const cardRef = React.useRef(null);
 React.useEffect(()=>{
@@ -1037,7 +1048,7 @@ React.createElement("div",{style:{position:"relative",flexShrink:0}},
 React.createElement(VenueImg,{src:dbSrc||fallbackSrc,fallbackSrc,alt:venue.name,priority}),
 isVis&&React.createElement("div",{style:{position:"absolute",top:8,right:8,width:22,height:22,borderRadius:"50%",background:"rgba(201,168,76,0.92)",border:"1.5px solid rgba(255,255,255,0.55)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"0.6rem",color:"#0A0A0A",fontWeight:700,zIndex:2,lineHeight:1,userSelect:"none"}},"✓")
 ),
-React.createElement("div", { style:{ padding:"16px 18px 18px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
+React.createElement("div", { style:{ padding:"14px 18px 10px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
 React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood)
@@ -1047,11 +1058,22 @@ venue.distMi!==undefined&&React.createElement("span",{style:{fontFamily:"'DM Mon
 React.createElement("h3", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}, venue.name),
 vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.82rem",fontStyle:"italic",color:"var(--c-vibe-txt)",margin:0,lineHeight:1.4}},vibeLine),
 React.createElement("p", { style:{ fontSize:"0.78rem", color:C.ash, fontWeight:300, lineHeight:1.65, flex:1, margin:0 }}, venue.desc),
-React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:4 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v}))),
-React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
-React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.bone, fontSize:"1.1rem", padding:"10px 12px", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44, transition:"color 0.18s" }}, isFav?"\u2665":"\u2661")
-)
+React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:4 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v})))
+),
+React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,display:"flex",alignItems:"stretch",overflow:"hidden"}},
+React.createElement("div",{onClick:e=>{e.stopPropagation();onVisit&&onVisit(String(venue.id));},style:{flex:1,display:"flex",alignItems:"center",gap:8,padding:"9px 10px",cursor:"pointer",minWidth:0,transition:"background 0.18s"},onMouseEnter:e=>{e.currentTarget.style.background="rgba(201,168,76,0.05)";},onMouseLeave:e=>{e.currentTarget.style.background="transparent";}},
+isVis?React.createElement(CardStamp,{venue,date:visitedDate}):React.createElement("div",{style:{width:36,height:36,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"50%",border:"1px solid rgba(201,168,76,0.22)"}},
+React.createElement("svg",{width:15,height:13,viewBox:"0 0 15 13",fill:"none",stroke:C.goldD,strokeWidth:1.3,strokeLinecap:"round",strokeLinejoin:"round"},
+React.createElement("path",{d:"M1 12h13M4 12V7.5L7.5 3l3.5 4.5V12"}),
+React.createElement("rect",{x:5.5,y:8.5,width:4,height:3.5}))),
+React.createElement("div",{style:{minWidth:0,flex:1}},
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.14em",textTransform:"uppercase",color:isVis?C.gold:C.goldD,lineHeight:1.2,whiteSpace:"nowrap"}},isVis?"VISITED":"ADD TO PASSPORT"),
+React.createElement("div",{style:{fontSize:"0.64rem",color:C.smoke,fontWeight:300,lineHeight:1.3,marginTop:1.5,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},isVis?(visitedDate||"Stamped"):"Stamp this spot")
+)),
+React.createElement("div",{style:{width:1,background:C.borderS,flexShrink:0,margin:"8px 0"}}),
+React.createElement("button",{onClick:e=>{e.stopPropagation();onOpen(String(venue.id));},style:{display:"flex",alignItems:"center",justifyContent:"center",gap:4,padding:"9px 11px",background:"none",border:"none",cursor:"pointer",color:C.goldL,fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",flexShrink:0,whiteSpace:"nowrap",transition:"color 0.18s"}},"VIEW DETAILS",React.createElement("span",{style:{fontSize:"0.72rem",lineHeight:1}},"→")),
+React.createElement("div",{style:{width:1,background:C.borderS,flexShrink:0,margin:"8px 0"}}),
+React.createElement("button",{onClick:e=>{e.stopPropagation();onFav(String(venue.id));},onMouseDown:e=>e.preventDefault(),style:{background:"none",border:"none",cursor:"pointer",color:isFav?C.gold:C.bone,fontSize:"1.05rem",padding:"9px 10px",display:"inline-flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"color 0.18s"}},isFav?"\u2665":"\u2661")
 )
 );
 });
@@ -1354,7 +1376,7 @@ else{map.fitBounds(L.latLngBounds(coords),{paddingTopLeft:[60,60],paddingBottomR
 },[showSavedOnly]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
-if(selected){const coord=COORDS[String(selected.id)];if(coord){const zoom=map.getZoom();const markerPt=map.project([coord[0],coord[1]],zoom);const sheetH=190;const targetPt=L.point(markerPt.x,markerPt.y+sheetH/2);const targetLatLng=map.unproject(targetPt,zoom);map.panTo(targetLatLng,{animate:true,duration:0.4});}}
+if(selected){const coord=COORDS[String(selected.id)];if(coord)map.panTo(coord,{animate:true,duration:0.35});}
 const t=setTimeout(()=>{map.invalidateSize();},360);
 return()=>clearTimeout(t);
 },[selected]);
@@ -1478,30 +1500,24 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 )
 ),
 !mapHotelModal&&React.createElement("button",{onClick:reCenter,style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",right:14,zIndex:900,touchAction:"manipulation"}},"⊕  Re-center"),
-// ── Bottom sheet ──
-React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,background:"var(--c-sheet-bg)",borderTop:"1px solid var(--c-sheet-bdr)",borderRadius:"18px 18px 0 0",zIndex:1100,transform:selected?"translateY(0)":"translateY(110%)",transition:"transform 0.32s cubic-bezier(0.32,0.72,0,1)",pointerEvents:selected?"auto":"none",willChange:"transform",boxShadow:"0 -6px 40px rgba(0,0,0,0.25)"}},
-React.createElement("div",{style:{display:"flex",justifyContent:"center",paddingTop:12,paddingBottom:4}},
-React.createElement("div",{style:{width:36,height:4,borderRadius:2,background:"var(--c-sheet-handle)"}})
-),
-selected&&React.createElement("div",{style:{padding:"10px 16px calc(4px + env(safe-area-inset-bottom))",position:"relative"}},
-React.createElement("button",{onClick:()=>setSelected(null),style:{position:"absolute",top:10,right:12,background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1}},"✕"),
-React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start",paddingRight:34}},
-React.createElement("div",{style:{width:80,height:80,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
+// ── Floating map preview card ──
+React.createElement("div",{style:{position:"absolute",bottom:"calc(66px + env(safe-area-inset-bottom))",right:12,width:224,background:"var(--c-sheet-bg)",border:"1px solid var(--c-sheet-bdr)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 8px 32px rgba(0,0,0,0.45),0 2px 8px rgba(0,0,0,0.25)",transform:selected?"translateY(0) scale(1)":"translateY(8px) scale(0.96)",opacity:selected?1:0,transition:"all 0.25s cubic-bezier(0.32,0.72,0,1)",pointerEvents:selected?"auto":"none"}},
+selected&&React.createElement(React.Fragment,null,
+React.createElement("button",{onClick:()=>setSelected(null),style:{position:"absolute",top:7,right:8,background:"rgba(0,0,0,0.4)",border:"none",color:"rgba(255,255,255,0.85)",fontSize:"0.72rem",cursor:"pointer",width:22,height:22,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",zIndex:2,lineHeight:1,padding:0}},"✕"),
+React.createElement("div",{style:{height:112,overflow:"hidden",background:"var(--c-border)",flexShrink:0}},
 selImg&&React.createElement("img",{src:selImg,alt:selected.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})
 ),
-React.createElement("div",{style:{flex:1,minWidth:0}},
-React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:2}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood)
-)
-),
-React.createElement("p",{style:{fontSize:"0.75rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.55,marginTop:5,marginBottom:8}},selected.desc.length>90?selected.desc.slice(0,90)+"\u2026":selected.desc),
-React.createElement("div",{style:{display:"flex",gap:10}},
-React.createElement("button",{onClick:()=>{if(selected.cat==="Hotels"){setHotelDetail(selected);setSelected(null);}else{setModalId(String(selected.id));setSelected(null);}},style:{flex:1,padding:"9px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:8,cursor:"pointer",fontWeight:500}},"View Details"),
-React.createElement("button",{onClick:()=>selected.cat==="Hotels"?toggleSavedHotel(String(selected.id)):toggleFav(String(selected.id)),title:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"Saved":"Save",style:{flex:"0 0 auto",width:38,height:38,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+((selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?C.gold:"var(--c-modal-save-clr)",fontSize:"1rem",borderRadius:8,cursor:"pointer",transition:"all 0.18s"}},(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"\u2665":"\u2661")
+React.createElement("div",{style:{padding:"10px 12px 12px"}},
+React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:2}},(selected.badges||[]).includes("locals")?"Locals Know":selected.cat),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.0rem",fontWeight:600,color:"var(--c-modal-title)",lineHeight:1.15,marginBottom:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},selected.hood),
+React.createElement("p",{style:{fontSize:"0.7rem",color:"var(--c-sheet-body)",fontWeight:300,lineHeight:1.5,marginTop:5,marginBottom:9,overflow:"hidden",display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical"}},selected.desc.length>90?selected.desc.slice(0,90)+"\u2026":selected.desc),
+React.createElement("div",{style:{display:"flex",gap:8}},
+React.createElement("button",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{flex:1,padding:"8px",background:C.gold,border:"none",color:"var(--c-btn-cta-txt)",fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",borderRadius:7,cursor:"pointer",fontWeight:500}},"View Details"),
+React.createElement("button",{onClick:()=>toggleFav(String(selected.id)),title:isFav(selected.id)?"Saved":"Save",style:{flex:"0 0 auto",width:34,height:34,display:"inline-flex",alignItems:"center",justifyContent:"center",padding:0,background:isFav(selected.id)?"rgba(201,168,76,0.15)":"var(--c-sheet-save-bg)",border:"1.5px solid "+(isFav(selected.id)?"rgba(201,168,76,0.7)":"var(--c-sheet-save-bdr)"),color:isFav(selected.id)?C.gold:"var(--c-modal-save-clr)",fontSize:"0.9rem",borderRadius:7,cursor:"pointer",transition:"all 0.18s"}},isFav(selected.id)?"\u2665":"\u2661")
 )
 )
-),
+)),
 hotelDetailSheet,
 listPanel,
 mapHotelModal&&React.createElement(HotelDetailModal,{hotel:mapHotelModal,places:null,saved:isSavedHotel(mapHotelModal.id),onSave:toggleSavedHotel,onClose:()=>setMapHotelModal(null)})
@@ -1589,6 +1605,10 @@ const [taste,setTaste]=useState(()=>{try{return JSON.parse(localStorage.getItem(
 const [notifDone,setNotifDone]=useState(()=>{try{return localStorage.getItem("ed-notif-prompted")==="1";}catch{return false;}});
 useEffect(()=>{try{localStorage.setItem("ed-visited",JSON.stringify(visited));}catch(e){}},[visited]);
 useEffect(()=>{try{localStorage.setItem("ed-taste",JSON.stringify(taste));}catch(e){}},[taste]);
+const [visitedDates,setVisitedDates]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-visited-dates")||"{}");}catch{return {};}});
+const [savedPlans,setSavedPlans]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-saved-plans")||"[]");}catch{return [];}});
+useEffect(()=>{try{localStorage.setItem("ed-visited-dates",JSON.stringify(visitedDates));}catch(e){}},[visitedDates]);
+useEffect(()=>{try{localStorage.setItem("ed-saved-plans",JSON.stringify(savedPlans));}catch(e){}},[savedPlans]);
 const isSavedEvent=id=>savedEvents.includes(String(id));
 const toggleSavedEvent=(id,item)=>{const sid=String(id);const removing=savedEvents.includes(sid);setSavedEvents(prev=>{if(prev.includes(sid)){setSavedEventMeta(m=>{const n={...m};delete n[sid];return n;});return prev.filter(x=>x!==sid);}else{if(item)setSavedEventMeta(m=>({...m,[sid]:item}));return[...prev,sid];}});showToast(removing?"Removed from saves":"\u2665 Saved to your list");};
 const isSavedHotel=id=>savedHotels.includes(String(id));
@@ -1613,7 +1633,10 @@ setFavs(removing?cur.filter(f=>f!==sid):[...cur,sid]);
 showToast(removing?"Removed from saves":"♥ Saved to your list");
 },[showToast]);
 const isVisited=useCallback(id=>visited.includes(String(id)),[visited]);
-const toggleVisited=useCallback(id=>{const sid=String(id);const removing=visited.includes(sid);setVisited(prev=>removing?prev.filter(x=>x!==sid):[...prev,sid]);showToast(removing?"Removed from visited":"✓ Marked as visited");},[visited,showToast]);
+const toggleVisited=useCallback(id=>{const sid=String(id);const removing=visited.includes(sid);setVisited(prev=>removing?prev.filter(x=>x!==sid):[...prev,sid]);if(!removing){const d=new Date();setVisitedDates(prev=>({...prev,[sid]:d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}).toUpperCase()}));}else{setVisitedDates(prev=>{const n={...prev};delete n[sid];return n;});}showToast(removing?"Removed from visited":"\u2713 Stamped in Passport");},[visited,showToast]);
+const getVisitedDate=useCallback(id=>visitedDates[String(id)]||null,[visitedDates]);
+const savePlan=useCallback(plan=>{setSavedPlans(prev=>[{...plan,id:Date.now()+"p",savedAt:new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})},...prev.slice(0,19)]);showToast("\u2728 Night saved");},[showToast]);
+const deletePlan=useCallback(id=>{setSavedPlans(prev=>prev.filter(p=>String(p.id)!==String(id)));},[]);
 const goCategory=useCallback(c=>{setCat(c);setSection("explore");setTimeout(()=>{if(chipRowRef.current){const label=c==="all"?"All Venues":c;const btns=chipRowRef.current.querySelectorAll("button");for(const btn of btns){if(btn.textContent.trim()===label){const row=chipRowRef.current;const target=btn.offsetLeft-(row.clientWidth/2)+(btn.offsetWidth/2);row.scrollTo({left:Math.max(0,target),behavior:"smooth"});break;}}}if(gridTopRef.current&&filtersRef.current){const navEl=document.querySelector("nav");const navH=navEl?navEl.offsetHeight:68;const filterH=filtersRef.current.offsetHeight;const gridAbsTop=gridTopRef.current.getBoundingClientRect().top+window.scrollY;window.scrollTo({top:Math.max(0,gridAbsTop-navH-filterH),behavior:"smooth"});}},80);},[]);
 const switchCat=useCallback(c=>{const savedLeft=chipRowRef.current?.scrollLeft??0;setCat(c);requestAnimationFrame(()=>{if(chipRowRef.current)chipRowRef.current.scrollLeft=savedLeft;if(gridTopRef.current){const gridTop=gridTopRef.current.getBoundingClientRect().top;const stickyBottom=filtersRef.current?filtersRef.current.getBoundingClientRect().bottom:0;window.scrollTo({top:window.scrollY+(gridTop-stickyBottom),behavior:"instant"});}});},[]);
 const doGetLocation=()=>{navigator.geolocation.getCurrentPosition(pos=>{setUserCoords({lat:pos.coords.latitude,lng:pos.coords.longitude});setNearMe(true);setGeoError(null);setTimeout(()=>{if(gridTopRef.current&&filtersRef.current){const navEl=document.querySelector("nav");const navH=navEl?navEl.offsetHeight:68;const filterH=filtersRef.current.offsetHeight;const gridAbsTop=gridTopRef.current.getBoundingClientRect().top+window.scrollY;window.scrollTo({top:Math.max(0,gridAbsTop-navH-filterH),behavior:"smooth"});}},120);},err=>{if(err.code===1){if(navigator.permissions){navigator.permissions.query({name:"geolocation"}).then(r=>{if(r.state==="denied")setGeoError("Location is blocked in your browser settings. Go to Settings \u2192 Browser \u2192 Location and allow this site, then try again.");else setGeoError(null);}).catch(()=>setGeoError(null));}else{setGeoError(null);}}else{setGeoError("Couldn't get your location \u2014 please try again.");}});};
@@ -1662,7 +1685,7 @@ React.createElement("path",{d:"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 
 );
 
 const BottomNav=()=>React.createElement("nav",{style:{position:"fixed",bottom:0,left:0,right:0,zIndex:400,background:"var(--c-nav-bgS)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",borderTop:"1px solid "+C.border,paddingBottom:"env(safe-area-inset-bottom)"}},
-React.createElement("div",{style:{display:"flex",justifyContent:"space-around",alignItems:"stretch",height:52}},
+React.createElement("div",{style:{display:"flex",justifyContent:"space-around",alignItems:"stretch",height:58}},
 [
 ["explore","Explore",
 React.createElement("svg",{width:20,height:20,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.5,strokeLinecap:"round",strokeLinejoin:"round"},
@@ -1677,7 +1700,7 @@ React.createElement("line",{x1:8,y1:6,x2:21,y2:6}),React.createElement("line",{x
 React.createElement("svg",{width:20,height:20,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.5,strokeLinecap:"round",strokeLinejoin:"round"},
 React.createElement("circle",{cx:12,cy:12,r:10}),React.createElement("line",{x1:12,y1:16,x2:12,y2:12}),React.createElement("line",{x1:12,y1:8,x2:12.01,y2:8}))],
 ].map(([s,l,icon])=>
-React.createElement("button",{key:s,onClick:()=>navTo(s),style:{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:3,flex:1,background:"none",border:"none",cursor:"pointer",color:section===s?C.gold:C.smoke,transition:"color 0.15s",fontFamily:"'DM Mono',monospace",fontSize:"0.36rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0 4px"}},
+React.createElement("button",{key:s,onClick:()=>navTo(s),style:{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:4,flex:1,background:"none",border:"none",cursor:"pointer",color:section===s?C.gold:C.smoke,transition:"color 0.15s",fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0 4px"}},
 React.createElement("span",{style:{lineHeight:0,opacity:section===s?1:0.55,transition:"opacity 0.15s"}},icon),
 React.createElement("span",{style:{marginTop:2}},l)
 )
@@ -1740,7 +1763,7 @@ React.createElement("button",{onClick:()=>{setGeoModal(false);setGeoError(null);
 );
 
 const grid=(items,onOpen,animKey)=>React.createElement("div",{key:animKey,style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:15}},
-items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i,photoMap,priority:i<4,isVis:isVisited(String(v.id))}))
+items.map((v,i)=>React.createElement(VCard,{key:String(v.id),venue:v,isFav:isFav(v.id),onFav:toggleFav,onOpen,i,photoMap,priority:i<4,isVis:isVisited(String(v.id)),onVisit:toggleVisited,visitedDate:getVisitedDate(String(v.id))}))
 );
 
 const Explore=()=>React.createElement("div",null,
@@ -2047,7 +2070,7 @@ section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
 section==="neighborhoods" && Areas(),
-section==="itinerary"     && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:ALL,savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,toggleFav,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel,photoMap}),
+section==="itinerary"     && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:ALL,savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,toggleFav,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel,photoMap,savedPlans,onSavePlan:savePlan,onDeletePlan:deletePlan}),
 section==="about"         && About({tick:aboutTick}),
 section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),

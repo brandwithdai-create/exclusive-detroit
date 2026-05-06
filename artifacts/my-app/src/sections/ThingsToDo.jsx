@@ -409,12 +409,12 @@ export default function ThingsToDo({ isSavedEvent, toggleSavedEvent, initialTab 
           </div>
         )}
       </div>
-      <div style={{ background:C.deep, padding: onBack ? "8px 22px 12px" : "18px 22px 12px", borderBottom:"1px solid "+C.border }}>
+      <div style={{ background:C.deep, padding: onBack ? "4px 22px 6px" : "8px 22px 8px", borderBottom:"1px solid "+C.border }}>
         <div style={{ maxWidth:1200, margin:"0 auto" }}>
-          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.6rem,4vw,2.4rem)", fontWeight:400, color:C.white, margin:"0 0 4px" }}>
+          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.15rem,3.2vw,1.85rem)", fontWeight:400, color:C.white, margin:"0 0 2px" }}>
             Things To Do
           </h2>
-          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.84rem", color:C.bone, fontWeight:300, lineHeight:1.6, margin:0, maxWidth:560 }}>
+          <p style={{ fontFamily:"'DM Sans',sans-serif", fontSize:"0.76rem", color:C.bone, fontWeight:300, lineHeight:1.5, margin:0, maxWidth:560 }}>
             Detroit games, local events, and concerts — everything happening in the city right now.
           </p>
         </div>
