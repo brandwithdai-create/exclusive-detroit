@@ -1,0 +1,100 @@
+Yes — remove push notifications for now. That avoids privacy policy changes and avoids permission/review risk.
+
+Here’s the safer plan:
+
+1. Final polish/stability pass
+    Have Replit audit only:
+
+* no blank screen risk
+* no stuck loading states
+* no broken images
+* no duplicate saves
+* no layout overflow on iPhone/iPad
+* no console errors
+* no live API calls except approved static imports
+* dark/light mode consistency
+
+2. Offline/local persistence
+    Keep it simple:
+
+* saved nights stay visible offline
+* passport stamps stay visible offline
+* saved venues stay visible offline
+* settings/theme stay saved
+* no new backend needed
+* use localStorage/IndexedDB only
+
+3. Tiny native-feeling interactions
+    Add low-risk polish:
+
+* subtle haptics on Save, Stamp Passport, Heart, Build My Night
+* smooth button press states
+* no big animations
+* no new permissions
+* no API cost
+
+4. Reviewer notes
+    Explain clearly that the app is not just a content website because it includes:
+
+* personalized itinerary builder
+* saved nights
+* passport stamp collection
+* local saved state
+* interactive map
+* curated Detroit-specific experiences
+
+Send this to Replit:
+
+Let’s remove push notifications from the pre-submission plan for now. I do not want to add notification permissions yet because I do not want to change the privacy policy or introduce new review risk right before resubmission.
+
+Instead, please focus on these four safer App Store readiness items:
+
+1. Final polish/stability pass
+    Audit the app without making unnecessary changes. Confirm:
+
+* no blank screen risk
+* no stuck loading states
+* no broken images
+* no image flicker
+* no duplicate saved nights
+* no layout overflow on smaller iPhones or iPads
+* no console errors
+* no live/background API calls
+* no repeated image/API fetching
+* dark and light mode still look consistent
+* map, itinerary, passport, saved, settings, and venue detail flows work cleanly
+
+2. Offline/local persistence for saved content
+    Please make sure these continue to work from local saved state:
+
+* saved nights
+* saved venues
+* passport stamps
+* visited dates
+* theme/settings preferences
+
+Keep this lightweight. Use localStorage/IndexedDB/local app storage only. Do not add a backend, account system, or live API dependency.
+
+3. Tiny native-feeling interactions
+    Add only low-risk native-feeling polish:
+
+* subtle haptic feedback on important taps if safe in Capacitor/iOS
+* Stamp/Add to Passport
+* Save/heart
+* Build My Night
+* Save This Night
+* major tab/button selections
+
+Keep it subtle and premium. No dramatic animations, no new permissions, no background behavior.
+
+4. App Store reviewer readiness
+    Help prepare a short reviewer note explaining that this is an interactive city-guide app with personalized functionality, not just a website. Mention:
+
+* Build My Night personalized itinerary generator
+* Passport stamp collection with permanent visited dates
+* Saved nights and saved venues
+* Interactive map and curated venue cards
+* Local persistence for saved user activity
+* Dark/light mode app settings
+
+Please do not add push notifications, geofencing, widgets, new APIs, or privacy-impacting features right now. This should be a stability and native-polish pass only.
