@@ -1516,7 +1516,7 @@ hotelDetail&&React.createElement("div",{style:{padding:"10px 16px calc(4px + env
 React.createElement("button",{onClick:()=>setHotelDetail(null),style:{position:"absolute",top:10,right:12,background:"none",border:"none",color:"var(--c-sheet-close)",fontSize:"1.15rem",cursor:"pointer",width:36,height:36,display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1}},"\u2715"),
 React.createElement("div",{style:{display:"flex",gap:12,alignItems:"flex-start",paddingRight:34}},
 React.createElement("div",{style:{width:80,height:80,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
-hdImg&&React.createElement("img",{src:hdImg,alt:hotelDetail.name,style:{width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})
+hdImg&&React.createElement("img",{src:hdImg,alt:hotelDetail.name,loading:"eager",decoding:"async",fetchPriority:"high",style:{width:"100%",height:"100%",objectFit:"cover",display:"block",opacity:0,transition:"opacity 0.22s ease"},onLoad:e=>{e.target.style.opacity="1";},onError:e=>{e.target.style.display="none";}})
 ),
 React.createElement("div",{style:{flex:1,minWidth:0}},
 React.createElement("span",{style:{display:"block",fontFamily:"'DM Mono',monospace",fontSize:"0.43rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:2}},"Hotel"),
@@ -1552,12 +1552,12 @@ React.createElement("div",{style:{fontSize:"1.8rem"}},"\u2661"),
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.42rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--c-sheet-sub)"}},"No venues here")
 )
 :lv.map(v=>{
-const img=photoMap?.[String(v.id)]||getVenueFallbackImage(v);
+const img=photoMap?.[String(v.id)]||getVenueFallbackImage(v,120);
 const saved=v.cat==="Hotels"?isSavedHotel(v.id):isFav(v.id);
 const isSel=selected?.id===v.id;
 return React.createElement("button",{key:v.id,onClick:()=>{setHotelDetail(null);setSelected(v);setShowList(false);},style:{width:"100%",display:"flex",alignItems:"center",gap:12,padding:"11px 16px",background:isSel?"rgba(201,168,76,0.08)":"none",border:"none",borderBottom:"1px solid var(--c-sheet-bdr)",cursor:"pointer",textAlign:"left",touchAction:"manipulation"}},
 React.createElement("div",{style:{width:48,height:48,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
-img&&React.createElement("img",{src:img,alt:v.name,loading:"lazy",style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
+img&&React.createElement("img",{src:img,alt:v.name,loading:"eager",decoding:"async",fetchPriority:"high",style:{width:"100%",height:"100%",objectFit:"cover",display:"block",opacity:0,transition:"opacity 0.22s ease"},onLoad:e=>{e.target.style.opacity="1";},onError:e=>{e.target.style.opacity="1";}})
 ),
 React.createElement("div",{style:{flex:1,minWidth:0}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.12em",textTransform:"uppercase",color:C.gold,marginBottom:2}},v.cat),
@@ -1950,7 +1950,7 @@ const evtCard=(item)=>{const cta=getTicketCTA(item);
 const label=item.title||(item.team+" vs. "+item.opponent);
 const badge=item.sport||item.category||"Event";
 return React.createElement("div",{key:item.id,onClick:()=>setSavedDetailEvt(item),style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:"pointer"}},
-item.image&&React.createElement("img",{src:item.image,alt:"",loading:"lazy",style:{width:"100%",height:130,objectFit:"cover",display:"block"}}),
+item.image&&React.createElement("img",{src:item.image,alt:"",loading:"eager",decoding:"async",style:{width:"100%",height:130,objectFit:"cover",display:"block",opacity:0,transition:"opacity 0.3s ease"},onLoad:e=>{e.target.style.opacity="1";},onError:e=>{e.target.style.opacity="1";}}),
 React.createElement("div",{style:{padding:"13px 14px"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:5}},badge),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",fontWeight:600,color:C.white,lineHeight:1.2,marginBottom:5}},label),
@@ -1961,7 +1961,7 @@ React.createElement("button",{onClick:e=>{e.stopPropagation();onUnsaveEvent&&onU
 )));};
 const hotelCard=(h)=>{const cta=getBookingCTA(h);
 return React.createElement("div",{key:h.id,onClick:()=>setSavedDetailHotel(h),style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:"pointer"}},
-h.image&&React.createElement("img",{src:h.image,alt:"",loading:"lazy",style:{width:"100%",height:130,objectFit:"cover",display:"block"}}),
+h.image&&React.createElement("img",{src:h.image,alt:"",loading:"eager",decoding:"async",style:{width:"100%",height:130,objectFit:"cover",display:"block",opacity:0,transition:"opacity 0.3s ease"},onLoad:e=>{e.target.style.opacity="1";},onError:e=>{e.target.style.opacity="1";}}),
 React.createElement("div",{style:{padding:"13px 14px"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:5}},h.hood+" · Hotel"),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",fontWeight:600,color:C.white,lineHeight:1.2,marginBottom:4}},h.name),
@@ -1970,9 +1970,9 @@ React.createElement("div",{style:{display:"flex",alignItems:"center",justifyCont
 cta?React.createElement("a",{href:cta.url,target:"_blank",rel:"noopener noreferrer",onClick:e=>e.stopPropagation(),style:{display:"inline-block",background:C.gold,color:C.black,fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",padding:"7px 14px",borderRadius:5,fontWeight:500,textDecoration:"none"}},cta.label):React.createElement("span",null),
 React.createElement("button",{onClick:e=>{e.stopPropagation();onUnsaveHotel&&onUnsaveHotel(h.id);},style:{background:"none",border:"none",cursor:"pointer",color:C.gold,fontSize:"1.2rem",padding:"6px 4px",lineHeight:1,flexShrink:0}},"♥")
 )));};
-const venueCard=(v)=>{const img=photoMap?.[String(v.id)]||getVenueFallbackImage(v);
+const venueCard=(v)=>{const img=photoMap?.[String(v.id)]||getVenueFallbackImage(v,400);
 return React.createElement("div",{key:v.id,onClick:()=>setModalId(String(v.id)),style:{background:"var(--c-card)",borderRadius:10,overflow:"hidden",border:"1px solid "+C.border,cursor:"pointer"}},
-img&&React.createElement("img",{src:img,alt:"",loading:"lazy",style:{width:"100%",height:130,objectFit:"cover",display:"block"}}),
+img&&React.createElement("img",{src:img,alt:"",loading:"eager",decoding:"async",style:{width:"100%",height:130,objectFit:"cover",display:"block",opacity:0,transition:"opacity 0.3s ease"},onLoad:e=>{e.target.style.opacity="1";},onError:e=>{e.target.style.opacity="1";}}),
 React.createElement("div",{style:{padding:"13px 14px"}},
 React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.47rem",letterSpacing:"0.14em",textTransform:"uppercase",color:C.gold,marginBottom:5}},v.hood+" · "+v.cat),
 React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.05rem",fontWeight:600,color:C.white,lineHeight:1.2,marginBottom:4}},v.name),
@@ -2071,7 +2071,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 )
 ),
 React.createElement("div",{style:{width:96,height:96,borderRadius:"50%",border:"2px solid "+C.gold,overflow:"hidden",flexShrink:0,boxShadow:"0 0 0 3px var(--c-excl-bg)"}},
-React.createElement("img",{src:"/creator.jpg",alt:"Dai",width:200,height:200,loading:"eager",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center",display:"block"}})
+React.createElement("img",{src:"/creator.jpg",alt:"Dai",loading:"eager",decoding:"async",fetchPriority:"high",style:{width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",display:"block",opacity:0,transition:"opacity 0.28s ease"},onLoad:e=>{e.target.style.opacity="1";}})
 )
 )
 ),
