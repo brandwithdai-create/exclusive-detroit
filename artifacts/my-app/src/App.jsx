@@ -1424,7 +1424,6 @@ else{map.fitBounds(L.latLngBounds(coords),{paddingTopLeft:[60,60],paddingBottomR
 },[showSavedOnly]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
-if(selected){const coord=COORDS[String(selected.id)];if(coord)map.panTo(coord,{animate:true,duration:0.35});}
 const t=setTimeout(()=>{map.invalidateSize();},360);
 return()=>clearTimeout(t);
 },[selected]);
@@ -1448,15 +1447,24 @@ const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitu
 const reCenter=()=>{const m=mapRef.current;if(!m)return;m.setView([42.3314,-83.0458],14,{animate:true});};
 const selImgFallback=selected?getVenueFallbackImage(selected):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
-const PIN_CARD_W=252,PIN_CARD_H=88,_PIN_R=19,_CONN_GAP=58;
+const PIN_CARD_W=Math.min(252,(outerRef.current?.offsetWidth||window.innerWidth)-24),PIN_CARD_H=88,_PIN_R=20,_CONN_GAP=36;
 let pinCardL=0,pinCardT=0,pinConnL=0,pinConnT=0,pinConnW=0,pinOnLeft=false;
 if(selectedPinPos&&selected){
 const mW=outerRef.current?.offsetWidth||window.innerWidth;
 const mH=outerRef.current?.offsetHeight||window.innerHeight;
-pinOnLeft=selectedPinPos.x>mW*0.5;
-if(pinOnLeft){pinCardL=Math.max(8,selectedPinPos.x-_CONN_GAP-PIN_CARD_W-_PIN_R);pinConnL=pinCardL+PIN_CARD_W;pinConnW=Math.max(4,selectedPinPos.x-_PIN_R-pinConnL);}
-else{pinConnL=selectedPinPos.x+_PIN_R;pinCardL=Math.min(mW-PIN_CARD_W-8,pinConnL+_CONN_GAP);pinConnW=Math.max(4,pinCardL-pinConnL);}
-pinCardT=Math.max(136,Math.min(mH-82-PIN_CARD_H,selectedPinPos.y-PIN_CARD_H/2));
+const spaceRight=mW-(selectedPinPos.x+_PIN_R+8);
+const spaceLeft=selectedPinPos.x-_PIN_R-8;
+pinOnLeft=spaceLeft>=PIN_CARD_W+_CONN_GAP&&(spaceLeft>spaceRight||spaceRight<PIN_CARD_W+_CONN_GAP);
+if(pinOnLeft){
+  pinCardL=Math.max(8,selectedPinPos.x-_PIN_R-_CONN_GAP-PIN_CARD_W);
+  pinConnL=pinCardL+PIN_CARD_W;
+  pinConnW=Math.max(8,(selectedPinPos.x-_PIN_R)-pinConnL);
+}else{
+  pinConnL=selectedPinPos.x+_PIN_R;
+  pinCardL=Math.min(mW-PIN_CARD_W-8,pinConnL+_CONN_GAP);
+  pinConnW=Math.max(8,pinCardL-pinConnL);
+}
+pinCardT=Math.max(100,Math.min(mH-100-PIN_CARD_H,selectedPinPos.y-PIN_CARD_H/2));
 pinConnT=selectedPinPos.y;
 }
 const CTRL={display:"flex",alignItems:"center",justifyContent:"center",background:"var(--c-mzoom-bg)",border:"none",color:"var(--c-mzoom-color)",cursor:"pointer",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",transition:"background 0.18s",padding:0,fontFamily:"'DM Sans',sans-serif"};
