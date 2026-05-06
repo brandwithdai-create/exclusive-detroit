@@ -1,0 +1,82 @@
+Please replace the current inside-venue-card visited/passport button with this new “Add to Passport” design.
+
+This change applies ONLY inside the full venue detail cards, directly under the main CTA button area:
+- Visit Website
+- Book Now
+- Get Tickets
+- View Rooms
+
+Do NOT change the outside Explore feed cards.
+
+NEW BEFORE-VISITED STATE
+
+Placement:
+- Centered directly underneath the Visit Website / Book Now button row.
+- It should feel like its own premium passport action, not a generic form button.
+
+Design:
+- Small architectural passport-style icon on the left.
+- Text block on the right.
+- Heading: “ADD TO PASSPORT”
+- Subtext: “Stamp this spot in your passport”
+
+Style:
+- gold line-art icon
+- luxury editorial spacing
+- no checkbox look
+- no generic “Mark as Visited” wording
+- should match the attached reference image closely
+
+NEW AFTER-VISITED STATE
+
+When clicked, it should transform into the attached passport-stamp style “Visited” state.
+
+Design:
+- a colorful passport stamp graphic on the left
+- text on the right:
+  - VISITED
+  - real visit date
+  - Added to your passport
+
+The stamp should include:
+- “EXCLUSIVE DETROIT”
+- “VISITED”
+- the actual visit date
+- small decorative stamp details
+
+Important:
+- The visited stamp can rotate between different colors for different venues.
+- Use colors like teal, purple, blue, red, green, gold.
+- Keep it elegant and readable.
+- Do not make it childish.
+
+DATE RULE:
+The date must be the actual local date the user clicked “Add to Passport.”
+It must persist permanently unless the user removes/re-adds the venue.
+Do not use random or placeholder dates.
+
+REMOVE OLD BUTTONS:
+Remove:
+- “Mark as Visited”
+- “Stamped in Passport”
+- generic checkbox/pill button styles
+
+Replace them everywhere inside full venue detail cards with this new Add to Passport → Visited stamp design.
+
+Also make sure it works in:
+- light mode
+- dark mode
+- all venue types
+- restaurants
+- hotels/stays if applicable
+- events if applicable only if they use the same venue-detail card pattern
+
+After implementation, please confirm:
+- Add to Passport appears centered under Visit Website/Book Now
+- after clicking, it turns into the colorful Visited stamp design
+- date is correct and persistent
+- old Mark as Visited button is removed
+- Passport page uses the same real visit date
+- light mode works
+- dark mode works
+- no console errors

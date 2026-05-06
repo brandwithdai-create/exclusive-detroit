@@ -1219,29 +1219,49 @@ React.createElement("div", { style:{ display:"flex", gap:10, alignItems:"center"
 React.createElement(CTA, { venue, full:true }),
 React.createElement("button", { onClick:()=>onFav(String(venue.id)), title:isFav?"Saved":"Save", style:{ width:38, height:38, flexShrink:0, display:"inline-flex", alignItems:"center", justifyContent:"center", padding:0, background:isFav?"rgba(201,168,76,0.15)":"var(--c-modal-save-bg)", border:"1.5px solid "+(isFav?"rgba(201,168,76,0.7)":"var(--c-modal-save-bdr)"), color:isFav?C.gold:"var(--c-modal-save-clr)", fontSize:"1rem", borderRadius:8, cursor:"pointer", transition:"all 0.18s" }}, isFav?"\u2665":"\u2661")
 ),
-React.createElement("div",{style:{marginTop:8}},
+React.createElement("div",{style:{marginTop:10}},
 React.createElement("button",{
 onClick:()=>onVisit&&onVisit(String(venue.id)),
 onMouseDown:()=>setVisPrs(true),onMouseUp:()=>setVisPrs(false),
 onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>setVisPrs(true),onTouchEnd:()=>setVisPrs(false),
 style:{
-  width:"100%",padding:"11px 20px",
-  background:isVis?"rgba(48,120,72,0.2)":"transparent",
-  border:"1.5px solid "+(isVis?"rgba(68,180,90,0.52)":"rgba(255,255,255,0.15)"),
-  borderRadius:100,
-  cursor:"pointer",transition:"all 0.22s",
-  display:"flex",alignItems:"center",justifyContent:"center",gap:10,
+  width:"100%",padding:0,background:"none",border:"none",
+  cursor:"pointer",transition:"transform 0.18s",
   transform:visPrs?"scale(0.975)":"scale(1)",
 }},
-React.createElement("svg",{width:22,height:22,viewBox:"0 0 22 22",fill:"none",style:{flexShrink:0}},
-  React.createElement("circle",{cx:11,cy:11,r:9.5,stroke:isVis?"rgba(68,180,90,0.72)":"rgba(201,168,76,0.52)",strokeWidth:1.5,strokeDasharray:"2 1.5"}),
-  isVis
-    ?React.createElement("polyline",{points:"6,11 9.5,14.5 16,8",stroke:"rgba(90,210,110,0.92)",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round"})
-    :React.createElement("path",{d:"M11 7v4M11 13.5h.01",stroke:"rgba(201,168,76,0.68)",strokeWidth:1.4,strokeLinecap:"round"})
-),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.14em",textTransform:"uppercase",color:isVis?"rgba(90,210,110,0.92)":"var(--c-ash)"}},
-  isVis?("Visited\u00a0\u00b7\u00a0"+(visitedDate||"Stamped")):"Add to Passport"
-)
+isVis
+? React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:"rgba(34,90,52,0.18)",border:"1.5px solid rgba(68,180,90,0.38)",borderRadius:12,textAlign:"left"}},
+    React.createElement("div",{style:{width:40,height:40,borderRadius:"50%",background:"rgba(68,180,90,0.15)",border:"1.5px solid rgba(68,180,90,0.5)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
+      React.createElement("svg",{width:20,height:20,viewBox:"0 0 20 20",fill:"none"},
+        React.createElement("polyline",{points:"4,10 8,14 16,6",stroke:"rgba(90,210,110,0.95)",strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"})
+      )
+    ),
+    React.createElement("div",{style:{flex:1,minWidth:0}},
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(90,210,110,0.92)",marginBottom:2}},"Stamped in Passport"),
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.08em",color:"rgba(90,210,110,0.55)"}},visitedDate||"Visited")
+    )
+  )
+: React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:"rgba(201,168,76,0.05)",border:"1.5px dashed rgba(201,168,76,0.28)",borderRadius:12,textAlign:"left"}},
+    React.createElement("div",{style:{width:40,height:40,borderRadius:8,background:"rgba(201,168,76,0.08)",border:"1px solid rgba(201,168,76,0.22)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
+      React.createElement("svg",{width:22,height:22,viewBox:"0 0 72 48",fill:"none",stroke:"rgba(201,168,76,0.72)",strokeWidth:1.3,strokeLinecap:"round",strokeLinejoin:"round"},
+        React.createElement("rect",{x:12,y:21,width:48,height:25,stroke:"rgba(201,168,76,0.72)"}),
+        React.createElement("rect",{x:25,y:11,width:22,height:10}),
+        React.createElement("rect",{x:31,y:5,width:10,height:6}),
+        React.createElement("rect",{x:18,y:16,width:36,height:5}),
+        React.createElement("rect",{x:16,y:28,width:8,height:8,opacity:.5}),
+        React.createElement("rect",{x:28,y:33,width:16,height:13}),
+        React.createElement("rect",{x:48,y:28,width:8,height:8,opacity:.5})
+      )
+    ),
+    React.createElement("div",{style:{flex:1,minWidth:0}},
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(201,168,76,0.88)",marginBottom:3}},"Add to Passport"),
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.06em",color:"rgba(201,168,76,0.45)"}},"Stamp this spot in your passport")
+    ),
+    React.createElement("svg",{width:14,height:14,viewBox:"0 0 14 14",fill:"none",stroke:"rgba(201,168,76,0.4)",strokeWidth:1.4,strokeLinecap:"round",strokeLinejoin:"round",flexShrink:0},
+      React.createElement("line",{x1:2,y1:7,x2:12,y2:7}),
+      React.createElement("polyline",{points:"8,3 12,7 8,11"})
+    )
+  )
 )
 )
 )
@@ -1411,7 +1431,7 @@ const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitu
 const reCenter=()=>{const m=mapRef.current;if(!m)return;m.setView([42.3314,-83.0458],14,{animate:true});};
 const selImgFallback=selected?getVenueFallbackImage(selected):null;
 const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
-const PIN_CARD_W=248,PIN_CARD_H=88,_PIN_R=7,_CONN_GAP=22;
+const PIN_CARD_W=252,PIN_CARD_H=88,_PIN_R=19,_CONN_GAP=58;
 let pinCardL=0,pinCardT=0,pinConnL=0,pinConnT=0,pinConnW=0,pinOnLeft=false;
 if(selectedPinPos&&selected){
 const mW=outerRef.current?.offsetWidth||window.innerWidth;
@@ -1539,8 +1559,21 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 !mapHotelModal&&React.createElement("button",{onClick:reCenter,style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",right:14,zIndex:900,touchAction:"manipulation"}},"⊕  Re-center"),
 // ── Pin-connected venue card ──
 selectedPinPos&&selected&&React.createElement(React.Fragment,null,
-React.createElement("div",{style:{position:"absolute",left:pinConnL,top:pinConnT-0.75,width:pinConnW,height:1.5,background:pinOnLeft?"linear-gradient(270deg,rgba(201,168,76,0.92) 0%,rgba(201,168,76,0.15) 100%)":"linear-gradient(90deg,rgba(201,168,76,0.15) 0%,rgba(201,168,76,0.92) 100%)",boxShadow:"0 0 8px rgba(201,168,76,0.5)",zIndex:1090,pointerEvents:"none"}}),
-React.createElement("div",{style:{position:"absolute",left:(pinOnLeft?pinConnL:pinConnL+pinConnW)-3.5,top:pinConnT-3.5,width:7,height:7,borderRadius:"50%",background:C.gold,boxShadow:"0 0 12px rgba(201,168,76,0.95)",zIndex:1092,pointerEvents:"none"}}),
+React.createElement("svg",{key:"connector-svg",style:{position:"absolute",left:Math.min(pinConnL,pinCardL+PIN_CARD_W),top:pinConnT-12,width:Math.abs(pinConnW)+8,height:24,overflow:"visible",zIndex:1090,pointerEvents:"none"},viewBox:`0 0 ${Math.abs(pinConnW)+8} 24`},
+React.createElement("defs",null,
+React.createElement("filter",{id:"glow-line"},
+React.createElement("feGaussianBlur",{stdDeviation:"2.5",result:"coloredBlur"}),
+React.createElement("feMerge",null,React.createElement("feMergeNode",{in:"coloredBlur"}),React.createElement("feMergeNode",{in:"SourceGraphic"}))
+),
+React.createElement("linearGradient",{id:"conn-grad",x1:"0%",y1:"0%",x2:"100%",y2:"0%"},
+React.createElement("stop",{offset:"0%",stopColor:"rgba(201,168,76,0.12)"}),
+React.createElement("stop",{offset:"50%",stopColor:"rgba(201,168,76,0.95)"}),
+React.createElement("stop",{offset:"100%",stopColor:"rgba(201,168,76,0.12)"})
+)
+),
+React.createElement("line",{x1:pinOnLeft?Math.abs(pinConnW)+4:4,y1:12,x2:pinOnLeft?4:Math.abs(pinConnW)+4,y2:12,stroke:"url(#conn-grad)",strokeWidth:2,filter:"url(#glow-line)",strokeDasharray:Math.abs(pinConnW),strokeDashoffset:Math.abs(pinConnW),style:{animation:"connDraw 0.38s cubic-bezier(0.4,0,0.2,1) forwards"}}),
+React.createElement("circle",{cx:pinOnLeft?4:Math.abs(pinConnW)+4,cy:12,r:4,fill:C.gold,filter:"url(#glow-line)",style:{animation:"connDot 0.18s 0.3s ease forwards",opacity:0}})
+),
 React.createElement("div",{style:{position:"absolute",left:pinCardL,top:pinCardT,width:PIN_CARD_W,background:"rgba(10,8,6,0.96)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 14px 44px rgba(0,0,0,0.72),0 2px 10px rgba(0,0,0,0.4)",display:"flex",flexDirection:"row",animation:"cardPopIn 0.22s cubic-bezier(0.32,0.72,0,1) both",touchAction:"manipulation"}},
 React.createElement("div",{style:{width:80,flexShrink:0,overflow:"hidden",background:"rgba(20,12,4,0.8)",position:"relative",minHeight:PIN_CARD_H}},
 selImg&&React.createElement("img",{src:selImg,alt:selected.name,loading:"eager",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})),
@@ -1590,7 +1623,7 @@ const gridTopRef = useRef(null);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
-s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes cardPopIn{0%{opacity:0;transform:scale(0.88)}100%{opacity:1;transform:scale(1)}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes cardPopIn{0%{opacity:0;transform:scale(0.88)}100%{opacity:1;transform:scale(1)}}@keyframes connDraw{to{stroke-dashoffset:0}}@keyframes connDot{to{opacity:1}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
 document.head.appendChild(s);
 return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
 },[]);

@@ -1012,7 +1012,7 @@ function ChipBtn({ val, current, onSet, label, icon }) {
       onClick={() => onSet(val)}
       onMouseDown={()=>setPressed(true)} onMouseUp={()=>setPressed(false)} onMouseLeave={()=>setPressed(false)} onTouchStart={()=>setPressed(true)} onTouchEnd={()=>setPressed(false)}
       style={{
-        ...MONO, fontSize:"0.48rem", letterSpacing:"0.09em", textTransform:"uppercase",
+        ...MONO, fontSize:"0.58rem", letterSpacing:"0.09em", textTransform:"uppercase",
         display:"flex", alignItems:"center", gap:6, padding:"9px 14px", borderRadius:8,
         border:`1px solid ${active?"var(--c-gold)":"var(--c-border)"}`,
         background: active ? "rgba(201,168,76,0.1)" : "transparent",
@@ -1098,7 +1098,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
 
       {/* Q1 — When */}
       <div style={{ marginTop:24, marginBottom:18 }}>
-        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
+        <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHEN ARE YOU GOING OUT?
         </p>
         <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
@@ -1110,7 +1110,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
 
       {/* Q2 — Who */}
       <div style={{ marginBottom:18 }}>
-        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
+        <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHO'S COMING?
         </p>
         <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
@@ -1122,7 +1122,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
 
       {/* Q3 — Energy */}
       <div style={{ marginBottom:26 }}>
-        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
+        <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHAT'S THE ENERGY?
         </p>
         <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:8 }}>
@@ -1132,7 +1132,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
           <ChipBtn val="highenergy" current={energy} onSet={setEnergy} label="High Energy" icon={<IconLightning/>}/>
         </div>
         {energyDesc && (
-          <p style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.04em",color:"var(--c-smoke)",margin:0,lineHeight:1.6 }}>
+          <p style={{ ...MONO,fontSize:"0.56rem",letterSpacing:"0.04em",color:"var(--c-smoke)",margin:0,lineHeight:1.6 }}>
             {energyDesc}
           </p>
         )}
@@ -1256,6 +1256,45 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
         </div>
       ) : (
         <>
+          {/* Saved Plans — first */}
+          {savedPlans && savedPlans.length > 0 && (
+            <div style={{ marginBottom:30 }}>
+              <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14 }}>
+                <p style={{ ...MONO,fontSize:"0.5rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"var(--c-goldD)",margin:0 }}>SAVED PLANS</p>
+                <span style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.08em",color:"var(--c-smoke)" }}>{savedPlans.length} saved</span>
+              </div>
+              <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
+                {savedPlans.map(plan => (
+                  <div key={plan.id} style={{ background:"var(--c-card)",border:"1px solid var(--c-border)",borderRadius:10,overflow:"hidden" }}>
+                    <div style={{ padding:"12px 14px 8px",display:"flex",justifyContent:"space-between",alignItems:"flex-start" }}>
+                      <div>
+                        <div style={{ ...MONO,fontSize:"0.41rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-goldD)",marginBottom:3 }}>
+                          {plan.when&&plan.when.charAt(0).toUpperCase()+plan.when.slice(1)} · {plan.energy&&plan.energy.charAt(0).toUpperCase()+plan.energy.slice(1)}
+                        </div>
+                        <div style={{ ...SERIF,fontSize:"1rem",color:"var(--c-white)",lineHeight:1.2 }}>
+                          {(plan.stops||[]).length}-Stop Night
+                        </div>
+                        {plan.savedAt && <div style={{ ...MONO,fontSize:"0.38rem",color:"var(--c-smoke)",marginTop:2 }}>{plan.savedAt}</div>}
+                      </div>
+                      {onDeletePlan && (
+                        <button onClick={() => onDeletePlan(plan.id)} style={{ background:"none",border:"none",cursor:"pointer",color:"#C05050",fontSize:"1rem",padding:"4px",lineHeight:1,flexShrink:0 }}>♥</button>
+                      )}
+                    </div>
+                    <div style={{ padding:"0 14px 12px",display:"flex",flexDirection:"column" }}>
+                      {(plan.stops||[]).map((v,i) => (
+                        <div key={v.id} onClick={() => onOpenVenue&&onOpenVenue(String(v.id))} style={{ display:"flex",alignItems:"center",gap:8,cursor:"pointer",padding:"6px 0",borderTop:i===0?"none":"1px solid var(--c-borders)" }}>
+                          <div style={{ ...MONO,fontSize:"0.38rem",color:"var(--c-goldD)",letterSpacing:"0.12em",flexShrink:0,minWidth:16,textAlign:"center" }}>{i+1}</div>
+                          <div style={{ ...SERIF,fontSize:"0.9rem",color:"var(--c-white)",lineHeight:1.2,flex:1 }}>{v.name}</div>
+                          <div style={{ ...MONO,fontSize:"0.36rem",color:"var(--c-smoke)",letterSpacing:"0.08em",flexShrink:0 }}>{v.cat}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Saved Spots */}
           {savedVenues.length>0 && (
             <div style={{ marginBottom:30 }}>
@@ -1335,45 +1374,6 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
               </div>
             </div>
           )}
-
-          {/* Saved Plans */}
-          {savedPlans && savedPlans.length > 0 && (
-            <div style={{ marginTop: savedVenues.length||savedEventItems.length||savedHotelItems.length ? 30 : 0 }}>
-              <div style={{ display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:14 }}>
-                <p style={{ ...MONO,fontSize:"0.5rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"var(--c-goldD)",margin:0 }}>SAVED PLANS</p>
-                <span style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.08em",color:"var(--c-smoke)" }}>{savedPlans.length} saved</span>
-              </div>
-              <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
-                {savedPlans.map(plan => (
-                  <div key={plan.id} style={{ background:"var(--c-card)",border:"1px solid var(--c-border)",borderRadius:10,overflow:"hidden" }}>
-                    <div style={{ padding:"12px 14px 8px",display:"flex",justifyContent:"space-between",alignItems:"flex-start" }}>
-                      <div>
-                        <div style={{ ...MONO,fontSize:"0.41rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-goldD)",marginBottom:3 }}>
-                          {plan.when&&plan.when.charAt(0).toUpperCase()+plan.when.slice(1)} · {plan.energy&&plan.energy.charAt(0).toUpperCase()+plan.energy.slice(1)}
-                        </div>
-                        <div style={{ ...SERIF,fontSize:"1rem",color:"var(--c-white)",lineHeight:1.2 }}>
-                          {(plan.stops||[]).length}-Stop Night
-                        </div>
-                        {plan.savedAt && <div style={{ ...MONO,fontSize:"0.38rem",color:"var(--c-smoke)",marginTop:2 }}>{plan.savedAt}</div>}
-                      </div>
-                      {onDeletePlan && (
-                        <button onClick={() => onDeletePlan(plan.id)} style={{ background:"none",border:"none",cursor:"pointer",color:"#C05050",fontSize:"1rem",padding:"4px",lineHeight:1,flexShrink:0 }}>♥</button>
-                      )}
-                    </div>
-                    <div style={{ padding:"0 14px 12px",display:"flex",flexDirection:"column" }}>
-                      {(plan.stops||[]).map((v,i) => (
-                        <div key={v.id} onClick={() => onOpenVenue&&onOpenVenue(String(v.id))} style={{ display:"flex",alignItems:"center",gap:8,cursor:"pointer",padding:"6px 0",borderTop:i===0?"none":"1px solid var(--c-borders)" }}>
-                          <div style={{ ...MONO,fontSize:"0.38rem",color:"var(--c-goldD)",letterSpacing:"0.12em",flexShrink:0,minWidth:16,textAlign:"center" }}>{i+1}</div>
-                          <div style={{ ...SERIF,fontSize:"0.9rem",color:"var(--c-white)",lineHeight:1.2,flex:1 }}>{v.name}</div>
-                          <div style={{ ...MONO,fontSize:"0.36rem",color:"var(--c-smoke)",letterSpacing:"0.08em",flexShrink:0 }}>{v.cat}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </>
       )}
     </div>
@@ -1401,7 +1401,7 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
   );
 
   const total     = visitedVenues.length;
-  const milestone = 20;
+  const milestone = allVenues.length;
   const pct       = total===0 ? 0 : Math.min(100, Math.round((total/milestone)*100));
   const stamps    = visitedVenues;
 
@@ -1525,7 +1525,7 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
               <div style={{ height:"100%",width:pct+"%",background:progressFg,borderRadius:100,transition:"width 0.7s ease" }}/>
             </div>
             <p style={{ ...MONO,fontSize:"0.38rem",letterSpacing:"0.05em",color:subText,margin:0 }}>
-              {total===0 ? "Open any venue and tap ✓ visited to begin" : `${pct}% toward your first ${milestone} discoveries`}
+              {total===0 ? "Open any venue and tap ✓ visited to begin" : `${pct}% of Detroit explored`}
             </p>
           </div>
 
@@ -1539,9 +1539,7 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
               <div style={{ display:"flex",flexWrap:"wrap",gap:"4px 6px",justifyContent:"space-around",alignItems:"flex-start" }}>
                 {stamps.map((v, i) => {
                   const rawDate = visitedDates?.[String(v.id)];
-                  const displayDate = rawDate
-                    ? new Date(rawDate).toLocaleDateString("en-US",{month:"short",day:"2-digit",year:"numeric"}).toUpperCase().replace(",","")
-                    : null;
+                  const displayDate = rawDate || null;
                   return (
                     <div
                       key={String(v.id)}
