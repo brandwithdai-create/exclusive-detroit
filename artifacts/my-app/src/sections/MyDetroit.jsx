@@ -965,7 +965,13 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans }
     setBtnPrs(true); setTimeout(()=>setBtnPrs(false),100);
     setBuilding(true); setResult(null);
     setTimeout(() => {
-      setResult(buildNight(when, who, energy, allVenues));
+      const isTuesday = new Date().getDay() === 2;
+      let pool = allVenues;
+      // The Living Room – Shinola Hotel (id:8) is a Tuesday-only experience
+      if (!isTuesday) pool = pool.filter(v => String(v.id) !== "8");
+      // Tin Roof Detroit (id:67) is high-energy only — never surface in chill itineraries
+      if (energy === "chill") pool = pool.filter(v => String(v.id) !== "67");
+      setResult(buildNight(when, who, energy, pool));
       setBuilding(false);
     }, 700);
   }
