@@ -936,14 +936,21 @@ function buildNightSummary(when, who, energy) {
   return `We're building ${vibe} ${timeWord} ${whoSuffix}`;
 }
 
-function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
+function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans }) {
   const [when,    setWhen]    = useState("night");
   const [who,     setWho]     = useState("date");
   const [energy,  setEnergy]  = useState("elevated");
   const [result,  setResult]  = useState(null);
   const [building,setBuilding]= useState(false);
   const [btnPrs,  setBtnPrs]  = useState(false);
+  const [justSaved,setJustSaved]= useState(false);
   const resultRef = useRef(null);
+
+  const planKey = result ? result.stops.map(v=>String(v.id)).sort().join(",") : null;
+  const isAlreadySaved = planKey ? (savedPlans||[]).some(p=>(p.stops||[]).map(v=>String(v.id)).sort().join(",")===planKey) : false;
+  const isSaved = isAlreadySaved || justSaved;
+
+  useEffect(() => { setJustSaved(false); }, [planKey]);
 
   useEffect(() => {
     if (!result) return;
@@ -1110,10 +1117,10 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
               </div>
               {onSavePlan && (
                 <button
-                  onClick={() => onSavePlan({ when, who, energy, stops: result.stops })}
-                  style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background:"rgba(201,168,76,0.08)", border:"1.5px solid var(--c-goldD)", color:"var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor:"pointer", transition:"all 0.15s" }}
+                  onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); }}
+                  style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background: isSaved ? "rgba(201,168,76,0.04)" : "rgba(201,168,76,0.08)", border:"1.5px solid var(--c-goldD)", color: isSaved ? "var(--c-smoke)" : "var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor: isSaved ? "default" : "pointer", transition:"all 0.2s" }}
                 >
-                  SAVE THIS NIGHT ✦
+                  {isSaved ? "✓ SAVED" : "SAVE THIS NIGHT ✦"}
                 </button>
               )}
             </>
@@ -1549,7 +1556,7 @@ export default function MyDetroit({
         </div>
       </div>
 
-      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan}/>}
+      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]}/>}
       {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap} savedPlans={savedPlans||[]} onDeletePlan={onDeletePlan}/>}
       {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue} visitedDates={visitedDates}/>}
     </div>
