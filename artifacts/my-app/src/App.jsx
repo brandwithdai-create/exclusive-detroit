@@ -1429,7 +1429,7 @@ const pin=isNew?"#C8AEFF":"#C9A84C";
 const glow=isNew?"rgba(200,174,255,0.45)":"rgba(201,168,76,0.45)";
 const mHtml=`<div style="width:13px;height:13px;background:${pin};border-radius:50%;border:2.5px solid rgba(255,255,255,0.75);box-shadow:0 0 8px ${glow};cursor:pointer"></div>`;
 const icon=L.divIcon({className:"",html:mHtml,iconSize:[13,13],iconAnchor:[6,6]});
-const m=L.marker(coord,{icon}).addTo(map).on("click",(e)=>{L.DomEvent.stopPropagation(e);if(v.cat==="Hotels"){setHotelDetail(v);setSelected(null);}else{setHotelDetail(null);setSelected(v);}});
+const m=L.marker(coord,{icon}).addTo(map).on("click",(e)=>{L.DomEvent.stopPropagation(e);setHotelDetail(null);setSelected(v);});
 markersRef.current.set(String(v.id),{marker:m,pin,glow});
 });
 },[mapCat,mapReady,showSavedOnly,favs,savedHotels]);
@@ -1488,7 +1488,7 @@ const zoomMap=d=>{const m=mapRef.current;if(!m)return;d>0?m.zoomIn():m.zoomOut()
 const goNearMe=()=>{navigator.geolocation?.getCurrentPosition(pos=>{const{latitude:lat,longitude:lng}=pos.coords;setUserPos({lat,lng});const m=mapRef.current;if(m)m.setView([lat,lng],15,{animate:true});});};
 const reCenter=()=>{const m=mapRef.current;if(!m)return;m.setView([42.3314,-83.0458],14,{animate:true});};
 const selImgFallback=selected?getVenueFallbackImage(selected):null;
-const selImg=selected?(photoMap?.[String(selected.id)]||selImgFallback):null;
+const selImg=selected?(photoMap?.[String(selected.id)]||selected.image||selImgFallback):null;
 const PIN_CARD_W=Math.min(260,(outerRef.current?.offsetWidth||window.innerWidth)-16),PIN_CARD_H=90,_PIN_R=22;
 let pinCardL=0,pinCardT=0;
 if(selectedPinPos&&selected){
@@ -1555,7 +1555,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 const img=photoMap?.[String(v.id)]||getVenueFallbackImage(v);
 const saved=v.cat==="Hotels"?isSavedHotel(v.id):isFav(v.id);
 const isSel=selected?.id===v.id;
-return React.createElement("button",{key:v.id,onClick:()=>{if(v.cat==="Hotels"){setHotelDetail(v);setSelected(null);setShowList(false);}else{setHotelDetail(null);setSelected(v);setShowList(false);}},style:{width:"100%",display:"flex",alignItems:"center",gap:12,padding:"11px 16px",background:isSel?"rgba(201,168,76,0.08)":"none",border:"none",borderBottom:"1px solid var(--c-sheet-bdr)",cursor:"pointer",textAlign:"left",touchAction:"manipulation"}},
+return React.createElement("button",{key:v.id,onClick:()=>{setHotelDetail(null);setSelected(v);setShowList(false);},style:{width:"100%",display:"flex",alignItems:"center",gap:12,padding:"11px 16px",background:isSel?"rgba(201,168,76,0.08)":"none",border:"none",borderBottom:"1px solid var(--c-sheet-bdr)",cursor:"pointer",textAlign:"left",touchAction:"manipulation"}},
 React.createElement("div",{style:{width:48,height:48,borderRadius:8,flexShrink:0,overflow:"hidden",background:"var(--c-border)"}},
 img&&React.createElement("img",{src:img,alt:v.name,loading:"lazy",style:{width:"100%",height:"100%",objectFit:"cover",display:"block"}})
 ),
@@ -1614,7 +1614,7 @@ React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.
 ),
 !mapHotelModal&&React.createElement("button",{onClick:reCenter,style:{...PILL,position:"absolute",bottom:"calc(18px + env(safe-area-inset-bottom))",right:14,zIndex:900,touchAction:"manipulation"}},"⊕  Re-center"),
 // ── Pin venue card — appears directly above (or below) the tapped pin ──
-selectedPinPos&&selected&&React.createElement("div",{onClick:()=>{setModalId(String(selected.id));setSelected(null);},style:{position:"absolute",left:pinCardL,top:pinCardT,width:PIN_CARD_W,background:"rgba(10,8,6,0.96)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 14px 44px rgba(0,0,0,0.72),0 2px 10px rgba(0,0,0,0.4)",display:"flex",flexDirection:"row",animation:"cardPopIn 0.22s cubic-bezier(0.32,0.72,0,1) both",touchAction:"manipulation",cursor:"pointer"}},
+selectedPinPos&&selected&&React.createElement("div",{onClick:()=>{if(selected.cat==="Hotels"){const fh=HOTELS.find(h=>String(h.id)===String(selected.id));setMapHotelModal(fh||selected);setSelected(null);}else{setModalId(String(selected.id));setSelected(null);}},style:{position:"absolute",left:pinCardL,top:pinCardT,width:PIN_CARD_W,background:"rgba(10,8,6,0.96)",backdropFilter:"blur(14px)",WebkitBackdropFilter:"blur(14px)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:14,zIndex:1100,overflow:"hidden",boxShadow:"0 14px 44px rgba(0,0,0,0.72),0 2px 10px rgba(0,0,0,0.4)",display:"flex",flexDirection:"row",animation:"cardPopIn 0.22s cubic-bezier(0.32,0.72,0,1) both",touchAction:"manipulation",cursor:"pointer"}},
 React.createElement("div",{style:{width:80,flexShrink:0,overflow:"hidden",background:"rgba(20,12,4,0.8)",position:"relative",minHeight:PIN_CARD_H}},
 selImg&&React.createElement("img",{src:selImg,alt:selected.name,loading:"eager",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block"},onError:e=>{e.target.style.display="none";}})),
 React.createElement("div",{style:{flex:1,padding:"10px 11px 10px",display:"flex",flexDirection:"column",minWidth:0}},
@@ -1624,10 +1624,9 @@ React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.38rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(245,242,238,0.4)",display:"block",marginBottom:6}},selected.hood),
 React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:"auto"}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.gold,display:"flex",alignItems:"center",gap:3}},"VIEW DETAILS\u00a0\u2192"),
-React.createElement("button",{onClick:e=>{e.stopPropagation();toggleFav(String(selected.id));},title:isFav(selected.id)?"Saved":"Save",style:{background:"none",border:"none",color:isFav(selected.id)?C.gold:"rgba(245,242,238,0.38)",fontSize:"0.95rem",cursor:"pointer",padding:"2px 5px",lineHeight:1,transition:"color 0.15s",touchAction:"manipulation"}},isFav(selected.id)?"\u2665":"\u2661"))
+React.createElement("button",{onClick:e=>{e.stopPropagation();selected.cat==="Hotels"?toggleSavedHotel(String(selected.id)):toggleFav(String(selected.id));},title:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"Saved":"Save",style:{background:"none",border:"none",color:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?C.gold:"rgba(245,242,238,0.38)",fontSize:"0.95rem",cursor:"pointer",padding:"2px 5px",lineHeight:1,transition:"color 0.15s",touchAction:"manipulation"}},(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"\u2665":"\u2661"))
 )
 ),
-hotelDetailSheet,
 listPanel,
 mapHotelModal&&React.createElement(HotelDetailModal,{hotel:mapHotelModal,places:null,saved:isSavedHotel(mapHotelModal.id),onSave:toggleSavedHotel,onClose:()=>setMapHotelModal(null)})
 );}
