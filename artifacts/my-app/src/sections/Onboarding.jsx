@@ -135,7 +135,7 @@ export default function Onboarding({ onDone }) {
             </div>
 
             {/* Ornament */}
-            <div style={{ ...MONO, fontSize:"0.34rem", letterSpacing:"0.3em", color:"var(--c-goldD)", marginBottom:18, opacity:0.75 }}>
+            <div style={{ ...MONO, fontSize:"0.52rem", letterSpacing:"0.22em", color:"var(--c-goldD)", marginBottom:18, opacity:0.88 }}>
               ◆ EXCLUSIVE DETROIT ◆
             </div>
 
@@ -173,15 +173,7 @@ export default function Onboarding({ onDone }) {
         </div>
 
         {/* Navigation row */}
-        <div style={{ display:"flex", alignItems:"center", gap:14, width:"100%" }}>
-          {slide > 0 && (
-            <button
-              onClick={prev}
-              style={{ ...MONO, background:"none", border:"none", color:"var(--c-ash)", fontSize:"0.52rem", letterSpacing:"0.14em", textTransform:"uppercase", cursor:"pointer", padding:"13px 0", flexShrink:0 }}
-            >
-              ← BACK
-            </button>
-          )}
+        <div style={{ display:"flex", alignItems:"center", width:"100%" }}>
           <button
             onClick={isLast ? handleDone : next}
             style={{ ...MONO, flex:1, padding:"13px 0", borderRadius:100, background:"rgba(201,168,76,0.08)", border:"1.5px solid var(--c-goldD)", color:"var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.18em", textTransform:"uppercase", cursor:"pointer", transition:"all 0.15s" }}
@@ -189,6 +181,14 @@ export default function Onboarding({ onDone }) {
             {isLast ? "GET STARTED ✦" : "NEXT →"}
           </button>
         </div>
+
+        {/* Bottom skip */}
+        <button
+          onClick={handleDone}
+          style={{ ...MONO, background:"none", border:"none", color:"var(--c-smoke)", fontSize:"0.48rem", letterSpacing:"0.14em", textTransform:"uppercase", cursor:"pointer", padding:"6px 0", opacity:0.7 }}
+        >
+          SKIP
+        </button>
       </div>
     </div>
   );
