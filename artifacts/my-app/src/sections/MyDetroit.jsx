@@ -602,7 +602,7 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
   const btype = typeArr[n % typeArr.length];
   const catLabel = CAT_SHORT[v.cat] || v.cat?.toUpperCase() || "DETROIT";
   const serial = "DET-" + String(v.id).padStart(4,"0");
-  const date   = propDate || "VISITED";
+  const date   = propDate || null;
   const orn = ORNS[n % ORNS.length];
 
   // 3 layout shapes cycling by index position
@@ -671,10 +671,12 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
           VISITED
         </div>
 
-        {/* Date */}
-        <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.07em",color:hex,opacity:.40 }}>
-          {date}
-        </div>
+        {/* Date — only shown when a real date is stored */}
+        {date && (
+          <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.07em",color:hex,opacity:.40 }}>
+            {date}
+          </div>
+        )}
 
         {/* Serial */}
         <div style={{ ...MONO,fontSize:"0.24rem",letterSpacing:"0.06em",color:hex,opacity:.26 }}>
@@ -827,6 +829,7 @@ function getResultImg(v, photoMap) {
 // ─────────────────────────────────────────────────────────────────────────────
 function ChipBtn({ val, current, onSet, label, icon }) {
   const active  = current === val;
+  const isHighE = val === "highenergy" && active;
   const [pressed, setPressed] = useState(false);
   return (
     <button
@@ -835,15 +838,19 @@ function ChipBtn({ val, current, onSet, label, icon }) {
       style={{
         ...MONO, fontSize:"0.58rem", letterSpacing:"0.09em", textTransform:"uppercase",
         display:"flex", alignItems:"center", gap:6, padding:"9px 14px", borderRadius:8,
-        border:`1px solid ${active?"transparent":"rgba(201,168,76,0.28)"}`,
-        background: active ? "linear-gradient(135deg,#C9A84C 0%,#A8872E 100%)" : "rgba(10,7,3,0.45)",
-        color: active ? "#0A0808" : "var(--c-ash)",
-        boxShadow: active ? "0 2px 14px rgba(201,168,76,0.35)" : "none",
+        border:`1px solid ${active ? (isHighE ? "rgba(232,120,40,0.7)" : "rgba(201,168,76,0.55)") : "rgba(201,168,76,0.30)"}`,
+        background: active
+          ? (isHighE ? "linear-gradient(135deg,#E8832A 0%,#C96A16 100%)" : "linear-gradient(135deg,#C9A84C 0%,#A8872E 100%)")
+          : "var(--c-tonight-chip-bg)",
+        color: active ? "#0A0808" : "var(--c-tonight-chip-txt)",
+        boxShadow: active
+          ? (isHighE ? "0 2px 16px rgba(232,120,40,0.45)" : "0 2px 14px rgba(201,168,76,0.35)")
+          : "none",
         cursor:"pointer", transition:"all 0.12s",
         transform: pressed ? "scale(0.91)" : "scale(1)", whiteSpace:"nowrap", flexShrink:0,
       }}
     >
-      <span style={{ opacity: active ? 1 : 0.65, flexShrink:0 }}>{icon}</span>
+      <span style={{ opacity: active ? 1 : 0.7, flexShrink:0 }}>{icon}</span>
       <span>{label}</span>
     </button>
   );
@@ -909,7 +916,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
 
   // Step number circle
   const StepNum = ({n}) => (
-    <div style={{ width:38,height:38,borderRadius:"50%",border:"1.5px solid var(--c-gold)",background:"rgba(201,168,76,0.12)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...MONO,fontSize:"0.7rem",fontWeight:600,color:"var(--c-gold)",zIndex:1,position:"relative" }}>
+    <div style={{ width:38,height:38,borderRadius:"50%",border:"2px solid var(--c-gold)",background:"rgba(201,168,76,0.22)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...MONO,fontSize:"0.78rem",fontWeight:700,color:"var(--c-gold)",zIndex:1,position:"relative",boxShadow:"0 0 10px rgba(201,168,76,0.38),inset 0 0 6px rgba(201,168,76,0.10)" }}>
       {n}
     </div>
   );
@@ -934,7 +941,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
       {/* Step flow — numbered 1→2→3 with dotted connector */}
       <div style={{ position:"relative" }}>
         {/* Dotted connector line behind the circles */}
-        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2.5px dashed rgba(201,168,76,0.6)",zIndex:0,pointerEvents:"none" }}/>
+        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2.5px dashed rgba(201,168,76,0.85)",zIndex:0,pointerEvents:"none" }}/>
 
         {/* Q1 — When */}
         <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:20 }}>
