@@ -845,6 +845,9 @@ const THUMB_IMG_MAP = {
   80:"1550966871-3ed3ccd8aede",81:"1470337458703-46ad1756a187",82:"1517248135467-4c7edcad34c4",
   83:"1533089860892-a7c6f0a88666",84:"1559339352-11d035aa65de",85:"1477959858617-67f85cf4f1df",
   86:"1525351484163-7529414f2171",87:"1579952363873-27f3bade9f55",
+  // RECENTLY opened venues (string IDs)
+  r1:"1543007630-9359431a5a9d",r3:"1477959858617-67f85cf4f1df",
+  r4:"1414235077428-338989a2e8c0",r5:"1543007630-9359431a5a9d",
 };
 function getResultImg(v, photoMap) {
   if (photoMap?.[String(v.id)]) return photoMap[String(v.id)];
@@ -1140,7 +1143,7 @@ function SavedCard({ thumb, thumbGradient, title, cat, sub, onRemove, onCardClic
     >
       {/* Thumb */}
       <div style={{ width:68,flexShrink:0,background:thumbGradient||"var(--c-deep)",position:"relative",overflow:"hidden" }}>
-        {thumb && <img src={thumb} alt="" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover" }}/>}
+        {thumb && <img src={thumb} alt="" loading="eager" decoding="async" fetchPriority="high" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",opacity:0,transition:"opacity 0.22s ease" }} onLoad={e=>{e.target.style.opacity="1";}} onError={e=>{e.target.style.opacity="1";}}/>}
       </div>
       {/* Text */}
       <div style={{ flex:1,padding:"12px 10px",minWidth:0 }}>
@@ -1224,7 +1227,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                 {savedVenues.map(v => (
                   <SavedCard
                     key={v.id}
-                    thumb={photoMap?.[String(v.id)]}
+                    thumb={getResultImg(v, photoMap)}
                     thumbGradient={venueGradient(v)}
                     title={v.name}
                     cat={v.cat.toUpperCase()}
