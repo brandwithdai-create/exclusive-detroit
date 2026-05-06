@@ -391,3 +391,13 @@
     inset: -1px;
   }
 }
+
+@keyframes stampPress {
+  0%   { transform: scale(1.35) rotate(var(--stamp-rot, 0deg)); opacity: 0; filter: blur(1px); }
+  45%  { transform: scale(0.93) rotate(var(--stamp-rot, 0deg)); opacity: 1; filter: blur(0); }
+  72%  { transform: scale(1.05) rotate(var(--stamp-rot, 0deg)); }
+  100% { transform: scale(1)    rotate(var(--stamp-rot, 0deg)); }
+}
+.stamp-press {
+  animation: stampPress 0.44s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}

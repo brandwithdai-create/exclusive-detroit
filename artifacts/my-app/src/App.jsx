@@ -1634,10 +1634,9 @@ React.createElement("div",{style:{fontFamily:"'Cormorant Garamond',serif",fontSi
 ),
 React.createElement("div",{style:{display:"flex",gap:8,alignItems:"center",overflow:"visible"}},
 React.createElement("div",{style:{display:"flex",gap:12,alignItems:"center",overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",overflow:"visible"}},
-[["explore","Explore"],["map","Map"],["favorites","Saves"],["my-detroit","My Detroit"],["neighborhoods","Areas"],["about","About"]].map(([s,l])=>
+[["explore","Explore"],["map","Map"],["itinerary","Itinerary"],["about","About"]].map(([s,l])=>
 React.createElement("button",{key:s,onClick:()=>navTo(s),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.59rem",letterSpacing:"0.14em",textTransform:"uppercase",background:"none",border:"none",cursor:"pointer",padding:"4px 0",color:section===s?C.gold:C.smoke,borderBottom:section===s?"1.5px solid "+C.gold:"1.5px solid transparent",display:"inline-flex",alignItems:"center",gap:5,whiteSpace:"nowrap",flexShrink:0}},
-l,
-s==="favorites"&&totalSaves>0&&React.createElement("span",{style:{background:C.gold,color:C.black,borderRadius:100,padding:"1px 5px",fontSize:"0.42rem",fontWeight:700,lineHeight:"14px",minWidth:14,textAlign:"center",display:"inline-block"}},totalSaves)
+l
 )
 )),
 React.createElement("button",{onClick:()=>navTo("settings"),title:"Settings",style:{background:"none",border:"none",cursor:"pointer",padding:6,color:section==="settings"?C.gold:C.smoke,display:"flex",alignItems:"center",justifyContent:"center",lineHeight:1,transition:"color 0.18s,opacity 0.18s",flexShrink:0,marginLeft:6,opacity:section==="settings"?1:0.72}},
@@ -1681,11 +1680,11 @@ React.createElement("button",{onClick:()=>navTo("map"),style:{fontFamily:"'DM Mo
 ),
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center",marginTop:"var(--hero-acts-mt)"}},
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center"}},
-React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"10px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🏟 Sports Tickets"),
-React.createElement("button",{onClick:()=>{setDoTab("concerts");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"10px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🎵 Concerts")
+React.createElement("button",{onClick:()=>{setDoTab("games");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.59rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"2px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"12px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🏟 Sports Tickets"),
+React.createElement("button",{onClick:()=>{setDoTab("concerts");navTo("things-to-do");},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.59rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"2px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"12px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🎵 Concerts")
 ),
 React.createElement("div",{style:{display:"flex",gap:10,justifyContent:"center"}},
-React.createElement("button",{onClick:()=>navTo("stay"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.57rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"1.5px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"10px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🏨 Hotel Stays")
+React.createElement("button",{onClick:()=>navTo("stay"),style:{fontFamily:"'DM Mono',monospace",fontSize:"0.59rem",letterSpacing:"0.11em",textTransform:"uppercase",border:"2px solid var(--c-hero-act-bdr)",color:C.bone,background:"var(--c-hero-act-bg)",backdropFilter:"var(--c-hero-btn-blur)",WebkitBackdropFilter:"var(--c-hero-btn-blur)",padding:"12px var(--hero-acts-px)",borderRadius:100,cursor:"pointer",boxShadow:"var(--c-hero-btn-shadow)",transition:"all 0.2s"}},"🏨 Hotel Stays")
 )
 )
 )
@@ -2012,11 +2011,11 @@ section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
 section==="neighborhoods" && Areas(),
+section==="itinerary"     && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:ALL,savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,toggleFav,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
 section==="about"         && About({tick:aboutTick}),
 section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),
-section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")}),
-section==="my-detroit"    && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:ALL})
+section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")})
 ),
 section!=="map"&&section!=="settings"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},
