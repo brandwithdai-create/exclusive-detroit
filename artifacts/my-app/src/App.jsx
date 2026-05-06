@@ -1148,6 +1148,7 @@ body.style.overflow = prevBodyOverflow;
 html.style.overflow = prevHtmlOverflow;
 };
 }, []);
+const [visPrs,setVisPrs]=useState(false);
 return React.createElement(React.Fragment, null,
 React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}),
 React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
@@ -1188,9 +1189,22 @@ React.createElement("button", { onClick:()=>onFav(String(venue.id)), title:isFav
 React.createElement("div",{style:{marginTop:8}},
 React.createElement("button",{
 onClick:()=>onVisit&&onVisit(String(venue.id)),
-style:{width:"100%",padding:"10px 0",background:"transparent",border:"1px solid "+(isVis?"rgba(201,168,76,0.35)":"var(--c-border)"),borderRadius:8,fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.14em",textTransform:"uppercase",color:isVis?"var(--c-gold)":"var(--c-ash)",cursor:"pointer",transition:"all 0.18s",display:"flex",alignItems:"center",justifyContent:"center",gap:8}},
-React.createElement("span",{style:{fontSize:"0.65rem",lineHeight:1}},isVis?"✓":"○"),
-isVis?"Visited":"Mark as Visited"
+onMouseDown:()=>setVisPrs(true),onMouseUp:()=>setVisPrs(false),
+onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>setVisPrs(true),onTouchEnd:()=>setVisPrs(false),
+style:{
+  width:"100%",padding:"13px 0",
+  background:isVis?"linear-gradient(90deg,rgba(201,168,76,0.18),rgba(201,168,76,0.11))":"transparent",
+  border:"1.5px solid "+(isVis?"rgba(201,168,76,0.62)":"rgba(255,255,255,0.13)"),
+  borderRadius:100,
+  fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",
+  color:isVis?"var(--c-gold)":"var(--c-ash)",
+  cursor:"pointer",transition:"all 0.2s",
+  display:"flex",alignItems:"center",justifyContent:"center",gap:9,
+  boxShadow:isVis?"0 0 22px rgba(201,168,76,0.13),inset 0 0 0 1px rgba(201,168,76,0.07)":"none",
+  transform:visPrs?"scale(0.975)":"scale(1)",
+}},
+React.createElement("span",{style:{fontSize:"0.85rem",lineHeight:1,fontWeight:isVis?600:300,letterSpacing:0,fontFamily:"sans-serif"}},isVis?"✓":"◎"),
+isVis?"Stamped in Passport":"Mark as Visited"
 )
 )
 )
@@ -1838,10 +1852,10 @@ React.createElement("button",{onClick:e=>{e.stopPropagation();toggleFav(String(v
 )));};
 return React.createElement(React.Fragment,null,
 React.createElement("div",null,
-React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"20px 22px 14px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"Your Collection"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"Saved Spots"),
-React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Your personal insider list.")
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.4rem)",fontWeight:400,color:C.white,margin:"0 0 4px"}},"Saved Spots"),
+React.createElement("p",{style:{fontSize:"0.82rem",color:C.smoke,margin:0}},"Your personal insider list.")
 ),
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"24px 22px 56px"}},
 allEmpty
@@ -1881,11 +1895,11 @@ const HOODS=[
 {k:"Alley Spots",    d:"The Belt - a mural-covered downtown alley turned open-air social hub."},
 ];
 const Areas=()=>React.createElement("div",null,
-React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:C.deep,padding:"20px 22px 14px",borderBottom:"1px solid "+C.border}},
 React.createElement("div",{style:{maxWidth:1156,margin:"0 auto"}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"Navigate by Area"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"Detroit Neighborhoods"),
-React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Each pocket of the city has its own energy.")
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.4rem)",fontWeight:400,color:C.white,margin:"0 0 4px"}},"Detroit Neighborhoods"),
+React.createElement("p",{style:{fontSize:"0.82rem",color:C.smoke,margin:0}},"Each pocket of the city has its own energy.")
 )
 ),
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto",padding:"24px 22px 56px"}},
@@ -1903,10 +1917,10 @@ React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5
 );
 
 const About=({tick=0}={})=>React.createElement("div",null,
-React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:C.deep,padding:"20px 22px 14px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"The City Brief"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"About Detroit"),
-React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"An insider guide to Detroit.")
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.4rem)",fontWeight:400,color:C.white,margin:"0 0 4px"}},"About Detroit"),
+React.createElement("p",{style:{fontSize:"0.82rem",color:C.smoke,margin:0}},"An insider guide to Detroit.")
 ),
 React.createElement("div",{className:"creator-highlight",style:{maxWidth:700,margin:"0 auto",padding:"32px 22px 0"}},
 React.createElement("div",{style:{display:"flex",flexDirection:"row",gap:16,alignItems:"center"}},
@@ -1959,11 +1973,11 @@ const settingsHeader=(label)=>React.createElement("div",{style:{padding:"16px 20
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.51rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldL,fontWeight:500,margin:0}},label)
 );
 const Settings=()=>React.createElement("div",null,
-React.createElement("div",{style:{background:C.deep,padding:"46px 22px 28px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:C.deep,padding:"20px 22px 14px",borderBottom:"1px solid "+C.border}},
 React.createElement("div",{style:{maxWidth:516,margin:"0 auto"}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"Preferences"),
-React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.8rem,5vw,3rem)",fontWeight:400,color:C.white}},"Settings"),
-React.createElement("p",{style:{fontSize:"0.84rem",color:C.smoke}},"Customize your app experience.")
+React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.4rem)",fontWeight:400,color:C.white,margin:"0 0 4px"}},"Settings"),
+React.createElement("p",{style:{fontSize:"0.82rem",color:C.smoke,margin:0}},"Customize your app experience.")
 )
 ),
 React.createElement("div",{style:{maxWidth:560,margin:"0 auto",padding:"32px 22px 64px",display:"flex",flexDirection:"column",gap:12}},

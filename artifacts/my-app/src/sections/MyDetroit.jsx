@@ -378,7 +378,7 @@ function getStampDate(index) {
 // ─────────────────────────────────────────────────────────────────────────────
 // VenueStamp — ink-on-paper look, no box border
 // ─────────────────────────────────────────────────────────────────────────────
-function VenueStamp({ v, index, isNew }) {
+function VenueStamp({ v, index, isNew, onOpen }) {
   const { hex, rgb, rot } = getStampStyle(v);
   const btype = CAT_BUILDING[v.cat] || "classic";
   const portrait = index % 3 === 1;
@@ -390,6 +390,7 @@ function VenueStamp({ v, index, isNew }) {
   return (
     <div
       className={isNew ? "stamp-press" : undefined}
+      onClick={() => onOpen && onOpen(String(v.id))}
       style={{
         width:w, height:h, flexShrink:0,
         display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
@@ -399,6 +400,7 @@ function VenueStamp({ v, index, isNew }) {
         position:"relative", overflow:"hidden", boxSizing:"border-box",
         color: hex,
         filter:`drop-shadow(0 0 5px rgba(${rgb},0.28))`,
+        cursor: onOpen ? "pointer" : "default",
       }}
     >
       {/* Diagonal VISITED watermark */}
@@ -412,7 +414,7 @@ function VenueStamp({ v, index, isNew }) {
           <BuildingSVG type={btype}/>
         </div>
         <div style={{ ...SERIF,fontSize:"0.80rem",fontWeight:700,color:hex,lineHeight:1.1,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.03em",marginTop:1 }}>
-          {v.name.length>14 ? v.name.slice(0,13)+"…" : v.name}
+          {stampName(v.name)}
         </div>
         <div style={{ ...MONO,fontSize:"0.25rem",letterSpacing:"0.18em",color:hex,opacity:.65,textTransform:"uppercase" }}>
           {v.hood.toUpperCase()}
@@ -480,6 +482,39 @@ const CAT_GRADIENT = {
 };
 function venueGradient(v) { return CAT_GRADIENT[v.cat] || "linear-gradient(135deg,#1a1408 0%,#0e0c06 100%)"; }
 
+// Clean stamp name — no ellipsis truncation ever
+function stampName(name) {
+  return name
+    .replace(/^The\s+/i, "")
+    .replace(/\s+&\s+Company\b/gi, " & Co.")
+    .replace(/\s+Standard\b/gi, " Std.")
+    .replace(/\s+Restaurant\b/gi, " Rest.")
+    .replace(/\s+International\b/gi, " Int'l")
+    .replace(/\s+Detroit\b(?!\s+\S)/gi, " Det.");
+}
+
+// Unsplash fallback for result cards (mirrors App.jsx CATEGORY_IMG_POOL first entry)
+const CAT_IMG_FB = {
+  "Dinner":                  "1414235077428-338989a2e8c0",
+  "Cocktail Lounges":        "1513558161293-cdaf765ed2fd",
+  "Hidden Bars":             "1470337458703-46ad1756a187",
+  "Rooftops":                "1477959858617-67f85cf4f1df",
+  "Breakfast":               "1533089860892-a7c6f0a88666",
+  "Coffee Shops & Bakeries": "1509042239860-f550ce710b93",
+  "Nightlife":               "1492684223066-81342ee5ff30",
+  "Sports Bars":             "1579952363873-27f3bade9f55",
+  "Happy Hour":              "1414235077428-338989a2e8c0",
+  "Lunch":                   "1517248135467-4c7edcad34c4",
+  "Outdoor Activities":      "1534224373688-37be267ede82",
+  "Alley Spots":             "1470337458703-46ad1756a187",
+};
+function getResultImg(v, photoMap) {
+  if (photoMap?.[String(v.id)]) return photoMap[String(v.id)];
+  if (v.image) return v.image;
+  const id = CAT_IMG_FB[v.cat] || "1470337458703-46ad1756a187";
+  return `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=400&q=70`;
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Tonight tab — Build My Night
 // ─────────────────────────────────────────────────────────────────────────────
@@ -509,16 +544,16 @@ function ChipBtn({ val, current, onSet, label, icon }) {
 
 function ResultCard({ v, stopLabel, photoMap, onOpen }) {
   const [pressed, setPressed] = useState(false);
-  const thumb = photoMap?.[String(v.id)];
+  const thumb = getResultImg(v, photoMap);
   return (
     <div
       onClick={() => onOpen && onOpen(String(v.id))}
       onMouseDown={()=>setPressed(true)} onMouseUp={()=>setPressed(false)} onMouseLeave={()=>setPressed(false)} onTouchStart={()=>setPressed(true)} onTouchEnd={()=>setPressed(false)}
       style={{ display:"flex", alignItems:"stretch", gap:12, background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:10, overflow:"hidden", transform:pressed?"scale(0.975)":"scale(1)", transition:"transform 0.08s", cursor:"pointer" }}
     >
-      {/* Thumbnail */}
-      <div style={{ width:68, flexShrink:0, background: thumb ? "var(--c-deep)" : venueGradient(v), position:"relative", overflow:"hidden" }}>
-        {thumb && <img src={thumb} alt="" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover" }}/>}
+      {/* Thumbnail — always shows an image */}
+      <div style={{ width:68, flexShrink:0, background:venueGradient(v), position:"relative", overflow:"hidden" }}>
+        <img src={thumb} alt="" style={{ position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover" }}/>
       </div>
       {/* Text */}
       <div style={{ flex:1, padding:"12px 14px 12px 0", minWidth:0 }}>
@@ -815,7 +850,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
 // ─────────────────────────────────────────────────────────────────────────────
 // Passport tab — physical passport book design
 // ─────────────────────────────────────────────────────────────────────────────
-function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone }) {
+function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone, onOpenVenue }) {
   const [isDark, setIsDark] = useState(() => {
     try { return document.documentElement.getAttribute("data-theme") !== "light"; } catch { return true; }
   });
@@ -878,9 +913,10 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone 
         display:"flex",
         borderRadius:14,
         overflow:"hidden",
+        minHeight:"calc(100dvh - 240px)",
         boxShadow: isDark
-          ? "0 16px 60px rgba(0,0,0,0.75), 0 2px 10px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(201,168,76,0.06)"
-          : "0 16px 60px rgba(0,0,0,0.35), 0 2px 10px rgba(0,0,0,0.2)",
+          ? "0 20px 70px rgba(0,0,0,0.8), 0 2px 12px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(201,168,76,0.07)"
+          : "0 20px 70px rgba(0,0,0,0.38), 0 2px 12px rgba(0,0,0,0.22)",
       }}>
 
         {/* Left spine / binding */}
@@ -915,10 +951,14 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone 
         </div>
 
         {/* Main page */}
-        <div style={{ flex:1, background:pageBg, position:"relative", overflow:"hidden", minWidth:0 }}>
+        <div style={{ flex:1, background:pageBg, position:"relative", overflow:"hidden", minWidth:0, display:"flex", flexDirection:"column" }}>
 
           {/* Horizontal ruled lines */}
           <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(0deg,transparent 0px,transparent 28px,${lineColor} 28px,${lineColor} 29px)` }}/>
+          {/* Vertical column lines (security paper) */}
+          <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(90deg,transparent 0px,transparent 55px,${isDark?"rgba(201,168,76,0.018)":"rgba(100,70,20,0.025)"} 55px,${isDark?"rgba(201,168,76,0.018)":"rgba(100,70,20,0.025)"} 56px)` }}/>
+          {/* Diagonal security lines */}
+          <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(47deg,transparent 0px,transparent 18px,${isDark?"rgba(201,168,76,0.012)":"rgba(100,70,20,0.018)"} 18px,${isDark?"rgba(201,168,76,0.012)":"rgba(100,70,20,0.018)"} 18.5px)` }}/>
 
           {/* Circular watermark rings */}
           <div style={{ position:"absolute",top:"45%",left:"50%",transform:"translate(-50%,-50%)",width:260,height:260,borderRadius:"50%",border:`1px solid ${wmColor}`,pointerEvents:"none" }}/>
@@ -956,8 +996,8 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone 
             </p>
           </div>
 
-          {/* Stamp scatter area */}
-          <div style={{ minHeight:stampAreaH, position:"relative", padding:"14px 10px 18px", zIndex:1 }}>
+          {/* Stamp scatter area — flex:1 so it fills the passport height */}
+          <div style={{ flex:1, position:"relative", padding:"14px 10px 18px", zIndex:1, minHeight: stampAreaH }}>
             {stamps.length === 0 ? (
               <p style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.08em",color:`rgba(201,168,76,0.2)`,textAlign:"center",paddingTop:28,marginBottom:0 }}>
                 Visit venues and mark them as visited to earn stamps
@@ -969,7 +1009,7 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone 
                     key={String(v.id)}
                     style={{ transform:`translateY(${SCATTER_Y[i] || 0}px)`, flexShrink:0 }}
                   >
-                    <VenueStamp v={v} index={i} isNew={false}/>
+                    <VenueStamp v={v} index={i} isNew={false} onOpen={onOpenVenue}/>
                   </div>
                 ))}
               </div>
@@ -1036,7 +1076,7 @@ export default function MyDetroit({
   return (
     <div>
       {/* Section header + tabs */}
-      <div style={{ background:"var(--c-deep)", padding:"46px 20px 0", borderBottom:"1px solid var(--c-border)" }}>
+      <div style={{ background:"var(--c-deep)", padding:"20px 20px 0", borderBottom:"1px solid var(--c-border)" }}>
         <div style={{ maxWidth:680, margin:"0 auto" }}>
           <p style={{ ...MONO,fontSize:"0.52rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"var(--c-gold)",margin:"0 0 5px" }}>Personal Guide</p>
           <h2 style={{ ...SERIF,fontSize:"clamp(1.8rem,5vw,2.8rem)",fontWeight:400,color:"var(--c-white)",margin:"0 0 4px" }}>Itinerary</h2>
@@ -1057,7 +1097,7 @@ export default function MyDetroit({
 
       {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue}/>}
       {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap}/>}
-      {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)}/>}
+      {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue}/>}
     </div>
   );
 }

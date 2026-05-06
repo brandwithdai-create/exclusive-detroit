@@ -1,0 +1,96 @@
+We need a targeted polish pass. Please do not redesign the whole app. Fix these specific issues.
+
+1. Reduce oversized section headers globally  
+Across all major sections/pages — Explore subpages, Map, Itinerary, About, Hotels/Where to Stay, Things To Do, Settings, etc. — the large header/intro area is taking up too much vertical space.
+
+Please reduce those header blocks to about half their current height.
+
+Keep:
+- page title
+- subtitle if needed
+- back button where applicable
+- enough safe spacing for the back button/tapping
+
+But remove excessive blank space/padding. The top section should feel premium and breathable, not like it takes up 1/4 of the screen.
+
+2. Improve “Mark as Visited” button  
+The current Mark as Visited button looks too generic.
+
+Redesign it to feel more branded and app-like:
+- premium pill button
+- subtle gold border or gold fill state
+- small stamp/check icon
+- smoother pressed state
+- when marked visited, make it feel satisfying: “✓ Visited” or “Stamped in Passport”
+- do not make it look like a plain form button
+
+Keep it clean and luxury.
+
+3. Fix Build My Night image glitches  
+Some Build My Night result cards show missing/blank/glitched images, like Wright & Company.
+
+Please audit result-card image handling:
+- every Build My Night card should show a valid venue image
+- if a venue image is missing, use the existing fallback image system
+- do not allow blank purple/empty blocks
+- confirm cards for Wright & Company, The Monarch Club, Selden Standard, Bad Luck Bar, Prime + Proper, Candy Bar, and other common itinerary picks show correctly
+
+4. Passport book refinement  
+The current passport is closer and the colored stamp idea is good, but it needs to look more like a real open passport book.
+
+Please adjust:
+- Make the passport book/page taller so it fills most of the Passport screen, close to the bottom navigation.
+- It should not look like a short card.
+- Make it feel like an open passport book showing one full page:
+  - left binding/crease
+  - page edge
+  - warm passport paper color
+  - subtle security/watermark lines
+  - faint official/passport texture
+  - soft shadow/depth
+- Keep the colored venue stamps.
+- Make the building drawings inside the stamps more detailed and realistic.
+- Remove any unfinished/truncated venue names inside stamps. If the venue name is too long, abbreviate cleanly so it fits:
+  - Selden Standard → Selden Std.
+  - Wright & Company → Wright & Co.
+  - The Monarch Club → Monarch Club
+- Do not show names ending with “...”
+- Each venue stamp should be clickable and open the venue detail modal.
+
+5. Passport stamp behavior  
+The stamp animation should not play just from opening Passport.
+
+Only trigger stamp animation when:
+- a user marks a venue as visited, and
+- a new venue stamp/badge is earned.
+
+6. Bottom nav stays  
+Keep the bottom nav:
+- Explore
+- Map
+- Itinerary
+- About
+
+Keep icon + label styling. Respect safe area. It should remain easy to use.
+
+7. Testing checklist  
+After implementation, confirm:
+- Global section headers are reduced across all major tabs/pages
+- Back buttons still work and have proper tap spacing
+- Mark as Visited button looks premium
+- Visited state looks premium
+- Build My Night result images all load or use fallback
+- Wright & Company no longer shows a blank/glitched image
+- Passport fills most of the screen vertically
+- Passport looks more like an open passport book
+- Venue names on stamps do not truncate with ellipses
+- Passport stamps are clickable and open venue details
+- Stamp animation only plays when a new stamp is earned
+- Bottom nav still works
+- Light mode works
+- Dark mode works
+- No new APIs
+- No new dependencies unless approved
+- No background calls
+- No console errors
+- Existing Explore, Map, Itinerary, Saved, Passport, About, Settings, venue modals, booking links, and saved functionality still work
