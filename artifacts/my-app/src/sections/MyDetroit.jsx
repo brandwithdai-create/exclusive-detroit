@@ -914,6 +914,15 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
   const [result,  setResult]  = useState(null);
   const [building,setBuilding]= useState(false);
   const [btnPrs,  setBtnPrs]  = useState(false);
+  const resultRef = useRef(null);
+
+  useEffect(() => {
+    if (!result) return;
+    const t = setTimeout(() => {
+      resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+    return () => clearTimeout(t);
+  }, [result]);
 
   function handleBuild() {
     if (building) return;
@@ -1043,7 +1052,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
 
       {/* Results */}
       {!building && result && (
-        <div className="fade-slide-up" style={{ marginTop:28 }}>
+        <div ref={resultRef} className="fade-slide-up" style={{ marginTop:28 }}>
           {result.reason ? (
             <div style={{ textAlign:"center",padding:"20px 0" }}>
               <p style={{ ...SERIF,fontSize:"1rem",fontStyle:"italic",color:"var(--c-smoke)",lineHeight:1.65 }}>
