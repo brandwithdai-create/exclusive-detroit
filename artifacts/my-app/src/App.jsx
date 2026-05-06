@@ -2126,8 +2126,8 @@ React.createElement("span",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300
 
 const inputStyle={background:"transparent",border:"1px solid var(--c-input-bdr)",borderRadius:8,padding:"11px 14px",fontSize:"0.88rem",color:C.white,outline:"none",fontFamily:"'DM Sans',sans-serif",width:"100%",boxSizing:"border-box"};
 const settingsCard=(children)=>React.createElement("div",{style:{background:C.card,border:"1px solid "+C.border,borderRadius:12,overflow:"hidden"}},children);
-const settingsHeader=(label)=>React.createElement("div",{style:{padding:"16px 20px",borderBottom:"1px solid "+C.borderS}},
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.51rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldL,fontWeight:500,margin:0}},label)
+const settingsHeader=(label)=>React.createElement("div",{style:{padding:"13px 20px",borderBottom:"1px solid "+C.borderS}},
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.62rem",letterSpacing:"0.18em",textTransform:"uppercase",color:C.goldL,fontWeight:500,margin:0}},label)
 );
 const Settings=()=>React.createElement("div",null,
 React.createElement("div",{style:{background:C.deep,padding:"12px 22px 12px",borderBottom:"1px solid "+C.border}},
@@ -2137,11 +2137,11 @@ React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 React.createElement("p",{style:{fontSize:"0.82rem",color:C.smoke,margin:0}},"Customize your app experience.")
 )
 ),
-React.createElement("div",{style:{maxWidth:560,margin:"0 auto",padding:"32px 22px 64px",display:"flex",flexDirection:"column",gap:12}},
+React.createElement("div",{style:{maxWidth:560,margin:"0 auto",padding:"22px 22px 64px",display:"flex",flexDirection:"column",gap:10}},
 settingsCard(React.createElement(React.Fragment,null,
 settingsHeader("Appearance"),
-React.createElement("div",{style:{padding:"16px 20px 20px"}},
-React.createElement("p",{style:{fontSize:"0.8rem",color:C.ash,fontWeight:300,lineHeight:1.6,marginBottom:14,margin:"0 0 14px"}},"Choose how the app looks. Auto follows your device setting."),
+React.createElement("div",{style:{padding:"14px 20px 18px"}},
+React.createElement("p",{style:{fontSize:"0.875rem",color:C.ash,fontWeight:300,lineHeight:1.6,marginBottom:14,margin:"0 0 14px"}},"Choose how the app looks. Auto follows your device setting."),
 React.createElement("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
 [["system","◑  Auto"],["light","☀  Light"],["dark","◉  Dark"]].map(function(pair){
 var val=pair[0],lbl=pair[1];
@@ -2159,8 +2159,8 @@ React.createElement("button",{onClick:function(){setSuggestSent(false);setSugges
 ))
 :settingsCard(React.createElement(React.Fragment,null,
 settingsHeader("Suggest a Spot"),
-React.createElement("div",{style:{padding:"16px 20px 20px",display:"flex",flexDirection:"column",gap:12}},
-React.createElement("p",{style:{fontSize:"0.8rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:0}},"Know a hidden gem we're missing? Tell us about it."),
+React.createElement("div",{style:{padding:"14px 20px 18px",display:"flex",flexDirection:"column",gap:11}},
+React.createElement("p",{style:{fontSize:"0.875rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:0}},"Know a hidden gem we're missing? Tell us about it."),
 React.createElement("input",{type:"text",placeholder:"Venue name",value:suggestName,onChange:function(e){setSuggestName(e.target.value);},style:inputStyle}),
 React.createElement("input",{type:"text",placeholder:"Neighborhood (optional)",value:suggestHood,onChange:function(e){setSuggestHood(e.target.value);},style:inputStyle}),
 React.createElement("textarea",{placeholder:"Why should it be on the list?",value:suggestNote,onChange:function(e){setSuggestNote(e.target.value);},rows:3,style:Object.assign({},inputStyle,{resize:"vertical",lineHeight:1.6})}),
@@ -2178,8 +2178,8 @@ style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em
 )),
 settingsCard(React.createElement(React.Fragment,null,
 settingsHeader("Share the App"),
-React.createElement("div",{style:{padding:"16px 20px 20px"}},
-React.createElement("p",{style:{fontSize:"0.8rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:"0 0 16px"}},"If you know, you know — pass the guide to someone who deserves it."),
+React.createElement("div",{style:{padding:"14px 20px 18px"}},
+React.createElement("p",{style:{fontSize:"0.875rem",color:C.ash,fontWeight:300,lineHeight:1.6,margin:"0 0 14px"}},"If you know, you know — pass the guide to someone who deserves it."),
 React.createElement("button",{
 onClick:function(){
 var d={title:"Exclusive Detroit",text:"The insider's guide to Detroit's hidden bars, rooftops & nightlife.",url:"https://www.exclusivedetroitapp.com"};
