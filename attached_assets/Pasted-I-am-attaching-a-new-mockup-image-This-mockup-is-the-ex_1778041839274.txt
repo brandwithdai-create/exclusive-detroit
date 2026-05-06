@@ -1,0 +1,367 @@
+I am attaching a new mockup image. This mockup is the exact final visual direction for the entire Itinerary section. Please recreate the Itinerary tab to match this image as closely as possible. Do not loosely interpret it. The goal is for the app to visually match this mockup.
+
+Important: Do not redesign the entire app outside of the Itinerary section. Keep the existing Explore, Map, About, Settings, venue data, booking links, modals, saved logic, light/dark mode, and overall app structure stable. This is a targeted Itinerary section redesign.
+
+MAIN ITINERARY STRUCTURE
+
+The top navigation remains:
+Explore · Map · Itinerary · About + existing settings gear
+
+Inside Itinerary, there should only be three internal tabs:
+Tonight · Saved · Passport
+
+Remove the For You page completely.
+
+The Itinerary section should match the attached mockup:
+- luxury black/gold dark mode feel
+- refined light mode equivalent
+- stronger app-like interaction
+- less plain web-page feeling
+- more visual polish
+- cleaner cards
+- real passport book page
+- consistent saved-card layout
+- fun but luxury “Build My Night” screen
+
+SCREEN 1 — PASSPORT TAB
+
+This should look like an actual open passport book/page, like the left screen in the mockup.
+
+Layout:
+- Full-screen mobile layout inside the app
+- Itinerary tab selected in top nav
+- Internal Passport tab selected
+- A large passport-book visual fills most of the screen
+- The passport should feel like an open physical passport page, not a simple card
+- Add realistic passport-paper texture using CSS only if possible:
+  - warm cream paper background
+  - subtle grain
+  - faint map/security-line patterns
+  - faint circular passport-style watermark
+  - slightly darker edge/binding on the left
+  - thin dark border around the passport page
+  - rounded page corners
+  - subtle shadow for physical depth
+
+Header inside passport:
+- “DETROIT INSIDER PASSPORT”
+- Large number showing venues visited
+- “4 / 8 stamps earned”
+- Progress bar
+- Small copy: “35% of your first 20 discovered”
+
+Passport stamps:
+The stamps must look like real passport stamps, not bubbles, not badge cards, and not random simple shapes.
+
+Use the recently visited venues as stamp examples:
+- Sexy Steak
+- Adelina
+- Cannelle
+- Hudson Cafe
+- Hiroki-San
+- Babo
+
+Each visited venue should create a venue stamp on the passport page.
+
+Stamp concept:
+When the user marks a venue as visited, use the venue/building identity as the stamp shape. The stamp should visually hint at the building or venue type, then place the venue name in the middle.
+
+Examples:
+- Sexy Steak: red/orange architectural stamp with steakhouse/luxe building outline, venue name centered
+- Adelina: purple/indigo elegant building outline stamp, venue name centered
+- Cannelle: blue café/bakery storefront stamp, venue name centered
+- Hudson Cafe: green classic café/building stamp, venue name centered
+- Hiroki-San: orange/red refined restaurant stamp, venue name centered
+- Babo: teal/blue neighborhood brunch/café building stamp, venue name centered
+
+Stamp details:
+- Each stamp should be a different color.
+- Each stamp should have a different shape.
+- Each stamp should include:
+  - venue name in the center
+  - neighborhood
+  - date-style text
+  - tiny “VISITED” text
+  - tiny serial-style text, example DET-0425-001
+- Use thin ink-like line art.
+- Use slightly faded opacity like real passport ink.
+- Add subtle rotation so the stamps feel naturally stamped.
+- Some stamps can overlap slightly, like a real passport page.
+- Do not use big circular bubbles.
+- Do not use generic badge cards.
+- Do not make it look like floating UI buttons.
+
+Badge stamps:
+If keeping broader achievement stamps, they must be secondary to the venue stamps and styled like real passport ink marks.
+
+Stamp animation:
+Remove the current “Hidden Gem Hunter” animation that appears every time I click Passport. I hate it. It should never play just from opening Passport.
+
+The only time a large stamp animation should happen:
+- User marks a venue as visited
+- A new venue stamp or badge is actually earned
+
+Animation:
+- Large temporary stamp presses onto the screen
+- Should feel like a physical stamp pressing down
+- Then it fades away
+- Then the venue stamp appears on the passport page
+- It should not repeat on every Passport tab open
+- It should not be annoying
+- No new dependency unless approved first
+
+SCREEN 2 — SAVED TAB
+
+The Saved tab should match the middle screen in the mockup.
+
+Current issue:
+Saved spots, saved events, and saved hotel stays look inconsistent. They need to look like one unified system.
+
+Saved layout:
+- Clean light-mode card list exactly like the mockup
+- Internal Saved tab selected
+- Top title section stays consistent with Itinerary
+- Sections:
+  - Saved Spots
+  - Saved Events
+  - Saved Stays
+
+Every saved item should use the same card language:
+- thumbnail image on the left
+- venue/event/hotel title
+- category label
+- neighborhood/location/date detail
+- red heart on the right
+- small arrow on the right
+- rounded card with thin border
+- consistent spacing
+- consistent typography
+- consistent height as much as possible
+
+Saved Spots:
+- show venue image thumbnail
+- title
+- category
+- neighborhood
+- heart
+- arrow
+
+Saved Events:
+- show event image thumbnail
+- event title
+- venue/location
+- date
+- heart
+- arrow or CTA
+
+Saved Stays:
+- show hotel image thumbnail
+- hotel name
+- neighborhood
+- price if available
+- heart
+- arrow / View Rooms
+
+Do not let saved events have huge image cards while saved spots are small list cards. The whole Saved tab must feel organized, consistent, and polished.
+
+SCREEN 3 — TONIGHT TAB / BUILD MY NIGHT
+
+This should match the right screen in the mockup.
+
+Purpose:
+Tonight is not just a plain form. It is the core app-like feature. It should feel like a curated experience builder.
+
+Visual direction:
+- Dark luxury UI
+- Title: “Build My Night ✨”
+- Subtitle: “Answer three questions. We’ll craft the perfect night.”
+- Rebuild button in the top right
+- Three question sections:
+  1. “When are you going out?”
+  2. “Who’s coming?”
+  3. “What’s the energy?”
+- Button chips should have icons like the mockup:
+  - Morning = sunrise icon
+  - Afternoon = sun icon
+  - Evening = moon/star icon
+  - Late Night = crescent moon icon
+  - Just Me = person icon
+  - 2 of Us = two-person icon
+  - Group = group icon
+  - Calm = leaf icon
+  - Chill = smile / easy icon
+  - Elevated = diamond icon
+  - High Energy = lightning icon
+- Selected chip should have gold border and subtle glow.
+- Button press should have subtle scale/tap animation.
+
+Build button:
+- Large pill button
+- Text: “BUILD MY NIGHT ✨”
+- Gold border/glow
+- Should feel interactive and premium
+
+Results:
+The itinerary result should appear as a vertical timeline:
+- number 1, 2, 3 circles on the left
+- gold connecting line
+- result card on the right
+- each result card should include:
+  - small image thumbnail on the left
+  - stop label like DINNER STOP / ELEVATED LOUNGE / AFTER HOURS
+  - venue name
+  - short description
+  - neighborhood/category
+  - save/bookmark icon on the right
+- Results should reveal smoothly after tapping Build My Night.
+- Do not make the result look like plain white cards.
+
+Tonight logic:
+This must be strict and useful. The app cannot recommend venues that do not match what the user selected.
+
+Rules:
+- Morning = breakfast, brunch, coffee, bakeries only.
+- Morning should never show Candy Bar, London Chop House, High Bar, cocktail lounges, or night-only venues unless they are actually open/appropriate in the morning.
+- Afternoon = lunch, cafés, daytime activities, and happy hour only if actually tagged happyHour.
+- Evening = dinner first, then cocktails/lounge/experience.
+- Late Night = late-night food/drinks only, based on actual lateNight tags/hours.
+- Happy Hour = only venues explicitly tagged happyHour.
+- Date Night / 2 of Us + Elevated = upscale, romantic, cute, polished spots. Restaurant first, then lounge/cocktail/after spot.
+- Calm = quiet, intimate, low-noise, relaxed places.
+- Chill = casual, easygoing, sports bars, dive bars, low-pressure neighborhood spots.
+- Elevated = luxury, upscale, date-night, hotel lounge, refined experiences.
+- High Energy = nightlife, party, lively, busy/bumping spots.
+
+Do not use broad fallback that breaks user intent.
+
+If there are not enough matching venues, show fewer results or show:
+“Not enough matching spots for this combination. Try another time or vibe.”
+
+Do not fill the itinerary with wrong venues.
+
+Data tagging:
+If current venue data is not detailed enough, add minimal local tags to existing venue objects only. Do not invent venues.
+
+Suggested tags:
+- morning
+- brunch
+- lunch
+- dinner
+- coffee
+- happyHour
+- lateNight
+- calm
+- chill
+- elevated
+- highEnergy
+- dateNight
+- groupFriendly
+- food
+- drinks
+- rooftop
+- hiddenGem
+- sportsBar
+- diveBar
+
+The itinerary must select based on verified tags.
+
+ONBOARDING / PUSH NOTIFICATION
+
+Remove both current first-launch overlays:
+- “Exclusive Detroit / The insider’s guide to Detroit / Begin”
+- “How do you Detroit?”
+
+Replace with a push notification pre-permission prompt only if it can be done cleanly.
+
+Important:
+Do not immediately trigger the native iOS permission alert when the app opens. Show a custom branded prompt first.
+
+Prompt copy:
+Title:
+“Stay in the know, Detroit.”
+
+Body:
+“Get curated picks, tonight reminders, and exclusive last-minute drops.”
+
+Buttons:
+- “Yes, Notify Me”
+- “Not Now”
+
+If full native push notification setup requires additional Capacitor/iOS work, explain the required files and risks before implementing. The custom UI can be added first, but do not add risky native notification code without approval.
+
+MICROINTERACTIONS
+
+The app should feel more fun and app-like while staying luxury.
+
+Add subtle:
+- button press feedback
+- selected chip glow
+- card reveal animation
+- itinerary result transition
+- save heart tap animation
+- stamp press animation when marking visited
+
+Do not make it cartoonish. Think premium private-members city app.
+
+LIGHT / DARK MODE
+
+All three Itinerary tabs must work in light and dark mode:
+- Tonight
+- Saved
+- Passport
+
+The attached mockup shows dark Passport/Tonight and light Saved examples. Please create equivalent styling for both modes while keeping the same layout.
+
+STABILITY / COST RULES
+
+No paid APIs.
+No live Google Places calls.
+No AI calls.
+No background processes.
+No new dependencies unless approved first.
+Do not break Explore.
+Do not break Map.
+Do not break About.
+Do not break Settings.
+Do not break venue modals.
+Do not break saved functionality.
+Do not break booking links.
+Do not break iPhone/iPad layouts.
+
+BEFORE CODING, CONFIRM
+
+Before writing code, confirm:
+1. Exact files you will touch.
+2. How you will recreate the Passport page to match the mockup.
+3. How venue/building-shaped stamps will be generated.
+4. Whether building-shaped stamps will use CSS/SVG/inline shapes.
+5. How you will stop the Hidden Gem Hunter animation from playing on Passport open.
+6. How Saved cards will be unified.
+7. How Tonight will be redesigned to match the mockup.
+8. How strict venue filtering will be enforced.
+9. What venue tags need to be added.
+10. Any risks.
+
+AFTER CODING, CONFIRM
+
+After implementation, provide a pass/fail checklist:
+- For You removed
+- Tonight/Saved/Passport only
+- Passport resembles an actual passport book/page
+- Venue stamps are building-shaped and different colors
+- Stamps include venue name, neighborhood, date, VISITED, serial-style text
+- Hidden Gem Hunter animation no longer plays on Passport open
+- Stamp animation only plays when a new venue/stamp is earned
+- Saved Spots, Saved Events, and Saved Stays use consistent card design
+- Tonight matches the attached mockup
+- Build My Night uses strict filtering
+- Morning only shows morning-appropriate venues
+- Happy Hour only shows real happy hour venues
+- Date Night/Elevated gives food first and appropriate date-friendly venues
+- Light mode works
+- Dark mode works
+- No paid APIs
+- No new dependencies unless approved
+- No background calls
+- No console errors
+- Existing Explore, Map, About, Settings, venue modals, booking links, and saved functionality still work
