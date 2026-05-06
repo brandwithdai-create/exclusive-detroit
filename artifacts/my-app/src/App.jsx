@@ -1015,17 +1015,16 @@ React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize
 });
 
 // VENUE CARD FOOTER STAMP SYSTEM
-// Colorful passport-style stamps for venue cards. Separate from passport book.
-// 8 stamp shapes × 10 category icons × 8 ink colors = huge variety.
+// Passport-style stamps for venue cards — matches VenueStamp aesthetic (smaller).
 const CARD_STAMP_PALETTE=[
-  {hex:"#C0463A",rgb:"192,70,58"},   // vermillion
-  {hex:"#6B4DA0",rgb:"107,77,160"},  // violet
-  {hex:"#3A6B9B",rgb:"58,107,155"},  // steel blue
-  {hex:"#3A7A3A",rgb:"58,122,58"},   // forest
-  {hex:"#C06B2A",rgb:"192,107,42"},  // amber
-  {hex:"#2A7A8A",rgb:"42,122,138"},  // teal
-  {hex:"#8B3A6B",rgb:"139,58,107"},  // plum
-  {hex:"#6B5A2A",rgb:"107,90,42"},   // gold-brown
+  {hex:"#C0463A",rgb:"192,70,58"},
+  {hex:"#6B4DA0",rgb:"107,77,160"},
+  {hex:"#3A6B9B",rgb:"58,107,155"},
+  {hex:"#3A7A3A",rgb:"58,122,58"},
+  {hex:"#C06B2A",rgb:"192,107,42"},
+  {hex:"#2A7A8A",rgb:"42,122,138"},
+  {hex:"#8B3A6B",rgb:"139,58,107"},
+  {hex:"#6B5A2A",rgb:"107,90,42"},
 ];
 const CARD_CAT_ICON={
   "Cocktail Lounges":6,
@@ -1044,97 +1043,33 @@ const CARD_CAT_ICON={
 function CardStamp({venue,date}){
 const n=parseInt(String(venue.id).replace(/\D/g,""))||0;
 const{hex,rgb}=CARD_STAMP_PALETTE[n%CARD_STAMP_PALETTE.length];
-const shape=n%8;
-const iconIdx=CARD_CAT_ICON[venue.cat]!==undefined?CARD_CAT_ICON[venue.cat]:n%10;
-const fill=`rgba(${rgb},0.15)`;
-const sk=`rgba(${rgb},0.78)`;
-const skD=`rgba(${rgb},0.62)`;
-const inn=`rgba(${rgb},0.26)`;
+const rot=[-3,2,-4,3,-2,4,-3,2][n%8];
 const dateStr=date?date.split(",")[0].slice(0,9).toUpperCase():"";
-// 10 category-aware mini icons (28×18 coordinate space)
+const iconIdx=CARD_CAT_ICON[venue.cat]!==undefined?CARD_CAT_ICON[venue.cat]:n%10;
 const ICONS=[
-  // 0: classic venue front
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round",strokeLinejoin:"round"},
-    React.createElement("rect",{x:4,y:7,width:20,height:11}),React.createElement("rect",{x:8,y:10,width:3,height:5}),
-    React.createElement("rect",{x:17,y:10,width:3,height:5}),React.createElement("path",{d:"M3 7 L14 2 L25 7"})
-  ),
-  // 1: art deco tower
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round"},
-    React.createElement("rect",{x:11,y:1,width:6,height:17}),React.createElement("rect",{x:7,y:9,width:14,height:9}),
-    React.createElement("line",{x1:14,y1:0,x2:14,y2:1,strokeWidth:1.5}),React.createElement("line",{x1:9,y1:9,x2:9,y2:18}),React.createElement("line",{x1:19,y1:9,x2:19,y2:18})
-  ),
-  // 2: arch/colonnade
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round"},
-    React.createElement("rect",{x:2,y:1,width:24,height:4}),
-    React.createElement("path",{d:"M5,18 L5,10 Q5,5 9,5 Q13,5 13,10 L13,18"}),React.createElement("path",{d:"M15,18 L15,10 Q15,5 19,5 Q23,5 23,10 L23,18"})
-  ),
-  // 3: brownstone townhouse
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round"},
-    React.createElement("rect",{x:4,y:5,width:20,height:13}),React.createElement("rect",{x:8,y:9,width:4,height:6}),
-    React.createElement("rect",{x:16,y:9,width:4,height:6}),React.createElement("path",{d:"M3 5 L14 1 L25 5"})
-  ),
-  // 4: cocktail lounge emblem
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round"},
-    React.createElement("path",{d:"M4,2 L14,11 L24,2"}),React.createElement("line",{x1:14,y1:11,x2:14,y2:18}),
-    React.createElement("line",{x1:8,y1:18,x2:20,y2:18}),React.createElement("ellipse",{cx:14,cy:7,rx:3,ry:2,opacity:.45})
-  ),
-  // 5: detroit skyline silhouette
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round",strokeLinejoin:"round"},
-    React.createElement("polyline",{points:"1,18 1,11 4,11 4,5 6,5 6,11 9,11 9,7 13,7 13,11 15,11 15,3 17,3 17,11 21,11 21,8 24,8 24,11 27,11 27,18"}),
-    React.createElement("line",{x1:0,y1:18,x2:28,y2:18})
-  ),
-  // 6: martini/cocktail glass (Cocktail Lounges, Hidden Bars)
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round",strokeLinejoin:"round"},
-    React.createElement("path",{d:"M3,3 L25,3 L14,14 L14,18"}),React.createElement("line",{x1:9,y1:18,x2:19,y2:18}),
-    React.createElement("ellipse",{cx:14,cy:8,rx:5,ry:2,opacity:.35,strokeWidth:.65})
-  ),
-  // 7: coffee cup (Coffee Shops, Breakfast)
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round"},
-    React.createElement("path",{d:"M4,8 L4,17 Q4,20 8,20 L18,20 Q22,20 22,17 L22,8 Z"}),
-    React.createElement("path",{d:"M22,11 Q27,11 27,15 Q27,19 22,19"}),React.createElement("line",{x1:4,y1:8,x2:22,y2:8}),
-    React.createElement("path",{d:"M9,5 Q9,2 12,2 Q12,5 15,5 Q15,2 18,2",strokeWidth:.6,opacity:.48})
-  ),
-  // 8: sunrise/rooftop (Rooftops)
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round"},
-    React.createElement("path",{d:"M2,16 Q2,9 14,9 Q26,9 26,16"}),React.createElement("line",{x1:14,y1:6,x2:14,y2:3}),
-    React.createElement("line",{x1:21,y1:8,x2:24,y2:5,opacity:.7}),React.createElement("line",{x1:7,y1:8,x2:4,y2:5,opacity:.7}),
-    React.createElement("line",{x1:0,y1:16,x2:28,y2:16,strokeWidth:.55,opacity:.4})
-  ),
-  // 9: trophy (Sports Bars)
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1,strokeLinecap:"round"},
-    React.createElement("path",{d:"M9,2 L9,12 Q9,18 14,18 Q19,18 19,12 L19,2 Z"}),
-    React.createElement("path",{d:"M9,6 Q5,6 5,10 Q5,14 9,14"}),React.createElement("path",{d:"M19,6 Q23,6 23,10 Q23,14 19,14"}),
-    React.createElement("line",{x1:11,y1:18,x2:17,y2:18}),React.createElement("rect",{x:10,y:18,width:8,height:2.5,rx:.5})
-  ),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round",strokeLinejoin:"round"},React.createElement("rect",{x:4,y:7,width:20,height:11}),React.createElement("rect",{x:8,y:10,width:3,height:5}),React.createElement("rect",{x:17,y:10,width:3,height:5}),React.createElement("path",{d:"M3 7 L14 2 L25 7"})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("rect",{x:11,y:2,width:6,height:16}),React.createElement("rect",{x:7,y:10,width:14,height:8}),React.createElement("line",{x1:14,y1:0,x2:14,y2:2})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("rect",{x:2,y:1,width:24,height:4}),React.createElement("path",{d:"M5,18 L5,10 Q5,5 9,5 Q13,5 13,10 L13,18"}),React.createElement("path",{d:"M15,18 L15,10 Q15,5 19,5 Q23,5 23,10 L23,18"})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("rect",{x:4,y:5,width:20,height:13}),React.createElement("rect",{x:8,y:9,width:4,height:6}),React.createElement("rect",{x:16,y:9,width:4,height:6}),React.createElement("path",{d:"M3 5 L14 1 L25 5"})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M4,2 L14,11 L24,2"}),React.createElement("line",{x1:14,y1:11,x2:14,y2:18}),React.createElement("line",{x1:8,y1:18,x2:20,y2:18})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round",strokeLinejoin:"round"},React.createElement("polyline",{points:"1,18 1,11 4,11 4,5 6,5 6,11 9,11 9,7 13,7 13,11 15,11 15,3 17,3 17,11 21,11 21,8 24,8 24,11 27,11 27,18"}),React.createElement("line",{x1:0,y1:18,x2:28,y2:18})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M3,3 L25,3 L14,14 L14,18"}),React.createElement("line",{x1:9,y1:18,x2:19,y2:18})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M4,8 L4,17 Q4,20 8,20 L18,20 Q22,20 22,17 L22,8 Z"}),React.createElement("path",{d:"M22,11 Q27,11 27,15 Q27,19 22,19"}),React.createElement("line",{x1:4,y1:8,x2:22,y2:8})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M2,16 Q2,9 14,9 Q26,9 26,16"}),React.createElement("line",{x1:14,y1:6,x2:14,y2:3})),
+  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M9,2 L9,12 Q9,18 14,18 Q19,18 19,12 L19,2 Z"}),React.createElement("path",{d:"M9,6 Q5,6 5,10 Q5,14 9,14"}),React.createElement("path",{d:"M19,6 Q23,6 23,10 Q23,14 19,14"})),
 ][iconIdx%10];
-// Pre-compute hexagon points for shape 6
-const hPts="30,3 52.5,16 52.5,42 30,55 7.5,42 7.5,16";
-const hIn ="30,10 46.5,19.5 46.5,38.5 30,48 13.5,38.5 13.5,19.5";
-// Stamp shape configs: [w, h, viewBox, frameEl, iconX, iconY, visitedY, dateY]
-const cfgs=[
-  // 0: embassy circle
-  [62,62,"0 0 62 62",React.createElement(React.Fragment,null,React.createElement("circle",{cx:31,cy:31,r:28,fill,stroke:skD,strokeWidth:1.5,strokeDasharray:"3 2"}),React.createElement("circle",{cx:31,cy:31,r:22,fill:"none",stroke:inn,strokeWidth:.5})),2,10,46,55],
-  // 1: landscape entry rectangle
-  [82,54,"0 0 82 54",React.createElement(React.Fragment,null,React.createElement("rect",{x:2,y:2,width:78,height:50,rx:4,fill,stroke:sk,strokeWidth:1.2}),React.createElement("line",{x1:2,y1:10,x2:10,y2:10,stroke:inn,strokeWidth:.5}),React.createElement("line",{x1:72,y1:10,x2:80,y2:10,stroke:inn,strokeWidth:.5}),React.createElement("line",{x1:2,y1:44,x2:10,y2:44,stroke:inn,strokeWidth:.5}),React.createElement("line",{x1:72,y1:44,x2:80,y2:44,stroke:inn,strokeWidth:.5})),27,9,38,48],
-  // 2: square museum seal
-  [60,60,"0 0 60 60",React.createElement(React.Fragment,null,React.createElement("rect",{x:2,y:2,width:56,height:56,rx:7,fill,stroke:skD,strokeWidth:1.5,strokeDasharray:"3 2"}),React.createElement("rect",{x:7,y:7,width:46,height:46,rx:4,fill:"none",stroke:inn,strokeWidth:.5})),16,10,44,53],
-  // 3: shield / embassy crest
-  [56,64,"0 0 56 64",React.createElement("path",{d:"M4,4 L52,4 L52,40 Q52,60 28,62 Q4,60 4,40 Z",fill,stroke:sk,strokeWidth:1.2}),14,8,46,57],
-  // 4: octagon vintage seal
-  [60,60,"0 0 60 60",React.createElement(React.Fragment,null,React.createElement("polygon",{points:"18,2 42,2 58,18 58,42 42,58 18,58 2,42 2,18",fill,stroke:skD,strokeWidth:1.5,strokeDasharray:"3 2"}),React.createElement("polygon",{points:"20,6 40,6 54,20 54,40 40,54 20,54 6,40 6,20",fill:"none",stroke:inn,strokeWidth:.5})),16,11,44,53],
-  // 5: landscape boutique oval
-  [76,54,"0 0 76 54",React.createElement(React.Fragment,null,React.createElement("ellipse",{cx:38,cy:27,rx:35,ry:24,fill,stroke:skD,strokeWidth:1.5,strokeDasharray:"4 2"}),React.createElement("ellipse",{cx:38,cy:27,rx:28,ry:17,fill:"none",stroke:inn,strokeWidth:.5})),24,9,39,48],
-  // 6: hexagon (new)
-  [62,58,"0 0 62 58",React.createElement(React.Fragment,null,React.createElement("polygon",{points:hPts,fill,stroke:sk,strokeWidth:1.3}),React.createElement("polygon",{points:hIn,fill:"none",stroke:inn,strokeWidth:.5})),17,11,42,51],
-  // 7: portrait rectangle (new)
-  [52,70,"0 0 52 70",React.createElement(React.Fragment,null,React.createElement("rect",{x:2,y:2,width:48,height:66,rx:5,fill,stroke:sk,strokeWidth:1.2}),React.createElement("rect",{x:7,y:7,width:38,height:56,rx:3,fill:"none",stroke:inn,strokeWidth:.5})),12,11,52,62],
-][shape];
-const[w,h,vb,frame,ix,iy,ty,dy]=cfgs;
-return React.createElement("svg",{width:w,height:h,viewBox:vb,style:{flexShrink:0,filter:`drop-shadow(0 1px 5px rgba(${rgb},0.28))`}},
-  frame,
-  React.createElement("g",{transform:`translate(${ix},${iy})`},ICONS),
-  React.createElement("text",{x:"50%",y:ty,textAnchor:"middle",fontFamily:"'DM Mono',monospace",fontSize:5.5,letterSpacing:.85,fill:hex,fontWeight:"600"},"VISITED"),
-  dateStr&&React.createElement("text",{x:"50%",y:dy,textAnchor:"middle",fontFamily:"'DM Mono',monospace",fontSize:4,letterSpacing:.25,fill:hex,opacity:.62},dateStr)
+return React.createElement("div",{style:{
+  width:48,height:54,flexShrink:0,
+  display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
+  background:`radial-gradient(ellipse at 50% 40%, rgba(${rgb},0.28) 0%, rgba(${rgb},0.09) 55%, transparent 82%)`,
+  borderRadius:3,transform:`rotate(${rot}deg)`,
+  position:"relative",overflow:"hidden",boxSizing:"border-box",
+  filter:`drop-shadow(0 0 6px rgba(${rgb},0.30))`,
+}},
+  React.createElement("div",{style:{position:"absolute",inset:2,borderRadius:2,border:`1.2px dashed rgba(${rgb},0.52)`,pointerEvents:"none"}}),
+  React.createElement("svg",{width:28,height:20,viewBox:"0 0 28 20",style:{overflow:"visible",marginBottom:1,opacity:.88}},ICONS),
+  React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.26rem",letterSpacing:"0.18em",color:hex,opacity:.72,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
+  dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.05em",color:hex,opacity:.44,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
 );}
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
@@ -1810,7 +1745,7 @@ setFavs(removing?cur.filter(f=>f!==sid):[...cur,sid]);
 showToast(removing?"Removed from saves":"♥ Saved to your list");
 },[showToast]);
 const isVisited=useCallback(id=>visited.includes(String(id)),[visited]);
-const toggleVisited=useCallback(id=>{const sid=String(id);const removing=visited.includes(sid);setVisited(prev=>removing?prev.filter(x=>x!==sid):[...prev,sid]);if(!removing){const d=new Date();setVisitedDates(prev=>({...prev,[sid]:d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}).toUpperCase()}));}else{setVisitedDates(prev=>{const n={...prev};delete n[sid];return n;});}showToast(removing?"Removed from visited":"\u2713 Stamped in Passport");},[visited,showToast]);
+const toggleVisited=useCallback(id=>{const sid=String(id);const removing=visited.includes(sid);setVisited(prev=>removing?prev.filter(x=>x!==sid):[...prev,sid]);if(!removing){const d=new Date();setVisitedDates(prev=>({...prev,[sid]:d.toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}).toUpperCase()}));}else{setVisitedDates(prev=>{const n={...prev};delete n[sid];return n;});};},[visited]);
 const getVisitedDate=useCallback(id=>visitedDates[String(id)]||null,[visitedDates]);
 const savePlan=useCallback(plan=>{setSavedPlans(prev=>[{...plan,id:Date.now()+"p",savedAt:new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"})},...prev.slice(0,19)]);showToast("\u2728 Night saved");},[showToast]);
 const deletePlan=useCallback(id=>{setSavedPlans(prev=>prev.filter(p=>String(p.id)!==String(id)));},[]);

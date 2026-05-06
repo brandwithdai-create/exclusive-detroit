@@ -546,135 +546,30 @@ function StampIconSVG({ cat, ink }) {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Stamp frame shapes — 10 unique outlines with authentic ink roughness filter
-// ─────────────────────────────────────────────────────────────────────────────
-const STAMP_DIMS = [
-  {w:96,  h:96 }, // 0: circle
-  {w:140, h:82 }, // 1: landscape rounded rect
-  {w:112, h:100}, // 2: diamond
-  {w:110, h:100}, // 3: hexagon
-  {w:142, h:80 }, // 4: wide oval
-  {w:98,  h:120}, // 5: portrait rounded rect
-  {w:106, h:106}, // 6: octagon
-  {w:92,  h:114}, // 7: tall oval
-  {w:108, h:110}, // 8: arch / shield
-  {w:112, h:100}, // 9: squircle
-];
-
-function StampOutline({ shape, w, h, ink, seed }) {
-  const fId = `ink-${seed}`;
-  const s1 = { stroke:ink, fill:"none", strokeWidth:1.55, strokeLinecap:"round", strokeLinejoin:"round" };
-  const s2 = { stroke:ink, fill:"none", strokeWidth:0.65, strokeLinecap:"round", strokeLinejoin:"round" };
-  let inner;
-  switch(shape) {
-    case 0:
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <circle cx={w/2} cy={h/2} r={w/2-5} style={s1}/>
-          <circle cx={w/2} cy={h/2} r={w/2-13} style={{...s2,strokeDasharray:"4 3"}}/>
-        </g>
-      ); break;
-    case 1:
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <rect x={5} y={5} width={w-10} height={h-10} rx={10} style={s1}/>
-          <rect x={11} y={11} width={w-22} height={h-22} rx={7} style={s2}/>
-        </g>
-      ); break;
-    case 2:
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <path d={`M${w/2},5 L${w-5},${h/2} L${w/2},${h-5} L5,${h/2} Z`} style={s1}/>
-          <path d={`M${w/2},16 L${w-16},${h/2} L${w/2},${h-16} L16,${h/2} Z`} style={s2}/>
-        </g>
-      ); break;
-    case 3: {
-      const cx=w/2, cy=h/2, r=Math.min(w,h)/2-5, r2=r-10;
-      const pts  = Array.from({length:6},(_,i)=>{const a=(i*60-30)*Math.PI/180;return `${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`;}).join(" ");
-      const pts2 = Array.from({length:6},(_,i)=>{const a=(i*60-30)*Math.PI/180;return `${(cx+r2*Math.cos(a)).toFixed(1)},${(cy+r2*Math.sin(a)).toFixed(1)}`;}).join(" ");
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <polygon points={pts} style={s1}/>
-          <polygon points={pts2} style={s2}/>
-        </g>
-      ); break;
-    }
-    case 4:
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <ellipse cx={w/2} cy={h/2} rx={w/2-5} ry={h/2-4} style={s1}/>
-          <ellipse cx={w/2} cy={h/2} rx={w/2-13} ry={h/2-11} style={{...s2,strokeDasharray:"3 3"}}/>
-        </g>
-      ); break;
-    case 5:
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <rect x={5} y={5} width={w-10} height={h-10} rx={13} style={s1}/>
-          <rect x={12} y={12} width={w-24} height={h-24} rx={9} style={s2}/>
-        </g>
-      ); break;
-    case 6: {
-      const tr=Math.round(Math.min(w,h)*0.195);
-      const pts =`${tr},3 ${w-tr},3 ${w-3},${tr} ${w-3},${h-tr} ${w-tr},${h-3} ${tr},${h-3} 3,${h-tr} 3,${tr}`;
-      const t2=tr+9;
-      const pts2=`${t2},11 ${w-t2},11 ${w-11},${t2} ${w-11},${h-t2} ${w-t2},${h-11} ${t2},${h-11} 11,${h-t2} 11,${t2}`;
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <polygon points={pts} style={s1}/>
-          <polygon points={pts2} style={s2}/>
-        </g>
-      ); break;
-    }
-    case 7:
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <ellipse cx={w/2} cy={h/2} rx={w/2-5} ry={h/2-5} style={s1}/>
-          <ellipse cx={w/2} cy={h/2} rx={w/2-13} ry={h/2-13} style={{...s2,strokeDasharray:"3 2"}}/>
-        </g>
-      ); break;
-    case 8: {
-      const cx=w/2, qy=(h*0.44).toFixed(1), qy2=(h*0.45).toFixed(1);
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <path d={`M6,${h-5} L6,${qy} Q6,5 ${cx},5 Q${w-6},5 ${w-6},${qy} L${w-6},${h-5} Z`} style={s1}/>
-          <path d={`M13,${h-11} L13,${qy2} Q13,13 ${cx},13 Q${w-13},13 ${w-13},${qy2} L${w-13},${h-11} Z`} style={s2}/>
-        </g>
-      ); break;
-    }
-    default:
-      inner = (
-        <g filter={`url(#${fId})`}>
-          <rect x={5} y={5} width={w-10} height={h-10} rx={20} style={s1}/>
-          <rect x={12} y={12} width={w-24} height={h-24} rx={14} style={s2}/>
-        </g>
-      );
-  }
-  return (
-    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{position:"absolute",inset:0,overflow:"visible",pointerEvents:"none"}}>
-      <defs>
-        <filter id={fId} x="-8%" y="-8%" width="116%" height="116%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed={seed} result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
-        </filter>
-      </defs>
-      {inner}
-    </svg>
-  );
-}
-
+// (StampOutline removed — old dashed-card design uses div borders instead)
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Stamp color + rotation helpers
 // ─────────────────────────────────────────────────────────────────────────────
-// Vintage ink colors — authentic passport stamp palette
-const STAMP_INKS = ["#1C2B6E","#7A1C1C","#2A4A0C","#0C3A3A","#38186A","#4A1E06","#1A3158","#1C3A1C"];
-const STAMP_ROTS = [-7,5,-4,8,-9,3,-6,7,-2,6,-8,4,-5,9,-3,6];
+const STAMP_PALETTE = [
+  { hex:"#C0463A", rgb:"192,70,58"   },
+  { hex:"#6B4DA0", rgb:"107,77,160"  },
+  { hex:"#3A6B9B", rgb:"58,107,155"  },
+  { hex:"#3A7A3A", rgb:"58,122,58"   },
+  { hex:"#C06B2A", rgb:"192,107,42"  },
+  { hex:"#2A7A8A", rgb:"42,122,138"  },
+  { hex:"#8B3A6B", rgb:"139,58,107"  },
+  { hex:"#6B5A2A", rgb:"107,90,42"   },
+];
+const STAMP_ROTS = [-6,4,-3,7,-8,2,-5,6,-2,5,-7,3];
 
 // Y scatter offsets — organic vertical offset for each stamp slot
 const SCATTER_Y = [0,-14,8,-6,14,-10,4,-18,6,-12,2,-8,10,-4,16,-10];
 
-function getStampInk(n) { return STAMP_INKS[n % STAMP_INKS.length]; }
+function getStampStyle(v) {
+  const n = parseInt(String(v.id).replace(/\D/g,"")) || 0;
+  return { ...STAMP_PALETTE[n % STAMP_PALETTE.length], rot: STAMP_ROTS[n % STAMP_ROTS.length] };
+}
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -697,69 +592,93 @@ const CAT_SHORT = {
 const ORNS = ["★","✦","◆","✿"];
 
 // ─────────────────────────────────────────────────────────────────────────────
-// VenueStamp — ink-on-paper passport stamp, unique per venue
+// VenueStamp — dashed-card passport stamp with colored fill, unique per venue
 // ─────────────────────────────────────────────────────────────────────────────
 function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
+  const { hex, rgb, rot } = getStampStyle(v);
   const n = parseInt(String(v.id).replace(/\D/g,"")) || 0;
-  const ink = getStampInk(n);
-  const rot = STAMP_ROTS[n % STAMP_ROTS.length];
-  const catArr = CAT_BUILDING[v.cat] || ["classic"];
-  const btype = catArr[n % catArr.length];
-  const date = propDate || "VISITED";
+  const catTypes = CAT_BUILDING[v.cat] || ["classic"];
+  const typeArr = Array.isArray(catTypes) ? catTypes : [catTypes];
+  const btype = typeArr[n % typeArr.length];
+  const catLabel = CAT_SHORT[v.cat] || v.cat?.toUpperCase() || "DETROIT";
+  const serial = "DET-" + String(v.id).padStart(4,"0");
+  const date   = propDate || "VISITED";
+  const orn = ORNS[n % ORNS.length];
 
-  // 3 classic stamp frame shapes — cycle by venue id
-  const shape = n % 3; // 0=landscape rect, 1=portrait rect, 2=oval
-  const w = shape===1 ? 118 : 154;
-  const h = shape===1 ? 130 : shape===2 ? 88 : 94;
-  const isPortrait = shape === 1;
-  const isOval = shape === 2;
-  const svgScale = isPortrait ? 0.74 : 0.67;
+  // 3 layout shapes cycling by index position
+  const shape = index % 3; // 0=landscape, 1=portrait, 2=square
+  const w = shape === 1 ? 120 : shape === 2 ? 130 : 158;
+  const h = shape === 1 ? 126 : shape === 2 ? 122 : 98;
+  const svgScale = shape === 1 ? 0.78 : shape === 2 ? 0.84 : 0.74;
+  const bv = n % 2; // border variant: 0=single dashed, 1=double dashed
 
   return (
     <div
       className={isNew ? "stamp-press" : undefined}
       onClick={() => onOpen && onOpen(String(v.id))}
       style={{
-        width:w, height:h, flexShrink:0, position:"relative",
-        color:ink,
-        transform:`rotate(${rot}deg) translate(${((n*7)%9)-4}px,${((n*13)%7)-3}px)`,
+        width:w, height:h, flexShrink:0,
+        display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
+        background:`radial-gradient(ellipse at 50% 40%, rgba(${rgb},0.30) 0%, rgba(${rgb},0.10) 55%, transparent 82%)`,
+        borderRadius:4, transform:`rotate(${rot}deg)`,
+        padding:"5px 8px 6px",
+        position:"relative", overflow:"hidden", boxSizing:"border-box",
+        color: hex,
+        filter:`drop-shadow(0 0 10px rgba(${rgb},0.38))`,
         cursor: onOpen ? "pointer" : "default",
       }}
     >
-      {/* Clean double-border frame — no fill, no glow, pure ink outline */}
-      <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{position:"absolute",inset:0,pointerEvents:"none"}}>
-        {isOval ? (
-          <>
-            <ellipse cx={w/2} cy={h/2} rx={w/2-5} ry={h/2-4} fill="none" stroke={ink} strokeWidth={1.4}/>
-            <ellipse cx={w/2} cy={h/2} rx={w/2-13} ry={h/2-11} fill="none" stroke={ink} strokeWidth={0.5} strokeDasharray="4 3" opacity={0.50}/>
-          </>
-        ) : (
-          <>
-            <rect x={4} y={4} width={w-8} height={h-8} rx="7" fill="none" stroke={ink} strokeWidth={1.4}/>
-            <rect x={10} y={10} width={w-20} height={h-20} rx="4" fill="none" stroke={ink} strokeWidth={0.5} opacity={0.46}/>
-          </>
-        )}
-      </svg>
-      {/* Content — building illustration + minimal text */}
-      <div style={{
-        position:"absolute", inset:0,
-        display:"flex", flexDirection:"column",
-        alignItems:"center", justifyContent:"center",
-        boxSizing:"border-box",
-        padding: isPortrait ? "18px 10px" : isOval ? "10px 22px" : "10px 18px",
-        gap:2, textAlign:"center",
-      }}>
-        <div style={{lineHeight:0, opacity:0.88, transform:`scale(${svgScale})`, transformOrigin:"center", marginBottom: isPortrait ? 1 : -2}}>
+      {/* Diagonal watermark */}
+      <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-16deg)",...MONO,fontSize:"0.20rem",letterSpacing:"0.28em",color:`rgba(${rgb},0.06)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none",zIndex:0 }}>
+        EXCLUSIVE DETROIT
+      </span>
+
+      {/* Outer dashed border */}
+      <div style={{ position:"absolute",inset:3,borderRadius:3,border:`1.5px dashed rgba(${rgb},0.55)`,pointerEvents:"none",zIndex:0 }}/>
+
+      {/* Double dashed inner border (variant 1) */}
+      {bv === 1 && <div style={{ position:"absolute",inset:7,borderRadius:2,border:`1px dashed rgba(${rgb},0.22)`,pointerEvents:"none",zIndex:0 }}/>}
+
+      <div style={{ position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:shape===1?2:1,width:"100%" }}>
+
+        {/* EXCLUSIVE DETROIT header */}
+        <div style={{ ...MONO,fontSize:"0.26rem",letterSpacing:"0.28em",color:hex,opacity:.52,textTransform:"uppercase",textAlign:"center",marginBottom:1 }}>
+          {orn} EXCLUSIVE DETROIT {orn}
+        </div>
+
+        {/* Building illustration */}
+        <div style={{ opacity:.86, lineHeight:0, transform:`scale(${svgScale})`, transformOrigin:"center", marginBottom:-1 }}>
           <BuildingSVG type={btype}/>
         </div>
-        <div style={{...SERIF, fontSize:isPortrait?"0.90rem":"0.80rem", fontWeight:700, color:ink, lineHeight:1.1, textTransform:"uppercase", letterSpacing:"0.03em"}}>
+
+        {/* Venue name */}
+        <div style={{ ...SERIF,fontSize:shape===1?"0.88rem":"0.82rem",fontWeight:700,color:hex,lineHeight:1.05,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.02em",marginTop:shape===1?2:1 }}>
           {stampName(v.name)}
         </div>
-        <div style={{...MONO, fontSize:"0.33rem", letterSpacing:"0.14em", color:ink, opacity:0.66, textTransform:"uppercase"}}>
+
+        {/* Neighborhood */}
+        <div style={{ ...MONO,fontSize:"0.38rem",letterSpacing:"0.14em",color:hex,opacity:.72,textTransform:"uppercase",textAlign:"center" }}>
           {v.hood.toUpperCase()}
         </div>
-        <div style={{...MONO, fontSize:"0.28rem", letterSpacing:"0.07em", color:ink, opacity:0.48}}>
+
+        {/* Category */}
+        <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.10em",color:hex,opacity:.46,textTransform:"uppercase",textAlign:"center" }}>
+          ✦ {catLabel} ✦
+        </div>
+
+        {/* VISITED */}
+        <div style={{ ...MONO,fontSize:"0.30rem",letterSpacing:"0.12em",color:hex,opacity:.62,textTransform:"uppercase" }}>
+          VISITED
+        </div>
+
+        {/* Date */}
+        <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.07em",color:hex,opacity:.40 }}>
           {date}
+        </div>
+
+        {/* Serial */}
+        <div style={{ ...MONO,fontSize:"0.24rem",letterSpacing:"0.06em",color:hex,opacity:.26 }}>
+          {serial}
         </div>
       </div>
     </div>
@@ -770,44 +689,82 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
 // Stamp overlay — full-screen press animation (only when newly earned)
 // ─────────────────────────────────────────────────────────────────────────────
 function StampOverlay({ venue, onDone }) {
+  const { hex, rgb, rot } = getStampStyle(venue);
   const n = parseInt(String(venue.id).replace(/\D/g,"")) || 0;
-  const ink = getStampInk(n);
-  const rot = STAMP_ROTS[n % STAMP_ROTS.length];
-  const shape = n % 10;
-  const { w: sw, h: sh } = STAMP_DIMS[shape];
-  const scale = Math.min(280/sw, 240/sh);
-  const W = Math.round(sw*scale), H = Math.round(sh*scale);
+  const catTypesO = CAT_BUILDING[venue.cat] || ["classic"];
+  const typeArrO = Array.isArray(catTypesO) ? catTypesO : [catTypesO];
+  const btype = typeArrO[n % typeArrO.length];
+  const orn = ORNS[n % ORNS.length];
+  const serial = "DET-" + String(venue.id).padStart(4,"0");
   const catLabel = CAT_SHORT[venue.cat] || venue.cat?.toUpperCase() || "DETROIT";
-  const today = new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}).toUpperCase();
-  useEffect(() => { const t = setTimeout(onDone, 2800); return () => clearTimeout(t); }, [onDone]);
-  const isLandscape = shape===1||shape===4;
-  const isPortrait  = shape===5||shape===7;
+  useEffect(() => { const t = setTimeout(onDone, 2900); return () => clearTimeout(t); }, [onDone]);
   return (
-    <div style={{position:"fixed",inset:0,zIndex:9990,display:"flex",alignItems:"center",justifyContent:"center",pointerEvents:"none",background:"rgba(6,4,2,0.70)"}}>
-      <div className="stamp-overlay-press" style={{position:"relative",width:W,height:H,transform:`rotate(${rot*0.6}deg)`}}>
-        <StampOutline shape={shape} w={W} h={H} ink={ink} seed={n+100}/>
-        <div style={{
-          position:"absolute", inset:0, display:"flex", flexDirection:"column",
-          alignItems:"center", justifyContent:"center", gap:5, textAlign:"center",
-          padding: isLandscape ? "10px 24px" : isPortrait ? "20px 12px" : "14px",
-        }}>
-          <div style={{...MONO,fontSize:"0.34rem",letterSpacing:"0.22em",textTransform:"uppercase",color:ink,opacity:0.68}}>
-            ✦ EXCLUSIVE DETROIT ✦
+    <div style={{ position:"fixed",inset:0,zIndex:9990,display:"flex",alignItems:"center",justifyContent:"center",pointerEvents:"none",background:"rgba(5,3,1,0.65)" }}>
+      <div className="stamp-overlay-press" style={{
+        display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",
+        width:268, minHeight:0,
+        border:`2px dashed rgba(${rgb},0.82)`,
+        boxShadow:`0 0 0 6px rgba(${rgb},0.07), 0 0 0 11px rgba(${rgb},0.03), 0 0 56px rgba(${rgb},0.26)`,
+        background:`radial-gradient(ellipse at 48% 38%, rgba(${rgb},0.28) 0%, rgba(7,4,1,0.98) 72%)`,
+        borderRadius:6, transform:`rotate(${rot}deg)`, padding:"14px 20px 16px", position:"relative", overflow:"hidden",
+        color: hex,
+        filter:`drop-shadow(0 0 20px rgba(${rgb},0.48))`,
+      }}>
+        {/* Watermark */}
+        <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-14deg)",...MONO,fontSize:"0.32rem",letterSpacing:"0.42em",color:`rgba(${rgb},0.055)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none" }}>
+          EXCLUSIVE DETROIT
+        </span>
+
+        {/* Inner border */}
+        <div style={{ position:"absolute",inset:10,border:`0.5px dashed rgba(${rgb},0.12)`,borderRadius:2,pointerEvents:"none" }}/>
+
+        <div style={{ position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:3,width:"100%" }}>
+          {/* Header */}
+          <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.30em",textTransform:"uppercase",color:hex,opacity:.58,marginBottom:1 }}>
+            {orn} EXCLUSIVE DETROIT {orn}
           </div>
-          <div style={{lineHeight:0, opacity:0.86, transform:"scale(1.0)", transformOrigin:"center"}}>
-            <StampIconSVG cat={venue.cat} ink={ink}/>
+
+          <div style={{ width:"72%",height:"0.5px",background:`rgba(${rgb},0.32)`,marginBottom:2 }}/>
+
+          {/* Building */}
+          <div style={{ opacity:.82, lineHeight:0, transform:"scale(1.0)", transformOrigin:"center" }}>
+            <BuildingSVG type={btype}/>
           </div>
-          <div style={{...SERIF,fontSize:"1.4rem",fontWeight:700,color:ink,lineHeight:1.08,textTransform:"uppercase",letterSpacing:"0.04em"}}>
+
+          <div style={{ width:"62%",height:"0.5px",background:`rgba(${rgb},0.22)`,marginBottom:1 }}/>
+
+          {/* Venue name */}
+          <div style={{ ...SERIF,fontSize:"1.35rem",fontWeight:700,color:hex,lineHeight:1.08,textTransform:"uppercase",textAlign:"center",letterSpacing:"0.02em" }}>
             {stampName(venue.name)}
           </div>
-          <div style={{...MONO,fontSize:"0.40rem",letterSpacing:"0.18em",textTransform:"uppercase",color:ink,opacity:0.72}}>
+
+          <div style={{ width:"82%",height:"0.5px",background:`rgba(${rgb},0.45)`,marginTop:2,marginBottom:2 }}/>
+
+          {/* Neighborhood */}
+          <div style={{ ...MONO,fontSize:"0.40rem",letterSpacing:"0.20em",color:hex,opacity:.80,textTransform:"uppercase" }}>
             {venue.hood.toUpperCase()}
           </div>
-          <div style={{...MONO,fontSize:"0.30rem",letterSpacing:"0.10em",textTransform:"uppercase",color:ink,opacity:0.52}}>
-            {catLabel}
+
+          {/* Category */}
+          <div style={{ ...MONO,fontSize:"0.30rem",letterSpacing:"0.14em",color:hex,opacity:.55,textTransform:"uppercase" }}>
+            {orn} {catLabel} {orn}
           </div>
-          <div style={{...MONO,fontSize:"0.28rem",letterSpacing:"0.08em",color:ink,opacity:0.40}}>
-            {today}
+
+          {/* VISITED */}
+          <div style={{ ...MONO,fontSize:"0.32rem",letterSpacing:"0.18em",color:hex,opacity:.70,textTransform:"uppercase",marginTop:1 }}>
+            VISITED
+          </div>
+
+          {/* Bottom ornament divider */}
+          <div style={{ display:"flex",alignItems:"center",gap:5,width:"80%",marginTop:2 }}>
+            <div style={{ flex:1,height:"0.5px",background:`rgba(${rgb},0.32)` }}/>
+            <span style={{ fontSize:"0.20rem",color:hex,opacity:.38 }}>✦</span>
+            <div style={{ flex:1,height:"0.5px",background:`rgba(${rgb},0.32)` }}/>
+          </div>
+
+          {/* Serial */}
+          <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.12em",color:hex,opacity:.42 }}>
+            {serial} · PASSPORT VERIFIED
           </div>
         </div>
       </div>
