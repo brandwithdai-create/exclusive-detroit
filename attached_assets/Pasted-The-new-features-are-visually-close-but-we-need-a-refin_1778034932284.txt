@@ -1,0 +1,93 @@
+The new features are visually close, but we need a refinement pass before this can be App Store ready. Please do not redesign the whole app. Make these targeted changes only, preserving the existing luxury style, font system, spacing, light/dark mode, and stability.
+
+1. Navigation cleanup  
+- The top tabs are too crowded.
+- Remove the “Areas” tab completely from the top navigation.
+- Remove the “Saves” tab from the top navigation.
+- Rename “My Detroit” to “Itinerary.”
+- The new nav should be: Explore · Map · Itinerary · About
+- Move saved spots into the Itinerary section as one of the internal subsections/cards so users can still access saves.
+
+2. Itinerary section structure  
+Inside the renamed “Itinerary” section, organize everything cleanly so it does not feel busy:
+- For You
+- Tonight / Build My Night
+- Saved Spots
+- Passport
+
+Do not add all of these as crowded top-level nav tabs.
+
+3. Passport redesign  
+The Passport needs to feel more premium and more literal.
+- Redesign badges to look like actual passport stamps, not generic cards.
+- Stamps should feel like inked travel/passport marks: circular/oval/rectangular stamp shapes, subtle border, refined luxury styling.
+- Increase the very small text in Passport; some labels/hints are currently too tiny.
+- Add a tasteful animation when a new badge/stamp is earned: something like a stamp pressing down, slight scale/opacity effect, then settling into place.
+- Keep animation subtle and classy, not cartoonish.
+- Make sure it works smoothly on iPhone and iPad and does not cause layout jank.
+- No heavy libraries or new dependencies.
+
+4. Build My Night logic fix  
+The current Tonight flow gave three cocktail venues for Date Night. That is not useful. The itinerary must make real-world sense.
+
+Rules:
+- Date Night should include at least one restaurant/dinner venue, plus optional cocktails/lounge after.
+- Morning should include breakfast/brunch/coffee-style options.
+- Lunch/daytime should include lunch/food first.
+- Group should include food or an activity plus drinks, not only cocktails.
+- “2 of us” should feel flexible for friends or couples.
+- Always include food unless the user specifically chooses a drinks-only vibe.
+- Avoid giving three venues from the same category unless the user clearly asked for that category.
+- A normal itinerary should usually be:
+  1. Food / meal / anchor stop
+  2. Drinks / experience / activity
+  3. After / dessert / lounge / late-night option
+
+5. Build My Night buttons/copy  
+Update the question options:
+- “When are you going out?” should include:
+  - Morning
+  - Afternoon
+  - Evening
+  - Late Night
+- “Who’s coming?” should be:
+  - Just Me
+  - 2 of Us
+  - Group
+- Replace “All Out” with something more premium and natural:
+  - Elevated
+  or
+  - High Energy
+Use whichever fits the existing tone best.
+
+6. Add “Not sure what to do today?” randomizer  
+In the Itinerary / For You section, add a clean feature:
+- Text: “Not sure what to do today?”
+- Button: “Choose for Me”
+- It should generate a smart suggestion based on time of day.
+- If it is after breakfast hours, do not suggest breakfast.
+- If it is lunchtime, prioritize lunch/food.
+- If it is evening, suggest dinner + cocktails or dinner + lounge.
+- If late night, suggest late-night food/drinks where appropriate.
+- Always include at least one food option unless the user specifically selects drinks-only.
+- Use only existing static venue data. No APIs.
+
+7. Hero buttons  
+Make the Sports Tickets, Concerts, and Hotel Stays buttons slightly larger/more noticeable on the Explore hero screen.
+- Keep the same luxury style.
+- Do not make them loud or oversized.
+- Just improve visibility and tap target.
+
+8. Light/dark mode  
+Every change must work in both light and dark mode.
+- Confirm contrast, button states, text visibility, passport stamp styling, and onboarding/modal overlays in both modes.
+
+9. Stability rules  
+- No paid APIs.
+- No background calls.
+- No new dependencies unless absolutely necessary and approved first.
+- Do not break map, venue cards, saves, modals, booking links, theme settings, or existing categories.
+- Do not create a busy/cluttered UI.
+- Keep the app feeling like Exclusive Detroit: luxury, calm, curated, editorial.
+
+Before coding, please confirm the exact files you will touch and the specific implementation approach for the itinerary logic and passport stamp animation. After coding, provide a pass/fail checklist for all items above.
