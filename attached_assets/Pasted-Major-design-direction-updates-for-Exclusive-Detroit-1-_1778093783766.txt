@@ -1,0 +1,103 @@
+Major design direction updates for Exclusive Detroit:
+
+1. ITINERARY TAB — OPTION 3
+We are officially moving forward with the “Option 3 / Editorial Storytelling” direction for the Itinerary experience.
+
+Important:
+Keep the cinematic Detroit skyline background behind the itinerary builder exactly like the concept image. That blurred skyline atmosphere is the correct direction and gives the app a luxury editorial feel.
+
+The itinerary section should feel:
+- cinematic
+- moody
+- luxury nightlife
+- exclusive
+- emotionally immersive
+- “members only”
+
+Please keep:
+- blurred Detroit skyline background
+- dark translucent/glass cards
+- soft gold glow accents
+- layered editorial feel
+- cinematic depth
+- warm luxury lighting
+
+The Build My Night flow should feel like a luxury concierge experience, not a plain form builder.
+
+2. MAP SYSTEM — COMPLETE REWRITE OF CURRENT CARD POSITIONING LOGIC
+The current map behavior is still not correct and the connector line logic is failing.
+
+Please remove the current dynamic magnetic/following positioning system completely.
+
+New map behavior:
+- when a user taps a pin, the venue card should appear EITHER:
+  - directly above the pin
+  OR
+  - directly to the right of the pin
+
+Pick ONE consistent placement system and keep it fixed.
+
+Requirements:
+- the venue card must NEVER overlap the selected pin
+- the selected pin must always remain fully visible
+- the venue card must stay fixed once opened
+- the card cannot follow the map or “magnetize” to the pin while scrolling
+- dragging/panning the map dismisses the card
+- tapping blank map space dismisses the card
+- tapping another pin closes the previous card and opens the new one
+
+For now:
+REMOVE the gold connector line logic entirely until positioning is stable.
+
+We need stable placement first before reintroducing animations.
+
+The current behavior is still visually glitchy and does not feel polished.
+
+3. PASSPORT TAB — REMOVE DOTTED STAMP BORDERS
+Inside the Passport tab:
+remove the dotted/dashed rectangular borders surrounding each passport stamp.
+
+The stamps should feel:
+- cleaner
+- more authentic
+- more collectible
+- more like real passport ink impressions
+
+Also:
+- “Exclusive Detroit” does NOT need to appear on every stamp
+- simplify the typography
+- make the venue name stronger
+- under “Visited,” show the actual date the user stamped it
+- the visited date should always reflect the date the user clicked the stamp
+
+4. OUTSIDE VENUE CARD STAMP SYSTEM — MAKE EVERY STAMP UNIQUE
+For the OUTSIDE venue cards:
+after a user stamps/visits a venue, the visited badge should become a unique collectible passport stamp.
+
+Right now the circles are too repetitive.
+
+I want:
+- different stamp shapes
+- different border styles
+- different building silhouettes
+- old-school passport stamp energy
+- collectible feel
+- luxury travel aesthetic
+
+Examples:
+- circular embassy stamp
+- rectangular passport entry stamp
+- building silhouette stamp
+- vintage immigration seal
+- square museum-style stamp
+- skyline outline stamp
+- boutique hotel crest
+- lounge emblem
+- wax-seal inspired shape
+- ticket-style edge shapes
+
+Important:
+The building illustration system should still be used INSIDE these stamps so each one feels custom to the venue.
+
+The goal:
+every visited venue should feel like collecting a unique luxury travel stamp, not just toggling a button.
