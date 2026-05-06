@@ -851,11 +851,6 @@ function getStampStyle(v) {
   return { ...STAMP_PALETTE[n % STAMP_PALETTE.length], rot: STAMP_ROTS[n % STAMP_ROTS.length] };
 }
 
-function getStampDate(index) {
-  const start = new Date("2025-04-15");
-  const d = new Date(start.getTime() + index * 4 * 86400000);
-  return d.toLocaleDateString("en-US",{month:"short",day:"2-digit",year:"numeric"}).toUpperCase().replace(",","");
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // VenueStamp — ink-on-paper look, no box border
@@ -869,7 +864,7 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
   const w = portrait ? 118 : 148;
   const h = portrait ? 108 :  90;
   const serial = "DET-" + String(v.id).padStart(4,"0");
-  const date   = propDate || getStampDate(index);
+  const date   = propDate || "VISITED";
 
   return (
     <div
