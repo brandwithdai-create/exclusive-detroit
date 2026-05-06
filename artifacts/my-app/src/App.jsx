@@ -1098,7 +1098,7 @@ function _hScroll() {
   _hRaf = requestAnimationFrame(() => { _hRaf = null; _hUpdate(); });
 }
 
-const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap, imgHeight, hideVibes }) {
+const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap, imgHeight, hideVibes, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
 const cardRef = React.useRef(null);
 React.useEffect(() => {
@@ -1144,9 +1144,20 @@ React.createElement("p", { style:{ fontSize:"0.78rem", color:C.ash, fontWeight:3
 React.createElement("div", { style:{ background:just?"rgba(201,168,76,0.09)":"rgba(110,75,195,0.09)", border:"1px solid "+(just?"rgba(201,168,76,0.28)":"rgba(110,75,195,0.28)"), borderRadius:5, padding:"6px 10px" }},
 React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.48rem", letterSpacing:"0.09em", color:acc }}, venue.note)
 ),
-React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center", paddingTop:10, borderTop:"1px solid "+C.borderS }},
-React.createElement(CTA, { venue }),
-React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(venue.id));}, onMouseDown:e=>e.preventDefault(), style:{ background:"none", border:"none", cursor:"pointer", color:isFav?C.gold:C.bone, fontSize:"1.1rem", padding:"10px 12px", marginLeft:"auto", display:"inline-flex", alignItems:"center", justifyContent:"center", outline:"none", minWidth:44, minHeight:44, transition:"color 0.18s" }}, isFav?"\u2665":"\u2661")
+React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,display:"flex",alignItems:"stretch",overflow:"hidden"}},
+React.createElement("div",{onClick:e=>{e.stopPropagation();onVisit&&onVisit(String(venue.id));},style:{flex:1,display:"flex",alignItems:"center",gap:8,padding:"9px 10px",cursor:"pointer",minWidth:0,transition:"background 0.18s"},onMouseEnter:e=>{e.currentTarget.style.background="rgba(201,168,76,0.05)";},onMouseLeave:e=>{e.currentTarget.style.background="transparent";}},
+isVis?React.createElement(CardStamp,{venue,date:visitedDate}):React.createElement("div",{style:{width:36,height:36,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"50%",border:"1px solid rgba(201,168,76,0.22)"}},
+React.createElement("svg",{width:15,height:13,viewBox:"0 0 15 13",fill:"none",stroke:C.goldD,strokeWidth:1.3,strokeLinecap:"round",strokeLinejoin:"round"},
+React.createElement("path",{d:"M1 12h13M4 12V7.5L7.5 3l3.5 4.5V12"}),
+React.createElement("rect",{x:5.5,y:8.5,width:4,height:3.5}))),
+React.createElement("div",{style:{minWidth:0,flex:1}},
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.14em",textTransform:"uppercase",color:isVis?C.gold:C.goldD,lineHeight:1.2,whiteSpace:"nowrap"}},isVis?"VISITED":"ADD TO PASSPORT"),
+React.createElement("div",{style:{fontSize:"0.64rem",color:C.smoke,fontWeight:300,lineHeight:1.3,marginTop:1.5,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},isVis?(visitedDate||"Stamped"):"Stamp this spot")
+)),
+React.createElement("div",{style:{width:1,background:C.borderS,flexShrink:0,margin:"8px 0"}}),
+React.createElement("button",{onClick:e=>{e.stopPropagation();onOpen(String(venue.id));},style:{display:"flex",alignItems:"center",justifyContent:"center",gap:4,padding:"9px 11px",background:"none",border:"none",cursor:"pointer",color:C.goldL,fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",flexShrink:0,whiteSpace:"nowrap",transition:"color 0.18s"}},"VIEW DETAILS",React.createElement("span",{style:{fontSize:"0.72rem",lineHeight:1}},"→")),
+React.createElement("div",{style:{width:1,background:C.borderS,flexShrink:0,margin:"8px 0"}}),
+React.createElement("button",{onClick:e=>{e.stopPropagation();onFav(String(venue.id));},onMouseDown:e=>e.preventDefault(),style:{background:"none",border:"none",cursor:"pointer",color:isFav?C.gold:C.bone,fontSize:"1.05rem",padding:"9px 10px",display:"inline-flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"color 0.18s"}},isFav?"\u2665":"\u2661")
 )
 )
 );
@@ -1734,7 +1745,7 @@ React.createElement("span",{style:{marginTop:2}},l)
 )
 );
 
-const Hero=()=>React.createElement("div",{style:{minHeight:"66vh",display:"flex",alignItems:"center",justifyContent:"center",paddingTop:0,background:"var(--c-hero-bg)",position:"relative",overflow:"hidden"}},
+const Hero=()=>React.createElement("div",{style:{minHeight:"62vh",display:"flex",alignItems:"flex-start",justifyContent:"center",paddingTop:0,background:"var(--c-hero-bg)",position:"relative",overflow:"hidden"}},
 React.createElement("div",{style:{position:"absolute",inset:0,backgroundImage:"url(/detroit-skyline.jpg)",backgroundSize:"cover",backgroundPosition:"center 40%",opacity:"var(--c-hero-img-opacity)",pointerEvents:"none",willChange:"transform",transform:"translateZ(0)"}}),
 React.createElement("div",{style:{position:"absolute",inset:0,background:"var(--c-hero-grad-ovl)",pointerEvents:"none"}}),
 React.createElement("div",{style:{position:"absolute",inset:0,opacity:0.35,pointerEvents:"none"}},
@@ -1814,7 +1825,7 @@ React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 ),
 React.createElement("div",{style:{display:"flex",gap:12,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",scrollSnapType:"x mandatory",paddingBottom:4,marginLeft:-22,marginRight:-22,paddingLeft:22,paddingRight:22}},
 UPCOMING.slice(0,4).map((v,i)=>React.createElement("div",{key:v.id,style:{flexShrink:0,width:"calc(100vw - 60px)",maxWidth:400,scrollSnapAlign:"start"}},
-React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:130,hideVibes:true})
+React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:130,hideVibes:true,isVis:isVisited(String(v.id)),onVisit:toggleVisited,visitedDate:getVisitedDate(String(v.id))})
 ))
 )
 )
@@ -1901,7 +1912,7 @@ React.createElement("button",{onClick:e=>{e.stopPropagation();toggleFav(String(v
 )));};
 return React.createElement(React.Fragment,null,
 React.createElement("div",null,
-React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"20px 22px 14px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:"var(--c-grad-favs)",padding:"12px 22px 12px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"Your Collection"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.4rem)",fontWeight:400,color:C.white,margin:"0 0 4px"}},"Saved Spots"),
 React.createElement("p",{style:{fontSize:"0.82rem",color:C.smoke,margin:0}},"Your personal insider list.")
@@ -1966,7 +1977,7 @@ React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5
 );
 
 const About=({tick=0}={})=>React.createElement("div",null,
-React.createElement("div",{style:{background:C.deep,padding:"20px 22px 14px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:C.deep,padding:"12px 22px 12px",borderBottom:"1px solid "+C.border}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"The City Brief"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.4rem)",fontWeight:400,color:C.white,margin:"0 0 4px"}},"About Detroit"),
 React.createElement("p",{style:{fontSize:"0.82rem",color:C.smoke,margin:0}},"An insider guide to Detroit.")
@@ -2012,8 +2023,6 @@ React.createElement("span",{style:{fontSize:"0.84rem",color:C.ash,fontWeight:300
 )
 )
 )
-),React.createElement("div",{style:{textAlign:"center",paddingTop:12,paddingBottom:6}},
-React.createElement("a",{href:"/privacy",target:"_blank",rel:"noopener noreferrer",style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(201,168,76,0.38)",textDecoration:"none",display:"inline-block",padding:"8px 16px",border:"1px solid rgba(201,168,76,0.14)",borderRadius:100}},"\u2014 Privacy Policy \u2014")
 )
 )
 );
@@ -2024,7 +2033,7 @@ const settingsHeader=(label)=>React.createElement("div",{style:{padding:"16px 20
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.51rem",letterSpacing:"0.2em",textTransform:"uppercase",color:C.goldL,fontWeight:500,margin:0}},label)
 );
 const Settings=()=>React.createElement("div",null,
-React.createElement("div",{style:{background:C.deep,padding:"20px 22px 14px",borderBottom:"1px solid "+C.border}},
+React.createElement("div",{style:{background:C.deep,padding:"12px 22px 12px",borderBottom:"1px solid "+C.border}},
 React.createElement("div",{style:{maxWidth:516,margin:"0 auto"}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.53rem",letterSpacing:"0.22em",textTransform:"uppercase",color:C.gold,marginBottom:5}},"Preferences"),
 React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.6rem,4vw,2.4rem)",fontWeight:400,color:C.white,margin:"0 0 4px"}},"Settings"),
@@ -2087,7 +2096,10 @@ React.createElement("span",null,"Share Exclusive Detroit")
 )
 )
 )),
-React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke,textAlign:"center",paddingTop:8}},"Detroit Edition v5.0")
+React.createElement("div",{style:{textAlign:"center",paddingTop:10,display:"flex",flexDirection:"column",alignItems:"center",gap:7}},
+React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke,margin:0}},"Detroit Edition v5.0"),
+React.createElement("a",{href:"/privacy",target:"_blank",rel:"noopener noreferrer",style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.smoke,textDecoration:"none",display:"inline-flex",alignItems:"center",gap:4,minHeight:44,padding:"4px 8px",opacity:0.75}},"Privacy Policy\u00a0\u2192")
+)
 )
 );
 

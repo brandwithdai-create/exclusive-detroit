@@ -1616,7 +1616,7 @@ export default function MyDetroit({
   return (
     <div>
       {/* Section header + tabs */}
-      <div style={{ background:"var(--c-deep)", padding:"20px 20px 0", borderBottom:"1px solid var(--c-border)" }}>
+      <div style={{ background:"var(--c-deep)", padding:"12px 20px 0", borderBottom:"1px solid var(--c-border)" }}>
         <div style={{ maxWidth:680, margin:"0 auto" }}>
           <p style={{ ...MONO,fontSize:"0.52rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"var(--c-gold)",margin:"0 0 5px" }}>Personal Guide</p>
           <h2 style={{ ...SERIF,fontSize:"clamp(1.8rem,5vw,2.8rem)",fontWeight:400,color:"var(--c-white)",margin:"0 0 4px" }}>Itinerary</h2>
