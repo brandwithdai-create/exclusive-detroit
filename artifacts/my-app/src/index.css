@@ -401,3 +401,34 @@
 .stamp-press {
   animation: stampPress 0.44s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
+
+/* Stamp overlay — full-screen press animation when badge earned */
+@keyframes stampOverlayPress {
+  0%   { transform: scale(2.2) rotate(-6deg); opacity: 0; filter: blur(4px); }
+  28%  { transform: scale(0.86) rotate(2deg);  opacity: 1; filter: blur(0); }
+  52%  { transform: scale(1.06) rotate(-1deg); opacity: 1; }
+  72%  { transform: scale(1)    rotate(0deg);  opacity: 1; }
+  88%  { opacity: 1; }
+  100% { transform: scale(1)    rotate(0deg);  opacity: 0; }
+}
+.stamp-overlay-press {
+  animation: stampOverlayPress 2.3s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+/* Curating pulse — "Building your night…" state */
+@keyframes curatingPulse {
+  0%, 100% { opacity: 0.55; }
+  50%       { opacity: 1; }
+}
+.curating-pulse {
+  animation: curatingPulse 1.1s ease-in-out infinite;
+}
+
+/* Result reveal — slide up on new results */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-slide-up {
+  animation: fadeSlideUp 0.32s ease both;
+}

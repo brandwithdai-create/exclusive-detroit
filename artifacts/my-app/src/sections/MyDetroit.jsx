@@ -30,7 +30,49 @@ const PASSPORT_BADGES = [
   { id:"bird",     label:"Early Bird",            hint:"Visit a breakfast or brunch spot",           test: vis => vis.some(v=>v.cat==="Breakfast"||v.cat==="Coffee Shops & Bakeries") },
 ];
 
-const STAMP_ROTATIONS = [-4, 3, -2, 5, -3, 2, -1, 4];
+// Each badge has its own distinct passport stamp shape
+const STAMP_DEFS = {
+  gem:      { shape:"oval-tall",   rot:-5,  subtext:"HIDDEN · DETROIT" },
+  cocktail: { shape:"rect",        rot: 3,  subtext:"COCKTAIL · CULTURE" },
+  owl:      { shape:"circle",      rot:-2,  subtext:"AFTER DARK" },
+  hood:     { shape:"wide",        rot: 4,  subtext:"EXPLORE · THE CITY" },
+  reg:      { shape:"square",      rot:-3,  subtext:"5 VENUES · VISITED" },
+  native:   { shape:"banner",      rot: 2,  subtext:"DETROIT · INSIDER" },
+  roof:     { shape:"arch",        rot:-4,  subtext:"ELEVATED · DETROIT" },
+  bird:     { shape:"oval-wide",   rot: 5,  subtext:"MORNING · RITUAL" },
+};
+
+const STAMP_ICONS = {
+  gem:"◈", cocktail:"◇", owl:"○", hood:"—", reg:"✦", native:"◉", roof:"△", bird:"◇",
+};
+
+function getStampStyle(shape, earned) {
+  const base = {
+    display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
+    textAlign:"center", position:"relative", overflow:"hidden",
+    border: earned ? "1.5px solid rgba(201,168,76,0.6)" : "1px solid rgba(150,140,130,0.18)",
+    background: earned ? "rgba(201,168,76,0.05)" : "rgba(30,28,26,0.5)",
+    opacity: earned ? 1 : 0.35,
+    transition:"opacity 0.4s, border-color 0.4s",
+    padding:"14px 10px",
+    boxSizing:"border-box",
+  };
+  // Inner double-border on earned stamps (ink bleed effect)
+  if (earned) {
+    base.boxShadow = "inset 0 0 0 3px rgba(201,168,76,0.09), 1px 2px 0 rgba(0,0,0,0.18)";
+  }
+  switch (shape) {
+    case "oval-tall":  return { ...base, borderRadius:"45% 45% 50% 50% / 55% 55% 45% 45%", width:110, height:130 };
+    case "rect":       return { ...base, borderRadius:6,     width:148, height:80  };
+    case "circle":     return { ...base, borderRadius:"50%", width:112, height:112 };
+    case "wide":       return { ...base, borderRadius:8,     width:158, height:68  };
+    case "square":     return { ...base, borderRadius:4,     width:104, height:104 };
+    case "banner":     return { ...base, borderRadius:3,     width:160, height:58  };
+    case "arch":       return { ...base, borderRadius:"55% 55% 35% 35% / 65% 65% 35% 35%", width:112, height:122 };
+    case "oval-wide":  return { ...base, borderRadius:"50%", width:138, height:86  };
+    default:           return { ...base, borderRadius:"50%", width:110, height:110 };
+  }
+}
 
 function getCTA(v) {
   if (v.reservationUrl) return { label: v.reservationLabel || "Book Now", url: v.reservationUrl };
@@ -41,17 +83,11 @@ function getCTA(v) {
 function getSmartSuggestion(allVenues) {
   const h = new Date().getHours();
   let pool;
-  if (h >= 6 && h < 11) {
-    pool = allVenues.filter(v => v.cat==="Breakfast" || v.cat==="Coffee Shops & Bakeries");
-  } else if (h >= 11 && h < 15) {
-    pool = allVenues.filter(v => v.cat==="Lunch" || v.cat==="Dinner" || (v.cats||[]).includes("Lunch"));
-  } else if (h >= 15 && h < 18) {
-    pool = allVenues.filter(v => v.cat==="Happy Hour" || v.cat==="Rooftops" || (v.cats||[]).includes("Happy Hour"));
-  } else if (h >= 18 && h < 23) {
-    pool = allVenues.filter(v => v.cat==="Dinner" || v.cat==="Cocktail Lounges" || (v.best||"").includes("Date Night"));
-  } else {
-    pool = allVenues.filter(v => (v.hours||"").includes("2am") || v.cat==="Nightlife" || v.cat==="Hidden Bars");
-  }
+  if      (h >= 6  && h < 11) pool = allVenues.filter(v => v.cat==="Breakfast" || v.cat==="Coffee Shops & Bakeries");
+  else if (h >= 11 && h < 15) pool = allVenues.filter(v => v.cat==="Lunch" || v.cat==="Dinner" || (v.cats||[]).includes("Lunch"));
+  else if (h >= 15 && h < 18) pool = allVenues.filter(v => v.cat==="Happy Hour" || v.cat==="Rooftops" || (v.cats||[]).includes("Happy Hour"));
+  else if (h >= 18 && h < 23) pool = allVenues.filter(v => v.cat==="Dinner" || v.cat==="Cocktail Lounges" || (v.best||"").includes("Date Night"));
+  else                         pool = allVenues.filter(v => (v.hours||"").includes("2am") || v.cat==="Nightlife" || v.cat==="Hidden Bars");
   if (!pool.length) pool = allVenues;
   return pool[Math.floor(Math.random() * pool.length)];
 }
@@ -65,6 +101,10 @@ function getTimeLabel() {
   return "Late Night";
 }
 
+// Tag helpers
+function tags(v) { return v.tags || []; }
+function hasTag(v, t) { return tags(v).includes(t); }
+
 function buildNight(when, who, energy, pool) {
   const used = new Set();
 
@@ -72,64 +112,79 @@ function buildNight(when, who, energy, pool) {
     const src = candidates.length ? candidates : (fallback || []);
     const avail = src.filter(v => !used.has(String(v.id)));
     if (!avail.length) return null;
-    const choice = avail[Math.floor(Math.random() * Math.min(avail.length, 5))];
+    const choice = avail[Math.floor(Math.random() * Math.min(avail.length, 6))];
     used.add(String(choice.id));
     return choice;
   }
 
-  // STOP 1 — Food / anchor (always first)
-  let foodPool;
-  if (when === "morning") {
-    foodPool = pool.filter(v => v.cat==="Breakfast" || v.cat==="Coffee Shops & Bakeries");
-  } else if (when === "afternoon") {
-    foodPool = pool.filter(v => v.cat==="Lunch" || v.cat==="Dinner" || (v.cats||[]).includes("Lunch"));
-    if (!foodPool.length) foodPool = pool.filter(v => v.cat==="Dinner");
-  } else if (when === "evening") {
-    if (who === "date") {
-      foodPool = pool.filter(v => v.cat==="Dinner" || (v.best||"").includes("Date Night"));
-    } else if (who === "group") {
-      foodPool = pool.filter(v => v.cat==="Dinner" || v.cat==="Sports Bars");
-    } else {
-      foodPool = pool.filter(v => v.cat==="Dinner");
-    }
-  } else {
-    foodPool = pool.filter(v => v.cat==="Dinner" && (v.hours||"").includes("2am"));
-    if (!foodPool.length) foodPool = pool.filter(v => v.cat==="Dinner");
-  }
-  if (!foodPool.length) foodPool = pool.filter(v => ["Dinner","Lunch","Breakfast"].includes(v.cat));
+  let foodPool, drinkPool, afterPool;
 
-  // STOP 2 — Drinks / experience
-  let drinkPool;
   if (when === "morning") {
+    foodPool  = pool.filter(v => v.cat==="Breakfast" || v.cat==="Coffee Shops & Bakeries");
     drinkPool = pool.filter(v => v.cat==="Happy Hour" || v.cat==="Rooftops" || (v.cats||[]).includes("Happy Hour"));
-    if (!drinkPool.length) drinkPool = pool.filter(v => v.cat==="Cocktail Lounges");
+    afterPool = pool.filter(v => hasTag(v,"calm") || v.cat==="Cocktail Lounges");
+
   } else if (when === "afternoon") {
-    drinkPool = pool.filter(v => v.cat==="Happy Hour" || v.cat==="Rooftops");
+    foodPool  = pool.filter(v => v.cat==="Lunch" || v.cat==="Dinner" || (v.cats||[]).includes("Lunch"));
+    drinkPool = pool.filter(v => v.cat==="Happy Hour" || v.cat==="Rooftops" || (v.cats||[]).includes("Happy Hour"));
+    afterPool = pool.filter(v => hasTag(v,"elevated") && hasTag(v,"drinks"));
+    if (!foodPool.length) foodPool = pool.filter(v => v.cat==="Dinner");
+    if (!afterPool.length) afterPool = pool.filter(v => v.cat==="Cocktail Lounges");
+
+  } else if (when === "late") {
+    foodPool  = pool.filter(v => v.cat==="Dinner" && (v.hours||"").includes("2am"));
+    drinkPool = pool.filter(v => hasTag(v,"drinks") && (v.hours||"").includes("2am"));
+    afterPool = pool.filter(v => (hasTag(v,"highEnergy") || v.cat==="Nightlife") && (v.hours||"").includes("2am"));
+    if (!foodPool.length)  foodPool  = pool.filter(v => v.cat==="Dinner");
+    if (!drinkPool.length) drinkPool = pool.filter(v => v.cat==="Cocktail Lounges" || v.cat==="Hidden Bars");
+    if (!afterPool.length) afterPool = pool.filter(v => v.cat==="Nightlife" || v.cat==="Hidden Bars");
+
   } else {
-    if (energy === "elevated") {
-      drinkPool = pool.filter(v => v.cat==="Rooftops" || v.cat==="Cocktail Lounges" || (v.badges||[]).includes("hidden"));
-    } else if (energy === "highenergy") {
-      drinkPool = pool.filter(v => v.cat==="Nightlife" || v.cat==="Hidden Bars" || v.cat==="Cocktail Lounges");
+    // Evening — energy drives everything
+    if (energy === "calm") {
+      // Quiet, intimate — candlelit bar or James Beard spot, then a hidden lounge
+      foodPool  = pool.filter(v => v.cat==="Dinner" && (hasTag(v,"elevated") || hasTag(v,"calm") || (v.best||"").includes("Date Night")));
+      drinkPool = pool.filter(v => hasTag(v,"calm") && hasTag(v,"drinks"));
+      afterPool = pool.filter(v => (hasTag(v,"calm") || hasTag(v,"elevated")) && hasTag(v,"drinks"));
+      if (!foodPool.length)  foodPool  = pool.filter(v => v.cat==="Dinner");
+      if (!drinkPool.length) drinkPool = pool.filter(v => v.cat==="Hidden Bars" || v.cat==="Cocktail Lounges");
+
+    } else if (energy === "chill") {
+      // Casual — solid food, neighborhood bar vibes
+      foodPool  = pool.filter(v => v.cat==="Dinner" || hasTag(v,"chill"));
+      drinkPool = pool.filter(v => hasTag(v,"chill") && hasTag(v,"drinks"));
+      afterPool = pool.filter(v => hasTag(v,"chill") || v.cat==="Happy Hour" || v.cat==="Sports Bars");
+      if (!drinkPool.length) drinkPool = pool.filter(v => v.cat==="Happy Hour" || v.cat==="Sports Bars" || v.cat==="Cocktail Lounges");
+      if (!afterPool.length) afterPool = pool.filter(v => v.cat==="Nightlife" || v.cat==="Cocktail Lounges");
+
+    } else if (energy === "elevated") {
+      // Luxury, polished — dinner first, polished lounge, dessert/after
+      const isDN = who === "date";
+      foodPool  = isDN
+        ? pool.filter(v => hasTag(v,"elevated") && hasTag(v,"food") && hasTag(v,"dateNight"))
+        : pool.filter(v => hasTag(v,"elevated") && hasTag(v,"food"));
+      drinkPool = isDN
+        ? pool.filter(v => hasTag(v,"elevated") && hasTag(v,"drinks") && hasTag(v,"dateNight"))
+        : pool.filter(v => hasTag(v,"elevated") && hasTag(v,"drinks"));
+      afterPool = pool.filter(v => hasTag(v,"elevated") && hasTag(v,"drinks") && (v.hours||"").includes("2am"));
+      if (!foodPool.length)  foodPool  = pool.filter(v => v.cat==="Dinner" && (v.best||"").includes("Date Night"));
+      if (!drinkPool.length) drinkPool = pool.filter(v => v.cat==="Cocktail Lounges" || v.cat==="Hidden Bars");
+      if (!afterPool.length) afterPool = drinkPool;
+
     } else {
-      drinkPool = who === "date"
-        ? pool.filter(v => v.cat==="Cocktail Lounges" || (v.best||"").includes("Date Night"))
-        : pool.filter(v => v.cat==="Cocktail Lounges" || v.cat==="Happy Hour");
+      // High Energy — big dinner, then nightlife
+      foodPool  = pool.filter(v => v.cat==="Dinner" || hasTag(v,"food"));
+      drinkPool = pool.filter(v => hasTag(v,"highEnergy") || v.cat==="Nightlife");
+      afterPool = pool.filter(v => (hasTag(v,"highEnergy") || v.cat==="Nightlife") && (v.hours||"").includes("2am"));
+      if (!drinkPool.length) drinkPool = pool.filter(v => v.cat==="Nightlife" || v.cat==="Cocktail Lounges");
+      if (!afterPool.length) afterPool = drinkPool;
     }
   }
-  if (!drinkPool.length) drinkPool = pool.filter(v => v.cat==="Cocktail Lounges" || v.cat==="Hidden Bars");
 
-  // STOP 3 — After / late
-  let afterPool;
-  if (when === "morning" || when === "afternoon") {
-    afterPool = pool.filter(v => v.cat==="Cocktail Lounges" || v.cat==="Hidden Bars" || v.cat==="Rooftops");
-  } else {
-    afterPool = pool.filter(v =>
-      (v.cat==="Nightlife" || v.cat==="Hidden Bars" || v.cat==="Cocktail Lounges") &&
-      (v.hours||"").includes("2am")
-    );
-    if (!afterPool.length) afterPool = pool.filter(v => v.cat==="Nightlife" || v.cat==="Hidden Bars");
-  }
-  if (!afterPool.length) afterPool = pool.filter(v => v.cat==="Cocktail Lounges" || v.cat==="Nightlife");
+  // Universal fallbacks
+  if (!foodPool.length)  foodPool  = pool.filter(v => ["Dinner","Lunch","Breakfast"].includes(v.cat));
+  if (!drinkPool.length) drinkPool = pool.filter(v => v.cat==="Cocktail Lounges" || v.cat==="Hidden Bars");
+  if (!afterPool.length) afterPool = pool.filter(v => v.cat==="Nightlife" || v.cat==="Hidden Bars" || v.cat==="Cocktail Lounges");
 
   return [pick(foodPool), pick(drinkPool), pick(afterPool)].filter(Boolean);
 }
@@ -150,13 +205,21 @@ function SectionLabel({ children, style }) {
 }
 
 function VenueRow({ v, onOpen }) {
+  const [pressed, setPressed] = useState(false);
   return (
     <button
       onClick={() => onOpen(String(v.id))}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      onTouchStart={() => setPressed(true)}
+      onTouchEnd={() => setPressed(false)}
       style={{
         display:"flex", alignItems:"flex-start", gap:14, padding:"14px 16px",
         background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:10,
-        cursor:"pointer", textAlign:"left", width:"100%", transition:"border-color 0.18s",
+        cursor:"pointer", textAlign:"left", width:"100%",
+        transition:"border-color 0.18s, transform 0.1s",
+        transform: pressed ? "scale(0.975)" : "scale(1)",
       }}
     >
       <div style={{ flex:1, minWidth:0 }}>
@@ -181,17 +244,24 @@ function VenueRow({ v, onOpen }) {
 }
 
 function OptionBtn({ val, current, onSet, label }) {
-  const active = current === val;
+  const active  = current === val;
+  const [pressed, setPressed] = useState(false);
   return (
     <button
       onClick={() => onSet(val)}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      onTouchStart={() => setPressed(true)}
+      onTouchEnd={() => setPressed(false)}
       style={{
         ...MONO, fontSize:"0.5rem", letterSpacing:"0.1em", textTransform:"uppercase",
         padding:"9px 16px", borderRadius:8, whiteSpace:"nowrap",
         border:"1px solid " + (active ? "var(--c-gold)" : "var(--c-border)"),
         background: active ? "rgba(201,168,76,0.1)" : "transparent",
         color: active ? "var(--c-gold)" : "var(--c-ash)",
-        cursor:"pointer", transition:"all 0.18s",
+        cursor:"pointer", transition:"all 0.15s",
+        transform: pressed ? "scale(0.94)" : "scale(1)",
       }}
     >
       {label}
@@ -199,9 +269,54 @@ function OptionBtn({ val, current, onSet, label }) {
   );
 }
 
+// Stamp press overlay — full-screen animation when badge earned
+function StampOverlay({ badge, onDone }) {
+  const def  = STAMP_DEFS[badge.id] || {};
+  const icon = STAMP_ICONS[badge.id] || "◈";
+
+  useEffect(() => {
+    const t = setTimeout(onDone, 2400);
+    return () => clearTimeout(t);
+  }, [onDone]);
+
+  return (
+    <div style={{
+      position:"fixed", inset:0, zIndex:9990,
+      display:"flex", alignItems:"center", justifyContent:"center",
+      pointerEvents:"none",
+      background:"rgba(10,9,8,0.45)",
+    }}>
+      <div className="stamp-overlay-press" style={{
+        display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
+        padding:"36px 44px",
+        border:"3px solid rgba(201,168,76,0.75)",
+        borderRadius:8,
+        background:"rgba(20,17,14,0.9)",
+        boxShadow:"inset 0 0 0 6px rgba(201,168,76,0.09), 0 0 60px rgba(201,168,76,0.14)",
+        transform:"rotate(" + (def.rot || 0) + "deg)",
+        minWidth:220,
+        textAlign:"center",
+      }}>
+        <div style={{ ...MONO, fontSize:"0.46rem", letterSpacing:"0.3em", textTransform:"uppercase", color:"rgba(201,168,76,0.6)", marginBottom:10 }}>
+          STAMP EARNED
+        </div>
+        <div style={{ fontSize:"1.6rem", color:"var(--c-gold)", marginBottom:10, lineHeight:1 }}>{icon}</div>
+        <div style={{ ...SERIF, fontSize:"1.5rem", fontWeight:600, color:"var(--c-white)", lineHeight:1.2, marginBottom:8 }}>
+          {badge.label}
+        </div>
+        <div style={{ ...MONO, fontSize:"0.42rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(201,168,76,0.55)" }}>
+          {def.subtext || "DETROIT · 2025"}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ForYouTab({ taste, onTasteChange, allVenues, onOpenVenue }) {
   const MAX = 3;
   const [suggestion, setSuggestion] = useState(null);
+  const [curating, setCurating]     = useState(false);
+  const [btnPressed, setBtnPressed] = useState(false);
 
   const forYouVenues = useMemo(() => {
     if (!taste.length) return [];
@@ -215,7 +330,15 @@ function ForYouTab({ taste, onTasteChange, allVenues, onOpenVenue }) {
   }, [taste, allVenues]);
 
   function chooseForMe() {
-    setSuggestion(getSmartSuggestion(allVenues));
+    if (curating) return;
+    setBtnPressed(true);
+    setTimeout(() => setBtnPressed(false), 120);
+    setCurating(true);
+    setSuggestion(null);
+    setTimeout(() => {
+      setSuggestion(getSmartSuggestion(allVenues));
+      setCurating(false);
+    }, 900);
   }
 
   return (
@@ -234,15 +357,25 @@ function ForYouTab({ taste, onTasteChange, allVenues, onOpenVenue }) {
           style={{
             ...MONO, fontSize:"0.52rem", letterSpacing:"0.14em", textTransform:"uppercase",
             padding:"10px 22px", borderRadius:100, border:"1px solid var(--c-goldD)",
-            background:"transparent", color:"var(--c-gold)", cursor:"pointer", transition:"all 0.18s",
+            background:"transparent", color:"var(--c-gold)", cursor:"pointer",
+            transition:"all 0.15s", transform: btnPressed ? "scale(0.94)" : "scale(1)",
           }}
         >
-          {suggestion ? "Pick Again →" : "Choose for Me →"}
+          {curating ? "Curating…" : suggestion ? "Pick Again →" : "Choose for Me →"}
         </button>
 
-        {suggestion && (
+        {curating && (
+          <div className="curating-pulse" style={{ marginTop:18, padding:"14px 16px", background:"rgba(201,168,76,0.04)", border:"1px solid rgba(201,168,76,0.14)", borderRadius:10 }}>
+            <div style={{ ...MONO, fontSize:"0.48rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--c-goldD)" }}>
+              Curating your night…
+            </div>
+          </div>
+        )}
+
+        {!curating && suggestion && (
           <button
             onClick={() => onOpenVenue(String(suggestion.id))}
+            className="fade-slide-up"
             style={{
               display:"flex", alignItems:"flex-start", gap:14, padding:"14px 16px",
               background:"rgba(201,168,76,0.06)", border:"1px solid rgba(201,168,76,0.22)",
@@ -284,8 +417,8 @@ function ForYouTab({ taste, onTasteChange, allVenues, onOpenVenue }) {
         </div>
         <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
           {TASTE_OPTIONS.map(opt => {
-            const selected  = taste.includes(opt.id);
-            const disabled  = !selected && taste.length >= MAX;
+            const selected = taste.includes(opt.id);
+            const disabled = !selected && taste.length >= MAX;
             return (
               <button
                 key={opt.id}
@@ -300,7 +433,7 @@ function ForYouTab({ taste, onTasteChange, allVenues, onOpenVenue }) {
                   background: selected ? "rgba(201,168,76,0.12)" : "transparent",
                   color: selected ? "var(--c-gold)" : disabled ? "var(--c-borders)" : "var(--c-ash)",
                   cursor: disabled ? "default" : "pointer",
-                  transition:"all 0.18s", opacity: disabled ? 0.38 : 1,
+                  transition:"all 0.15s", opacity: disabled ? 0.38 : 1,
                 }}
               >
                 {opt.label}
@@ -317,29 +450,21 @@ function ForYouTab({ taste, onTasteChange, allVenues, onOpenVenue }) {
 
       {/* Curated results */}
       {taste.length === 0 ? (
-        <div style={{ textAlign:"center", padding:"36px 0", borderTop:"1px solid var(--c-borders)" }}>
-          <p style={{ ...SERIF, fontSize:"1.2rem", fontWeight:400, color:"var(--c-white)", marginBottom:8 }}>
-            Select your tastes above
-          </p>
-          <p style={{ fontSize:"0.83rem", color:"var(--c-smoke)", fontWeight:300 }}>
-            Your personalised Detroit guide will appear here.
+        <div style={{ textAlign:"center", padding:"24px 0" }}>
+          <p style={{ ...SERIF, fontSize:"1.1rem", fontWeight:400, color:"var(--c-smoke)", fontStyle:"italic", lineHeight:1.7 }}>
+            Select up to 3 preferences above to see venues matched to your taste.
           </p>
         </div>
+      ) : forYouVenues.length === 0 ? (
+        <div style={{ textAlign:"center", padding:"24px 0" }}>
+          <p style={{ ...SERIF, fontSize:"1rem", color:"var(--c-smoke)", fontStyle:"italic" }}>No matches found for that combination.</p>
+        </div>
       ) : (
-        <div style={{ borderTop:"1px solid var(--c-borders)", paddingTop:24 }}>
-          <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:14 }}>
-            <SectionLabel style={{ marginBottom:0 }}>Curated for You</SectionLabel>
-            <span style={{ ...MONO, fontSize:"0.46rem", color:"var(--c-smoke)" }}>
-              {forYouVenues.length} spot{forYouVenues.length !== 1 ? "s" : ""}
-            </span>
+        <div>
+          <SectionLabel>Matched For You</SectionLabel>
+          <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+            {forYouVenues.map(v => <VenueRow key={v.id} v={v} onOpen={onOpenVenue} />)}
           </div>
-          {forYouVenues.length === 0 ? (
-            <p style={{ fontSize:"0.83rem", color:"var(--c-smoke)", fontWeight:300 }}>No matches for your selections.</p>
-          ) : (
-            <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
-              {forYouVenues.map(v => <VenueRow key={v.id} v={v} onOpen={onOpenVenue} />)}
-            </div>
-          )}
         </div>
       )}
     </div>
@@ -347,222 +472,218 @@ function ForYouTab({ taste, onTasteChange, allVenues, onOpenVenue }) {
 }
 
 function BuildNightTab({ allVenues, onOpenVenue }) {
-  const [when,      setWhen]      = useState(null);
-  const [who,       setWho]       = useState(null);
-  const [energy,    setEnergy]    = useState(null);
-  const [result,    setResult]    = useState(null);
-  const [generated, setGenerated] = useState(false);
+  const [when,   setWhen]   = useState("evening");
+  const [who,    setWho]    = useState("solo");
+  const [energy, setEnergy] = useState("elevated");
+  const [night,  setNight]  = useState(null);
+  const [building, setBuilding] = useState(false);
+  const [btnPressed, setBtnPressed] = useState(false);
 
-  const ready = when && who && energy;
-
-  function generate() {
-    if (!ready) return;
-    setResult(buildNight(when, who, energy, allVenues));
-    setGenerated(true);
+  function handleBuild() {
+    if (building) return;
+    setBtnPressed(true);
+    setTimeout(() => setBtnPressed(false), 120);
+    setBuilding(true);
+    setNight(null);
+    setTimeout(() => {
+      setNight(buildNight(when, who, energy, allVenues));
+      setBuilding(false);
+    }, 700);
   }
 
-  function reset() {
-    setWhen(null); setWho(null); setEnergy(null);
-    setResult(null); setGenerated(false);
-  }
+  const labels = STOP_LABELS[when] || STOP_LABELS.evening;
 
-  const stopLabels = (when && STOP_LABELS[when]) || STOP_LABELS.evening;
-
-  if (generated) {
-    return (
-      <div style={{ padding:"24px 22px 56px", maxWidth:640, margin:"0 auto" }}>
-        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:24 }}>
-          <SectionLabel style={{ marginBottom:0 }}>Your Night</SectionLabel>
-          <button
-            onClick={reset}
-            style={{ ...MONO, fontSize:"0.46rem", letterSpacing:"0.1em", textTransform:"uppercase", background:"transparent", border:"1px solid var(--c-border)", color:"var(--c-smoke)", padding:"7px 14px", borderRadius:6, cursor:"pointer" }}
-          >
-            Rebuild
-          </button>
-        </div>
-
-        {!result || result.length === 0 ? (
-          <div style={{ textAlign:"center", padding:"48px 0" }}>
-            <p style={{ ...SERIF, fontSize:"1.2rem", color:"var(--c-white)", marginBottom:8 }}>No match found</p>
-            <p style={{ fontSize:"0.83rem", color:"var(--c-smoke)", fontWeight:300 }}>Try different choices</p>
-          </div>
-        ) : result.map((v, i) => (
-          <div key={v.id} style={{ display:"flex", gap:14 }}>
-            <div style={{ flexShrink:0, display:"flex", flexDirection:"column", alignItems:"center", paddingTop:2 }}>
-              <div style={{ width:26, height:26, borderRadius:"50%", border:"1px solid var(--c-gold)", display:"flex", alignItems:"center", justifyContent:"center", ...MONO, fontSize:"0.52rem", color:"var(--c-gold)", flexShrink:0 }}>
-                {i + 1}
-              </div>
-              {i < result.length - 1 && (
-                <div style={{ width:1, flex:1, background:"var(--c-border)", marginTop:6, marginBottom:6, minHeight:24 }} />
-              )}
-            </div>
-            <div style={{ flex:1, background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:10, padding:"14px 16px", marginBottom: i < result.length - 1 ? 14 : 0 }}>
-              <p style={{ ...MONO, fontSize:"0.44rem", letterSpacing:"0.15em", textTransform:"uppercase", color:"var(--c-goldD)", margin:"0 0 5px" }}>
-                {stopLabels[i] || "Stop " + (i + 1)}
-              </p>
-              <div style={{ ...MONO, fontSize:"0.44rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--c-gold)", marginBottom:5 }}>
-                {v.cat} · {v.hood}
-              </div>
-              <h3 style={{ ...SERIF, fontSize:"1.18rem", fontWeight:600, color:"var(--c-white)", lineHeight:1.2, margin:"0 0 6px" }}>
-                {v.name}
-              </h3>
-              <p style={{ fontSize:"0.77rem", color:"var(--c-ash)", fontWeight:300, lineHeight:1.5, margin:"0 0 8px" }}>
-                {v.desc.length > 95 ? v.desc.slice(0, 95) + "…" : v.desc}
-              </p>
-              {v.best && (
-                <p style={{ ...MONO, fontSize:"0.44rem", letterSpacing:"0.07em", color:"var(--c-smoke)", margin:"0 0 10px" }}>
-                  Best for: {v.best}
-                </p>
-              )}
-              <div style={{ paddingTop:10, borderTop:"1px solid var(--c-borders)" }}>
-                <button
-                  onClick={() => onOpenVenue(String(v.id))}
-                  style={{ ...MONO, fontSize:"0.5rem", letterSpacing:"0.12em", textTransform:"uppercase", background:"var(--c-gold)", color:"var(--c-black)", border:"none", borderRadius:6, padding:"8px 16px", cursor:"pointer", fontWeight:500 }}
-                >
-                  View Details →
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  }
+  const energyDesc = {
+    calm:      "Quiet & intimate — hidden bars, candlelit rooms",
+    chill:     "Casual & easy — neighborhood spots, no fuss",
+    elevated:  "Luxury & polished — dinner first, then a proper lounge",
+    highenergy:"Nightlife energy — lively, late, full send",
+  }[energy] || "";
 
   return (
-    <div style={{ padding:"24px 22px 56px", maxWidth:520, margin:"0 auto" }}>
-      <p style={{ ...SERIF, fontSize:"1.05rem", fontWeight:400, color:"var(--c-smoke)", fontStyle:"italic", marginBottom:28, lineHeight:1.65 }}>
-        Answer three questions. We'll build your itinerary from Detroit's best spots.
-      </p>
-      <div style={{ display:"flex", flexDirection:"column", gap:24 }}>
-        <div>
-          <p style={{ ...MONO, fontSize:"0.52rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--c-goldD)", margin:"0 0 10px" }}>When are you going out?</p>
-          <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
-            <OptionBtn val="morning"   current={when} onSet={setWhen} label="Morning" />
-            <OptionBtn val="afternoon" current={when} onSet={setWhen} label="Afternoon" />
-            <OptionBtn val="evening"   current={when} onSet={setWhen} label="Evening" />
-            <OptionBtn val="late"      current={when} onSet={setWhen} label="Late Night" />
+    <div style={{ padding:"24px 22px 56px", maxWidth:1200, margin:"0 auto" }}>
+
+      <div style={{ background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:14, padding:"22px 20px 20px", marginBottom:24 }}>
+        <p style={{ ...MONO, fontSize:"0.5rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--c-goldD)", margin:"0 0 5px" }}>
+          Build My Night
+        </p>
+        <p style={{ ...SERIF, fontSize:"1.05rem", fontWeight:400, color:"var(--c-white)", margin:"0 0 22px" }}>
+          Tell us how you want to spend it.
+        </p>
+
+        {/* When */}
+        <div style={{ marginBottom:18 }}>
+          <p style={{ ...MONO, fontSize:"0.46rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"var(--c-smoke)", margin:"0 0 10px" }}>When</p>
+          <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
+            {[
+              { val:"morning",   label:"Morning" },
+              { val:"afternoon", label:"Afternoon" },
+              { val:"evening",   label:"Evening" },
+              { val:"late",      label:"Late Night" },
+            ].map(o => <OptionBtn key={o.val} val={o.val} current={when} onSet={setWhen} label={o.label} />)}
           </div>
         </div>
-        <div>
-          <p style={{ ...MONO, fontSize:"0.52rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--c-goldD)", margin:"0 0 10px" }}>Who's coming?</p>
-          <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
-            <OptionBtn val="solo"  current={who} onSet={setWho} label="Just Me" />
-            <OptionBtn val="date"  current={who} onSet={setWho} label="2 of Us" />
-            <OptionBtn val="group" current={who} onSet={setWho} label="Group" />
+
+        {/* Who */}
+        <div style={{ marginBottom:18 }}>
+          <p style={{ ...MONO, fontSize:"0.46rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"var(--c-smoke)", margin:"0 0 10px" }}>Who</p>
+          <div style={{ display:"flex", flexWrap:"wrap", gap:8 }}>
+            {[
+              { val:"solo",  label:"Just Me" },
+              { val:"date",  label:"2 of Us" },
+              { val:"group", label:"Group" },
+            ].map(o => <OptionBtn key={o.val} val={o.val} current={who} onSet={setWho} label={o.label} />)}
           </div>
         </div>
-        <div>
-          <p style={{ ...MONO, fontSize:"0.52rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--c-goldD)", margin:"0 0 10px" }}>What's the energy?</p>
-          <div style={{ display:"flex", gap:8, flexWrap:"wrap" }}>
-            <OptionBtn val="chill"      current={energy} onSet={setEnergy} label="Chill" />
-            <OptionBtn val="elevated"   current={energy} onSet={setEnergy} label="Elevated" />
-            <OptionBtn val="highenergy" current={energy} onSet={setEnergy} label="High Energy" />
+
+        {/* Energy */}
+        <div style={{ marginBottom:22 }}>
+          <p style={{ ...MONO, fontSize:"0.46rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"var(--c-smoke)", margin:"0 0 10px" }}>Energy</p>
+          <div style={{ display:"flex", flexWrap:"wrap", gap:8, marginBottom:8 }}>
+            {[
+              { val:"calm",      label:"Calm" },
+              { val:"chill",     label:"Chill" },
+              { val:"elevated",  label:"Elevated" },
+              { val:"highenergy",label:"High Energy" },
+            ].map(o => <OptionBtn key={o.val} val={o.val} current={energy} onSet={setEnergy} label={o.label} />)}
           </div>
+          {energyDesc && (
+            <p style={{ ...MONO, fontSize:"0.44rem", letterSpacing:"0.06em", color:"var(--c-smoke)", margin:"6px 0 0", lineHeight:1.5 }}>
+              {energyDesc}
+            </p>
+          )}
         </div>
+
+        <button
+          onClick={handleBuild}
+          style={{
+            ...MONO, fontSize:"0.53rem", letterSpacing:"0.14em", textTransform:"uppercase",
+            padding:"12px 26px", borderRadius:100,
+            border:"1px solid var(--c-goldD)",
+            background: building ? "rgba(201,168,76,0.08)" : "transparent",
+            color:"var(--c-gold)", cursor:"pointer",
+            transition:"all 0.15s",
+            transform: btnPressed ? "scale(0.94)" : "scale(1)",
+          }}
+        >
+          {building ? "Building…" : night ? "Rebuild →" : "Build My Night →"}
+        </button>
       </div>
-      <button
-        onClick={generate}
-        disabled={!ready}
-        style={{
-          marginTop:28, ...MONO, fontSize:"0.56rem", letterSpacing:"0.15em", textTransform:"uppercase",
-          padding:"14px 32px", borderRadius:100, border:"none", width:"100%",
-          background: ready ? "var(--c-gold)" : "var(--c-border)",
-          color: ready ? "var(--c-black)" : "var(--c-smoke)",
-          cursor: ready ? "pointer" : "default",
-          transition:"all 0.2s", fontWeight:500,
-        }}
-      >
-        Build My Night →
-      </button>
+
+      {building && (
+        <div className="curating-pulse" style={{ padding:"18px 20px", background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:12 }}>
+          <div style={{ ...MONO, fontSize:"0.48rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--c-goldD)" }}>
+            Building your night…
+          </div>
+        </div>
+      )}
+
+      {!building && night && night.length > 0 && (
+        <div className="fade-slide-up">
+          <SectionLabel>Your Night</SectionLabel>
+          <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+            {night.map((v, i) => (
+              <div key={v.id}>
+                <p style={{ ...MONO, fontSize:"0.44rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--c-goldD)", margin:"0 0 6px" }}>
+                  {labels[i] || "Stop " + (i + 1)}
+                </p>
+                <VenueRow v={v} onOpen={onOpenVenue} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {!building && night && night.length === 0 && (
+        <div style={{ textAlign:"center", padding:"24px 0" }}>
+          <p style={{ ...SERIF, fontSize:"1rem", color:"var(--c-smoke)", fontStyle:"italic" }}>
+            No matches found. Try a different combination.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
 
+function MiniCard({ children, onClick }) {
+  const [pressed, setPressed] = useState(false);
+  return (
+    <div
+      onClick={onClick}
+      onMouseDown={() => setPressed(true)}
+      onMouseUp={() => setPressed(false)}
+      onMouseLeave={() => setPressed(false)}
+      onTouchStart={() => setPressed(true)}
+      onTouchEnd={() => setPressed(false)}
+      style={{
+        background:"var(--c-card)", border:"1px solid var(--c-border)",
+        borderRadius:10, overflow:"hidden", cursor: onClick ? "pointer" : "default",
+        transition:"transform 0.1s, border-color 0.18s",
+        transform: pressed ? "scale(0.975)" : "scale(1)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function SecHdr({ children }) {
+  return (
+    <p style={{ ...MONO, fontSize:"0.52rem", letterSpacing:"0.18em", textTransform:"uppercase", color:"var(--c-goldD)", margin:"0 0 12px" }}>
+      {children}
+    </p>
+  );
+}
+
 function SavedSpotsTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, onUnsaveEvent, onUnsaveHotel, onOpenVenue }) {
-  const allEmpty = savedVenues.length === 0 && savedEventItems.length === 0 && savedHotelItems.length === 0;
-  const multiSec = (savedVenues.length > 0 ? 1 : 0) + (savedEventItems.length > 0 ? 1 : 0) + (savedHotelItems.length > 0 ? 1 : 0) > 1;
-
-  function SecHdr({ children }) {
-    return (
-      <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:18, marginTop:4 }}>
-        <span style={{ ...MONO, fontSize:"0.5rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--c-goldD)" }}>{children}</span>
-        <div style={{ flex:1, height:1, background:"rgba(201,168,76,0.18)" }} />
-      </div>
-    );
-  }
-
-  function MiniCard({ onClick, children }) {
-    return (
-      <div
-        onClick={onClick}
-        style={{ background:"var(--c-card)", borderRadius:10, border:"1px solid var(--c-border)", cursor:"pointer", overflow:"hidden" }}
-      >
-        {children}
-      </div>
-    );
-  }
-
+  const empty = !savedVenues.length && !savedEventItems.length && !savedHotelItems.length;
   return (
     <div style={{ padding:"24px 22px 56px", maxWidth:1200, margin:"0 auto" }}>
-      {allEmpty ? (
-        <div style={{ textAlign:"center", padding:"56px 20px" }}>
-          <div style={{ fontSize:"1.6rem", color:"var(--c-goldD)", marginBottom:14 }}>◈</div>
-          <p style={{ ...SERIF, fontSize:"1.4rem", fontWeight:400, color:"var(--c-white)", marginBottom:8 }}>Nothing saved yet</p>
-          <p style={{ fontSize:"0.83rem", color:"var(--c-smoke)", fontWeight:300 }}>
-            Browse spots and tap the heart to build your list.
+      {empty ? (
+        <div style={{ textAlign:"center", padding:"32px 0" }}>
+          <p style={{ ...SERIF, fontSize:"1.1rem", fontWeight:400, color:"var(--c-smoke)", fontStyle:"italic", lineHeight:1.7 }}>
+            Tap the heart on any venue, event, or hotel to save it here.
           </p>
         </div>
       ) : (
         <>
           {savedVenues.length > 0 && (
-            <div style={{ marginBottom: multiSec ? 36 : 0 }}>
-              {multiSec && <SecHdr>Dining & Drinks</SecHdr>}
-              <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:12 }}>
-                {savedVenues.map(v => {
-                  const cta = getCTA(v);
-                  return (
-                    <MiniCard key={v.id} onClick={() => onOpenVenue(String(v.id))}>
-                      <div style={{ padding:"14px 16px" }}>
-                        <div style={{ ...MONO, fontSize:"0.46rem", letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--c-gold)", marginBottom:5 }}>
-                          {v.hood} · {v.cat}
-                        </div>
-                        <div style={{ ...SERIF, fontSize:"1.05rem", fontWeight:600, color:"var(--c-white)", lineHeight:1.2, marginBottom:5 }}>
-                          {v.name}
-                        </div>
-                        <div style={{ fontSize:"0.76rem", color:"var(--c-smoke)", fontWeight:300, marginBottom:10 }}>
-                          {v.desc.length > 60 ? v.desc.slice(0, 60) + "…" : v.desc}
-                        </div>
-                        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-                          {cta ? (
-                            <a href={cta.url} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} style={{ display:"inline-block", background:"var(--c-gold)", color:"var(--c-black)", ...MONO, fontSize:"0.5rem", letterSpacing:"0.12em", textTransform:"uppercase", padding:"7px 14px", borderRadius:5, fontWeight:500, textDecoration:"none" }}>
-                              {cta.label}
-                            </a>
-                          ) : <span />}
-                          <button onClick={e => { e.stopPropagation(); toggleFav(String(v.id)); }} style={{ background:"none", border:"none", cursor:"pointer", color:"var(--c-gold)", fontSize:"1.2rem", padding:"6px 4px", lineHeight:1 }}>♥</button>
-                        </div>
-                      </div>
-                    </MiniCard>
-                  );
-                })}
+            <div style={{ marginBottom:28 }}>
+              <SecHdr>Saved Spots</SecHdr>
+              <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+                {savedVenues.map(v => (
+                  <button
+                    key={v.id}
+                    onClick={() => onOpenVenue(String(v.id))}
+                    style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"13px 16px", background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:8, cursor:"pointer", textAlign:"left", width:"100%", transition:"border-color 0.18s" }}
+                  >
+                    <div>
+                      <div style={{ ...SERIF, fontSize:"1.02rem", fontWeight:600, color:"var(--c-white)", marginBottom:2 }}>{v.name}</div>
+                      <div style={{ ...MONO, fontSize:"0.44rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--c-smoke)" }}>{v.cat} · {v.hood}</div>
+                    </div>
+                    <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                      <button onClick={e => { e.stopPropagation(); toggleFav && toggleFav(String(v.id)); }} style={{ background:"none", border:"none", cursor:"pointer", color:"var(--c-gold)", fontSize:"1.2rem", padding:"6px 4px", lineHeight:1 }}>♥</button>
+                      <span style={{ color:"var(--c-goldD)", fontSize:"0.85rem" }}>→</span>
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
           )}
 
           {savedEventItems.length > 0 && (
-            <div style={{ marginBottom: savedHotelItems.length > 0 ? 36 : 0 }}>
-              <SecHdr>Events & Tickets</SecHdr>
+            <div style={{ marginBottom:28 }}>
+              <SecHdr>Saved Events</SecHdr>
               <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))", gap:12 }}>
                 {savedEventItems.map(item => {
+                  const badge = item.type==="game" ? "Sports" : item.type==="concert" ? "Concerts" : "Events";
                   const cta   = getTicketCTA(item);
-                  const label = item.title || (item.team + " vs. " + item.opponent);
-                  const badge = item.sport || item.category || "Event";
                   return (
                     <MiniCard key={item.id} onClick={() => {}}>
                       {item.image && <img src={item.image} alt="" loading="lazy" style={{ width:"100%", height:120, objectFit:"cover", display:"block" }} />}
                       <div style={{ padding:"13px 14px" }}>
                         <div style={{ ...MONO, fontSize:"0.46rem", letterSpacing:"0.14em", textTransform:"uppercase", color:"var(--c-gold)", marginBottom:5 }}>{badge}</div>
-                        <div style={{ ...SERIF, fontSize:"1.05rem", fontWeight:600, color:"var(--c-white)", lineHeight:1.2, marginBottom:5 }}>{label}</div>
+                        <div style={{ ...SERIF, fontSize:"1.05rem", fontWeight:600, color:"var(--c-white)", lineHeight:1.2, marginBottom:5 }}>{item.label}</div>
                         <div style={{ fontSize:"0.76rem", color:"var(--c-smoke)", fontWeight:300, marginBottom:10 }}>
                           {item.venue}{item.date ? " · " + fmtDate(item.date) : ""}
                         </div>
@@ -616,28 +737,95 @@ function SavedSpotsTab({ savedVenues, savedEventItems, savedHotelItems, toggleFa
   );
 }
 
+function PassportStamp({ badge, def, earned, isNew }) {
+  const icon  = STAMP_ICONS[badge.id] || "◈";
+  const shape = def ? def.shape : "circle";
+  const rot   = def ? def.rot  : 0;
+  const sub   = def ? def.subtext : "DETROIT · 2025";
+  const st    = getStampStyle(shape, earned);
+
+  return (
+    <div
+      key={badge.id}
+      className={isNew ? "stamp-press" : undefined}
+      style={{
+        ...st,
+        flexShrink: 0,
+        transform: `rotate(${rot}deg)`,
+        transition:"opacity 0.4s, border-color 0.4s",
+      }}
+    >
+      {earned && (
+        <span style={{
+          position:"absolute", top:"50%", left:"50%",
+          transform:"translate(-50%,-50%) rotate(-18deg)",
+          ...MONO, fontSize:"0.35rem", letterSpacing:"0.28em",
+          color:"rgba(201,168,76,0.13)", textTransform:"uppercase",
+          whiteSpace:"nowrap", pointerEvents:"none", zIndex:1,
+          userSelect:"none",
+        }}>
+          STAMPED
+        </span>
+      )}
+      <div style={{ position:"relative", zIndex:2, display:"flex", flexDirection:"column", alignItems:"center" }}>
+        <div style={{
+          fontSize:"0.7rem", marginBottom:5, lineHeight:1,
+          color: earned ? "var(--c-gold)" : "var(--c-smoke)",
+        }}>
+          {earned ? icon : "○"}
+        </div>
+        <div style={{ ...SERIF, fontSize:"0.88rem", fontWeight:600, color: earned ? "var(--c-white)" : "var(--c-ash)", lineHeight:1.2, marginBottom: earned ? 4 : 6, textAlign:"center" }}>
+          {badge.label}
+        </div>
+        {earned ? (
+          <div style={{ ...MONO, fontSize:"0.36rem", letterSpacing:"0.16em", textTransform:"uppercase", color:"rgba(201,168,76,0.5)", textAlign:"center" }}>
+            {sub}
+          </div>
+        ) : (
+          <div style={{ ...MONO, fontSize:"0.4rem", letterSpacing:"0.04em", color:"var(--c-smoke)", lineHeight:1.4, textAlign:"center", maxWidth:80 }}>
+            {badge.hint}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function PassportTab({ visited, allVenues, onOpenVenue, navTo }) {
   const visitedVenues = useMemo(
     () => allVenues.filter(v => visited.includes(String(v.id))),
     [visited, allVenues]
   );
 
-  const badges = PASSPORT_BADGES.map(b => ({ ...b, earned: b.test(visitedVenues) }));
-  const earnedCount   = badges.filter(b => b.earned).length;
-  const milestone     = 20;
-  const pct           = visitedVenues.length === 0 ? 0 : Math.min(100, Math.round((visitedVenues.length / milestone) * 100));
+  const badges      = PASSPORT_BADGES.map(b => ({ ...b, earned: b.test(visitedVenues) }));
+  const earnedCount = badges.filter(b => b.earned).length;
+  const milestone   = 20;
+  const pct         = visitedVenues.length === 0 ? 0 : Math.min(100, Math.round((visitedVenues.length / milestone) * 100));
   const recentVisited = visitedVenues.slice(-5).reverse();
 
-  // Track newly earned for animation
+  // Track newly earned for stamp overlay animation
   const prevEarnedRef  = useRef(new Set());
   const earnedIds      = useMemo(() => new Set(badges.filter(b => b.earned).map(b => b.id)), [badges]);
   const newlyEarnedIds = useMemo(() => new Set([...earnedIds].filter(id => !prevEarnedRef.current.has(id))), [earnedIds]);
   useEffect(() => { prevEarnedRef.current = earnedIds; }, [earnedIds]);
 
+  const [overlayBadge, setOverlayBadge] = useState(null);
+  useEffect(() => {
+    if (newlyEarnedIds.size > 0) {
+      const b = badges.find(b => newlyEarnedIds.has(b.id));
+      if (b) setOverlayBadge(b);
+    }
+  }, [newlyEarnedIds.size]);
+
   return (
     <div style={{ padding:"24px 22px 56px", maxWidth:1200, margin:"0 auto" }}>
 
-      {/* Header card */}
+      {/* Full-screen stamp overlay */}
+      {overlayBadge && (
+        <StampOverlay badge={overlayBadge} onDone={() => setOverlayBadge(null)} />
+      )}
+
+      {/* Header */}
       <div style={{ background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:14, padding:"22px 22px 18px", marginBottom:28 }}>
         <p style={{ ...MONO, fontSize:"0.46rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--c-goldD)", margin:"0 0 6px" }}>
           Detroit Insider Passport
@@ -665,74 +853,19 @@ function PassportTab({ visited, allVenues, onOpenVenue, navTo }) {
         </p>
       </div>
 
-      {/* Passport stamps */}
+      {/* Passport stamps — mixed shapes, real passport aesthetic */}
       <div style={{ marginBottom:32 }}>
         <SectionLabel>Passport Stamps</SectionLabel>
-        <div style={{ display:"flex", flexWrap:"wrap", gap:16, justifyContent:"flex-start" }}>
-          {badges.map((b, i) => {
-            const rot    = STAMP_ROTATIONS[i % STAMP_ROTATIONS.length];
-            const isNew  = newlyEarnedIds.has(b.id);
-            return (
-              <div
-                key={b.id}
-                className={isNew ? "stamp-press" : undefined}
-                style={{
-                  "--stamp-rot": rot + "deg",
-                  flexBasis:"calc(50% - 8px)",
-                  maxWidth:200,
-                  aspectRatio:"1",
-                  borderRadius:"50%",
-                  border:"2px solid " + (b.earned ? "rgba(201,168,76,0.55)" : "rgba(150,140,130,0.2)"),
-                  boxShadow: b.earned
-                    ? "0 0 0 5px rgba(201,168,76,0.07), inset 0 0 0 4px rgba(201,168,76,0.07)"
-                    : "none",
-                  background: b.earned ? "rgba(201,168,76,0.06)" : "var(--c-card)",
-                  opacity: b.earned ? 1 : 0.38,
-                  transform:"rotate(" + rot + "deg)",
-                  display:"flex",
-                  flexDirection:"column",
-                  alignItems:"center",
-                  justifyContent:"center",
-                  padding:16,
-                  textAlign:"center",
-                  position:"relative",
-                  overflow:"hidden",
-                  transition:"opacity 0.35s, border-color 0.35s",
-                }}
-              >
-                {b.earned && (
-                  <span style={{
-                    position:"absolute", top:"50%", left:"50%",
-                    transform:"translate(-50%,-50%) rotate(-22deg)",
-                    ...MONO, fontSize:"0.38rem", letterSpacing:"0.28em",
-                    color:"rgba(201,168,76,0.18)", textTransform:"uppercase",
-                    whiteSpace:"nowrap", pointerEvents:"none", zIndex:1,
-                  }}>
-                    STAMPED
-                  </span>
-                )}
-                <div style={{ position:"relative", zIndex:2 }}>
-                  <div style={{
-                    width:28, height:28, borderRadius:"50%",
-                    border:"1.5px solid " + (b.earned ? "rgba(201,168,76,0.5)" : "rgba(150,140,130,0.25)"),
-                    display:"flex", alignItems:"center", justifyContent:"center",
-                    margin:"0 auto 8px", color: b.earned ? "var(--c-gold)" : "var(--c-smoke)",
-                    fontSize:"0.65rem",
-                  }}>
-                    {b.earned ? "◈" : "○"}
-                  </div>
-                  <div style={{ ...SERIF, fontSize:"0.94rem", fontWeight:600, color: b.earned ? "var(--c-white)" : "var(--c-ash)", lineHeight:1.2, marginBottom: b.earned ? 0 : 6 }}>
-                    {b.label}
-                  </div>
-                  {!b.earned && (
-                    <div style={{ ...MONO, fontSize:"0.43rem", letterSpacing:"0.06em", color:"var(--c-smoke)", lineHeight:1.45, marginTop:4 }}>
-                      {b.hint}
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+        <div style={{ display:"flex", flexWrap:"wrap", gap:18, justifyContent:"flex-start", alignItems:"flex-start" }}>
+          {badges.map(b => (
+            <PassportStamp
+              key={b.id}
+              badge={b}
+              def={STAMP_DEFS[b.id]}
+              earned={b.earned}
+              isNew={newlyEarnedIds.has(b.id)}
+            />
+          ))}
         </div>
       </div>
 

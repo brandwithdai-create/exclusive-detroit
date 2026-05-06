@@ -1,0 +1,125 @@
+The refinement is moving in the right direction, but the Passport and “Choose for Me” sections are not there yet. Please do a targeted correction pass.
+
+1. Energy options need to change
+   Replace the current energy options with:
+
+- Calm
+- Chill
+- Elevated
+- High Energy
+
+Meaning:
+
+- Calm = quiet, intimate, low-noise, relaxed spots
+- Chill = casual, low-pressure, sports bars, dive bars, easygoing spots
+- Elevated = luxury, polished, date-night, upscale, hotel/lounge, refined experiences
+- High Energy = nightlife, party, lively bars, places that are usually busy/bumping
+
+Do not assign venues randomly. The itinerary logic must match what the user selected.
+
+2. Build My Night must be smarter
+   If the user selects Date Night or 2 of Us + Elevated, the app should suggest cute/upscale date-friendly places: dinner first, then a polished lounge/cocktail spot, then dessert/after spot if available.
+
+Examples of the type of venues that fit Date Night/Elevated:
+
+- Candy Bar
+- Prime + Proper
+- Parc
+- Sexy Steak
+- Grey ghost
+- Highlands / High Bar
+- The Monarch Club
+- Bad Luck Bar
+- Standby
+- The Siren / Ash Bar if already in the venue data
+
+Use only existing venue data. If a venue is not already in the static data, do not invent it. If the current data does not have enough tags to know what fits, add minimal safe tags manually to existing venue objects such as:
+
+- calm
+- chill
+- elevated
+- highEnergy
+- dateNight
+- food
+- drinks
+- lateNight
+- brunch
+- groupFriendly
+
+The algorithm should always choose based on these tags, not random category fallback.
+
+3. Choose for Me needs to feel fun and app-like
+   The current “Choose for Me” card is too plain. Make it feel interactive and fun while staying luxury.
+
+Add a subtle animation, like:
+
+- rolling dice
+- shuffling cards
+- spinning selector
+- “curating your night…” transition
+
+Keep it refined, not childish. The button should feel exciting, not like a plain form button.
+
+When the user taps Choose for Me:
+
+- show a short animation
+- then reveal a smart suggestion based on time of day
+- always include food unless the suggestion is specifically drinks-only
+- avoid breakfast after breakfast hours
+- lunch during midday
+- dinner + cocktails/lounge in the evening
+- late-night food/drinks late at night
+
+4. Passport redesign is not acceptable yet
+   The current passport stamps look like large bubbles/circles and I do not like them. Please redesign them to look like real passport stamps, inspired by actual passport pages.
+
+Reference style:
+
+- irregular travel stamp shapes
+- rectangles, ovals, circles, and angled stamps
+- thin ink-like borders
+- slightly imperfect/offset stamped look
+- each stamp should look different
+- each stamp should visually correlate to the badge name
+- no giant bubble layout
+- no generic circular badge grid
+
+The Passport should feel like a luxury travel passport page, not badges inside bubbles.
+
+5. Passport stamp animation
+   There still needs to be a real stamp animation.
+
+When a user marks a venue as visited and earns a new stamp:
+
+- show a temporary large stamp animation on screen
+- it should feel like a physical stamp pressing onto the passport/venue
+- then the stamp should settle into the Passport page
+- keep it smooth and classy
+- no new dependencies
+
+6. Add more fun overall
+   The app needs to feel more app-like and interactive, not just static sections. Add tasteful microinteractions:
+
+- button press states
+- subtle reveal animations
+- itinerary result transition
+- passport stamp animation
+- Choose for Me animation
+
+Keep the luxury tone. Do not make it cartoonish.
+
+7. Testing/stability
+   Do not break the existing app.
+   Confirm:
+
+- dark mode works
+- light mode works
+- itinerary logic matches selected criteria
+- date night does not return all cocktail venues
+- Choose for Me returns useful suggestions
+- Passport no longer looks like bubbles
+- stamp animation triggers when a new stamp is earned
+- no APIs
+- no new dependencies
+- no background calls
+- no console errors
