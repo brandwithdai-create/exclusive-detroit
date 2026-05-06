@@ -224,632 +224,270 @@ const IconSmile     = () => <svg width="16" height="16" viewBox="0 0 16 16" styl
 const IconDiamond   = () => <svg width="16" height="16" viewBox="0 0 16 16" style={si}><polygon points="8,1 14,7 8,15 2,7"/><line x1="2" y1="7" x2="14" y2="7"/><line x1="5" y1="1.8" x2="8" y2="7"/><line x1="11" y1="1.8" x2="8" y2="7"/></svg>;
 const IconLightning = () => <svg width="16" height="16" viewBox="0 0 16 16" style={{...si,strokeLinejoin:"round"}}><path d="M9.5,1 L5,9 L8.5,9 L6.5,15 L12,7 L8.5,7Z"/></svg>;
 
+
 // ─────────────────────────────────────────────────────────────────────────────
-// Building SVG art for passport stamps
+// Passport stamp icons — category-specific line art (replaces building SVGs)
 // ─────────────────────────────────────────────────────────────────────────────
-const CAT_BUILDING = {
-  "Dinner":                  ["steakhouse","parisian","mansion_georgian","classic_diner","european_cafe","hotel_grand"],
-  "Cocktail Lounges":        ["artdeco_tower","speakeasy","artdeco_lobby","guardian","nightclub"],
-  "Hidden Bars":             ["speakeasy","brownstone","loft_building","nightclub","brownstone_pair"],
-  "Rooftops":                ["rooftop_bar","hotel_modern","loft_building","clock_tower"],
-  "Breakfast":               ["bakery","cafe_parisian","european_cafe","classic_diner"],
-  "Coffee Shops & Bakeries": ["bakery","cafe_parisian","parisian","european_cafe"],
-  "Nightlife":               ["nightclub","theater_marquee","theater_grand","warehouse_industrial"],
-  "Sports Bars":             ["warehouse_industrial","classic_diner","loft_building","brownstone_pair"],
-  "Happy Hour":              ["arches_roman","european_cafe","columns_greek","parisian"],
-  "Lunch":                   ["mediterranean","parisian","european_cafe","steakhouse"],
-  "Outdoor Activities":      ["japanese_pagoda","japanese_izakaya","rooftop_bar","waterfront"],
-  "Alley Spots":             ["speakeasy","brownstone","boutique_hotel","loft_building"],
+const CAT_ICON = {
+  "Cocktail Lounges":        "cocktail",
+  "Hidden Bars":             "bottle",
+  "Rooftops":                "rooftop",
+  "Nightlife":               "disco",
+  "Coffee Shops & Bakeries": "coffee",
+  "Dinner":                  "dining",
+  "Breakfast":               "sunrise",
+  "Sports Bars":             "trophy",
+  "Happy Hour":              "beer",
+  "Lunch":                   "plate",
+  "Outdoor Activities":      "tree",
+  "Alley Spots":             "door",
 };
 
-function BuildingSVG({ type }) {
-  const s = { fill:"none", stroke:"currentColor", strokeWidth:1.15, strokeLinecap:"round", strokeLinejoin:"round" };
-  const f = { stroke:"none", fill:"currentColor" };
-  switch (type) {
-
-    // ── ART DECO TOWER (stepped setback skyscraper) ──────────────────────
-    case "artdeco_tower": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <line x1="36" y1="0" x2="36" y2="5" style={{...s,strokeWidth:1.6}}/>
-        <rect x="34" y="5" width="4" height="2" style={{...f,opacity:.7}}/>
-        <rect x="31" y="7" width="10" height="4" style={s}/>
-        {[33,36,39].map(x=><line key={x} x1={x} y1="7" x2={x} y2="11" style={{...s,strokeWidth:.55,opacity:.3}}/>)}
-        <rect x="25" y="11" width="22" height="5" style={s}/>
-        {[28,31,34,37,41,44].map(x=><line key={x} x1={x} y1="11" x2={x} y2="16" style={{...s,strokeWidth:.5,opacity:.28}}/>)}
-        <rect x="18" y="16" width="36" height="5" style={s}/>
-        <rect x="18" y="16" width="36" height="1.8" style={{...f,opacity:.42}}/>
-        <rect x="12" y="21" width="48" height="25" style={s}/>
-        {[22,30,38,42,50].map(x=><line key={x} x1={x} y1="21" x2={x} y2="46" style={{...s,strokeWidth:.6,opacity:.25}}/>)}
-        {[14,19].map(x=>[28,35,42].map(y=><rect key={x+"-"+y} x={x} y={y} width="5.5" height="5" style={{...s,opacity:.5}}/>))}
-        {[52,58].map(x=>[28,35,42].map(y=><rect key={x+"-"+y} x={x} y={y} width="5.5" height="5" style={{...s,opacity:.5}}/>))}
-        <rect x="28" y="33" width="16" height="13" style={s}/>
-        <rect x="10" y="46" width="52" height="2" style={{...f,opacity:.5}}/>
+function StampIconSVG({ cat, ink }) {
+  const type = CAT_ICON[cat] || "building";
+  const s = { stroke:ink, fill:"none", strokeWidth:1.3, strokeLinecap:"round", strokeLinejoin:"round" };
+  const f = { fill:ink, stroke:"none" };
+  switch(type) {
+    case "cocktail": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <path d="M7,4 L33,4 L20,20 L20,27" style={s}/>
+        <line x1="13" y1="27" x2="27" y2="27" style={s}/>
+        <path d="M13,11 L20,18" style={{...s,strokeWidth:.75,opacity:.5}}/>
+        <ellipse cx="20" cy="9" rx="7" ry="2.5" style={{...s,strokeWidth:.6,opacity:.32}}/>
       </svg>
     );
-
-    // ── ART DECO LOBBY (grand entrance arch) ──────────────────────────────
-    case "artdeco_lobby": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="2" y="2" width="68" height="2.5" style={{...f,opacity:.55}}/>
-        <rect x="6" y="4.5" width="60" height="3" style={s}/>
-        <rect x="10" y="7.5" width="52" height="3" style={s}/>
-        <rect x="4" y="10.5" width="64" height="35" style={s}/>
-        {[8,16].map(x=>[14,22,30].map(y=><rect key={x+"-"+y} x={x} y={y} width="6" height="7" style={{...s,opacity:.52}}/>))}
-        {[50,58].map(x=>[14,22,30].map(y=><rect key={x+"-"+y} x={x} y={y} width="6" height="7" style={{...s,opacity:.52}}/>))}
-        <path d="M28,46 L28,26 Q36,14 44,26 L44,46" style={s}/>
-        {[30,36,42].map((x,i)=><line key={x} x1={x} y1={i===1?14:16} x2="36" y2="26" style={{...s,strokeWidth:.6,opacity:.35}}/>)}
-        <path d="M28,26 Q36,14 44,26" style={{...s,opacity:.4}}/>
-        <rect x="26" y="44" width="20" height="2" style={{...f,opacity:.4}}/>
-        <rect x="24" y="46" width="24" height="2" style={{...f,opacity:.4}}/>
+    case "bottle": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <path d="M16,29 L16,20 L12,14 L12,6 L28,6 L28,14 L24,20 L24,29 Z" style={s}/>
+        <line x1="12" y1="10" x2="28" y2="10" style={{...s,strokeWidth:.7,opacity:.5}}/>
+        <rect x="16" y="3" width="8" height="3" rx="1" style={s}/>
+        <ellipse cx="20" cy="23" rx="2.5" ry="1.5" style={{...s,strokeWidth:.6,opacity:.4}}/>
       </svg>
     );
-
-    // ── GUARDIAN BUILDING (Detroit landmark, stepped pyramid) ─────────────
-    case "guardian": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <polygon points="36,1 33,6 39,6" style={{...s,opacity:.7}}/>
-        <rect x="32" y="6" width="8" height="2" style={{...f,opacity:.7}}/>
-        <rect x="28" y="8" width="16" height="2" style={{...f,opacity:.6}}/>
-        <rect x="24" y="10" width="24" height="3" style={{...f,opacity:.5}}/>
-        <rect x="20" y="13" width="32" height="14" style={s}/>
-        <rect x="20" y="19" width="32" height="1.5" style={{...f,opacity:.38}}/>
-        {[26,32,38].map(x=><path key={x} d={`M${x},27 L${x},22 Q${x+3},18 ${x+6},22 L${x+6},27`} style={{...s,opacity:.5}}/>)}
-        <rect x="8" y="27" width="14" height="19" style={s}/>
-        <rect x="50" y="27" width="14" height="19" style={s}/>
-        {[10,14].map(x=>[30,36,40].map(y=><rect key={x+"-"+y} x={x} y={y} width="4" height="5" style={{...s,opacity:.45}}/>))}
-        {[52,56].map(x=>[30,36,40].map(y=><rect key={x+"-"+y} x={x} y={y} width="4" height="5" style={{...s,opacity:.45}}/>))}
-        <rect x="6" y="46" width="60" height="2" style={{...f,opacity:.48}}/>
+    case "rooftop": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <polyline points="2,26 2,20 6,20 6,22 10,22 10,14 16,14 16,22 20,22 20,15 26,15 26,22 30,22 30,20 36,20 36,22 38,22 38,26" style={{...s,strokeWidth:.85}}/>
+        <line x1="2" y1="26" x2="38" y2="26" style={s}/>
+        {[10,20,30].map(x=><line key={x} x1={x} y1="10" x2={x} y2="7" style={{...s,strokeWidth:.6,opacity:.5}}/>)}
       </svg>
     );
-
-    // ── PARISIAN (Haussmann facade, mansard roof) ──────────────────────────
-    case "parisian": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <path d="M4,17 L8,7 L64,7 L68,17Z" style={s}/>
-        <path d="M18,17 L18,11 Q22,8 26,11 L26,17" style={{...s,opacity:.55}}/>
-        <path d="M32,17 L32,10 Q36,7 40,10 L40,17" style={{...s,opacity:.55}}/>
-        <path d="M46,17 L46,11 Q50,8 54,11 L54,17" style={{...s,opacity:.55}}/>
-        <rect x="4" y="17" width="64" height="2.5" style={{...f,opacity:.52}}/>
-        <rect x="4" y="19.5" width="64" height="26" style={s}/>
-        <path d="M10,36 L10,26 Q16,21 22,26 L22,36" style={{...s,opacity:.58}}/>
-        <path d="M30,36 L30,26 Q36,21 42,26 L42,36" style={{...s,opacity:.58}}/>
-        <path d="M50,36 L50,26 Q56,21 62,26 L62,36" style={{...s,opacity:.58}}/>
-        <rect x="10" y="20.5" width="12" height="5" style={{...s,opacity:.48}}/>
-        <rect x="30" y="20.5" width="12" height="5" style={{...s,opacity:.48}}/>
-        <rect x="50" y="20.5" width="12" height="5" style={{...s,opacity:.48}}/>
-        <line x1="8" y1="36.5" x2="64" y2="36.5" style={{...s,strokeWidth:.7,opacity:.4}}/>
-        <rect x="4" y="45.5" width="64" height="2.5" style={{...f,opacity:.48}}/>
+    case "disco": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <circle cx="20" cy="16" r="9" style={s}/>
+        <ellipse cx="20" cy="16" rx="3.5" ry="9" style={{...s,strokeWidth:.6,opacity:.4}}/>
+        <line x1="20" y1="7" x2="20" y2="25" style={{...s,strokeWidth:.45,opacity:.28}}/>
+        <line x1="11" y1="16" x2="29" y2="16" style={{...s,strokeWidth:.45,opacity:.28}}/>
+        <line x1="20" y1="3" x2="20" y2="5" style={{...s,strokeWidth:.8,opacity:.7}}/>
+        <line x1="29" y1="6" x2="31" y2="4" style={{...s,strokeWidth:.7,opacity:.6}}/>
+        <line x1="32" y1="16" x2="35" y2="16" style={{...s,strokeWidth:.7,opacity:.55}}/>
       </svg>
     );
-
-    // ── BROWNSTONE (NYC stoop, arched windows) ────────────────────────────
-    case "brownstone": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="8" y="8" width="56" height="38" style={s}/>
-        <rect x="6" y="5.5" width="60" height="3.5" style={{...f,opacity:.52}}/>
-        <path d="M6,5.5 L8,2.5 L64,2.5 L66,5.5" style={{...s,opacity:.44}}/>
-        {[12,28,44,58].map(x=><rect key={x} x={x} y="11" width="9" height="10" style={{...s,opacity:.52}}/>)}
-        <path d="M12,32 L12,22 Q17.5,17 23,22 L23,32" style={{...s,opacity:.58}}/>
-        <path d="M28,32 L28,22 Q33,17 38,22 L38,32" style={{...s,opacity:.58}}/>
-        <path d="M42,32 L42,22 Q47.5,17 53,22 L53,32" style={{...s,opacity:.58}}/>
-        <path d="M27,46 L27,38 Q36,32 45,38 L45,46" style={s}/>
-        <rect x="22" y="44.5" width="28" height="1.5" style={{...f,opacity:.4}}/>
-        <rect x="20" y="46" width="32" height="2" style={{...f,opacity:.4}}/>
-        <line x1="22" y1="38" x2="22" y2="44.5" style={{...s,strokeWidth:.8,opacity:.36}}/>
-        <line x1="50" y1="38" x2="50" y2="44.5" style={{...s,strokeWidth:.8,opacity:.36}}/>
+    case "coffee": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <path d="M7,12 L7,26 Q7,30 11,30 L27,30 Q31,30 31,26 L31,12 Z" style={s}/>
+        <path d="M31,16 Q38,16 38,22 Q38,28 31,28" style={s}/>
+        <line x1="7" y1="12" x2="31" y2="12" style={s}/>
+        <path d="M13,7 Q13,3 17,3 Q17,7 21,7 Q21,3 25,3" style={{...s,strokeWidth:.75,opacity:.52}}/>
       </svg>
     );
-
-    // ── BROWNSTONE PAIR (two adjacent townhouses) ─────────────────────────
-    case "brownstone_pair": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="2" y="13" width="30" height="33" style={s}/>
-        <rect x="2" y="11" width="30" height="3" style={{...f,opacity:.48}}/>
-        <path d="M2,11 L4,8 L30,8 L32,11" style={{...s,opacity:.42}}/>
-        <rect x="5" y="17" width="7" height="8" style={{...s,opacity:.5}}/>
-        <rect x="16" y="17" width="7" height="8" style={{...s,opacity:.5}}/>
-        <path d="M5,34 L5,27 Q9,23 13,27 L13,34" style={{...s,opacity:.52}}/>
-        <path d="M20,34 L20,27 Q24,23 28,27 L28,34" style={{...s,opacity:.52}}/>
-        <path d="M7,46 L7,40 Q12,36 17,40 L17,46" style={s}/>
-        <rect x="4" y="44" width="15" height="2" style={{...f,opacity:.35}}/>
-        <rect x="34" y="7" width="36" height="39" style={s}/>
-        <rect x="34" y="4.5" width="36" height="3.5" style={{...f,opacity:.5}}/>
-        <path d="M34,4.5 L36,1.5 L68,1.5 L70,4.5" style={{...s,opacity:.42}}/>
-        {[37,47,57].map(x=><rect key={x} x={x} y="10" width="8" height="9" style={{...s,opacity:.52}}/>)}
-        {[37,47,57].map(x=><path key={x+"a"} d={`M${x},31 L${x},23 Q${x+4},18 ${x+8},23 L${x+8},31`} style={{...s,opacity:.52}}/>)}
-        <path d="M44,46 L44,38 Q50,33 56,38 L56,46" style={s}/>
+    case "dining": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <line x1="13" y1="2" x2="13" y2="30" style={s}/>
+        <path d="M9,2 L9,13 Q9,17 13,17" style={s}/>
+        <path d="M17,2 L17,13 Q17,17 13,17" style={s}/>
+        <path d="M26,2 Q33,2 33,10 Q33,16 26,17 L26,30" style={s}/>
       </svg>
     );
-
-    // ── SPEAKEASY (basement hidden bar, staircase down) ───────────────────
-    case "speakeasy": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="4" y="2" width="64" height="28" style={s}/>
-        <rect x="4" y="2" width="64" height="3" style={{...f,opacity:.48}}/>
-        {[10,22,50,62].map(x=><rect key={x} x={x} y="6" width="10" height="9" style={{...s,opacity:.5}}/>)}
-        <rect x="31" y="16" width="10" height="3" style={{...s,opacity:.42}}/>
-        <rect x="0" y="30" width="72" height="3" style={{...f,opacity:.3}}/>
-        <path d="M26,33 L26,48" style={s}/>
-        <path d="M46,33 L46,48" style={s}/>
-        <line x1="26" y1="36" x2="46" y2="36" style={{...s,opacity:.62}}/>
-        <line x1="26" y1="39" x2="46" y2="39" style={{...s,opacity:.5}}/>
-        <line x1="26" y1="42" x2="46" y2="42" style={{...s,opacity:.38}}/>
-        <line x1="26" y1="45" x2="46" y2="45" style={{...s,opacity:.28}}/>
-        <rect x="32" y="41" width="8" height="7" style={{...s,opacity:.65}}/>
-        <circle cx="38" cy="44.5" r="1" style={{...f,opacity:.5}}/>
-        <line x1="24" y1="33" x2="24" y2="30" style={{...s,strokeWidth:.85,opacity:.42}}/>
-        <line x1="48" y1="33" x2="48" y2="30" style={{...s,strokeWidth:.85,opacity:.42}}/>
-        <line x1="24" y1="30" x2="48" y2="30" style={{...s,strokeWidth:.85,opacity:.34}}/>
+    case "sunrise": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <path d="M4,26 Q4,14 20,14 Q36,14 36,26" style={s}/>
+        <line x1="20" y1="10" x2="20" y2="4" style={s}/>
+        <line x1="29" y1="13" x2="33" y2="9" style={{...s,opacity:.7}}/>
+        <line x1="11" y1="13" x2="7" y2="9" style={{...s,opacity:.7}}/>
+        <line x1="34" y1="20" x2="38" y2="20" style={{...s,opacity:.6}}/>
+        <line x1="6" y1="20" x2="2" y2="20" style={{...s,opacity:.6}}/>
+        <line x1="2" y1="29" x2="38" y2="29" style={{...s,strokeWidth:.65,opacity:.42}}/>
       </svg>
     );
-
-    // ── THEATER MARQUEE (movie/entertainment theater) ─────────────────────
-    case "theater_marquee": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="4" y="4" width="64" height="14" style={s}/>
-        <rect x="4" y="4" width="64" height="3" style={{...f,opacity:.5}}/>
-        <path d="M20,7 Q36,3 52,7" style={{...s,opacity:.45}}/>
-        <rect x="30" y="0" width="12" height="18" style={{...s,opacity:.6}}/>
-        <rect x="31" y="1" width="10" height="16" style={{...f,opacity:.15}}/>
-        <path d="M2,18 L2,28 L70,28 L70,18Z" style={s}/>
-        <rect x="2" y="18" width="68" height="2" style={{...f,opacity:.45}}/>
-        {[6,10,14,18,22,26,30,34,38,42,46,50,54,58,62,66].map(x=><circle key={x} cx={x} cy="23.5" r="1.3" style={{...f,opacity:.58}}/>)}
-        <rect x="4" y="28" width="64" height="18" style={s}/>
-        <rect x="8" y="32" width="14" height="14" style={{...s,opacity:.52}}/>
-        <rect x="50" y="32" width="14" height="14" style={{...s,opacity:.52}}/>
-        <path d="M29,46 L29,34 Q36,30 43,34 L43,46" style={s}/>
-        <line x1="29" y1="34" x2="43" y2="34" style={{...s,strokeWidth:.65,opacity:.4}}/>
+    case "trophy": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <path d="M13,3 L13,18 Q13,26 20,26 Q27,26 27,18 L27,3 Z" style={s}/>
+        <path d="M13,8 Q7,8 7,14 Q7,19 13,19" style={s}/>
+        <path d="M27,8 Q33,8 33,14 Q33,19 27,19" style={s}/>
+        <line x1="16" y1="26" x2="24" y2="26" style={s}/>
+        <rect x="14" y="26" width="12" height="4" rx="1" style={s}/>
       </svg>
     );
-
-    // ── THEATER GRAND (classical opera / performing arts) ─────────────────
-    case "theater_grand": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <path d="M2,21 L36,5 L70,21Z" style={s}/>
-        <path d="M12,21 L36,9 L60,21Z" style={{...f,opacity:.16}}/>
-        <rect x="2" y="21" width="68" height="2.5" style={{...f,opacity:.48}}/>
-        <rect x="2" y="23.5" width="68" height="2" style={s}/>
-        {[9,18,27,36,45,54,63].map(x=><rect key={x} x={x-1} y="25.5" width="3" height="21" style={{...s,opacity:.62}}/>)}
-        {[9,18,27,36,45,54,63].map(x=><rect key={x+"b"} x={x-2} y="25" width="5" height="1.5" style={{...f,opacity:.44}}/>)}
-        {[9,18,27,36,45,54,63].map(x=><rect key={x+"c"} x={x-2} y="46" width="5" height="1.5" style={{...f,opacity:.44}}/>)}
-        <path d="M28,46 L28,32 Q36,27 44,32 L44,46" style={s}/>
-        <line x1="4" y1="23.5" x2="68" y2="23.5" style={{...s,strokeWidth:.65,opacity:.38}}/>
-        <path d="M14,20 Q22,17 30,20" style={{...s,opacity:.35,strokeWidth:.6}}/>
-        <path d="M42,20 Q50,17 58,20" style={{...s,opacity:.35,strokeWidth:.6}}/>
-        <rect x="2" y="46" width="68" height="2" style={{...f,opacity:.38}}/>
+    case "beer": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <path d="M10,10 L10,28 Q10,31 14,31 L26,31 Q30,31 30,28 L30,10 Z" style={s}/>
+        <line x1="10" y1="10" x2="30" y2="10" style={s}/>
+        <path d="M30,14 Q37,14 37,20 Q37,25 30,25" style={s}/>
+        <path d="M12,8 L12,5 Q14,3 16,5 Q18,3 20,5 Q22,3 24,5 Q26,3 28,5 L28,8" style={{...s,strokeWidth:.65,opacity:.48}}/>
       </svg>
     );
-
-    // ── BAKERY (French patisserie, scalloped awning) ───────────────────────
-    case "bakery": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="4" y="6" width="64" height="40" style={s}/>
-        <rect x="4" y="6" width="64" height="5" style={{...f,opacity:.46}}/>
-        <line x1="24" y1="2" x2="48" y2="2" style={{...s,strokeWidth:1.3,opacity:.48}}/>
-        <line x1="26" y1="5" x2="46" y2="5" style={{...s,strokeWidth:.7,opacity:.3}}/>
-        <path d="M2,11 Q9,17 16,11 Q23,17 30,11 Q37,17 44,11 Q51,17 58,11 Q65,17 70,11 L70,17 L2,17Z" style={s}/>
-        <rect x="8" y="17" width="56" height="19" style={s}/>
-        {[16,24,32,40,48,56].map(x=><line key={x} x1={x} y1="17" x2={x} y2="36" style={{...s,strokeWidth:.6,opacity:.32}}/>)}
-        <line x1="8" y1="26.5" x2="64" y2="26.5" style={{...s,strokeWidth:.6,opacity:.32}}/>
-        <rect x="10" y="37" width="16" height="9" style={s}/>
-        <rect x="46" y="37" width="16" height="9" style={s}/>
-        <rect x="30" y="37" width="12" height="9" style={s}/>
-        <circle cx="35" cy="41.5" r="1" style={{...f,opacity:.5}}/>
+    case "plate": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <ellipse cx="20" cy="22" rx="16" ry="8" style={s}/>
+        <ellipse cx="20" cy="22" rx="10" ry="5" style={{...s,strokeWidth:.65,opacity:.42}}/>
+        <path d="M12,18 Q12,8 20,8 Q28,8 28,18" style={s}/>
       </svg>
     );
-
-    // ── CAFÉ PARISIAN (with outdoor table + umbrella) ─────────────────────
-    case "cafe_parisian": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="18" y="4" width="52" height="42" style={s}/>
-        <rect x="18" y="4" width="52" height="3" style={{...f,opacity:.48}}/>
-        <path d="M16,7 L16,15 L72,15 L72,7Z" style={s}/>
-        {[22,28,34,40,46,52,58,64,70].map(x=><line key={x} x1={x} y1="7" x2={x} y2="15" style={{stroke:"currentColor",strokeWidth:.7,opacity:.33}}/>)}
-        <path d="M22,40 L22,19 Q28,13 34,19 L34,40" style={{...s,opacity:.6}}/>
-        <path d="M38,40 L38,19 Q44,13 50,19 L50,40" style={{...s,opacity:.6}}/>
-        <path d="M54,40 L54,19 Q60,13 66,19 L66,40" style={{...s,opacity:.6}}/>
-        <circle cx="8" cy="37" r="5" style={{...s,opacity:.52}}/>
-        <line x1="8" y1="42" x2="5" y2="48" style={{...s,opacity:.42}}/>
-        <line x1="8" y1="42" x2="11" y2="48" style={{...s,opacity:.42}}/>
-        <line x1="8" y1="28" x2="8" y2="37" style={{...s,strokeWidth:.85,opacity:.4}}/>
-        <path d="M2,28 Q8,24 14,28" style={{...s,opacity:.44}}/>
-        <line x1="0" y1="46" x2="72" y2="46" style={{...s,strokeWidth:.55,opacity:.25}}/>
+    case "tree": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <path d="M20,3 L32,18 L25,18 L32,27 L20,27 L8,27 L15,18 L8,18 Z" style={s}/>
+        <line x1="20" y1="27" x2="20" y2="31" style={s}/>
       </svg>
     );
-
-    // ── STEAKHOUSE (heavy dark facade, grid windows) ──────────────────────
-    case "steakhouse": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="2" y="8" width="68" height="5" style={s}/>
-        <rect x="2" y="6" width="68" height="3" style={{...f,opacity:.4}}/>
-        <path d="M6,6 L6,3 L14,1 L58,1 L66,3 L66,6" style={{...s,opacity:.48}}/>
-        <rect x="4" y="13" width="64" height="33" style={s}/>
-        <rect x="4" y="13" width="64" height="3.5" style={{...f,opacity:.52}}/>
-        <rect x="8" y="19" width="22" height="24" style={s}/>
-        <rect x="42" y="19" width="22" height="24" style={s}/>
-        <line x1="19" y1="19" x2="19" y2="43" style={{...s,strokeWidth:.65,opacity:.35}}/>
-        <line x1="8" y1="31" x2="30" y2="31" style={{...s,strokeWidth:.65,opacity:.35}}/>
-        <line x1="53" y1="19" x2="53" y2="43" style={{...s,strokeWidth:.65,opacity:.35}}/>
-        <line x1="42" y1="31" x2="64" y2="31" style={{...s,strokeWidth:.65,opacity:.35}}/>
-        <path d="M30,17 L30,13 L42,13 L42,17" style={{...s,opacity:.58}}/>
-        <line x1="28" y1="17" x2="44" y2="17" style={{...s,strokeWidth:1.1,opacity:.48}}/>
-        <rect x="31" y="34" width="10" height="12" style={s}/>
-        <rect x="28" y="44" width="16" height="2" style={{...f,opacity:.38}}/>
-        <rect x="26" y="46" width="20" height="2" style={{...f,opacity:.38}}/>
+    case "door": return (
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <path d="M9,30 L9,8 Q9,3 20,3 Q31,3 31,8 L31,30 Z" style={s}/>
+        <line x1="9" y1="30" x2="31" y2="30" style={s}/>
+        <circle cx="27" cy="17" r="1.5" style={f}/>
+        <path d="M9,8 Q20,5 31,8" style={{...s,strokeWidth:.55,opacity:.38}}/>
       </svg>
     );
-
-    // ── JAPANESE IZAKAYA (lanterns, noren curtain) ────────────────────────
-    case "japanese_izakaya": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="8" y="10" width="56" height="36" style={s}/>
-        <path d="M4,14 L36,4 L68,14" style={{...s,strokeWidth:1.4}}/>
-        <rect x="4" y="14" width="64" height="2.5" style={{...f,opacity:.44}}/>
-        <rect x="16" y="14" width="40" height="6" style={{...s,opacity:.58}}/>
-        {[22,28,34,40,46].map(x=><line key={x} x1={x} y1="15" x2={x} y2="19.5" style={{...s,strokeWidth:1.1,opacity:.42}}/>)}
-        {[16,22,29,36,43].map(x=><path key={x} d={`M${x},20 Q${x+2},26 ${x},32`} style={{...s,strokeWidth:.8,opacity:.5}}/>)}
-        <line x1="16" y1="20" x2="51" y2="20" style={{...s,strokeWidth:.65,opacity:.38}}/>
-        <rect x="26" y="32" width="20" height="14" style={s}/>
-        <line x1="36" y1="32" x2="36" y2="46" style={{...s,strokeWidth:.65,opacity:.42}}/>
-        <path d="M10,14 Q11,22 10,30 Q12,32 14,30 Q16,26 14,20 Q12,16 10,14Z" style={{...s,opacity:.52}}/>
-        <path d="M62,14 Q63,22 62,30 Q64,32 66,30 Q68,26 66,20 Q64,16 62,14Z" style={{...s,opacity:.52}}/>
-        <line x1="10" y1="14" x2="10" y2="10" style={{...s,strokeWidth:.7,opacity:.36}}/>
-        <line x1="62" y1="14" x2="62" y2="10" style={{...s,strokeWidth:.7,opacity:.36}}/>
-      </svg>
-    );
-
-    // ── JAPANESE PAGODA (two-tier, upturned eaves) ────────────────────────
-    case "japanese_pagoda": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <line x1="36" y1="0" x2="36" y2="6" style={{...s,strokeWidth:1.5}}/>
-        <line x1="33" y1="2" x2="39" y2="2" style={{...s,strokeWidth:.8,opacity:.48}}/>
-        <path d="M4,18 L36,8 L68,18" style={{...s,strokeWidth:1.4}}/>
-        <path d="M4,18 Q2,21 0,21" style={{...s,opacity:.45}}/>
-        <path d="M68,18 Q70,21 72,21" style={{...s,opacity:.45}}/>
-        <rect x="20" y="18" width="32" height="10" style={s}/>
-        {[26,32,38,44].map(x=><line key={x} x1={x} y1="18" x2={x} y2="28" style={{...s,strokeWidth:.55,opacity:.3}}/>)}
-        <path d="M2,33 L36,24 L70,33" style={{...s,strokeWidth:1.3}}/>
-        <path d="M2,33 Q0,36 -2,37" style={{...s,opacity:.42}}/>
-        <path d="M70,33 Q72,36 74,37" style={{...s,opacity:.42}}/>
-        <rect x="10" y="33" width="52" height="13" style={s}/>
-        {[14,22,30,42,50,58].map(x=><rect key={x} x={x} y="36" width="6" height="10" style={{...s,opacity:.52}}/>)}
-        <rect x="8" y="46" width="56" height="2" style={{...f,opacity:.38}}/>
-      </svg>
-    );
-
-    // ── MODERN GLASS HOTEL (curtain wall tower) ───────────────────────────
-    case "hotel_modern": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="22" y="2" width="28" height="44" style={s}/>
-        {[6,10,14,18,22,26,30,34,38,42].map(y=><line key={y} x1="22" y1={y} x2="50" y2={y} style={{stroke:"currentColor",strokeWidth:.52,opacity:.33}}/>)}
-        {[28,34,40,44].map(x=><line key={x} x1={x} y1="2" x2={x} y2="46" style={{stroke:"currentColor",strokeWidth:.52,opacity:.33}}/>)}
-        <rect x="6" y="22" width="16" height="24" style={s}/>
-        <rect x="50" y="22" width="16" height="24" style={s}/>
-        {[26,30,36,40].map(y=><line key={y} x1="6" y1={y} x2="22" y2={y} style={{stroke:"currentColor",strokeWidth:.48,opacity:.28}}/>)}
-        {[26,30,36,40].map(y=><line key={y+"r"} x1="50" y1={y} x2="66" y2={y} style={{stroke:"currentColor",strokeWidth:.48,opacity:.28}}/>)}
-        <path d="M29,46 L29,42 L43,42 L43,46" style={{...s,opacity:.52}}/>
-        <line x1="27" y1="42" x2="45" y2="42" style={{...s,strokeWidth:1.1,opacity:.48}}/>
-        <line x1="36" y1="2" x2="36" y2="0" style={{...s,strokeWidth:1.5}}/>
-      </svg>
-    );
-
-    // ── GRAND HISTORIC HOTEL (ornate cornice, marquee) ────────────────────
-    case "hotel_grand": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <path d="M2,10 Q36,4 70,10" style={{...s,opacity:.5}}/>
-        <rect x="2" y="10" width="68" height="2.5" style={{...f,opacity:.48}}/>
-        <line x1="36" y1="4" x2="36" y2="10" style={{...s,strokeWidth:.9,opacity:.45}}/>
-        <path d="M36,4 L46,6 L36,8Z" style={{...f,opacity:.52}}/>
-        <rect x="2" y="12.5" width="68" height="31" style={s}/>
-        {[5,13,21,51,59,67].map(x=>[16,24,30].map(y=><rect key={x+"-"+y} x={x} y={y} width="6.5" height="7" style={{...s,opacity:.48}}/>))}
-        {[30,38].map(y=><rect key={y} x={30} y={y} width="12" height="7" style={{...s,opacity:.48}}/>)}
-        <path d="M22,43.5 L22,38 L50,38 L50,43.5" style={s}/>
-        <line x1="20" y1="38" x2="52" y2="38" style={{...s,strokeWidth:1.1,opacity:.5}}/>
-        {[24,28,32,36,40,44,48].map(x=><circle key={x} cx={x} cy="40.5" r="1" style={{...f,opacity:.52}}/>)}
-        <path d="M30,43.5 L30,40 Q36,37 42,40 L42,43.5" style={{...s,opacity:.5}}/>
-        <rect x="2" y="43.5" width="68" height="2.5" style={{...f,opacity:.4}}/>
-      </svg>
-    );
-
-    // ── BOUTIQUE HOTEL (townhouse scale, arched entry) ────────────────────
-    case "boutique_hotel": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="8" y="6" width="56" height="40" style={s}/>
-        <rect x="6" y="4" width="60" height="3.5" style={s}/>
-        <path d="M18,4 L18,1.5 L24,0 L48,0 L54,1.5 L54,4" style={{...s,opacity:.46}}/>
-        <rect x="12" y="12" width="14" height="10" rx="1" style={{...s,opacity:.56}}/>
-        <rect x="30" y="12" width="12" height="10" rx="1" style={{...s,opacity:.56}}/>
-        <rect x="46" y="12" width="14" height="10" rx="1" style={{...s,opacity:.56}}/>
-        {[12,46].map(x=><line key={x} x1={x+2} y1="23" x2={x+12} y2="23" style={{...s,strokeWidth:.8,opacity:.38}}/>)}
-        <rect x="12" y="28" width="14" height="9" rx="1" style={{...s,opacity:.52}}/>
-        <rect x="46" y="28" width="14" height="9" rx="1" style={{...s,opacity:.52}}/>
-        <path d="M28,46 L28,35 Q36,29 44,35 L44,46" style={s}/>
-        <line x1="26" y1="35" x2="46" y2="35" style={{...s,strokeWidth:1.1,opacity:.5}}/>
-        <path d="M24,35 Q36,30 48,35" style={{...s,opacity:.4}}/>
-      </svg>
-    );
-
-    // ── ROOFTOP BAR (terrace with pergola, cityscape) ─────────────────────
-    case "rooftop_bar": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <path d="M0,32 L0,22 L8,22 L8,26 L14,26 L14,18 L20,18 L20,32" style={{...s,strokeWidth:.65,opacity:.22}}/>
-        <path d="M52,32 L52,24 L58,24 L58,20 L64,20 L64,26 L70,26 L72,26 L72,32" style={{...s,strokeWidth:.65,opacity:.22}}/>
-        <rect x="4" y="30" width="64" height="16" style={s}/>
-        <rect x="4" y="30" width="64" height="2.5" style={{...f,opacity:.46}}/>
-        <line x1="14" y1="30" x2="14" y2="14" style={{...s,opacity:.52}}/>
-        <line x1="58" y1="30" x2="58" y2="14" style={{...s,opacity:.52}}/>
-        <line x1="12" y1="14" x2="60" y2="14" style={{...s,opacity:.48}}/>
-        {[18,24,30,36,42,48,54].map(x=><line key={x} x1={x} y1="14" x2={x} y2="30" style={{...s,opacity:.25,strokeWidth:.6}}/>)}
-        <line x1="4" y1="22" x2="4" y2="30" style={{...s,opacity:.44}}/>
-        <line x1="68" y1="22" x2="68" y2="30" style={{...s,opacity:.44}}/>
-        <line x1="4" y1="22" x2="68" y2="22" style={{...s,opacity:.36}}/>
-        {[10,16,22,28,34,40,46,52,58,64].map(x=><line key={x} x1={x} y1="22" x2={x} y2="30" style={{...s,strokeWidth:.6,opacity:.28}}/>)}
-        <rect x="16" y="36" width="12" height="8" rx="2" style={{...s,opacity:.44}}/>
-        <rect x="44" y="36" width="12" height="8" rx="2" style={{...s,opacity:.44}}/>
-      </svg>
-    );
-
-    // ── WAREHOUSE INDUSTRIAL (sawtooth roof, arched windows) ──────────────
-    case "warehouse_industrial": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <path d="M2,20 L2,12 L14,5 L14,20 L26,12 L26,20 L38,12 L38,20 L50,12 L50,20 L62,12 L62,20 L70,20" style={s}/>
-        <rect x="2" y="20" width="68" height="26" style={s}/>
-        {[24,28,32,36,40].map(y=><line key={y} x1="2" y1={y} x2="70" y2={y} style={{stroke:"currentColor",strokeWidth:.42,opacity:.2}}/>)}
-        <path d="M7,46 L7,30 Q15,22 23,30 L23,46" style={{...s,opacity:.58}}/>
-        <path d="M27,46 L27,30 Q35,22 43,30 L43,46" style={{...s,opacity:.58}}/>
-        <path d="M47,46 L47,30 Q55,22 63,30 L63,46" style={{...s,opacity:.58}}/>
-        <rect x="2" y="38" width="4" height="8" style={{...s,opacity:.48}}/>
-        {[39,41,43,45].map(y=><line key={y} x1="2" y1={y} x2="6" y2={y} style={{stroke:"currentColor",strokeWidth:.48,opacity:.36}}/>)}
-      </svg>
-    );
-
-    // ── GREEK REVIVAL (Doric columns, pediment) ───────────────────────────
-    case "columns_greek": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <path d="M2,20 L36,4 L70,20Z" style={s}/>
-        <path d="M12,20 L36,7 L60,20Z" style={{...f,opacity:.16}}/>
-        <rect x="2" y="20" width="68" height="4" style={{...f,opacity:.48}}/>
-        <rect x="2" y="24" width="68" height="2" style={s}/>
-        {[9,18,27,45,54,63].map(x=>[26,46].map((y,i)=><rect key={x+"-"+i} x={x-1} y={y} width="2.5" height={i===0?1.5:20} style={{...s,opacity:i===0?.55:.66}}/>))}
-        {[9,18,27,45,54,63].map(x=><rect key={x+"cap"} x={x-2.5} y="25" width="5.5" height="1.5" style={{...f,opacity:.42}}/>)}
-        {[21,27,33,39].map(x=><rect key={x+"tf"} x={x} y="20" width="3.5" height="4" style={{...f,opacity:.35}}/>)}
-        <rect x="2" y="46" width="68" height="2" style={{...f,opacity:.42}}/>
-        <path d="M28,46 L28,34 Q36,29 44,34 L44,46" style={s}/>
-      </svg>
-    );
-
-    // ── ROMAN ARCHES (3 barrel arches with keystones) ─────────────────────
-    case "arches_roman": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="2" y="2" width="68" height="3" style={{...f,opacity:.52}}/>
-        <rect x="2" y="5" width="68" height="2" style={s}/>
-        <rect x="2" y="38" width="68" height="8" style={s}/>
-        <line x1="2" y1="43" x2="70" y2="43" style={{...s,strokeWidth:.55,opacity:.32}}/>
-        <path d="M4,38 L4,20 Q4,7 14,7 Q24,7 24,20 L24,38" style={s}/>
-        <path d="M26,38 L26,20 Q26,7 36,7 Q46,7 46,20 L46,38" style={s}/>
-        <path d="M48,38 L48,20 Q48,7 58,7 Q68,7 68,20 L68,38" style={s}/>
-        <polygon points="14,7 12,10 16,10" style={{...f,opacity:.55}}/>
-        <polygon points="36,7 34,10 38,10" style={{...f,opacity:.55}}/>
-        <polygon points="58,7 56,10 60,10" style={{...f,opacity:.55}}/>
-        <rect x="24" y="7" width="3" height="31" style={{...f,opacity:.22}}/>
-        <rect x="45" y="7" width="3" height="31" style={{...f,opacity:.22}}/>
-        <rect x="8" y="24" width="12" height="14" style={{...s,opacity:.5}}/>
-        <rect x="30" y="24" width="12" height="14" style={{...s,opacity:.5}}/>
-        <rect x="52" y="24" width="12" height="14" style={{...s,opacity:.5}}/>
-      </svg>
-    );
-
-    // ── DOME / CAPITOL (civic dome, colonnade drum) ───────────────────────
-    case "dome_capitol": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="34" y="0" width="4" height="5" style={{...s,opacity:.58}}/>
-        <path d="M15,22 Q15,1 57,1 Q57,1 57,22Z" style={s}/>
-        <line x1="36" y1="1" x2="36" y2="22" style={{stroke:"currentColor",strokeWidth:.58,opacity:.28}}/>
-        <line x1="25" y1="4" x2="36" y2="22" style={{stroke:"currentColor",strokeWidth:.55,opacity:.28}}/>
-        <line x1="47" y1="4" x2="36" y2="22" style={{stroke:"currentColor",strokeWidth:.55,opacity:.28}}/>
-        <line x1="18" y1="13" x2="36" y2="22" style={{stroke:"currentColor",strokeWidth:.48,opacity:.22}}/>
-        <line x1="54" y1="13" x2="36" y2="22" style={{stroke:"currentColor",strokeWidth:.48,opacity:.22}}/>
-        <rect x="13" y="22" width="46" height="6" style={s}/>
-        {[16,20,24,28,32,36,40,44,48,52,56].map(x=><line key={x} x1={x} y1="22" x2={x} y2="28" style={{stroke:"currentColor",strokeWidth:.75,opacity:.42}}/>)}
-        <rect x="6" y="28" width="60" height="3" style={s}/>
-        <rect x="4" y="31" width="64" height="15" style={s}/>
-        {[8,18,30,42,54,62].map(x=><rect key={x} x={x} y="34" width="8" height="9" style={{...s,opacity:.46}}/>)}
-        <rect x="2" y="46" width="68" height="2" style={{...f,opacity:.38}}/>
-      </svg>
-    );
-
-    // ── EUROPEAN CAFÉ (corner building, arched windows) ───────────────────
-    case "european_cafe": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="14" y="4" width="56" height="42" style={s}/>
-        <rect x="14" y="4" width="56" height="3" style={{...f,opacity:.46}}/>
-        <path d="M12,7 L12,16 L72,16 L72,7Z" style={s}/>
-        {[18,24,30,36,42,48,54,60,66].map(x=><line key={x} x1={x} y1="7" x2={x} y2="16" style={{stroke:"currentColor",strokeWidth:.7,opacity:.32}}/>)}
-        <path d="M18,42 L18,20 Q24,14 30,20 L30,42" style={{...s,opacity:.6}}/>
-        <path d="M34,42 L34,20 Q40,14 46,20 L46,42" style={{...s,opacity:.6}}/>
-        <path d="M50,42 L50,20 Q56,14 62,20 L62,42" style={{...s,opacity:.6}}/>
-        <circle cx="6" cy="36" r="4.5" style={{...s,opacity:.5}}/>
-        <line x1="6" y1="40" x2="4" y2="46" style={{...s,opacity:.4}}/>
-        <line x1="6" y1="40" x2="8" y2="46" style={{...s,opacity:.4}}/>
-        <line x1="6" y1="28" x2="6" y2="36" style={{...s,strokeWidth:.82,opacity:.4}}/>
-        <path d="M0,28 Q6,24 12,28" style={{...s,opacity:.42}}/>
-        <line x1="0" y1="46" x2="72" y2="46" style={{...s,strokeWidth:.55,opacity:.24}}/>
-      </svg>
-    );
-
-    // ── GEORGIAN MANSION (symmetrical, columned portico) ──────────────────
-    case "mansion_georgian": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="2" y="14" width="14" height="32" style={s}/>
-        <rect x="56" y="14" width="14" height="32" style={s}/>
-        <rect x="14" y="7" width="44" height="39" style={s}/>
-        <rect x="14" y="7" width="44" height="3" style={{...f,opacity:.45}}/>
-        <path d="M24,21 L36,13 L48,21Z" style={s}/>
-        {[26,30,34,38,42,46].map(x=><rect key={x} x={x-1} y="21" width="2.5" height="19" style={{...s,opacity:.58}}/>)}
-        <rect x="24" y="20.5" width="24" height="1.5" style={{...f,opacity:.4}}/>
-        {[16,22,42,48].map(x=>[10,18].map(y=><rect key={x+"-"+y} x={x} y={y} width="7" height="8.5" style={{...s,opacity:.5}}/>))}
-        <rect x="4" y="20" width="7" height="8" style={{...s,opacity:.46}}/>
-        <rect x="4" y="32" width="7" height="8" style={{...s,opacity:.46}}/>
-        <rect x="61" y="20" width="7" height="8" style={{...s,opacity:.46}}/>
-        <rect x="61" y="32" width="7" height="8" style={{...s,opacity:.46}}/>
-        <rect x="16" y="14" width="4" height="4" style={{...s,opacity:.45}}/>
-        <rect x="52" y="14" width="4" height="4" style={{...s,opacity:.45}}/>
-        <rect x="33" y="37" width="6" height="9" style={s}/>
-        <rect x="30" y="46" width="12" height="2" style={{...f,opacity:.38}}/>
-      </svg>
-    );
-
-    // ── URBAN LOFT (converted industrial, fire escape) ────────────────────
-    case "loft_building": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="2" y="10" width="52" height="36" style={s}/>
-        <rect x="54" y="18" width="16" height="28" style={s}/>
-        <rect x="6" y="13" width="14" height="19" style={{...s,opacity:.58}}/>
-        <rect x="24" y="13" width="14" height="19" style={{...s,opacity:.58}}/>
-        <rect x="42" y="13" width="10" height="19" style={{...s,opacity:.58}}/>
-        <line x1="13" y1="13" x2="13" y2="32" style={{...s,strokeWidth:.6,opacity:.33}}/>
-        <line x1="31" y1="13" x2="31" y2="32" style={{...s,strokeWidth:.6,opacity:.33}}/>
-        <line x1="47" y1="13" x2="47" y2="32" style={{...s,strokeWidth:.6,opacity:.33}}/>
-        <line x1="6" y1="22.5" x2="20" y2="22.5" style={{...s,strokeWidth:.6,opacity:.33}}/>
-        <line x1="24" y1="22.5" x2="38" y2="22.5" style={{...s,strokeWidth:.6,opacity:.33}}/>
-        <path d="M54,18 L54,10 L60,10 L60,18" style={{...s,strokeWidth:.75,opacity:.48}}/>
-        <path d="M60,18 L60,28 L66,28 L66,38" style={{...s,strokeWidth:.75,opacity:.45}}/>
-        <rect x="57" y="22" width="4" height="5" style={{...s,opacity:.44}}/>
-        <rect x="57" y="32" width="4" height="5" style={{...s,opacity:.44}}/>
-        <rect x="10" y="35" width="16" height="11" style={s}/>
-        <line x1="2" y1="34" x2="52" y2="34" style={{...s,strokeWidth:.6,opacity:.32}}/>
-      </svg>
-    );
-
-    // ── NIGHTCLUB (velvet rope, arched entry, marquee sign) ───────────────
-    case "nightclub": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="4" y="8" width="64" height="38" style={s}/>
-        <rect x="4" y="8" width="64" height="4" style={{...f,opacity:.5}}/>
-        <rect x="30" y="0" width="12" height="12" style={s}/>
-        {[32,36,40].map(x=><circle key={x} cx={x} cy="5" r="1.2" style={{...f,opacity:.52}}/>)}
-        <rect x="8" y="16" width="18" height="14" style={{...s,opacity:.5}}/>
-        <rect x="46" y="16" width="18" height="14" style={{...s,opacity:.5}}/>
-        {[10,14,18,20].map(x=><line key={x} x1={x} y1="17" x2={x} y2="29" style={{stroke:"currentColor",strokeWidth:.65,opacity:.28}}/>)}
-        {[48,52,56,60].map(x=><line key={x} x1={x} y1="17" x2={x} y2="29" style={{stroke:"currentColor",strokeWidth:.65,opacity:.28}}/>)}
-        <path d="M26,46 L26,32 Q32,26 36,26 Q40,26 46,32 L46,46" style={s}/>
-        {[28,32,36,40,44].map(x=><circle key={x} cx={x} cy="30" r="1" style={{...f,opacity:.48}}/>)}
-        <line x1="14" y1="34" x2="14" y2="46" style={{...s,strokeWidth:1.1,opacity:.44}}/>
-        <line x1="58" y1="34" x2="58" y2="46" style={{...s,strokeWidth:1.1,opacity:.44}}/>
-        <path d="M14,36 Q36,32 58,36" style={{...s,strokeWidth:.72,opacity:.38}}/>
-      </svg>
-    );
-
-    // ── CLASSIC DINER (streamline moderne, barrel roof) ───────────────────
-    case "classic_diner": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <path d="M4,20 Q4,6 36,6 Q68,6 68,20" style={s}/>
-        <rect x="4" y="20" width="64" height="26" style={s}/>
-        {[10,16,22,28,34,40,46,52,58,64].map(x=><line key={x} x1={x} y1="20" x2={x} y2="46" style={{stroke:"currentColor",strokeWidth:.52,opacity:.25}}/>)}
-        <rect x="6" y="24" width="60" height="10" style={{...s,opacity:.56}}/>
-        {[14,22,30,38,46,54].map(x=><circle key={x} cx={x} cy="36" r="2.5" style={{...s,opacity:.44}}/>)}
-        <rect x="26" y="25" width="20" height="5" style={{...s,opacity:.42}}/>
-        <rect x="32" y="36" width="8" height="10" style={s}/>
-        <line x1="20" y1="9" x2="52" y2="9" style={{...s,strokeWidth:1.1,opacity:.44}}/>
-        <line x1="22" y1="12" x2="50" y2="12" style={{...s,strokeWidth:.68,opacity:.28}}/>
-      </svg>
-    );
-
-    // ── MEDITERRANEAN (bell tower + arched colonnade) ─────────────────────
-    case "mediterranean": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <rect x="2" y="4" width="10" height="42" style={s}/>
-        <path d="M2,4 Q7,0 12,4" style={{...s,opacity:.48}}/>
-        <rect x="3" y="11" width="8" height="6" style={{...s,opacity:.52}}/>
-        <path d="M5,16 Q7,19 9,16" style={{...s,opacity:.42}}/>
-        <path d="M14,46 L14,28 Q14,17 22,17 Q30,17 30,28 L30,46" style={s}/>
-        <path d="M32,46 L32,28 Q32,17 40,17 Q48,17 48,28 L48,46" style={s}/>
-        <path d="M50,46 L50,28 Q50,17 58,17 Q66,17 66,28 L66,46" style={s}/>
-        <rect x="12" y="8" width="58" height="10" style={s}/>
-        <rect x="12" y="8" width="58" height="2.5" style={{...f,opacity:.44}}/>
-        <path d="M12,8 Q16,5 20,8 Q24,5 28,8 Q32,5 36,8 Q40,5 44,8 Q48,5 52,8 Q56,5 60,8 Q64,5 68,8 Q70,5 72,8" style={{...s,strokeWidth:.65,opacity:.42}}/>
-        {[22,40,58].map(x=><rect key={x} x={x-4} y="16" width="8" height="2" style={{...f,opacity:.38}}/>)}
-        {[18,36,54].map(x=>[36,42].map(y=><rect key={x+"-"+y} x={x} y={y} width="6" height="8" style={{...s,opacity:.5}}/>))}
-      </svg>
-    );
-
-    // ── WATERFRONT (riverside building, dock pilings) ─────────────────────
-    case "waterfront": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <path d="M0,38 Q18,36 36,38 Q54,40 72,38" style={{...s,strokeWidth:.75,opacity:.42}}/>
-        <path d="M0,42 Q18,40 36,42 Q54,44 72,42" style={{...s,strokeWidth:.55,opacity:.28}}/>
-        <rect x="10" y="8" width="52" height="30" style={s}/>
-        <rect x="10" y="8" width="52" height="3" style={{...f,opacity:.46}}/>
-        <path d="M10,38 L10,26 Q10,18 18,18 Q26,18 26,26 L26,38" style={s}/>
-        <path d="M28,38 L28,26 Q28,18 36,18 Q44,18 44,26 L44,38" style={s}/>
-        <path d="M46,38 L46,26 Q46,18 54,18 Q62,18 62,26 L62,38" style={s}/>
-        {[14,22,30,42,50,58].map(x=><rect key={x} x={x} y="10" width="6" height="7" style={{...s,opacity:.5}}/>)}
-        <rect x="16" y="38" width="42" height="2" style={{...f,opacity:.32}}/>
-        <line x1="20" y1="38" x2="20" y2="46" style={{...s,strokeWidth:1.2,opacity:.4}}/>
-        <line x1="36" y1="38" x2="36" y2="46" style={{...s,strokeWidth:1.2,opacity:.4}}/>
-        <line x1="52" y1="38" x2="52" y2="46" style={{...s,strokeWidth:1.2,opacity:.4}}/>
-      </svg>
-    );
-
-    // ── CLOCK TOWER (Gothic, clock face, flying buttresses) ───────────────
-    case "clock_tower": return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <polygon points="24,0 22,5 26,5" style={{...f,opacity:.55}}/>
-        <polygon points="48,0 46,5 50,5" style={{...f,opacity:.55}}/>
-        <line x1="24" y1="0" x2="24" y2="8" style={{...s,strokeWidth:1.2,opacity:.52}}/>
-        <line x1="48" y1="0" x2="48" y2="8" style={{...s,strokeWidth:1.2,opacity:.52}}/>
-        <rect x="20" y="4" width="32" height="10" style={s}/>
-        <path d="M22,14 L22,8 Q36,4 50,8 L50,14" style={{...s,opacity:.4}}/>
-        <circle cx="36" cy="21" r="10" style={s}/>
-        {Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;const r=8;return <line key={i} x1={36+r*0.75*Math.sin(a)} y1={21-r*0.75*Math.cos(a)} x2={36+r*Math.sin(a)} y2={21-r*Math.cos(a)} style={{...s,strokeWidth:i%3===0?1:.45,opacity:i%3===0?.58:.32}}/>;} )}
-        <line x1="36" y1="21" x2="36" y2="15" style={{...s,strokeWidth:1.2,opacity:.62,strokeLinecap:"round"}}/>
-        <line x1="36" y1="21" x2="41" y2="23" style={{...s,strokeWidth:.88,opacity:.52,strokeLinecap:"round"}}/>
-        <rect x="20" y="31" width="32" height="15" style={s}/>
-        <path d="M24,31 L24,25 Q36,19 48,25 L48,31" style={{...s,opacity:.5}}/>
-        <rect x="26" y="35" width="6" height="8" style={{...s,opacity:.46}}/>
-        <rect x="40" y="35" width="6" height="8" style={{...s,opacity:.46}}/>
-        <path d="M20,31 Q12,37 10,46" style={{...s,strokeWidth:.68,opacity:.36}}/>
-        <path d="M52,31 Q60,37 62,46" style={{...s,strokeWidth:.68,opacity:.36}}/>
-      </svg>
-    );
-
-    // ── DEFAULT (classic gabled building) ────────────────────────────────
     default: return (
-      <svg viewBox="0 0 72 48" width="72" height="48">
-        <polyline points="4,20 36,3 68,20" style={s}/>
-        <rect x="4" y="20" width="64" height="2.5" style={{...f,opacity:.6}}/>
-        {[11,20.5,30,42,51.5,61].map(x=><rect key={x} x={x} y="22.5" width="2.5" height="20" style={{...f,opacity:.45}}/>)}
-        <rect x="4" y="42.5" width="64" height="2.5" style={{...f,opacity:.6}}/>
-        <path d="M31,42.5 L31,33 Q36,26 41,33 L41,42.5" style={s}/>
-        <line x1="4" y1="20" x2="4" y2="45" style={{...s,opacity:.44}}/>
-        <line x1="68" y1="20" x2="68" y2="45" style={{...s,opacity:.44}}/>
+      <svg viewBox="0 0 40 32" width="40" height="32">
+        <polyline points="4,20 20,6 36,20" style={s}/>
+        <rect x="4" y="20" width="32" height="10" style={s}/>
+        <rect x="9" y="23" width="6" height="7" style={{...s,opacity:.55}}/>
+        <rect x="25" y="23" width="6" height="7" style={{...s,opacity:.55}}/>
+        <rect x="17" y="23" width="6" height="5" style={{...s,opacity:.5}}/>
       </svg>
     );
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Stamp frame shapes — 10 unique outlines with authentic ink roughness filter
+// ─────────────────────────────────────────────────────────────────────────────
+const STAMP_DIMS = [
+  {w:96,  h:96 }, // 0: circle
+  {w:140, h:82 }, // 1: landscape rounded rect
+  {w:112, h:100}, // 2: diamond
+  {w:110, h:100}, // 3: hexagon
+  {w:142, h:80 }, // 4: wide oval
+  {w:98,  h:120}, // 5: portrait rounded rect
+  {w:106, h:106}, // 6: octagon
+  {w:92,  h:114}, // 7: tall oval
+  {w:108, h:110}, // 8: arch / shield
+  {w:112, h:100}, // 9: squircle
+];
+
+function StampOutline({ shape, w, h, ink, seed }) {
+  const fId = `ink-${seed}`;
+  const s1 = { stroke:ink, fill:"none", strokeWidth:1.55, strokeLinecap:"round", strokeLinejoin:"round" };
+  const s2 = { stroke:ink, fill:"none", strokeWidth:0.65, strokeLinecap:"round", strokeLinejoin:"round" };
+  let inner;
+  switch(shape) {
+    case 0:
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <circle cx={w/2} cy={h/2} r={w/2-5} style={s1}/>
+          <circle cx={w/2} cy={h/2} r={w/2-13} style={{...s2,strokeDasharray:"4 3"}}/>
+        </g>
+      ); break;
+    case 1:
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <rect x={5} y={5} width={w-10} height={h-10} rx={10} style={s1}/>
+          <rect x={11} y={11} width={w-22} height={h-22} rx={7} style={s2}/>
+        </g>
+      ); break;
+    case 2:
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <path d={`M${w/2},5 L${w-5},${h/2} L${w/2},${h-5} L5,${h/2} Z`} style={s1}/>
+          <path d={`M${w/2},16 L${w-16},${h/2} L${w/2},${h-16} L16,${h/2} Z`} style={s2}/>
+        </g>
+      ); break;
+    case 3: {
+      const cx=w/2, cy=h/2, r=Math.min(w,h)/2-5, r2=r-10;
+      const pts  = Array.from({length:6},(_,i)=>{const a=(i*60-30)*Math.PI/180;return `${(cx+r*Math.cos(a)).toFixed(1)},${(cy+r*Math.sin(a)).toFixed(1)}`;}).join(" ");
+      const pts2 = Array.from({length:6},(_,i)=>{const a=(i*60-30)*Math.PI/180;return `${(cx+r2*Math.cos(a)).toFixed(1)},${(cy+r2*Math.sin(a)).toFixed(1)}`;}).join(" ");
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <polygon points={pts} style={s1}/>
+          <polygon points={pts2} style={s2}/>
+        </g>
+      ); break;
+    }
+    case 4:
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <ellipse cx={w/2} cy={h/2} rx={w/2-5} ry={h/2-4} style={s1}/>
+          <ellipse cx={w/2} cy={h/2} rx={w/2-13} ry={h/2-11} style={{...s2,strokeDasharray:"3 3"}}/>
+        </g>
+      ); break;
+    case 5:
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <rect x={5} y={5} width={w-10} height={h-10} rx={13} style={s1}/>
+          <rect x={12} y={12} width={w-24} height={h-24} rx={9} style={s2}/>
+        </g>
+      ); break;
+    case 6: {
+      const tr=Math.round(Math.min(w,h)*0.195);
+      const pts =`${tr},3 ${w-tr},3 ${w-3},${tr} ${w-3},${h-tr} ${w-tr},${h-3} ${tr},${h-3} 3,${h-tr} 3,${tr}`;
+      const t2=tr+9;
+      const pts2=`${t2},11 ${w-t2},11 ${w-11},${t2} ${w-11},${h-t2} ${w-t2},${h-11} ${t2},${h-11} 11,${h-t2} 11,${t2}`;
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <polygon points={pts} style={s1}/>
+          <polygon points={pts2} style={s2}/>
+        </g>
+      ); break;
+    }
+    case 7:
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <ellipse cx={w/2} cy={h/2} rx={w/2-5} ry={h/2-5} style={s1}/>
+          <ellipse cx={w/2} cy={h/2} rx={w/2-13} ry={h/2-13} style={{...s2,strokeDasharray:"3 2"}}/>
+        </g>
+      ); break;
+    case 8: {
+      const cx=w/2, qy=(h*0.44).toFixed(1), qy2=(h*0.45).toFixed(1);
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <path d={`M6,${h-5} L6,${qy} Q6,5 ${cx},5 Q${w-6},5 ${w-6},${qy} L${w-6},${h-5} Z`} style={s1}/>
+          <path d={`M13,${h-11} L13,${qy2} Q13,13 ${cx},13 Q${w-13},13 ${w-13},${qy2} L${w-13},${h-11} Z`} style={s2}/>
+        </g>
+      ); break;
+    }
+    default:
+      inner = (
+        <g filter={`url(#${fId})`}>
+          <rect x={5} y={5} width={w-10} height={h-10} rx={20} style={s1}/>
+          <rect x={12} y={12} width={w-24} height={h-24} rx={14} style={s2}/>
+        </g>
+      );
+  }
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} style={{position:"absolute",inset:0,overflow:"visible",pointerEvents:"none"}}>
+      <defs>
+        <filter id={fId} x="-8%" y="-8%" width="116%" height="116%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed={seed} result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.6" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
+      {inner}
+    </svg>
+  );
+}
+
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Stamp color + rotation helpers
 // ─────────────────────────────────────────────────────────────────────────────
-const STAMP_PALETTE = [
-  { hex:"#C0463A", rgb:"192,70,58"   },
-  { hex:"#6B4DA0", rgb:"107,77,160"  },
-  { hex:"#3A6B9B", rgb:"58,107,155"  },
-  { hex:"#3A7A3A", rgb:"58,122,58"   },
-  { hex:"#C06B2A", rgb:"192,107,42"  },
-  { hex:"#2A7A8A", rgb:"42,122,138"  },
-  { hex:"#8B3A6B", rgb:"139,58,107"  },
-  { hex:"#6B5A2A", rgb:"107,90,42"   },
-];
-const STAMP_ROTS = [-6,4,-3,7,-8,2,-5,6,-2,5,-7,3];
+// Vintage ink colors — authentic passport stamp palette
+const STAMP_INKS = ["#1C2B6E","#7A1C1C","#2A4A0C","#0C3A3A","#38186A","#4A1E06","#1A3158","#1C3A1C"];
+const STAMP_ROTS = [-7,5,-4,8,-9,3,-6,7,-2,6,-8,4,-5,9,-3,6];
 
 // Y scatter offsets — organic vertical offset for each stamp slot
 const SCATTER_Y = [0,-14,8,-6,14,-10,4,-18,6,-12,2,-8,10,-4,16,-10];
 
-function getStampStyle(v) {
-  const n = parseInt(String(v.id).replace(/\D/g,"")) || 0;
-  return { ...STAMP_PALETTE[n % STAMP_PALETTE.length], rot: STAMP_ROTS[n % STAMP_ROTS.length] };
-}
+function getStampInk(n) { return STAMP_INKS[n % STAMP_INKS.length]; }
 
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -875,72 +513,47 @@ const ORNS = ["★","✦","◆","✿"];
 // VenueStamp — ink-on-paper passport stamp, unique per venue
 // ─────────────────────────────────────────────────────────────────────────────
 function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
-  const { hex, rgb, rot } = getStampStyle(v);
   const n = parseInt(String(v.id).replace(/\D/g,"")) || 0;
-  const catTypes = CAT_BUILDING[v.cat] || ["classic"];
-  const typeArr = Array.isArray(catTypes) ? catTypes : [catTypes];
-  const btype = typeArr[n % typeArr.length];
-  const catLabel = CAT_SHORT[v.cat] || v.cat?.toUpperCase() || "DETROIT";
-  const serial = "DET-" + String(v.id).padStart(4,"0");
-  const date   = propDate || "VISITED";
-
-  // 3 layout shapes cycling by index position
-  const shape = index % 3; // 0=landscape, 1=portrait, 2=square
-  const w = shape === 1 ? 120 : shape === 2 ? 130 : 158;
-  const h = shape === 1 ? 126 : shape === 2 ? 122 : 98;
-  const svgScale = shape === 1 ? 0.78 : shape === 2 ? 0.84 : 0.74;
+  const ink = getStampInk(n);
+  const rot = STAMP_ROTS[n % STAMP_ROTS.length];
+  const offsetX = ((n*7)%9)-4;
+  const offsetY = ((n*13)%7)-3;
+  const shape = n % 10;
+  const { w, h } = STAMP_DIMS[shape];
+  const date = propDate || "VISITED";
+  const isLandscape = shape===1||shape===4;
+  const isPortrait  = shape===5||shape===7;
 
   return (
     <div
       className={isNew ? "stamp-press" : undefined}
       onClick={() => onOpen && onOpen(String(v.id))}
       style={{
-        width:w, height:h, flexShrink:0,
-        display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
-        background:"transparent",
-        borderRadius:4,
-        transform:`rotate(${rot}deg) translate(${((n*7)%9)-4}px, ${((n*13)%7)-3}px)`,
-        padding:"5px 8px 6px",
-        position:"relative", overflow:"hidden", boxSizing:"border-box",
-        color: hex,
+        width:w, height:h, flexShrink:0, position:"relative",
+        transform:`rotate(${rot}deg) translate(${offsetX}px,${offsetY}px)`,
         cursor: onOpen ? "pointer" : "default",
       }}
     >
-      {/* Diagonal watermark — ultra faint ink impression */}
-      <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-16deg)",...MONO,fontSize:"0.20rem",letterSpacing:"0.28em",color:`rgba(${rgb},0.06)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none",zIndex:0 }}>
-        EXCLUSIVE DETROIT
-      </span>
-
-      <div style={{ position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:shape===1?2:1,width:"100%" }}>
-
-        {/* Building illustration — the visual centrepiece */}
-        <div style={{ opacity:.86, lineHeight:0, transform:`scale(${svgScale})`, transformOrigin:"center", marginBottom:-1 }}>
-          <BuildingSVG type={btype}/>
+      {/* SVG stamp frame with ink roughness filter */}
+      <StampOutline shape={shape} w={w} h={h} ink={ink} seed={n}/>
+      {/* Content */}
+      <div style={{
+        position:"absolute", inset:0, display:"flex", flexDirection:"column",
+        alignItems:"center", justifyContent:"center", boxSizing:"border-box",
+        padding: isLandscape ? "6px 18px" : isPortrait ? "14px 8px" : "10px",
+        gap:2, textAlign:"center",
+      }}>
+        <div style={{lineHeight:0, opacity:0.84, transform:"scale(0.76)", transformOrigin:"center"}}>
+          <StampIconSVG cat={v.cat} ink={ink}/>
         </div>
-
-        {/* Venue name — dominant */}
-        <div style={{ ...SERIF,fontSize:shape===1?"0.88rem":"0.82rem",fontWeight:700,color:hex,lineHeight:1.05,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.02em",marginTop:shape===1?2:1 }}>
+        <div style={{...SERIF, fontSize:isPortrait?"0.78rem":"0.72rem", fontWeight:700, color:ink, lineHeight:1.1, textTransform:"uppercase", letterSpacing:"0.04em", wordBreak:"break-word"}}>
           {stampName(v.name)}
         </div>
-
-        {/* Neighborhood */}
-        <div style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.14em",color:hex,opacity:.72,textTransform:"uppercase",textAlign:"center" }}>
+        <div style={{...MONO, fontSize:"0.34rem", letterSpacing:"0.14em", color:ink, opacity:0.70, textTransform:"uppercase"}}>
           {v.hood.toUpperCase()}
         </div>
-
-        {/* Category */}
-        <div style={{ ...MONO,fontSize:"0.32rem",letterSpacing:"0.10em",color:hex,opacity:.46,textTransform:"uppercase",textAlign:"center" }}>
-          {catLabel}
-        </div>
-
-        {/* Date */}
-        <div style={{ ...MONO,fontSize:"0.34rem",letterSpacing:"0.07em",color:hex,opacity:.55,textTransform:"uppercase" }}>
+        <div style={{...MONO, fontSize:"0.28rem", letterSpacing:"0.08em", color:ink, opacity:0.48}}>
           {date}
-        </div>
-
-        {/* Serial */}
-        <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.06em",color:hex,opacity:.30 }}>
-          {serial}
         </div>
       </div>
     </div>
@@ -951,93 +564,44 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
 // Stamp overlay — full-screen press animation (only when newly earned)
 // ─────────────────────────────────────────────────────────────────────────────
 function StampOverlay({ venue, onDone }) {
-  const { hex, rgb, rot } = getStampStyle(venue);
   const n = parseInt(String(venue.id).replace(/\D/g,"")) || 0;
-  const catTypesO = CAT_BUILDING[venue.cat] || ["classic"];
-  const typeArrO = Array.isArray(catTypesO) ? catTypesO : [catTypesO];
-  const btype = typeArrO[n % typeArrO.length];
-  const orn = ORNS[n % ORNS.length];
-  const serial = "DET-" + String(venue.id).padStart(4,"0");
+  const ink = getStampInk(n);
+  const rot = STAMP_ROTS[n % STAMP_ROTS.length];
+  const shape = n % 10;
+  const { w: sw, h: sh } = STAMP_DIMS[shape];
+  const scale = Math.min(280/sw, 240/sh);
+  const W = Math.round(sw*scale), H = Math.round(sh*scale);
   const catLabel = CAT_SHORT[venue.cat] || venue.cat?.toUpperCase() || "DETROIT";
-  useEffect(() => { const t = setTimeout(onDone, 2900); return () => clearTimeout(t); }, [onDone]);
+  const today = new Date().toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}).toUpperCase();
+  useEffect(() => { const t = setTimeout(onDone, 2800); return () => clearTimeout(t); }, [onDone]);
+  const isLandscape = shape===1||shape===4;
+  const isPortrait  = shape===5||shape===7;
   return (
-    <div style={{ position:"fixed",inset:0,zIndex:9990,display:"flex",alignItems:"center",justifyContent:"center",pointerEvents:"none",background:"rgba(5,3,1,0.65)" }}>
-      <div className="stamp-overlay-press" style={{
-        display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",
-        width:268, minHeight:0,
-        border:`2px dashed rgba(${rgb},0.82)`,
-        boxShadow:`0 0 0 6px rgba(${rgb},0.07), 0 0 0 11px rgba(${rgb},0.03), 0 0 56px rgba(${rgb},0.26)`,
-        background:`radial-gradient(ellipse at 48% 38%, rgba(${rgb},0.28) 0%, rgba(7,4,1,0.98) 72%)`,
-        borderRadius:6, transform:`rotate(${rot}deg)`, padding:"14px 20px 16px", position:"relative", overflow:"hidden",
-        color: hex,
-        filter:`drop-shadow(0 0 20px rgba(${rgb},0.48))`,
-      }}>
-        {/* Watermark */}
-        <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-14deg)",...MONO,fontSize:"0.32rem",letterSpacing:"0.42em",color:`rgba(${rgb},0.055)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none" }}>
-          EXCLUSIVE DETROIT
-        </span>
-
-        {/* Inner border */}
-        <div style={{ position:"absolute",inset:6,border:`0.5px solid rgba(${rgb},0.22)`,borderRadius:3,pointerEvents:"none" }}/>
-        <div style={{ position:"absolute",inset:10,border:`0.5px dashed rgba(${rgb},0.12)`,borderRadius:2,pointerEvents:"none" }}/>
-
-        {/* Corner ornaments */}
-        <span style={{ position:"absolute",top:9,left:10,fontSize:"0.34rem",color:hex,opacity:.55,lineHeight:1,pointerEvents:"none",userSelect:"none" }}>{orn}</span>
-        <span style={{ position:"absolute",top:9,right:10,fontSize:"0.34rem",color:hex,opacity:.55,lineHeight:1,pointerEvents:"none",userSelect:"none" }}>{orn}</span>
-        <span style={{ position:"absolute",bottom:9,left:10,fontSize:"0.34rem",color:hex,opacity:.55,lineHeight:1,pointerEvents:"none",userSelect:"none" }}>{orn}</span>
-        <span style={{ position:"absolute",bottom:9,right:10,fontSize:"0.34rem",color:hex,opacity:.55,lineHeight:1,pointerEvents:"none",userSelect:"none" }}>{orn}</span>
-
-        <div style={{ position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:3,width:"100%" }}>
-
-          {/* Header */}
-          <div style={{ ...MONO,fontSize:"0.32rem",letterSpacing:"0.22em",color:hex,opacity:.72,textTransform:"uppercase" }}>
-            {orn} EXCLUSIVE DETROIT {orn}
+    <div style={{position:"fixed",inset:0,zIndex:9990,display:"flex",alignItems:"center",justifyContent:"center",pointerEvents:"none",background:"rgba(6,4,2,0.70)"}}>
+      <div className="stamp-overlay-press" style={{position:"relative",width:W,height:H,transform:`rotate(${rot*0.6}deg)`}}>
+        <StampOutline shape={shape} w={W} h={H} ink={ink} seed={n+100}/>
+        <div style={{
+          position:"absolute", inset:0, display:"flex", flexDirection:"column",
+          alignItems:"center", justifyContent:"center", gap:5, textAlign:"center",
+          padding: isLandscape ? "10px 24px" : isPortrait ? "20px 12px" : "14px",
+        }}>
+          <div style={{...MONO,fontSize:"0.34rem",letterSpacing:"0.22em",textTransform:"uppercase",color:ink,opacity:0.68}}>
+            ✦ EXCLUSIVE DETROIT ✦
           </div>
-
-          {/* Top ornament divider */}
-          <div style={{ display:"flex",alignItems:"center",gap:5,width:"88%",marginBottom:1 }}>
-            <div style={{ flex:1,height:"0.5px",background:`rgba(${rgb},0.48)` }}/>
-            <span style={{ fontSize:"0.20rem",color:hex,opacity:.45 }}>✦</span>
-            <div style={{ flex:1,height:"0.5px",background:`rgba(${rgb},0.48)` }}/>
+          <div style={{lineHeight:0, opacity:0.86, transform:"scale(1.0)", transformOrigin:"center"}}>
+            <StampIconSVG cat={venue.cat} ink={ink}/>
           </div>
-
-          {/* Building — larger in the overlay */}
-          <div style={{ opacity:.84,lineHeight:0,transform:"scale(1.15)",transformOrigin:"center" }}>
-            <BuildingSVG type={btype}/>
-          </div>
-
-          {/* Double rule around name */}
-          <div style={{ width:"82%",height:"0.5px",background:`rgba(${rgb},0.45)`,marginTop:2 }}/>
-          <div style={{ width:"62%",height:"0.5px",background:`rgba(${rgb},0.22)`,marginBottom:1 }}/>
-
-          {/* Venue name */}
-          <div style={{ ...SERIF,fontSize:"1.35rem",fontWeight:700,color:hex,lineHeight:1.08,textTransform:"uppercase",textAlign:"center",letterSpacing:"0.02em" }}>
+          <div style={{...SERIF,fontSize:"1.4rem",fontWeight:700,color:ink,lineHeight:1.08,textTransform:"uppercase",letterSpacing:"0.04em"}}>
             {stampName(venue.name)}
           </div>
-
-          <div style={{ width:"62%",height:"0.5px",background:`rgba(${rgb},0.22)`,marginTop:1 }}/>
-          <div style={{ width:"82%",height:"0.5px",background:`rgba(${rgb},0.45)`,marginBottom:1 }}/>
-
-          {/* Neighborhood */}
-          <div style={{ ...MONO,fontSize:"0.40rem",letterSpacing:"0.20em",color:hex,opacity:.80,textTransform:"uppercase" }}>
+          <div style={{...MONO,fontSize:"0.40rem",letterSpacing:"0.18em",textTransform:"uppercase",color:ink,opacity:0.72}}>
             {venue.hood.toUpperCase()}
           </div>
-
-          {/* Category */}
-          <div style={{ ...MONO,fontSize:"0.30rem",letterSpacing:"0.14em",color:hex,opacity:.55,textTransform:"uppercase" }}>
-            {orn} {catLabel} {orn}
+          <div style={{...MONO,fontSize:"0.30rem",letterSpacing:"0.10em",textTransform:"uppercase",color:ink,opacity:0.52}}>
+            {catLabel}
           </div>
-
-          {/* Bottom ornament divider */}
-          <div style={{ display:"flex",alignItems:"center",gap:5,width:"80%",marginTop:1 }}>
-            <div style={{ flex:1,height:"0.5px",background:`rgba(${rgb},0.32)` }}/>
-            <span style={{ fontSize:"0.20rem",color:hex,opacity:.38 }}>✦</span>
-            <div style={{ flex:1,height:"0.5px",background:`rgba(${rgb},0.32)` }}/>
-          </div>
-
-          {/* Serial + verified */}
-          <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.12em",color:hex,opacity:.42 }}>
-            {serial} · PASSPORT VERIFIED
+          <div style={{...MONO,fontSize:"0.28rem",letterSpacing:"0.08em",color:ink,opacity:0.40}}>
+            {today}
           </div>
         </div>
       </div>
