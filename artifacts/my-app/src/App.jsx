@@ -1061,10 +1061,10 @@ const ICONS=[
 return React.createElement("div",{style:{
   width:48,height:54,flexShrink:0,
   display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-  background:`radial-gradient(ellipse at 50% 40%, rgba(${rgb},0.44) 0%, rgba(${rgb},0.18) 55%, transparent 82%)`,
+  background:"transparent",
   borderRadius:3,transform:`rotate(${rot}deg)`,
   position:"relative",overflow:"hidden",boxSizing:"border-box",
-  filter:`drop-shadow(0 0 9px rgba(${rgb},0.52)) drop-shadow(0 0 3px rgba(${rgb},0.28))`,
+  filter:`drop-shadow(0 0 5px rgba(${rgb},0.62)) drop-shadow(0 0 2px rgba(${rgb},0.38))`,
 }},
   React.createElement("div",{style:{position:"absolute",inset:2,borderRadius:2,border:`1.5px dashed rgba(${rgb},0.75)`,pointerEvents:"none"}}),
   React.createElement("svg",{width:28,height:20,viewBox:"0 0 28 20",style:{overflow:"visible",marginBottom:1,opacity:1}},ICONS),
@@ -1355,7 +1355,6 @@ const containerRef=React.useRef(null);
 const mapRef=React.useRef(null);
 const markersRef=React.useRef(new Map());
 const selectedMarkerRef=React.useRef(null);
-const riverPolyRef=React.useRef(null);
 const prevMapCatRef=React.useRef(mapCat);
 React.useLayoutEffect(()=>{
 const pb=document.body.style.overflow,ph=document.documentElement.style.overflow;
@@ -1404,7 +1403,6 @@ const exactH=Math.max(400,window.visualViewport?.height||window.innerHeight||win
 containerRef.current.style.height=`${exactH}px`;
 map=L.map(containerRef.current,{center:[42.3314,-83.0458],zoom:14,zoomControl:false,attributionControl:false});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
-if(isDark){riverPolyRef.current=L.polygon([[42.332,-83.20],[42.323,-82.88],[42.285,-82.88],[42.294,-83.20]],{color:"transparent",fillColor:"#0A1830",fillOpacity:0.30,interactive:false}).addTo(map);}
 mapRef.current=map;
 map.on("click",()=>{setSelected(null);});
 const forceRedraw=(m)=>{try{m.invalidateSize();m.setView(m.getCenter(),m.getZoom(),{animate:false});}catch(e){console.warn("[ExclusiveDetroit] map redraw error",e);}};
@@ -1419,8 +1417,6 @@ React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;
 map.eachLayer(l=>{if(l instanceof L.TileLayer)map.removeLayer(l);});
 L.tileLayer(isDark?TILE_DARK:TILE_LIGHT,{subdomains:"abcd",maxZoom:19}).addTo(map);
-if(riverPolyRef.current){map.removeLayer(riverPolyRef.current);riverPolyRef.current=null;}
-if(isDark){riverPolyRef.current=L.polygon([[42.332,-83.20],[42.323,-82.88],[42.285,-82.88],[42.294,-83.20]],{color:"transparent",fillColor:"#0A1830",fillOpacity:0.30,interactive:false}).addTo(map);}
 },[isDark]);
 React.useEffect(()=>{
 const map=mapRef.current;if(!map)return;

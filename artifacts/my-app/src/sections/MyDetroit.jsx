@@ -657,23 +657,18 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
         </div>
 
         {/* Neighborhood */}
-        <div style={{ ...MONO,fontSize:"0.38rem",letterSpacing:"0.14em",color:hex,opacity:.72,textTransform:"uppercase",textAlign:"center" }}>
+        <div style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.14em",color:hex,opacity:.82,textTransform:"uppercase",textAlign:"center" }}>
           {v.hood.toUpperCase()}
         </div>
 
-        {/* Category */}
-        <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.10em",color:hex,opacity:.46,textTransform:"uppercase",textAlign:"center" }}>
-          ✦ {catLabel} ✦
-        </div>
-
         {/* VISITED */}
-        <div style={{ ...MONO,fontSize:"0.30rem",letterSpacing:"0.12em",color:hex,opacity:.62,textTransform:"uppercase" }}>
+        <div style={{ ...MONO,fontSize:"0.38rem",letterSpacing:"0.14em",color:hex,opacity:.82,textTransform:"uppercase" }}>
           VISITED
         </div>
 
         {/* Date — only shown when a real date is stored */}
         {date && (
-          <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.07em",color:hex,opacity:.40 }}>
+          <div style={{ ...MONO,fontSize:"0.36rem",letterSpacing:"0.08em",color:hex,opacity:.68 }}>
             {date}
           </div>
         )}
@@ -1195,7 +1190,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                         <div style={{ ...SERIF,fontSize:"1rem",color:"var(--c-white)",lineHeight:1.2 }}>
                           {(plan.stops||[]).length}-Stop Night
                         </div>
-                        {plan.savedAt && <div style={{ ...MONO,fontSize:"0.38rem",color:"var(--c-smoke)",marginTop:2 }}>{plan.savedAt}</div>}
+                        {plan.savedAt && <div style={{ ...MONO,fontSize:"0.47rem",color:"var(--c-smoke)",marginTop:2 }}>{plan.savedAt}</div>}
                       </div>
                       {onDeletePlan && (
                         <button onClick={() => onDeletePlan(plan.id)} style={{ background:"none",border:"none",cursor:"pointer",color:"#C05050",fontSize:"1rem",padding:"4px",lineHeight:1,flexShrink:0 }}>♥</button>
@@ -1206,7 +1201,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                         <div key={v.id} onClick={() => onOpenVenue&&onOpenVenue(String(v.id))} style={{ display:"flex",alignItems:"center",gap:8,cursor:"pointer",padding:"6px 0",borderTop:i===0?"none":"1px solid var(--c-borders)" }}>
                           <div style={{ ...MONO,fontSize:"0.38rem",color:"var(--c-goldD)",letterSpacing:"0.12em",flexShrink:0,minWidth:16,textAlign:"center" }}>{i+1}</div>
                           <div style={{ ...SERIF,fontSize:"0.9rem",color:"var(--c-white)",lineHeight:1.2,flex:1 }}>{v.name}</div>
-                          <div style={{ ...MONO,fontSize:"0.36rem",color:"var(--c-smoke)",letterSpacing:"0.08em",flexShrink:0 }}>{v.cat}</div>
+                          <div style={{ ...MONO,fontSize:"0.44rem",color:"var(--c-smoke)",letterSpacing:"0.08em",flexShrink:0 }}>{v.cat}</div>
                         </div>
                       ))}
                     </div>
