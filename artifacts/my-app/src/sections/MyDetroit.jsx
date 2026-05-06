@@ -880,19 +880,15 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
   const catTypes = CAT_BUILDING[v.cat] || ["classic"];
   const typeArr = Array.isArray(catTypes) ? catTypes : [catTypes];
   const btype = typeArr[n % typeArr.length];
-  const orn = ORNS[n % ORNS.length];
   const catLabel = CAT_SHORT[v.cat] || v.cat?.toUpperCase() || "DETROIT";
   const serial = "DET-" + String(v.id).padStart(4,"0");
   const date   = propDate || "VISITED";
 
   // 3 layout shapes cycling by index position
   const shape = index % 3; // 0=landscape, 1=portrait, 2=square
-  const w = shape === 1 ? 116 : shape === 2 ? 126 : 152;
-  const h = shape === 1 ? 118 : shape === 2 ? 116 : 94;
-  const svgScale = shape === 1 ? 0.7 : shape === 2 ? 0.76 : 0.66;
-
-  // Border variant cycles by venue id: 0=dashed+inner, 1=double-dashed, 2=dashed+corner-marks
-  const bv = n % 3;
+  const w = shape === 1 ? 120 : shape === 2 ? 130 : 158;
+  const h = shape === 1 ? 126 : shape === 2 ? 122 : 98;
+  const svgScale = shape === 1 ? 0.78 : shape === 2 ? 0.84 : 0.74;
 
   return (
     <div
@@ -901,73 +897,49 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
       style={{
         width:w, height:h, flexShrink:0,
         display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
-        background:`radial-gradient(ellipse at 50% 42%, rgba(${rgb},0.24) 0%, rgba(${rgb},0.08) 52%, transparent 78%)`,
+        background:`radial-gradient(ellipse at 50% 40%, rgba(${rgb},0.30) 0%, rgba(${rgb},0.10) 55%, transparent 82%)`,
         borderRadius:4, transform:`rotate(${rot}deg)`,
-        padding:"4px 7px 5px",
+        padding:"5px 8px 6px",
         position:"relative", overflow:"hidden", boxSizing:"border-box",
         color: hex,
-        filter:`drop-shadow(0 0 6px rgba(${rgb},0.30))`,
+        filter:`drop-shadow(0 0 10px rgba(${rgb},0.38))`,
         cursor: onOpen ? "pointer" : "default",
       }}
     >
-      {/* Diagonal watermark */}
-      <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-16deg)",...MONO,fontSize:"0.22rem",letterSpacing:"0.36em",color:`rgba(${rgb},0.07)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none",zIndex:0 }}>
+      {/* Diagonal watermark — ultra faint ink impression */}
+      <span style={{ position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%) rotate(-16deg)",...MONO,fontSize:"0.20rem",letterSpacing:"0.28em",color:`rgba(${rgb},0.06)`,textTransform:"uppercase",whiteSpace:"nowrap",pointerEvents:"none",userSelect:"none",zIndex:0 }}>
         EXCLUSIVE DETROIT
       </span>
 
-      {/* Outer dashed border */}
-      <div style={{ position:"absolute",inset:3,borderRadius:3,border:`1.5px dashed rgba(${rgb},0.55)`,pointerEvents:"none",zIndex:0 }}/>
+      <div style={{ position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:shape===1?2:1,width:"100%" }}>
 
-      {/* Inner line (variants 0 & 2) */}
-      {bv !== 1 && <div style={{ position:"absolute",inset:7,borderRadius:2,border:`0.5px solid rgba(${rgb},0.20)`,pointerEvents:"none",zIndex:0 }}/>}
-      {/* Double dashed (variant 1) */}
-      {bv === 1 && <div style={{ position:"absolute",inset:7,borderRadius:2,border:`1px dashed rgba(${rgb},0.22)`,pointerEvents:"none",zIndex:0 }}/>}
-
-      {/* Corner ornaments */}
-      <span style={{ position:"absolute",top:5,left:6,fontSize:"0.22rem",color:hex,opacity:.48,lineHeight:1,pointerEvents:"none",userSelect:"none",zIndex:1 }}>{orn}</span>
-      <span style={{ position:"absolute",top:5,right:6,fontSize:"0.22rem",color:hex,opacity:.48,lineHeight:1,pointerEvents:"none",userSelect:"none",zIndex:1 }}>{orn}</span>
-      <span style={{ position:"absolute",bottom:5,left:6,fontSize:"0.22rem",color:hex,opacity:.48,lineHeight:1,pointerEvents:"none",userSelect:"none",zIndex:1 }}>{orn}</span>
-      <span style={{ position:"absolute",bottom:5,right:6,fontSize:"0.22rem",color:hex,opacity:.48,lineHeight:1,pointerEvents:"none",userSelect:"none",zIndex:1 }}>{orn}</span>
-
-      <div style={{ position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",gap:1,width:"100%",paddingTop:shape===1?3:2 }}>
-
-        {/* EXCLUSIVE DETROIT header */}
-        <div style={{ ...MONO,fontSize:"0.25rem",letterSpacing:"0.18em",color:hex,opacity:.62,textTransform:"uppercase",textAlign:"center",lineHeight:1 }}>
-          EXCLUSIVE DETROIT
-        </div>
-
-        {/* Header divider */}
-        <div style={{ display:"flex",alignItems:"center",gap:3,width:"78%",margin:"1px 0" }}>
-          <div style={{ flex:1,height:"0.5px",background:`rgba(${rgb},0.38)` }}/>
-          <span style={{ fontSize:"0.18rem",color:hex,opacity:.42 }}>✦</span>
-          <div style={{ flex:1,height:"0.5px",background:`rgba(${rgb},0.38)` }}/>
-        </div>
-
-        {/* Building illustration */}
-        <div style={{ opacity:.80,lineHeight:0,transform:`scale(${svgScale})`,transformOrigin:"center center",marginBottom:-3,marginTop:-1 }}>
+        {/* Building illustration — the visual centrepiece */}
+        <div style={{ opacity:.86, lineHeight:0, transform:`scale(${svgScale})`, transformOrigin:"center", marginBottom:-1 }}>
           <BuildingSVG type={btype}/>
         </div>
 
-        {/* Venue name */}
-        <div style={{ ...SERIF,fontSize:shape===1?"0.70rem":"0.66rem",fontWeight:700,color:hex,lineHeight:1.05,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.02em" }}>
+        {/* Venue name — dominant */}
+        <div style={{ ...SERIF,fontSize:shape===1?"0.88rem":"0.82rem",fontWeight:700,color:hex,lineHeight:1.05,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.02em",marginTop:shape===1?2:1 }}>
           {stampName(v.name)}
         </div>
 
         {/* Neighborhood */}
-        <div style={{ ...MONO,fontSize:"0.38rem",letterSpacing:"0.13em",color:hex,opacity:.72,textTransform:"uppercase",textAlign:"center",lineHeight:1 }}>
+        <div style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.14em",color:hex,opacity:.72,textTransform:"uppercase",textAlign:"center" }}>
           {v.hood.toUpperCase()}
         </div>
 
         {/* Category */}
-        <div style={{ ...MONO,fontSize:"0.30rem",letterSpacing:"0.10em",color:hex,opacity:.50,textTransform:"uppercase",textAlign:"center",lineHeight:1 }}>
-          {orn} {catLabel} {orn}
+        <div style={{ ...MONO,fontSize:"0.32rem",letterSpacing:"0.10em",color:hex,opacity:.46,textTransform:"uppercase",textAlign:"center" }}>
+          {catLabel}
         </div>
 
-        {/* Date + serial */}
-        <div style={{ ...MONO,fontSize:"0.32rem",letterSpacing:"0.06em",color:hex,opacity:.48,textTransform:"uppercase" }}>
+        {/* Date */}
+        <div style={{ ...MONO,fontSize:"0.34rem",letterSpacing:"0.07em",color:hex,opacity:.55,textTransform:"uppercase" }}>
           {date}
         </div>
-        <div style={{ ...MONO,fontSize:"0.27rem",letterSpacing:"0.06em",color:hex,opacity:.32 }}>
+
+        {/* Serial */}
+        <div style={{ ...MONO,fontSize:"0.28rem",letterSpacing:"0.06em",color:hex,opacity:.30 }}>
           {serial}
         </div>
       </div>
@@ -1206,20 +1178,24 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
   }
 
   return (
-    <div style={{ padding:"24px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
+    <div style={{ position:"relative", backgroundImage:"url('/detroit-skyline.jpg')", backgroundSize:"cover", backgroundPosition:"center 35%" }}>
+      {/* Cinematic dark overlay */}
+      <div style={{ position:"absolute",inset:0,background:"rgba(4,2,1,0.82)",backdropFilter:"blur(2px)",WebkitBackdropFilter:"blur(2px)",pointerEvents:"none",zIndex:0 }}/>
+      <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(90px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
-      <div style={{ marginBottom:6 }}>
-        <h2 style={{ ...SERIF,fontSize:"1.9rem",fontWeight:400,color:"var(--c-white)",margin:0,lineHeight:1.1 }}>
+      <div style={{ marginBottom:22 }}>
+        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"var(--c-gold)",margin:"0 0 6px",opacity:0.8 }}>Personal Concierge</p>
+        <h2 style={{ ...SERIF,fontSize:"2.0rem",fontWeight:400,color:"var(--c-white)",margin:0,lineHeight:1.1 }}>
           Build My Night ✨
         </h2>
-        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.07em",color:"var(--c-smoke)",margin:"7px 0 0" }}>
+        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.07em",color:"var(--c-smoke)",margin:"8px 0 0" }}>
           Answer three questions. We'll craft the perfect night.
         </p>
       </div>
 
       {/* Q1 — When */}
-      <div style={{ marginTop:24, marginBottom:18 }}>
+      <div style={{ marginTop:0, marginBottom:14, background:"rgba(10,7,3,0.70)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid rgba(201,168,76,0.14)",borderRadius:14,padding:"16px 18px" }}>
         <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHEN ARE YOU GOING OUT?
         </p>
@@ -1231,7 +1207,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
       </div>
 
       {/* Q2 — Who */}
-      <div style={{ marginBottom:18 }}>
+      <div style={{ marginBottom:14, background:"rgba(10,7,3,0.70)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid rgba(201,168,76,0.14)",borderRadius:14,padding:"16px 18px" }}>
         <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHO'S COMING?
         </p>
@@ -1243,7 +1219,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
       </div>
 
       {/* Q3 — Energy */}
-      <div style={{ marginBottom:26 }}>
+      <div style={{ marginBottom:20, background:"rgba(10,7,3,0.70)",backdropFilter:"blur(18px)",WebkitBackdropFilter:"blur(18px)",border:"1px solid rgba(201,168,76,0.14)",borderRadius:14,padding:"16px 18px" }}>
         <p style={{ ...MONO,fontSize:"0.6rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-smoke)",margin:"0 0 10px" }}>
           WHAT'S THE ENERGY?
         </p>
@@ -1327,6 +1303,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan }) {
           )}
         </div>
       )}
+      </div>
     </div>
   );
 }
