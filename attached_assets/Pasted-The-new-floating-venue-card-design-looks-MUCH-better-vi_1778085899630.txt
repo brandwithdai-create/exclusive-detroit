@@ -1,0 +1,84 @@
+The new floating venue card design looks MUCH better visually, but the connection animation behavior is currently incorrect and functionally distracting.
+
+Please adjust the map pin → venue card interaction to work like this:
+
+1. Correct pin-to-card behavior
+Right now:
+- the venue card appears directly on top of the selected pin
+- the pin still visually sits underneath the card
+- the gold connection line animation feels disconnected/random
+
+Instead:
+
+When a user taps a map pin:
+- the selected pin becomes the visual anchor
+- a thin glowing gold line should extend outward FROM the pin
+- the line can intelligently route:
+  - down-right
+  - down-left
+  - up-right
+  - up-left
+depending on screen position and available space
+
+The card should NEVER cover the selected pin.
+
+2. Correct animation sequence
+The animation should happen in this exact order:
+
+STEP 1:
+User taps pin.
+
+STEP 2:
+A soft gold glow begins pulsing from the pin itself.
+
+STEP 3:
+A thin elegant gold line begins “drawing” outward from the pin toward the destination card location.
+
+Important:
+The glow/light should TRAVEL along the line as it draws.
+Think:
+- luxury navigation system
+- elegant energy path
+- subtle cinematic motion
+
+The illumination should gradually move from the pin to the card location.
+
+STEP 4:
+ONLY after the glowing line fully reaches the destination point:
+- the venue card fades/slides in
+- very slight scale-up animation
+- soft shadow/glow underneath card
+
+The card should feel “summoned” by the line.
+
+3. Card positioning improvements
+The venue card should intelligently avoid:
+- covering the selected pin
+- overlapping map controls
+- overlapping bottom navigation
+- going off screen
+
+Prefer:
+- side positioning
+- offset positioning
+- dynamic placement based on viewport space
+
+4. Visual styling
+Keep:
+- black luxury card
+- rounded corners
+- compact layout
+- elegant typography
+
+But improve:
+- slightly softer shadow
+- smoother easing animation
+- cleaner line connection
+
+The line itself should:
+- glow softly
+- use the app’s gold tone
+- feel refined/minimal
+- not overly thick
+
+This interaction should feel premium, cinematic, and intentional — almost like the map is “connecting” the user to the venue in real time.

@@ -1152,7 +1152,7 @@ React.createElement("button", { onClick:e=>{e.stopPropagation();onFav(String(ven
 );
 });
 
-function Modal({ venue, isFav, onFav, onClose, photoMap, isVis=false, onVisit }) {
+function Modal({ venue, isFav, onFav, onClose, photoMap, isVis=false, onVisit, visitedDate }) {
 if (!venue) return null;
 const isV = typeof venue.id === "number";
 const badges = venue.badges||[];
@@ -1214,19 +1214,23 @@ onClick:()=>onVisit&&onVisit(String(venue.id)),
 onMouseDown:()=>setVisPrs(true),onMouseUp:()=>setVisPrs(false),
 onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>setVisPrs(true),onTouchEnd:()=>setVisPrs(false),
 style:{
-  width:"100%",padding:"13px 0",
-  background:isVis?"linear-gradient(90deg,rgba(201,168,76,0.18),rgba(201,168,76,0.11))":"transparent",
-  border:"1.5px solid "+(isVis?"rgba(201,168,76,0.62)":"rgba(255,255,255,0.13)"),
+  width:"100%",padding:"11px 20px",
+  background:isVis?"rgba(48,120,72,0.2)":"transparent",
+  border:"1.5px solid "+(isVis?"rgba(68,180,90,0.52)":"rgba(255,255,255,0.15)"),
   borderRadius:100,
-  fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",
-  color:isVis?"var(--c-gold)":"var(--c-ash)",
-  cursor:"pointer",transition:"all 0.2s",
-  display:"flex",alignItems:"center",justifyContent:"center",gap:9,
-  boxShadow:isVis?"0 0 22px rgba(201,168,76,0.13),inset 0 0 0 1px rgba(201,168,76,0.07)":"none",
+  cursor:"pointer",transition:"all 0.22s",
+  display:"flex",alignItems:"center",justifyContent:"center",gap:10,
   transform:visPrs?"scale(0.975)":"scale(1)",
 }},
-React.createElement("span",{style:{fontSize:"0.85rem",lineHeight:1,fontWeight:isVis?600:300,letterSpacing:0,fontFamily:"sans-serif"}},isVis?"✓":"◎"),
-isVis?"Stamped in Passport":"Mark as Visited"
+React.createElement("svg",{width:22,height:22,viewBox:"0 0 22 22",fill:"none",style:{flexShrink:0}},
+  React.createElement("circle",{cx:11,cy:11,r:9.5,stroke:isVis?"rgba(68,180,90,0.72)":"rgba(201,168,76,0.52)",strokeWidth:1.5,strokeDasharray:"2 1.5"}),
+  isVis
+    ?React.createElement("polyline",{points:"6,11 9.5,14.5 16,8",stroke:"rgba(90,210,110,0.92)",strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round"})
+    :React.createElement("path",{d:"M11 7v4M11 13.5h.01",stroke:"rgba(201,168,76,0.68)",strokeWidth:1.4,strokeLinecap:"round"})
+),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.14em",textTransform:"uppercase",color:isVis?"rgba(90,210,110,0.92)":"var(--c-ash)"}},
+  isVis?("Visited\u00a0\u00b7\u00a0"+(visitedDate||"Stamped")):"Add to Passport"
+)
 )
 )
 )
@@ -2125,19 +2129,19 @@ React.createElement("span",null,"Detroit Edition v5.0")
 ),
 BottomNav(),
 GeoModal(),
-modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null),photoMap,isVis:isVisited(modalId),onVisit:toggleVisited}),
+modalId!==null&&React.createElement(Modal,{venue:modalVenue,isFav:isFav(modalId),onFav:toggleFav,onClose:()=>setModalId(null),photoMap,isVis:isVisited(modalId),onVisit:toggleVisited,visitedDate:getVisitedDate(String(modalId))}),
 !notifDone&&React.createElement("div",{style:{position:"fixed",inset:0,zIndex:9999,background:"rgba(5,4,8,0.96)",backdropFilter:"blur(12px)",WebkitBackdropFilter:"blur(12px)",display:"flex",alignItems:"center",justifyContent:"center",padding:"0 22px"}},
 React.createElement("style",null,"@keyframes bellRing{0%,100%{transform:rotate(0) scale(1)}8%{transform:rotate(-14deg) scale(1.04)}22%{transform:rotate(14deg) scale(1.04)}38%{transform:rotate(-10deg) scale(1.02)}52%{transform:rotate(10deg) scale(1.02)}66%{transform:rotate(-5deg)}80%{transform:rotate(5deg)}}@keyframes bellPulse{0%{box-shadow:0 0 0 0 rgba(201,168,76,0.55),0 0 0 0 rgba(201,168,76,0.3)}45%{box-shadow:0 0 0 12px rgba(201,168,76,0.06),0 0 22px 4px rgba(201,168,76,0.22)}100%{box-shadow:0 0 0 0 rgba(201,168,76,0),0 0 0 0 rgba(201,168,76,0)}}"),
-React.createElement("div",{style:{background:"var(--c-deep)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:22,padding:"38px 28px 34px",maxWidth:400,width:"100%",position:"relative",boxShadow:"0 32px 80px rgba(0,0,0,0.8)"}},
-React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{position:"absolute",top:16,right:16,background:"none",border:"none",color:"var(--c-smoke)",cursor:"pointer",fontSize:"1.05rem",padding:8,lineHeight:1,minWidth:36,minHeight:36,display:"flex",alignItems:"center",justifyContent:"center"}},"✕"),
+React.createElement("div",{style:{background:"var(--c-deep)",border:"1px solid rgba(201,168,76,0.22)",borderRadius:20,padding:"22px 24px 18px",maxWidth:360,width:"100%",position:"relative",boxShadow:"0 24px 60px rgba(0,0,0,0.8)"}},
+React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{position:"absolute",top:12,right:12,background:"none",border:"none",color:"var(--c-smoke)",cursor:"pointer",fontSize:"1rem",padding:8,lineHeight:1,minWidth:32,minHeight:32,display:"flex",alignItems:"center",justifyContent:"center"}},"✕"),
 React.createElement("div",{style:{textAlign:"center"}},
-React.createElement("div",{style:{width:40,height:40,borderRadius:"50%",border:"1.5px solid rgba(201,168,76,0.45)",background:"rgba(201,168,76,0.09)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px",fontSize:"1.1rem",transformOrigin:"50% 20%",animation:notifRinging?"bellRing 0.68s ease forwards, bellPulse 0.68s ease forwards":"none"}},"\uD83D\uDD14"),
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.26em",color:"var(--c-gold)",textTransform:"uppercase",marginBottom:10}},"EXCLUSIVE DETROIT"),
-React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.75rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.2,marginBottom:12}},"Stay in the know, Detroit."),
-React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:300,color:"var(--c-ash)",lineHeight:1.75,marginBottom:28}},"Get curated picks, tonight reminders, and exclusive last-minute drops."),
-React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:10}},
-React.createElement("button",{onClick:()=>{setNotifRinging(true);setTimeout(()=>{try{if(typeof Notification!=="undefined"&&Notification.permission==="default"){Notification.requestPermission();}localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);setNotifRinging(false);},720);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"15px 0",cursor:"pointer",width:"100%",fontWeight:600,transition:"opacity 0.15s"}},"YES, NOTIFY ME"),
-React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",background:"transparent",color:"var(--c-smoke)",border:"none",cursor:"pointer",padding:"10px 0",width:"100%"}},"Not Now")
+React.createElement("div",{style:{width:36,height:36,borderRadius:"50%",border:"1.5px solid rgba(201,168,76,0.45)",background:"rgba(201,168,76,0.09)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 10px",fontSize:"1rem",transformOrigin:"50% 20%",animation:notifRinging?"bellRing 0.68s ease forwards, bellPulse 0.68s ease forwards":"none"}},"\uD83D\uDD14"),
+React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.5rem",letterSpacing:"0.26em",color:"var(--c-gold)",textTransform:"uppercase",marginBottom:7}},"EXCLUSIVE DETROIT"),
+React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.6rem",fontWeight:400,color:"var(--c-white)",lineHeight:1.2,marginBottom:8}},"Stay in the know, Detroit."),
+React.createElement("p",{style:{fontSize:"0.86rem",fontWeight:300,color:"var(--c-ash)",lineHeight:1.65,marginBottom:16}},"Get curated picks, tonight reminders, and exclusive last-minute drops."),
+React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:8}},
+React.createElement("button",{onClick:()=>{setNotifRinging(true);setTimeout(()=>{try{if(typeof Notification!=="undefined"&&Notification.permission==="default"){Notification.requestPermission();}localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);setNotifRinging(false);},720);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.15em",textTransform:"uppercase",background:"var(--c-gold)",color:"#0A0808",border:"none",borderRadius:100,padding:"11px 0",cursor:"pointer",width:"100%",fontWeight:600,transition:"opacity 0.15s"}},"YES, NOTIFY ME"),
+React.createElement("button",{onClick:()=>{try{localStorage.setItem("ed-notif-prompted","1");}catch(e){}setNotifDone(true);},style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",background:"transparent",color:"var(--c-smoke)",border:"none",cursor:"pointer",padding:"8px 0",width:"100%"}},"Not Now")
 )
 )
 )
