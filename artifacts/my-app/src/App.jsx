@@ -1863,8 +1863,7 @@ React.createElement("span",{style:{color:"rgba(201,168,76,0.68)",fontSize:"0.42r
 React.createElement("div",{style:{flex:1,height:1,background:"linear-gradient(to right,rgba(201,168,76,0.42),rgba(201,168,76,0.04))"}})
 ),
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center",marginTop:14,width:"100%"}},
-React.createElement("div",{style:{position:"relative",display:"flex",gap:7,justifyContent:"center",width:"100%",maxWidth:640,padding:"0 8px",boxSizing:"border-box"}},
-React.createElement("div",{style:{position:"absolute",top:0,left:0,right:0,height:56,background:"var(--c-card-top-fade)",pointerEvents:"none",zIndex:3}}),
+React.createElement("div",{style:{display:"flex",gap:7,justifyContent:"center",width:"100%",maxWidth:640,padding:"0 8px",boxSizing:"border-box"}},
 ...[
 {k:"sports",label:"Sports\nTickets",img:(theme==="dark"||(theme==="system"&&window.matchMedia?.("(prefers-color-scheme:dark)")?.matches===true))?"/hero-cards/sports.jpg":"/hero-cards/sports-light.jpg",fn:()=>{setDoTab("games");navTo("things-to-do");}},
 {k:"concerts",label:"Concerts",img:(theme==="dark"||(theme==="system"&&window.matchMedia?.("(prefers-color-scheme:dark)")?.matches===true))?"/hero-cards/concerts.jpg":"/hero-cards/concerts-light.jpg",fn:()=>{setDoTab("concerts");navTo("things-to-do");}},
