@@ -6,6 +6,30 @@ uri = "file://artifacts/my-app/public/detroit-skyline.png"
 type = "image"
 title = "detroit skyline renaissance center dusk"
 
+[[generated]]
+id = "taGZA-OidotBrgdt3v6Td"
+uri = "file://attached_assets/generated_images/hero_sports.png"
+type = "image"
+title = "luxury stadium suite moody gold"
+
+[[generated]]
+id = "4ZS1SAw-eIiBc39LslRLI"
+uri = "file://attached_assets/generated_images/hero_concerts.png"
+type = "image"
+title = "moody concert amber silhouette"
+
+[[generated]]
+id = "ZJF6989HQP5BhBwliqsTU"
+uri = "file://attached_assets/generated_images/hero_hotels.png"
+type = "image"
+title = "luxury rooftop detroit candlelit night"
+
+[[generated]]
+id = "FOCKEjdRkfYD--tvuXMKH"
+uri = "file://attached_assets/generated_images/hero_events.png"
+type = "image"
+title = "champagne luxury gold moody nightlife"
+
 [[outputs]]
 id = "3eiJBrx1BuMSNf14FLuZ7"
 uri = "file://screenshots_resized/IMG_7075_1777264700614.png"
