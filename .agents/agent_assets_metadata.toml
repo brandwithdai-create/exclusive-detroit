@@ -60,6 +60,30 @@ uri = "file://attached_assets/generated_images/hero_sports_dark.png"
 type = "image"
 title = "luxury courtside NBA arena night"
 
+[[generated]]
+id = "4t7gOWlEK5UETodlRsHyl"
+uri = "file://attached_assets/generated_images/dark_sports.png"
+type = "image"
+title = "VIP stadium suite night amber gold"
+
+[[generated]]
+id = "iLC0P2f8GcoA4gkyFaf44"
+uri = "file://attached_assets/generated_images/dark_concerts.png"
+type = "image"
+title = "concert amber spotlight crowd silhouette"
+
+[[generated]]
+id = "3hvXuAGNEWWAg3c8ezCew"
+uri = "file://attached_assets/generated_images/dark_hotels.png"
+type = "image"
+title = "rooftop lounge detroit skyline candlelit"
+
+[[generated]]
+id = "hpmTJs97IFQ2gShiYku2z"
+uri = "file://attached_assets/generated_images/dark_events.png"
+type = "image"
+title = "champagne candles dark gold luxury"
+
 [[outputs]]
 id = "3eiJBrx1BuMSNf14FLuZ7"
 uri = "file://screenshots_resized/IMG_7075_1777264700614.png"
