@@ -1044,33 +1044,133 @@ const CARD_CAT_ICON={
 function CardStamp({venue,date}){
 const n=parseInt(String(venue.id).replace(/\D/g,""))||0;
 const{hex,rgb}=CARD_STAMP_PALETTE[n%CARD_STAMP_PALETTE.length];
-const rot=[-3,2,-4,3,-2,4,-3,2][n%8];
+const rot=[-4,3,-5,2,-3,5,-2,4][n%8];
 const dateStr=date?date.split(",")[0].slice(0,9).toUpperCase():"";
-const iconIdx=CARD_CAT_ICON[venue.cat]!==undefined?CARD_CAT_ICON[venue.cat]:n%10;
-const ICONS=[
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round",strokeLinejoin:"round"},React.createElement("rect",{x:4,y:7,width:20,height:11}),React.createElement("rect",{x:8,y:10,width:3,height:5}),React.createElement("rect",{x:17,y:10,width:3,height:5}),React.createElement("path",{d:"M3 7 L14 2 L25 7"})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("rect",{x:11,y:2,width:6,height:16}),React.createElement("rect",{x:7,y:10,width:14,height:8}),React.createElement("line",{x1:14,y1:0,x2:14,y2:2})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("rect",{x:2,y:1,width:24,height:4}),React.createElement("path",{d:"M5,18 L5,10 Q5,5 9,5 Q13,5 13,10 L13,18"}),React.createElement("path",{d:"M15,18 L15,10 Q15,5 19,5 Q23,5 23,10 L23,18"})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("rect",{x:4,y:5,width:20,height:13}),React.createElement("rect",{x:8,y:9,width:4,height:6}),React.createElement("rect",{x:16,y:9,width:4,height:6}),React.createElement("path",{d:"M3 5 L14 1 L25 5"})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M4,2 L14,11 L24,2"}),React.createElement("line",{x1:14,y1:11,x2:14,y2:18}),React.createElement("line",{x1:8,y1:18,x2:20,y2:18})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round",strokeLinejoin:"round"},React.createElement("polyline",{points:"1,18 1,11 4,11 4,5 6,5 6,11 9,11 9,7 13,7 13,11 15,11 15,3 17,3 17,11 21,11 21,8 24,8 24,11 27,11 27,18"}),React.createElement("line",{x1:0,y1:18,x2:28,y2:18})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M3,3 L25,3 L14,14 L14,18"}),React.createElement("line",{x1:9,y1:18,x2:19,y2:18})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M4,8 L4,17 Q4,20 8,20 L18,20 Q22,20 22,17 L22,8 Z"}),React.createElement("path",{d:"M22,11 Q27,11 27,15 Q27,19 22,19"}),React.createElement("line",{x1:4,y1:8,x2:22,y2:8})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M2,16 Q2,9 14,9 Q26,9 26,16"}),React.createElement("line",{x1:14,y1:6,x2:14,y2:3})),
-  React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M9,2 L9,12 Q9,18 14,18 Q19,18 19,12 L19,2 Z"}),React.createElement("path",{d:"M9,6 Q5,6 5,10 Q5,14 9,14"}),React.createElement("path",{d:"M19,6 Q23,6 23,10 Q23,14 19,14"})),
-][iconIdx%10];
+const bv=n%2;
+const s={stroke:hex,fill:"none",strokeWidth:1.2,strokeLinecap:"round",strokeLinejoin:"round"};
+const sd={stroke:hex,fill:"none",strokeWidth:0.6,strokeLinecap:"round",strokeLinejoin:"round",opacity:0.50};
+// 8 detailed building silhouettes — same visual language as passport book stamps
+const BUILDINGS=[
+  // 0: classic
+  React.createElement("svg",{key:"b0",viewBox:"0 0 72 52",width:28,height:18,style:{display:"block",overflow:"visible"}},
+    React.createElement("path",{d:"M8,22 L36,8 L64,22",style:s}),
+    React.createElement("line",{x1:8,y1:22,x2:64,y2:22,style:s}),
+    React.createElement("rect",{x:12,y:22,width:48,height:28,style:s}),
+    React.createElement("line",{x1:20,y1:22,x2:20,y2:50,style:{...s,strokeWidth:.85}}),
+    React.createElement("line",{x1:30,y1:22,x2:30,y2:50,style:{...s,strokeWidth:.85}}),
+    React.createElement("line",{x1:42,y1:22,x2:42,y2:50,style:{...s,strokeWidth:.85}}),
+    React.createElement("line",{x1:52,y1:22,x2:52,y2:50,style:{...s,strokeWidth:.85}}),
+    React.createElement("path",{d:"M28,50 L28,38 Q28,34 36,34 Q44,34 44,38 L44,50",style:s}),
+    React.createElement("rect",{x:14,y:26,width:6,height:6,style:sd}),
+    React.createElement("rect",{x:26,y:26,width:6,height:6,style:sd}),
+    React.createElement("rect",{x:40,y:26,width:6,height:6,style:sd}),
+    React.createElement("rect",{x:52,y:26,width:6,height:6,style:sd})
+  ),
+  // 1: deco
+  React.createElement("svg",{key:"b1",viewBox:"0 0 72 52",width:28,height:18,style:{display:"block",overflow:"visible"}},
+    React.createElement("path",{d:"M26,14 L26,10 L30,8 L30,6 L36,3 L42,6 L42,8 L46,10 L46,14",style:s}),
+    React.createElement("rect",{x:22,y:14,width:28,height:8,style:s}),
+    React.createElement("rect",{x:16,y:22,width:40,height:8,style:s}),
+    React.createElement("rect",{x:10,y:30,width:52,height:20,style:s}),
+    React.createElement("line",{x1:24,y1:33,x2:24,y2:50,style:{...sd,strokeWidth:.42}}),
+    React.createElement("line",{x1:36,y1:33,x2:36,y2:50,style:{...sd,strokeWidth:.42}}),
+    React.createElement("line",{x1:48,y1:33,x2:48,y2:50,style:{...sd,strokeWidth:.42}}),
+    React.createElement("rect",{x:24,y:33,width:6,height:9,style:sd}),
+    React.createElement("rect",{x:32,y:33,width:6,height:9,style:sd}),
+    React.createElement("rect",{x:40,y:33,width:6,height:9,style:sd}),
+    React.createElement("line",{x1:10,y1:40,x2:62,y2:40,style:sd})
+  ),
+  // 2: tower
+  React.createElement("svg",{key:"b2",viewBox:"0 0 72 52",width:28,height:18,style:{display:"block",overflow:"visible"}},
+    React.createElement("line",{x1:36,y1:0,x2:36,y2:6,style:{...s,strokeWidth:1.6}}),
+    React.createElement("rect",{x:30,y:6,width:12,height:8,style:s}),
+    React.createElement("rect",{x:20,y:14,width:32,height:10,style:s}),
+    React.createElement("rect",{x:12,y:24,width:48,height:26,style:s}),
+    React.createElement("rect",{x:32,y:8,width:3,height:4,style:sd}),
+    React.createElement("rect",{x:38,y:8,width:3,height:4,style:sd}),
+    React.createElement("rect",{x:23,y:16,width:3,height:5,style:sd}),
+    React.createElement("rect",{x:38,y:16,width:3,height:5,style:sd}),
+    React.createElement("rect",{x:14,y:27,width:6,height:8,style:sd}),
+    React.createElement("rect",{x:22,y:27,width:6,height:8,style:sd}),
+    React.createElement("rect",{x:38,y:27,width:6,height:8,style:sd}),
+    React.createElement("rect",{x:54,y:27,width:6,height:8,style:sd})
+  ),
+  // 3: arch
+  React.createElement("svg",{key:"b3",viewBox:"0 0 72 52",width:28,height:18,style:{display:"block",overflow:"visible"}},
+    React.createElement("path",{d:"M4,10 L36,2 L68,10",style:s}),
+    React.createElement("rect",{x:4,y:10,width:64,height:5,style:s}),
+    React.createElement("line",{x1:6,y1:15,x2:6,y2:50,style:s}),
+    React.createElement("line",{x1:10,y1:15,x2:10,y2:50,style:s}),
+    React.createElement("line",{x1:62,y1:15,x2:62,y2:50,style:s}),
+    React.createElement("line",{x1:66,y1:15,x2:66,y2:50,style:s}),
+    React.createElement("path",{d:"M20,50 L20,26 Q20,14 36,14 Q52,14 52,26 L52,50",style:s}),
+    React.createElement("line",{x1:0,y1:48,x2:72,y2:48,style:sd})
+  ),
+  // 4: loft
+  React.createElement("svg",{key:"b4",viewBox:"0 0 72 52",width:28,height:18,style:{display:"block",overflow:"visible"}},
+    React.createElement("rect",{x:6,y:10,width:60,height:40,style:s}),
+    React.createElement("line",{x1:6,y1:10,x2:66,y2:10,style:{...s,strokeWidth:1.5}}),
+    React.createElement("rect",{x:8,y:12,width:12,height:11,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:22,y:12,width:12,height:11,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:36,y:12,width:12,height:11,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:50,y:12,width:12,height:11,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:8,y:28,width:12,height:11,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:22,y:28,width:12,height:11,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:36,y:28,width:12,height:11,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:50,y:28,width:12,height:11,style:{...s,strokeWidth:.9}})
+  ),
+  // 5: modern
+  React.createElement("svg",{key:"b5",viewBox:"0 0 72 52",width:28,height:18,style:{display:"block",overflow:"visible"}},
+    React.createElement("rect",{x:18,y:4,width:36,height:46,style:s}),
+    React.createElement("line",{x1:18,y1:10,x2:54,y2:10,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:18,y1:16,x2:54,y2:16,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:18,y1:22,x2:54,y2:22,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:18,y1:28,x2:54,y2:28,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:18,y1:34,x2:54,y2:34,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:24,y1:4,x2:24,y2:50,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:30,y1:4,x2:30,y2:50,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:36,y1:4,x2:36,y2:50,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:42,y1:4,x2:42,y2:50,style:{...sd,strokeWidth:.32}}),
+    React.createElement("line",{x1:48,y1:4,x2:48,y2:50,style:{...sd,strokeWidth:.32}}),
+    React.createElement("rect",{x:26,y:0,width:20,height:5,style:{...s,strokeWidth:.9}}),
+    React.createElement("path",{d:"M12,50 L12,46 L60,46 L60,50",style:{...s,strokeWidth:.9}})
+  ),
+  // 6: warehouse
+  React.createElement("svg",{key:"b6",viewBox:"0 0 72 52",width:28,height:18,style:{display:"block",overflow:"visible"}},
+    React.createElement("rect",{x:4,y:20,width:64,height:30,style:s}),
+    React.createElement("rect",{x:22,y:10,width:28,height:10,style:s}),
+    React.createElement("path",{d:"M8,50 L8,34 Q8,28 15,28 Q22,28 22,34 L22,50",style:s}),
+    React.createElement("path",{d:"M26,50 L26,34 Q26,28 33,28 Q40,28 40,34 L40,50",style:s}),
+    React.createElement("path",{d:"M44,50 L44,34 Q44,28 51,28 Q58,28 58,34 L58,50",style:s}),
+    React.createElement("line",{x1:4,y1:30,x2:68,y2:30,style:sd}),
+    React.createElement("rect",{x:28,y:38,width:16,height:12,style:{...s,strokeWidth:.8}})
+  ),
+  // 7: cottage
+  React.createElement("svg",{key:"b7",viewBox:"0 0 72 52",width:28,height:18,style:{display:"block",overflow:"visible"}},
+    React.createElement("rect",{x:10,y:26,width:52,height:24,style:s}),
+    React.createElement("path",{d:"M4,26 L36,8 L68,26",style:s}),
+    React.createElement("rect",{x:48,y:10,width:7,height:16,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:10,y:38,width:24,height:12,style:{...s,strokeWidth:.9}}),
+    React.createElement("rect",{x:38,y:30,width:10,height:10,rx:1,style:sd}),
+    React.createElement("rect",{x:14,y:28,width:9,height:8,rx:1,style:sd})
+  ),
+];
 return React.createElement("div",{style:{
-  width:36,height:36,flexShrink:0,
+  width:54,height:36,flexShrink:0,
   display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
-  background:"transparent",
+  background:`radial-gradient(ellipse at 50% 40%, rgba(${rgb},0.28) 0%, rgba(${rgb},0.09) 55%, transparent 82%)`,
   borderRadius:3,transform:`rotate(${rot}deg)`,
   position:"relative",overflow:"hidden",boxSizing:"border-box",
-  filter:`drop-shadow(0 0 4px rgba(${rgb},0.62)) drop-shadow(0 0 1px rgba(${rgb},0.38))`,
+  padding:"2px 5px 3px",
+  filter:`drop-shadow(0 0 7px rgba(${rgb},0.58)) drop-shadow(0 0 2px rgba(${rgb},0.32))`,
 }},
-  React.createElement("div",{style:{position:"absolute",inset:1.5,borderRadius:2,border:`1.5px dashed rgba(${rgb},0.75)`,pointerEvents:"none"}}),
-  React.createElement("svg",{width:20,height:14,viewBox:"0 0 28 20",style:{overflow:"visible",marginBottom:1,opacity:1}},ICONS),
-  React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.14em",color:hex,opacity:.92,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
-  dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.18rem",letterSpacing:"0.04em",color:hex,opacity:.68,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
+  React.createElement("div",{style:{position:"absolute",inset:2,borderRadius:2,border:`1.5px dashed rgba(${rgb},0.62)`,pointerEvents:"none"}}),
+  bv===1&&React.createElement("div",{style:{position:"absolute",inset:5.5,borderRadius:1,border:`1px dashed rgba(${rgb},0.22)`,pointerEvents:"none"}}),
+  React.createElement("div",{style:{position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}},
+    React.createElement("div",{style:{opacity:.88,lineHeight:0,marginBottom:2}},BUILDINGS[n%8]),
+    React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.26rem",letterSpacing:"0.14em",color:hex,opacity:.92,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
+    dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.20rem",letterSpacing:"0.04em",color:hex,opacity:.68,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
+  )
 );}
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
