@@ -1873,7 +1873,7 @@ React.createElement("div",{style:{display:"flex",gap:7,justifyContent:"center",w
 React.createElement("button",{key:k,onClick:fn,style:{flex:1,position:"relative",height:152,borderRadius:14,overflow:"hidden",border:"1px solid rgba(201,168,76,0.20)",padding:0,cursor:"pointer",backgroundImage:`url(${img})`,backgroundSize:"cover",backgroundPosition:"center",backgroundColor:"#0a0808",boxShadow:"0 6px 24px rgba(0,0,0,0.55)",touchAction:"manipulation",willChange:"transform",transform:"translateZ(0)",isolation:"isolate"}},
 React.createElement("div",{style:{position:"absolute",inset:0,background:"var(--c-card-cool-ovl)",pointerEvents:"none",zIndex:1}}),
 React.createElement("div",{style:{position:"absolute",top:0,left:0,right:0,height:"52%",background:"var(--c-card-top-fade)",pointerEvents:"none",zIndex:2}}),
-React.createElement("span",{style:{position:"absolute",top:"50%",left:0,right:0,transform:"translateY(-50%)",textAlign:"center",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"#fff",fontWeight:600,lineHeight:1.4,padding:"0 4px",display:"block",whiteSpace:"pre-line",textShadow:"0 1px 6px rgba(0,0,0,0.72)",zIndex:3}},label)
+React.createElement("span",{style:{position:"absolute",bottom:0,left:0,right:0,textAlign:"center",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"#fff",fontWeight:600,lineHeight:1.4,padding:"0 4px 10px",display:"block",whiteSpace:"pre-line",textShadow:"0 1px 8px rgba(0,0,0,0.85)",zIndex:3}},label)
 )
 )
 )
