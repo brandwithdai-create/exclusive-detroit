@@ -977,17 +977,17 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans }
     }, 700);
   }
 
-  // Step number circle
+  // Step number circle — uses CSS vars so light mode gets a solid opaque gold circle
   const StepNum = ({n}) => (
-    <div style={{ width:38,height:38,borderRadius:"50%",border:"2px solid var(--c-gold)",background:"rgba(201,168,76,0.22)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...MONO,fontSize:"0.78rem",fontWeight:700,color:"var(--c-gold)",zIndex:1,position:"relative",boxShadow:"0 0 10px rgba(201,168,76,0.38),inset 0 0 6px rgba(201,168,76,0.10)" }}>
+    <div style={{ width:38,height:38,borderRadius:"50%",border:"2px solid var(--c-gold)",background:"var(--c-step-circle-bg)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,...MONO,fontSize:"0.78rem",fontWeight:700,color:"var(--c-step-circle-txt)",zIndex:1,position:"relative",boxShadow:"var(--c-step-circle-shadow)" }}>
       {n}
     </div>
   );
 
   return (
     <div style={{ position:"relative", minHeight:"calc(100dvh - 68px - env(safe-area-inset-top))" }}>
-      {/* Background image — fixed 100dvh height so it never zooms when results load */}
-      <img src="/detroit-skyline.jpg" alt="" aria-hidden="true" style={{ position:"absolute",top:0,left:0,width:"100%",height:"100dvh",objectFit:"cover",objectPosition:"center 30%",pointerEvents:"none",userSelect:"none",zIndex:0,display:"block" }}/>
+      {/* Background image — CSS var picks daytime/nighttime per theme, no re-render on theme switch */}
+      <div aria-hidden="true" style={{ position:"absolute",top:0,left:0,width:"100%",height:"100dvh",backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
       {/* Cinematic overlay — same fixed height as image */}
       <div style={{ position:"absolute",top:0,left:0,width:"100%",height:"100dvh",background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
       <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
