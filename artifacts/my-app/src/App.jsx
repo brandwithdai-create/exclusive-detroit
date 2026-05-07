@@ -1931,8 +1931,8 @@ const Hero=()=>React.createElement("div",{style:{minHeight:"62vh",display:"flex"
 React.createElement("div",{style:{position:"absolute",inset:0,backgroundImage:"var(--c-hero-img-url)",backgroundSize:"cover",backgroundPosition:"center 22%",opacity:"var(--c-hero-img-opacity)",filter:"var(--c-hero-img-filter)",pointerEvents:"none",willChange:"transform",transform:"translateZ(0)"}}),
 React.createElement("div",{style:{position:"absolute",inset:0,background:"var(--c-hero-grad-ovl)",pointerEvents:"none"}}),
 React.createElement("div",{style:{position:"absolute",inset:0,opacity:0.55,pointerEvents:"none"}},
-React.createElement("div",{style:{position:"absolute",width:500,height:500,top:"10%",left:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(201,168,76,0.10) 0%,transparent 70%)"}}),
-React.createElement("div",{style:{position:"absolute",width:400,height:400,bottom:"5%",right:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(220,80,120,0.07) 0%,transparent 70%)"}})
+React.createElement("div",{style:{position:"absolute",width:600,height:600,top:"5%",left:"0%",borderRadius:"50%",background:"radial-gradient(circle,rgba(60,100,200,0.07) 0%,transparent 68%)"}}),
+React.createElement("div",{style:{position:"absolute",width:500,height:500,bottom:"0%",right:"0%",borderRadius:"50%",background:"radial-gradient(circle,rgba(40,80,180,0.06) 0%,transparent 68%)"}})
 ),
 React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,height:110,background:"var(--c-hero-bottom-fade)",pointerEvents:"none",zIndex:3}}),
 React.createElement("div",{style:{position:"relative",zIndex:2,maxWidth:680,padding:"36px 22px 18px",textAlign:"center"}},
