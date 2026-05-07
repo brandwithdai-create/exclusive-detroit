@@ -108,6 +108,30 @@ uri = "file://artifacts/my-app/public/hero-cards/events-dark-new.png"
 type = "image"
 title = "champagne candlelight luxury event dark"
 
+[[generated]]
+id = "97oTN1A2aVz7dSQfs5Yo1"
+uri = "file://artifacts/my-app/public/onboarding/slide1.png"
+type = "image"
+title = "detroit skyline golden hour"
+
+[[generated]]
+id = "tviJ8FHU8jcC_BD7aTIzn"
+uri = "file://artifacts/my-app/public/onboarding/slide2.png"
+type = "image"
+title = "rooftop cocktails candlelight luxury"
+
+[[generated]]
+id = "O00cdzAnHzXMllN8Lfo36"
+uri = "file://artifacts/my-app/public/onboarding/slide3.png"
+type = "image"
+title = "luxury passport journal gold stamps"
+
+[[generated]]
+id = "qTGfQJcDd9pmxT7tJR6P9"
+uri = "file://artifacts/my-app/public/onboarding/slide4.png"
+type = "image"
+title = "luxury hotel lounge champagne candle"
+
 [[outputs]]
 id = "3eiJBrx1BuMSNf14FLuZ7"
 uri = "file://screenshots_resized/IMG_7075_1777264700614.png"

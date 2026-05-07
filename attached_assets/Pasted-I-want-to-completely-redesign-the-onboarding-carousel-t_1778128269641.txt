@@ -1,0 +1,61 @@
+I want to completely redesign the onboarding carousel to match the luxury cinematic direction in the reference mockup I attached.
+
+The current onboarding feels too empty/static/minimal. I want it to feel immersive, emotional, premium, and visually rich — like entering a private members-only Detroit experience.
+
+Please redesign all 4 onboarding screens with these exact goals:
+
+GENERAL DIRECTION
+- Full-screen cinematic Detroit/luxury lifestyle background imagery on every screen
+- Warm gold/champagne/black luxury palette
+- High-end editorial feel
+- More immersive and atmospheric
+- Elegant depth and layering
+- Keep typography luxury and refined
+- Keep the onboarding smooth and clean — not cluttered
+
+SCREEN DIRECTIONS
+
+1. Detroit Hidden Gems
+- Cinematic Detroit skyline at golden hour/night
+- Warm glow reflections
+- Luxury city atmosphere
+- More emotional and visually immersive
+
+2. Build My Night
+- Rooftop cocktails / candlelight / nightlife energy
+- Upscale social atmosphere
+- Warm amber lighting
+- Feels like a curated luxury night out
+
+3. Collect Passport Stamps
+- Luxury passport/journal aesthetic
+- Detroit venue cards/stamps
+- Concierge/travel-editorial vibe
+- Rich texture and layered depth
+
+4. Save Everything
+- Luxury hotel/lounge/candle/champagne aesthetic
+- Elegant saved collections mood
+- Premium lifestyle energy
+
+IMPORTANT UI NOTES
+- Remove the empty black dead space feeling
+- Keep readability strong with subtle dark gradients/glass overlays if needed
+- Keep gold accents elegant and refined
+- Keep buttons premium and high contrast
+- Remove the bottom “SKIP” text completely (top-right skip only)
+- Add subtle depth/motion/parallax if possible
+- Maintain excellent mobile performance
+- Keep transitions smooth and cinematic
+
+DO NOT:
+- make it look like gaming UI
+- make it look flashy/cheap
+- oversaturate colors
+- clutter the screens
+- use generic stock onboarding layouts
+
+The goal is:
+luxury private-members-club energy mixed with cinematic Detroit nightlife/travel editorial design.
+
+Please build the first-pass redesign closely matching the attached reference aesthetic and show me previews before final polishing.
