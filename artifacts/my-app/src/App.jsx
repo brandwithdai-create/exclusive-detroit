@@ -1928,11 +1928,11 @@ React.createElement("span",{style:{marginTop:2}},l)
 );
 
 const Hero=()=>React.createElement("div",{style:{minHeight:"62vh",display:"flex",alignItems:"flex-start",justifyContent:"center",paddingTop:0,background:"var(--c-hero-bg)",position:"relative",overflow:"hidden"}},
-React.createElement("div",{style:{position:"absolute",inset:0,backgroundImage:"url(/detroit-skyline.jpg)",backgroundSize:"cover",backgroundPosition:"center 40%",opacity:"var(--c-hero-img-opacity)",filter:"var(--c-hero-img-filter)",pointerEvents:"none",willChange:"transform",transform:"translateZ(0)"}}),
+React.createElement("div",{style:{position:"absolute",inset:0,backgroundImage:"url(/detroit-skyline.jpg)",backgroundSize:"cover",backgroundPosition:"center 22%",opacity:"var(--c-hero-img-opacity)",filter:"var(--c-hero-img-filter)",pointerEvents:"none",willChange:"transform",transform:"translateZ(0)"}}),
 React.createElement("div",{style:{position:"absolute",inset:0,background:"var(--c-hero-grad-ovl)",pointerEvents:"none"}}),
 React.createElement("div",{style:{position:"absolute",inset:0,opacity:0.55,pointerEvents:"none"}},
-React.createElement("div",{style:{position:"absolute",width:500,height:500,top:"10%",left:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(201,168,76,0.18) 0%,transparent 70%)"}}),
-React.createElement("div",{style:{position:"absolute",width:400,height:400,bottom:"5%",right:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(110,75,195,0.13) 0%,transparent 70%)"}})
+React.createElement("div",{style:{position:"absolute",width:500,height:500,top:"10%",left:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(110,90,200,0.16) 0%,transparent 70%)"}}),
+React.createElement("div",{style:{position:"absolute",width:400,height:400,bottom:"5%",right:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(90,65,185,0.14) 0%,transparent 70%)"}})
 ),
 React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,height:110,background:"var(--c-hero-bottom-fade)",pointerEvents:"none",zIndex:3}}),
 React.createElement("div",{style:{position:"relative",zIndex:2,maxWidth:680,padding:"36px 22px 18px",textAlign:"center"}},

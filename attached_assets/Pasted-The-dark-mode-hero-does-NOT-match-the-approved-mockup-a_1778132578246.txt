@@ -1,0 +1,118 @@
+The dark mode hero does NOT match the approved mockup at all. Please stop approximating it and instead directly match the mockup styling/colors/images as closely as possible.
+
+I am attaching:
+
+1. The CURRENT dark mode screen
+2. The APPROVED mockup reference
+
+The mockup is the source of truth now.
+
+Main issue:
+The current version feels too black, too yellow/orange, too contrast-heavy, and too harsh. The mockup feels cinematic, cool-toned, premium, blue-black, crisp, and elegant.
+
+DO NOT invent new tones.
+DO NOT warm the images.
+DO NOT add extra orange/gold grading.
+Match the mockup directly.
+
+What needs to change:
+
+HERO SKYLINE
+
+* Replace the current skyline with the exact skyline from the mockup if possible.
+* If needed, use the mockup skyline image directly.
+* The skyline should be:
+* deep navy / blue-black
+* crisp and sharp
+* slightly glowy
+* cool toned
+* cinematic
+* Remove the current heavy yellow warmth.
+* Remove the current muddy darkness.
+* The sky should have cool blue stormy-night tones like the mockup.
+* Add the subtle cool haze/glow behind the buildings exactly like the mockup.
+
+OVERLAY / COLOR GRADING
+The current overlay is wrong.
+
+The mockup uses:
+
+* cool navy overlay
+* subtle blue haze
+* soft cinematic contrast
+* controlled highlights
+* softer blacks
+
+NOT:
+
+* pure black crush
+* orange warmth
+* brown shadows
+* overly saturated gold
+
+Adjust dark mode hero grading to:
+
+* lower warmth significantly
+* shift shadows toward navy blue
+* slightly desaturate yellows/oranges
+* slightly brighten midtones
+* soften contrast slightly
+* preserve readability
+
+The entire screen should feel:
+“luxury nighttime skyline”
+NOT:
+“dark orange nightclub poster”
+
+TEXT COLORS
+Current text is too yellow/warm.
+
+Match the mockup:
+
+* Heading white = softer ivory white
+* Gold text = muted champagne gold
+* Purple buttons = cooler lavender neon
+* Overall typography should feel softer and more refined
+
+CATEGORY CARD IMAGES
+Replace ALL FOUR images with the exact mockup images if possible.
+
+Current images are too warm and too realistic compared to the approved aesthetic.
+
+The approved mockup cards are:
+
+* cooler
+* moodier
+* cleaner
+* more cinematic
+* more editorial/luxury
+
+Use the mockup images directly for:
+
+* Sports Tickets
+* Concerts
+* Hotel Stays
+* Events
+
+Especially:
+
+* Concerts should use the cool white/blue concert lighting from the mockup
+* Hotel should use the cool blue luxury room
+* Events should use the darker champagne glasses image
+* Sports should use the cooler stadium image
+
+IMPORTANT:
+The mockup already solved the visual problem.
+Please stop trying to reinterpret it.
+
+The goal now is:
+MATCH THE MOCKUP 1:1 AS CLOSELY AS POSSIBLE.
+
+Also:
+
+* make sure images are crisp
+* no blur
+* no flicker
+* preload all hero/card images
+* prevent image flashing during scroll or theme switch
+* keep all transitions instant and stable.
