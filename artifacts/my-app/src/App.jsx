@@ -1868,6 +1868,7 @@ React.createElement("div",{style:{display:"flex",gap:20,justifyContent:"center",
 {k:"sports",label:"SPORTS\nTICKETS",img:"/hero-cards/sports.jpg",fn:()=>{setDoTab("games");navTo("things-to-do");}},
 {k:"concerts",label:"CONCERTS",img:"/hero-cards/concerts.jpg",fn:()=>{setDoTab("concerts");navTo("things-to-do");}},
 {k:"hotels",label:"HOTEL\nSTAYS",img:"/hero-cards/hotels.jpg",fn:()=>navTo("stay")},
+{k:"events",label:"EVENTS",img:"/hero-cards/events.jpg",fn:()=>{setDoTab("events");navTo("things-to-do");}},
 ].map(({k,label,img,fn})=>
 React.createElement("button",{key:k,onClick:fn,style:{flex:1,position:"relative",height:128,borderRadius:14,overflow:"hidden",border:"1px solid rgba(201,168,76,0.20)",padding:0,cursor:"pointer",backgroundImage:`url(${img})`,backgroundSize:"cover",backgroundPosition:"center",backgroundColor:"#0a0808",boxShadow:"0 6px 24px rgba(0,0,0,0.55)",touchAction:"manipulation"}},
 React.createElement("div",{style:{position:"absolute",inset:0,borderRadius:14,background:"linear-gradient(to bottom,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.54) 40%,rgba(0,0,0,0.54) 60%,rgba(0,0,0,0.10) 100%)"}}),
