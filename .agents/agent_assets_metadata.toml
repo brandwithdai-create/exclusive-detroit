@@ -209,3 +209,33 @@ id = "62gtuiylcwmhoZ5pQKTcR"
 uri = "file://attached_assets/passport_photo_1200.jpg"
 type = "image"
 title = "Passport Photo — 1200×1200px (254KB)"
+
+[[outputs]]
+id = "VRRLJ73ecMkYRNqEhgReU"
+uri = "file://attached_assets/image_search/pexels-702343.jpg"
+type = "image"
+title = "Pexels 702343 — Detroit skyline"
+
+[[outputs]]
+id = "2czEeSHKKHNzBQi0pD4ag"
+uri = "file://attached_assets/image_search/pexels-15020901.jpg"
+type = "image"
+title = "Pexels 15020901 — Detroit at dusk"
+
+[[outputs]]
+id = "p6r1zaeSemr53cFHHufl8"
+uri = "file://attached_assets/image_search/pexels-12950494.jpg"
+type = "image"
+title = "Pexels 12950494 — Detroit skyline"
+
+[[outputs]]
+id = "7HFbxF3dzAsmfiuOGX-Az"
+uri = "file://attached_assets/image_search/pexels-9501137.jpg"
+type = "image"
+title = "Pexels 9501137 — Detroit skyline"
+
+[[outputs]]
+id = "8RJzDvXhW7dJ4dCo1r68q"
+uri = "file://attached_assets/image_search/pexels-9658647.jpg"
+type = "image"
+title = "Pexels 9658647 — Detroit skyline"
