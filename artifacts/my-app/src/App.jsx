@@ -1865,10 +1865,10 @@ React.createElement("div",{style:{flex:1,height:1,background:"linear-gradient(to
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center",marginTop:14,width:"100%"}},
 React.createElement("div",{style:{display:"flex",gap:7,justifyContent:"center",width:"100%",maxWidth:640,padding:"0 8px",boxSizing:"border-box"}},
 ...[
-{k:"sports",label:"Sports\nTickets",img:"/hero-cards/sports.jpg",fn:()=>{setDoTab("games");navTo("things-to-do");}},
-{k:"concerts",label:"Concerts",img:"/hero-cards/concerts.jpg",fn:()=>{setDoTab("concerts");navTo("things-to-do");}},
-{k:"hotels",label:"Hotel\nStays",img:"/hero-cards/hotels.jpg",fn:()=>navTo("stay")},
-{k:"events",label:"Events",img:"/hero-cards/events.jpg",fn:()=>{setDoTab("events");navTo("things-to-do");}},
+{k:"sports",label:"Sports\nTickets",img:(theme==="dark"||(theme==="system"&&window.matchMedia?.("(prefers-color-scheme:dark)")?.matches===true))?"/hero-cards/sports.jpg":"/hero-cards/sports-light.jpg",fn:()=>{setDoTab("games");navTo("things-to-do");}},
+{k:"concerts",label:"Concerts",img:(theme==="dark"||(theme==="system"&&window.matchMedia?.("(prefers-color-scheme:dark)")?.matches===true))?"/hero-cards/concerts.jpg":"/hero-cards/concerts-light.jpg",fn:()=>{setDoTab("concerts");navTo("things-to-do");}},
+{k:"hotels",label:"Hotel\nStays",img:(theme==="dark"||(theme==="system"&&window.matchMedia?.("(prefers-color-scheme:dark)")?.matches===true))?"/hero-cards/hotels.jpg":"/hero-cards/hotels-light.jpg",fn:()=>navTo("stay")},
+{k:"events",label:"Events",img:(theme==="dark"||(theme==="system"&&window.matchMedia?.("(prefers-color-scheme:dark)")?.matches===true))?"/hero-cards/events.jpg":"/hero-cards/events-light.jpg",fn:()=>{setDoTab("events");navTo("things-to-do");}},
 ].map(({k,label,img,fn})=>
 React.createElement("button",{key:k,onClick:fn,style:{flex:1,position:"relative",height:128,borderRadius:14,overflow:"hidden",border:"1px solid rgba(201,168,76,0.20)",padding:0,cursor:"pointer",backgroundImage:`url(${img})`,backgroundSize:"cover",backgroundPosition:"center",backgroundColor:"#0a0808",boxShadow:"0 6px 24px rgba(0,0,0,0.55)",touchAction:"manipulation"}},
 React.createElement("span",{style:{position:"absolute",top:"50%",left:0,right:0,transform:"translateY(-50%)",textAlign:"center",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"#fff",fontWeight:600,lineHeight:1.4,padding:"0 4px",display:"block",whiteSpace:"pre-line",textShadow:"0 1px 6px rgba(0,0,0,0.72)"}},label)

@@ -30,6 +30,36 @@ uri = "file://attached_assets/generated_images/hero_events.png"
 type = "image"
 title = "champagne luxury gold moody nightlife"
 
+[[generated]]
+id = "3DNQv43YjZwtGTlKuNoh0"
+uri = "file://attached_assets/generated_images/hero_sports_light.png"
+type = "image"
+title = "luxury stadium suite golden light"
+
+[[generated]]
+id = "8uJck5MfiXwJeUJytploH"
+uri = "file://attached_assets/generated_images/hero_concerts_light.png"
+type = "image"
+title = "luxury concert warm stage light"
+
+[[generated]]
+id = "ZboRnqlvCPnt_TGc4u57W"
+uri = "file://attached_assets/generated_images/hero_hotels_light.png"
+type = "image"
+title = "luxury hotel suite detroit morning"
+
+[[generated]]
+id = "4xhhsh0NxsjxcLXYELoN9"
+uri = "file://attached_assets/generated_images/hero_events_light.png"
+type = "image"
+title = "luxury rooftop champagne golden hour"
+
+[[generated]]
+id = "63DnDuGs5lnXU6NGgeS2A"
+uri = "file://attached_assets/generated_images/hero_sports_dark.png"
+type = "image"
+title = "luxury courtside NBA arena night"
+
 [[outputs]]
 id = "3eiJBrx1BuMSNf14FLuZ7"
 uri = "file://screenshots_resized/IMG_7075_1777264700614.png"
