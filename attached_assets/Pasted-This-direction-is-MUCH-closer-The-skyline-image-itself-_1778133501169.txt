@@ -1,0 +1,119 @@
+This direction is MUCH closer. The skyline image itself is gorgeous — keep THIS skyline/photo composition. Do NOT replace the skyline anymore.
+
+Now we need to color-grade it to match the original mockup aesthetic more closely.
+
+Right now the entire screen leans too purple/magenta.
+
+The goal is:
+
+* sexy charcoal/navy tones
+* cool cinematic blacks
+* glowing champagne gold
+* subtle neon pink accents ONLY on building lights/buttons
+* elegant contrast
+* less purple haze
+
+The current version feels:
+“purple cyberpunk”
+
+The target should feel:
+“luxury nighttime Detroit”
+
+KEEP:
+
+* current skyline image
+* current composition/layout
+* current contrast depth
+* current cinematic mood
+
+CHANGE THE COLOR GRADING:
+
+HERO SKYLINE / OVERLAY
+Reduce purple tones significantly:
+
+* pull magenta/purple saturation down about 40–50%
+* shift shadows toward charcoal navy instead of violet
+* keep cool blue-black shadows
+* maintain the glowing building lights
+
+Building lights should become:
+
+* warm champagne gold
+* soft neon pink accents
+* subtle electric blue accents
+    NOT solid purple glow everywhere
+
+The sky should become:
+
+* deep smoky navy
+* stormy charcoal blue
+* less lavender/purple
+
+OVERLAY TARGET:
+Think:
+
+* dark navy glass
+* luxury hotel lobby lighting
+* cinematic nighttime skyline
+
+NOT:
+
+* purple fantasy filter
+
+TEXT / BUTTON COLORS
+The buttons are very close already.
+
+Adjust:
+
+* gold outlines slightly warmer champagne
+* purple buttons slightly softer and less neon
+* text white slightly warmer ivory
+
+CATEGORY CARDS
+The sports and concerts cards are good now.
+
+Replace ONLY:
+
+1. Hotel Stays
+2. Events
+
+HOTEL STAYS:
+The current hotel image feels too blue/purple and cold.
+
+Need:
+
+* luxury penthouse suite
+* moody charcoal tones
+* warm ambient lamp lighting
+* city skyline view
+* upscale hotel editorial feel
+
+Reference vibe:
+
+* Four Seasons penthouse
+* Aman hotel aesthetic
+* dark luxury suite
+
+EVENTS:
+Current image feels random and not premium enough.
+
+Need:
+
+* elegant champagne tower OR upscale rooftop cocktail scene
+* cinematic black background
+* glowing champagne highlights
+* luxury gala vibe
+* soft gold reflections
+
+VERY IMPORTANT:
+Do not change the skyline image again.
+Only refine the grading/colors.
+
+We are extremely close now.
+The remaining issue is mostly:
+
+* too much purple
+* hotel image
+* events image
+
+Everything else is finally moving in the correct direction.
