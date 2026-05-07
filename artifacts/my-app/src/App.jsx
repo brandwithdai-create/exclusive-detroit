@@ -1060,17 +1060,17 @@ const ICONS=[
   React.createElement("g",{fill:"none",stroke:hex,strokeWidth:1.1,strokeLinecap:"round"},React.createElement("path",{d:"M9,2 L9,12 Q9,18 14,18 Q19,18 19,12 L19,2 Z"}),React.createElement("path",{d:"M9,6 Q5,6 5,10 Q5,14 9,14"}),React.createElement("path",{d:"M19,6 Q23,6 23,10 Q23,14 19,14"})),
 ][iconIdx%10];
 return React.createElement("div",{style:{
-  width:48,height:54,flexShrink:0,
+  width:36,height:36,flexShrink:0,
   display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",
   background:"transparent",
   borderRadius:3,transform:`rotate(${rot}deg)`,
   position:"relative",overflow:"hidden",boxSizing:"border-box",
-  filter:`drop-shadow(0 0 5px rgba(${rgb},0.62)) drop-shadow(0 0 2px rgba(${rgb},0.38))`,
+  filter:`drop-shadow(0 0 4px rgba(${rgb},0.62)) drop-shadow(0 0 1px rgba(${rgb},0.38))`,
 }},
-  React.createElement("div",{style:{position:"absolute",inset:2,borderRadius:2,border:`1.5px dashed rgba(${rgb},0.75)`,pointerEvents:"none"}}),
-  React.createElement("svg",{width:28,height:20,viewBox:"0 0 28 20",style:{overflow:"visible",marginBottom:1,opacity:1}},ICONS),
-  React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.26rem",letterSpacing:"0.18em",color:hex,opacity:.92,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
-  dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.05em",color:hex,opacity:.68,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
+  React.createElement("div",{style:{position:"absolute",inset:1.5,borderRadius:2,border:`1.5px dashed rgba(${rgb},0.75)`,pointerEvents:"none"}}),
+  React.createElement("svg",{width:20,height:14,viewBox:"0 0 28 20",style:{overflow:"visible",marginBottom:1,opacity:1}},ICONS),
+  React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.14em",color:hex,opacity:.92,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
+  dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.18rem",letterSpacing:"0.04em",color:hex,opacity:.68,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
 );}
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
@@ -1282,23 +1282,22 @@ style:{
   transform:visPrs?"scale(0.975)":"scale(1)",
 }},
 isVis
-? React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:`rgba(${_sc.rgb},0.06)`,border:`1.5px solid rgba(${_sc.rgb},0.28)`,borderRadius:12}},
-    React.createElement("div",{style:{flexShrink:0,width:64,height:40,position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}},
+? React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:`rgba(${_sc.rgb},0.06)`,border:`1.5px solid rgba(${_sc.rgb},0.28)`,borderRadius:12,height:66,boxSizing:"border-box",overflow:"hidden"}},
+    React.createElement("div",{style:{flexShrink:0,width:40,height:40,position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}},
       React.createElement("div",{style:{position:"absolute",inset:0,border:`2px dashed rgba(${_sc.rgb},0.6)`,borderRadius:4,pointerEvents:"none"}}),
       React.createElement("div",{style:{position:"absolute",inset:4,border:`1px solid rgba(${_sc.rgb},0.22)`,borderRadius:2,pointerEvents:"none"}}),
       React.createElement("div",{style:{position:"relative",zIndex:1,textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",gap:1}},
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.14em",color:_sc.hex,opacity:.72,textTransform:"uppercase",lineHeight:1}},"★ EXCLUSIVE DETROIT ★"),
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.55rem",fontWeight:700,letterSpacing:"0.1em",color:_sc.hex,lineHeight:1.15,textTransform:"uppercase"}},"VISITED"),
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.22rem",letterSpacing:"0.06em",color:_sc.hex,opacity:.65,textTransform:"uppercase",lineHeight:1}},visitedDate?visitedDate.split(",")[0].toUpperCase():"")
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.20rem",letterSpacing:"0.12em",color:_sc.hex,opacity:.72,textTransform:"uppercase",lineHeight:1}},"★ EXCL DETROIT ★"),
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",fontWeight:700,letterSpacing:"0.10em",color:_sc.hex,lineHeight:1.15,textTransform:"uppercase"}},"VISITED"),
+        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.20rem",letterSpacing:"0.04em",color:_sc.hex,opacity:.65,textTransform:"uppercase",lineHeight:1}},visitedDate?visitedDate.split(",")[0].toUpperCase():"")
       )
     ),
     React.createElement("div",{style:{flex:1,minWidth:0}},
       React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",fontWeight:700,letterSpacing:"0.14em",textTransform:"uppercase",color:_sc.hex,marginBottom:3}},"Visited"),
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.06em",color:`rgba(${_sc.rgb},0.75)`,marginBottom:2}},visitedDate||""),
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.40rem",letterSpacing:"0.04em",color:"var(--c-ash)",lineHeight:1.4}},"Added to your passport")
+      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.06em",color:`rgba(${_sc.rgb},0.75)`}},visitedDate||"Stamped")
     )
   )
-: React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:"rgba(201,168,76,0.05)",border:"1.5px dashed rgba(201,168,76,0.28)",borderRadius:12,textAlign:"left"}},
+: React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:"rgba(201,168,76,0.05)",border:"1.5px dashed rgba(201,168,76,0.28)",borderRadius:12,textAlign:"left",height:66,boxSizing:"border-box",overflow:"hidden"}},
     React.createElement("div",{style:{width:40,height:40,borderRadius:8,background:"rgba(201,168,76,0.08)",border:"1px solid rgba(201,168,76,0.22)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
       React.createElement("svg",{width:22,height:22,viewBox:"0 0 72 48",fill:"none",stroke:"rgba(201,168,76,0.72)",strokeWidth:1.3,strokeLinecap:"round",strokeLinejoin:"round"},
         React.createElement("rect",{x:12,y:21,width:48,height:25,stroke:"rgba(201,168,76,0.72)"}),
