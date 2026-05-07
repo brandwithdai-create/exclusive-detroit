@@ -1835,7 +1835,7 @@ React.createElement("div",{style:{position:"absolute",inset:0,opacity:0.55,point
 React.createElement("div",{style:{position:"absolute",width:500,height:500,top:"10%",left:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(201,168,76,0.18) 0%,transparent 70%)"}}),
 React.createElement("div",{style:{position:"absolute",width:400,height:400,bottom:"5%",right:"5%",borderRadius:"50%",background:"radial-gradient(circle,rgba(110,75,195,0.13) 0%,transparent 70%)"}})
 ),
-React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,height:110,background:"var(--c-hero-bottom-fade)",pointerEvents:"none",zIndex:3}}),
+React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,height:110,background:"var(--c-hero-bottom-fade)",pointerEvents:"none",zIndex:1}}),
 React.createElement("div",{style:{position:"relative",zIndex:2,maxWidth:680,padding:"36px 22px 18px",textAlign:"center"}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.55rem",letterSpacing:"0.26em",textTransform:"uppercase",color:C.gold,marginBottom:16}},"If you know, you know."),
 React.createElement("h1",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(2.8rem,7vw,5.5rem)",fontWeight:300,lineHeight:0.92,color:C.white,marginBottom:20,textShadow:"var(--hero-title-shadow)"}},
