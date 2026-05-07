@@ -84,6 +84,30 @@ uri = "file://attached_assets/generated_images/dark_events.png"
 type = "image"
 title = "champagne candles dark gold luxury"
 
+[[generated]]
+id = "spL78uw_BuXgjt6ocKSMO"
+uri = "file://artifacts/my-app/public/hero-cards/sports-dark-new.png"
+type = "image"
+title = "luxury stadium night dark"
+
+[[generated]]
+id = "jdR1AIwIdkyHqEn0S7V-Y"
+uri = "file://artifacts/my-app/public/hero-cards/concerts-dark-new.png"
+type = "image"
+title = "luxury concert warm gold dark"
+
+[[generated]]
+id = "v0mBxbIWQyG8LhcMA0oCa"
+uri = "file://artifacts/my-app/public/hero-cards/hotels-dark-new.png"
+type = "image"
+title = "luxury hotel night skyline dark"
+
+[[generated]]
+id = "Rj0vdCd5ug9qPLBBtxjsA"
+uri = "file://artifacts/my-app/public/hero-cards/events-dark-new.png"
+type = "image"
+title = "champagne candlelight luxury event dark"
+
 [[outputs]]
 id = "3eiJBrx1BuMSNf14FLuZ7"
 uri = "file://screenshots_resized/IMG_7075_1777264700614.png"
