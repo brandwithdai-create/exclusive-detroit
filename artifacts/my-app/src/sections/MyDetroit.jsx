@@ -608,9 +608,9 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
 
   // 3 layout shapes cycling by index position
   const shape = index % 3; // 0=landscape, 1=portrait, 2=square
-  const w = shape === 1 ? 104 : shape === 2 ? 114 : 140;
-  const h = shape === 1 ? 110 : shape === 2 ? 106 : 85;
-  const svgScale = shape === 1 ? 0.68 : shape === 2 ? 0.73 : 0.64;
+  const w = shape === 1 ? 88 : shape === 2 ? 98 : 112;
+  const h = shape === 1 ? 96 : shape === 2 ? 88 : 70;
+  const svgScale = shape === 1 ? 0.56 : shape === 2 ? 0.60 : 0.50;
   const bv = n % 2; // border variant: 0=single dashed, 1=double dashed
 
   return (
@@ -653,7 +653,7 @@ function VenueStamp({ v, index, isNew, onOpen, date: propDate }) {
         </div>
 
         {/* Venue name */}
-        <div style={{ ...SERIF,fontSize:shape===1?"0.88rem":"0.82rem",fontWeight:700,color:hex,lineHeight:1.05,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.02em",marginTop:shape===1?2:1 }}>
+        <div style={{ ...SERIF,fontSize:shape===1?"0.72rem":"0.68rem",fontWeight:700,color:hex,lineHeight:1.05,textAlign:"center",textTransform:"uppercase",letterSpacing:"0.02em",marginTop:shape===1?2:1 }}>
           {stampName(v.name)}
         </div>
 
@@ -1356,9 +1356,9 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
     ? "linear-gradient(90deg,var(--c-goldD),var(--c-gold))"
     : "linear-gradient(90deg,rgba(120,85,20,0.65),rgba(160,115,30,0.85))";
 
-  // Stamp area height: 2 columns, each row ~105px apart, plus padding
-  const stampRows = Math.max(1, Math.ceil(stamps.length / 2));
-  const stampAreaH = stampRows * 94 + 60;
+  // Stamp area height: 3 columns, each row ~96px apart, plus padding
+  const stampRows = Math.max(1, Math.ceil(stamps.length / 3));
+  const stampAreaH = stampRows * 96 + 60;
 
   return (
     <div style={{ padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
@@ -1466,14 +1466,16 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
                 Visit venues and mark them as visited to earn stamps
               </p>
             ) : (
-              <div style={{ display:"flex",flexWrap:"wrap",gap:"6px 4px",justifyContent:"flex-start",alignItems:"flex-start" }}>
+              <div style={{ display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"12px 6px",alignItems:"start" }}>
                 {stamps.map((v, i) => {
                   const rawDate = visitedDates?.[String(v.id)];
                   const displayDate = rawDate || null;
+                  const sx = Math.round((SCATTER_X[i % SCATTER_X.length] || 0) * 0.45);
+                  const sy = Math.round((SCATTER_Y[i % SCATTER_Y.length] || 0) * 0.55);
                   return (
                     <div
                       key={String(v.id)}
-                      style={{ transform:`translateX(${SCATTER_X[i % SCATTER_X.length] || 0}px) translateY(${SCATTER_Y[i % SCATTER_Y.length] || 0}px)`, flexShrink:0 }}
+                      style={{ display:"flex",justifyContent:"center",transform:`translateX(${sx}px) translateY(${sy}px)` }}
                     >
                       <VenueStamp v={v} index={i} isNew={false} onOpen={onOpenVenue} date={displayDate}/>
                     </div>
