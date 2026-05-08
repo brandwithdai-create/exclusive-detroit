@@ -1178,10 +1178,12 @@ function getVenuePriceRange(v){if(v.priceRange)return v.priceRange;const m={"Coc
 function getVenueDressCode(v){if(v.dressCode)return v.dressCode;const m={"Cocktail Lounges":"Smart Casual","Hidden Bars":"Casual","Dinner":"Business Casual","Rooftops":"Upscale Casual","Nightlife":"Smart Casual","Coffee Shops & Bakeries":"Casual","Lunch":"Casual","Breakfast":"Casual","Happy Hour":"Casual","Sports Bars":"Casual","Outdoor Activities":"Casual"};return m[v.cat]||"Smart Casual";}
 function getVenueReservations(v){if(v.reservations)return v.reservations;const h=(v.hours||"").toLowerCase();if(h.includes("walk-in"))return"Walk-ins Only";const m={"Dinner":"Recommended","Cocktail Lounges":"Recommended","Rooftops":"Recommended","Hidden Bars":"Walk-ins Only","Nightlife":"Not Required","Coffee Shops & Bakeries":"Not Required","Sports Bars":"Not Required"};return m[v.cat]||"Recommended";}
 const BADGE_CFG={hidden:{label:"HIDDEN GEM",bg:"rgba(70,24,8,0.88)",bdr:"rgba(210,120,60,0.55)",clr:"#E0A060"},locals:{label:"LOCALS KNOW",bg:"rgba(50,14,36,0.88)",bdr:"rgba(180,80,130,0.55)",clr:"#D89AC0"},firsttimer:{label:"FIRST TIMER",bg:"rgba(12,30,60,0.88)",bdr:"rgba(60,110,200,0.55)",clr:"#90B8E0"},recentopen:{label:"NOW OPEN",bg:"rgba(6,26,10,0.88)",bdr:"rgba(60,160,80,0.55)",clr:"#80E090"}};
-function PassportSVG({stroke,w=20,h=16,style}){return React.createElement("svg",{width:w,height:h,viewBox:"0 0 72 50",fill:"none",stroke:stroke,strokeWidth:2.0,strokeLinecap:"round",strokeLinejoin:"round",style:style||{}},React.createElement("rect",{x:10,y:22,width:52,height:26}),React.createElement("rect",{x:24,y:12,width:24,height:10}),React.createElement("rect",{x:30,y:6,width:12,height:6}),React.createElement("rect",{x:16,y:17,width:40,height:5}),React.createElement("rect",{x:14,y:29,width:8,height:8,opacity:0.5}),React.createElement("rect",{x:28,y:34,width:16,height:14}),React.createElement("rect",{x:50,y:29,width:8,height:8,opacity:0.5}));}
+function PassportOutlineSVG({stroke="rgba(201,168,76,0.72)",size=22,style={}}){return React.createElement("svg",{width:size,height:size,viewBox:"0 0 44 44",fill:"none",stroke:stroke,strokeWidth:1.8,strokeLinecap:"round",strokeLinejoin:"round",style},React.createElement("rect",{x:8,y:6,width:28,height:32,rx:3}),React.createElement("line",{x1:14,y1:6,x2:14,y2:38}),React.createElement("circle",{cx:26,cy:22,r:8,strokeWidth:1.5}),React.createElement("line",{x1:18,y1:22,x2:34,y2:22,strokeWidth:1.2}),React.createElement("path",{d:"M26 14 Q30 22 26 30 Q22 22 26 14",strokeWidth:1.2,fill:"none"}));}
+function PassportFilledSVG({stroke="rgba(12,9,4,0.80)",size=22,style={}}){return React.createElement("svg",{width:size,height:size,viewBox:"0 0 44 44",fill:"none",stroke:stroke,strokeWidth:2.2,strokeLinecap:"round",strokeLinejoin:"round",style},React.createElement("rect",{x:8,y:6,width:28,height:32,rx:3}),React.createElement("line",{x1:14,y1:6,x2:14,y2:38}),React.createElement("circle",{cx:26,cy:22,r:8,strokeWidth:1.8}),React.createElement("line",{x1:18,y1:22,x2:34,y2:22,strokeWidth:1.5}),React.createElement("path",{d:"M26 14 Q30 22 26 30 Q22 22 26 14",strokeWidth:1.5,fill:"none"}));}
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
 const [stampPop, setStampPop] = React.useState(false);
+const [pressing, setPressing] = React.useState(false);
 const _spTimer = React.useRef(null);
 const cardRef = React.useRef(null);
 React.useEffect(()=>{
@@ -1238,13 +1240,16 @@ React.createElement("div",{style:{padding:"10px 12px 14px",display:"flex",gap:8,
     style:{flex:1,padding:"12px 0",borderRadius:10,background:"linear-gradient(135deg,#B88E38 0%,#C9A848 100%)",border:"none",color:"#0C0904",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",cursor:"pointer",fontWeight:700,transition:"opacity 0.15s"}
   },cta?.label?.toUpperCase()||"BOOK NOW"),
   React.createElement("button",{
-    onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),1600);}onVisit&&onVisit(String(venue.id));},
-    title:isVis?"Visited":"Add to Passport",
-    style:{width:48,height:48,flexShrink:0,borderRadius:10,background:isVis?"rgba(201,168,76,0.14)":"rgba(201,168,76,0.06)",border:isVis?"1.5px solid rgba(201,168,76,0.52)":"1.5px solid rgba(201,168,76,0.26)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.22s",transform:stampPop?"scale(1.16)":"scale(1)"}
+    onPointerDown:e=>{e.stopPropagation();setPressing(true);},
+    onPointerUp:()=>setPressing(false),
+    onPointerLeave:()=>setPressing(false),
+    onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),900);}onVisit&&onVisit(String(venue.id));},
+    title:isVis?"Stamp Collected":"Add to Passport",
+    style:{width:52,height:52,flexShrink:0,borderRadius:"50%",background:isVis?"linear-gradient(145deg,#D4A843 0%,#C9A84C 45%,#B0832A 100%)":"rgba(201,168,76,0.07)",border:isVis?"2px solid rgba(220,178,72,0.80)":"1.5px solid rgba(201,168,76,0.48)",boxShadow:isVis?"0 0 0 3px rgba(201,168,76,0.18),0 0 18px rgba(201,168,76,0.40),0 4px 14px rgba(0,0,0,0.40),inset 0 1px 0 rgba(255,235,140,0.28)":"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.30s ease,border-color 0.30s ease,box-shadow 0.30s ease",transform:pressing?"scale(0.86)":"scale(1)",animation:stampPop?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
   },
     isVis
-      ?React.createElement("span",{style:{fontSize:"1.1rem",color:C.gold,lineHeight:1}},"\u2713")
-      :React.createElement(PassportSVG,{stroke:C.goldD})
+      ?React.createElement(PassportFilledSVG,{stroke:"rgba(12,9,4,0.80)",size:22})
+      :React.createElement(PassportOutlineSVG,{stroke:C.goldD,size:22})
   )
 )
 );
@@ -1273,6 +1278,7 @@ function _hScroll() {
 const UCard = React.memo(function UCard({ venue, i, onOpen, isFav, onFav, photoMap, imgHeight, hideVibes, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
 const [stampPop, setStampPop] = React.useState(false);
+const [pressing, setPressing] = React.useState(false);
 const _spTimer = React.useRef(null);
 const cardRef = React.useRef(null);
 React.useEffect(() => {
@@ -1331,13 +1337,16 @@ React.createElement("div",{style:{padding:"10px 12px 14px",display:"flex",gap:8,
     style:{flex:1,padding:"12px 0",borderRadius:10,background:"linear-gradient(135deg,#B88E38 0%,#C9A848 100%)",border:"none",color:"#0C0904",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",cursor:"pointer",fontWeight:700,transition:"opacity 0.15s"}
   },cta?.label?.toUpperCase()||"LEARN MORE"),
   React.createElement("button",{
-    onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),1600);}onVisit&&onVisit(String(venue.id));},
-    title:isVis?"Visited":"Add to Passport",
-    style:{width:48,height:48,flexShrink:0,borderRadius:10,background:isVis?"rgba(201,168,76,0.14)":"rgba(201,168,76,0.06)",border:isVis?"1.5px solid rgba(201,168,76,0.52)":"1.5px solid rgba(201,168,76,0.26)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.22s",transform:stampPop?"scale(1.16)":"scale(1)"}
+    onPointerDown:e=>{e.stopPropagation();setPressing(true);},
+    onPointerUp:()=>setPressing(false),
+    onPointerLeave:()=>setPressing(false),
+    onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),900);}onVisit&&onVisit(String(venue.id));},
+    title:isVis?"Stamp Collected":"Add to Passport",
+    style:{width:52,height:52,flexShrink:0,borderRadius:"50%",background:isVis?"linear-gradient(145deg,#D4A843 0%,#C9A84C 45%,#B0832A 100%)":"rgba(201,168,76,0.07)",border:isVis?"2px solid rgba(220,178,72,0.80)":"1.5px solid rgba(201,168,76,0.48)",boxShadow:isVis?"0 0 0 3px rgba(201,168,76,0.18),0 0 18px rgba(201,168,76,0.40),0 4px 14px rgba(0,0,0,0.40),inset 0 1px 0 rgba(255,235,140,0.28)":"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.30s ease,border-color 0.30s ease,box-shadow 0.30s ease",transform:pressing?"scale(0.86)":"scale(1)",animation:stampPop?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
   },
     isVis
-      ?React.createElement("span",{style:{fontSize:"1.1rem",color:C.gold,lineHeight:1}},"\u2713")
-      :React.createElement(PassportSVG,{stroke:C.goldD})
+      ?React.createElement(PassportFilledSVG,{stroke:"rgba(12,9,4,0.80)",size:22})
+      :React.createElement(PassportOutlineSVG,{stroke:C.goldD,size:22})
   )
 )
 );
@@ -1363,9 +1372,6 @@ React.useLayoutEffect(() => {
 const [visPrs,setVisPrs]=useState(false);
 const [stampAnim,setStampAnim]=useState(false);
 const _saTimer=React.useRef(null);
-const _STAMP_COLORS=[{hex:"#C0463A",rgb:"192,70,58"},{hex:"#6B4DA0",rgb:"107,77,160"},{hex:"#3A6B9B",rgb:"58,107,155"},{hex:"#3A7A3A",rgb:"58,122,58"},{hex:"#C06B2A",rgb:"192,107,42"},{hex:"#2A7A8A",rgb:"42,122,138"},{hex:"#8B3A6B",rgb:"139,58,107"},{hex:"#6B5A2A",rgb:"107,90,42"}];
-const _sn=parseInt(String(venue.id).replace(/\D/g,""))||0;
-const _sc=_STAMP_COLORS[_sn%_STAMP_COLORS.length];
 const bookUrl=venue.reservationUrl||venue.websiteUrl;
 const INFO_ROWS=[
   {icon:"\u25CE",label:"ADDRESS",val:venue.addr},
@@ -1421,19 +1427,21 @@ return React.createElement(React.Fragment,null,
         onClick:()=>{if(bookUrl)window.open(bookUrl,"_blank","noopener");},
         style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:10,padding:"16px 0",borderRadius:12,background:"linear-gradient(135deg,#B88E38 0%,#C9A848 100%)",border:"none",color:"#0C0904",fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",letterSpacing:"0.18em",textTransform:"uppercase",cursor:bookUrl?"pointer":"default",fontWeight:700,transition:"opacity 0.15s"}
       },"BOOK NOW",React.createElement("span",{style:{fontSize:"1rem",fontWeight:400,lineHeight:1}},"\u2192")),
-      // ADD TO PASSPORT
+      // ADD TO PASSPORT / STAMP COLLECTED
       React.createElement("button",{
         onClick:()=>{
-          if(!isVis){clearTimeout(_saTimer.current);setStampAnim(true);_saTimer.current=setTimeout(()=>setStampAnim(false),2200);}
+          if(!isVis){clearTimeout(_saTimer.current);setStampAnim(true);_saTimer.current=setTimeout(()=>setStampAnim(false),900);}
           onVisit&&onVisit(String(venue.id));
         },
-        onMouseDown:()=>setVisPrs(true),onMouseUp:()=>setVisPrs(false),
-        onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>setVisPrs(true),onTouchEnd:()=>setVisPrs(false),
-        style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:10,padding:"14px 0",background:isVis?`rgba(${_sc.rgb},0.08)`:"transparent",border:isVis?`1.5px solid rgba(${_sc.rgb},0.45)`:"1.5px solid rgba(201,168,76,0.32)",borderRadius:12,cursor:isVis?"default":"pointer",transition:"all 0.22s",transform:visPrs&&!isVis?"scale(0.975)":"scale(1)"}
+        onMouseDown:()=>{if(!isVis)setVisPrs(true);},onMouseUp:()=>setVisPrs(false),
+        onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>{if(!isVis)setVisPrs(true);},onTouchEnd:()=>setVisPrs(false),
+        style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:12,padding:"16px 0",background:isVis?"linear-gradient(135deg,#B88E38 0%,#C9A848 55%,#D4A843 100%)":"rgba(201,168,76,0.06)",border:isVis?"1.5px solid rgba(220,178,72,0.70)":"1.5px solid rgba(201,168,76,0.38)",borderRadius:12,cursor:isVis?"default":"pointer",boxShadow:isVis?"0 0 0 3px rgba(201,168,76,0.14),0 0 18px rgba(201,168,76,0.28),inset 0 1px 0 rgba(255,235,140,0.20)":"none",transition:"all 0.30s ease",transform:visPrs&&!isVis?"scale(0.975)":"scale(1)",animation:stampAnim?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
       },
-        React.createElement(PassportSVG,{stroke:isVis?_sc.hex:"rgba(201,168,76,0.75)",style:{flexShrink:0,animation:stampAnim?"stampIn 0.55s cubic-bezier(0.22,1,0.36,1) both":"none"}}),
-        React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",color:isVis?_sc.hex:"rgba(201,168,76,0.82)",fontWeight:isVis?700:400,animation:stampAnim&&!isVis?"stampIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.04s both":"none"}},
-          isVis?"\u2713 VISITED \u2014 "+((visitedDate||"").split(",")[0]||"Stamped"):"ADD TO PASSPORT"
+        isVis
+          ?React.createElement(PassportFilledSVG,{stroke:"rgba(12,9,4,0.82)",size:20,style:{flexShrink:0}})
+          :React.createElement(PassportOutlineSVG,{stroke:"rgba(201,168,76,0.80)",size:20,style:{flexShrink:0}}),
+        React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.18em",textTransform:"uppercase",color:isVis?"rgba(12,9,4,0.88)":"rgba(201,168,76,0.88)",fontWeight:isVis?700:500}},
+          isVis?"STAMP COLLECTED":"ADD TO PASSPORT"
         )
       )
     )
@@ -1793,7 +1801,7 @@ const gridTopRef = useRef(null);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
-s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes cardPopIn{0%{opacity:0;transform:scale(0.88) translateY(6px)}100%{opacity:1;transform:scale(1) translateY(0)}}@keyframes stampIn{0%{transform:scale(1.6) rotate(-14deg);opacity:0}55%{transform:scale(0.90) rotate(3deg);opacity:1}75%{transform:scale(1.04) rotate(-1deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes cardPopIn{0%{opacity:0;transform:scale(0.88) translateY(6px)}100%{opacity:1;transform:scale(1) translateY(0)}}@keyframes stampIn{0%{transform:scale(1.6) rotate(-14deg);opacity:0}55%{transform:scale(0.90) rotate(3deg);opacity:1}75%{transform:scale(1.04) rotate(-1deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}@keyframes passportStamp{0%{transform:scale(0.86)}48%{transform:scale(1.18)}70%{transform:scale(0.96)}85%{transform:scale(1.06)}100%{transform:scale(1)}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
 document.head.appendChild(s);
 return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
 },[]);
