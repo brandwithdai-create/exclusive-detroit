@@ -2323,7 +2323,7 @@ section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),
 section==="stay"          && React.createElement(Stay,{isSavedHotel,toggleSavedHotel,onBack:()=>navTo("explore")})
 ),
-showOnboarding&&React.createElement(Onboarding,{onDone:function(){setShowOnboarding(false);}}),
+showOnboarding&&React.createElement(Onboarding,{onDone:function(){setShowOnboarding(false);window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;}}),
 section!=="map"&&section!=="settings"&&section!=="itinerary"&&React.createElement("footer",{style:{background:C.deep,borderTop:"1px solid "+C.border,padding:"36px 22px 24px"}},
 React.createElement("div",{style:{maxWidth:1200,margin:"0 auto"}},
 React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(180px,1fr))",gap:28,paddingBottom:24,borderBottom:"1px solid "+C.border}},
