@@ -1,0 +1,137 @@
+The reason the LIGHT MODE hero feels expensive, airy, and readable is because they intentionally lowered the visual dominance of the skyline while keeping the UI fully crisp on top.
+
+Here’s exactly what’s happening visually:
+
+1. The skyline is heavily washed out
+
+The light mode skyline has:
+
+* reduced contrast
+* reduced saturation
+* lifted exposure/brightness
+* a cream/white haze over it
+
+That makes the skyline recede into the background instead of competing with the UI.
+
+The dark mode skyline is still:
+
+* deeper blacks
+* stronger contrast
+* more saturated colors
+* sharper visual edges
+
+So the skyline is visually “fighting” the buttons and text.
+
+⸻
+
+2. The foreground UI is NOT faded
+
+This is the important part.
+
+The buttons/text themselves are NOT brighter in light mode.
+
+The BACKGROUND is weaker.
+
+That creates the illusion that:
+
+* buttons pop more
+* typography feels cleaner
+* spacing feels more luxurious
+* everything feels airy
+
+The UI only appears stronger because the skyline got softer.
+
+⸻
+
+3. Light mode uses atmospheric haze
+
+The light mode hero has a soft cream atmospheric veil over the skyline.
+
+Almost like:
+
+* sunlight through fog
+* luxury hotel brochure photography
+* overexposed editorial imagery
+
+That creates depth separation.
+
+The skyline becomes texture instead of the focal point.
+
+⸻
+
+4. The buttons pop because of contrast hierarchy
+
+The pill buttons stand out because:
+
+* their edges are sharper than the background
+* their gold outline is cleaner than the washed skyline
+* they sit on top of low-contrast imagery
+
+In dark mode right now:
+
+* the skyline has equal visual weight to the buttons
+* same saturation level
+* same contrast intensity
+
+So everything blends together.
+
+⸻
+
+5. The bottom cards in light mode are intentionally brighter than the hero
+
+This is subtle but important.
+
+The skyline hero is faded.
+
+But the bottom cards are:
+
+* more contrasty
+* more saturated
+* sharper
+
+That creates layering:
+
+1. soft skyline background
+2. crisp UI
+3. rich glossy cards
+
+That’s why the page feels dimensional and premium.
+
+⸻
+
+6. Why dark mode currently feels “heavier”
+
+Dark mode currently has:
+
+* rich skyline
+* strong blacks
+* vivid saturation
+* high contrast everywhere
+
+So visually:
+everything competes equally.
+
+Luxury UI usually has:
+
+* ONE dominant focal layer
+* softened supporting layers
+* restrained contrast
+
+The light mode succeeds because the skyline is intentionally subdued.
+
+⸻
+
+So the actual fix for dark mode is probably NOT:
+
+* brighter gold
+* more glow
+* stronger UI
+
+It’s:
+
+* reduce skyline saturation slightly
+* soften skyline contrast slightly
+* apply subtle warm haze ONLY to skyline layer
+* leave foreground untouched
+
+That will create the same separation/lightness effect the light mode hero already has.
