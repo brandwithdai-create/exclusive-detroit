@@ -1940,7 +1940,7 @@ React.createElement("div",{style:{position:"absolute",bottom:0,left:0,right:0,he
 React.createElement("div",{style:{position:"relative",zIndex:2,maxWidth:680,padding:"36px 22px 18px",textAlign:"center"}},
 React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.55rem",letterSpacing:"0.26em",textTransform:"uppercase",color:C.gold,marginBottom:16}},"If you know, you know."),
 React.createElement("h1",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(2.8rem,7vw,5.5rem)",fontWeight:300,lineHeight:0.92,color:C.white,marginBottom:20,textShadow:"var(--hero-title-shadow)"}},
-"Detroit",React.createElement("br"),React.createElement("em",{style:{fontStyle:"italic",color:"var(--c-hero-goldL,"+C.goldL+")",textShadow:"var(--c-hero-gem-shadow,none)"}},"Hidden Gems")
+"Detroit",React.createElement("br"),React.createElement("span",{style:{display:"inline-block",borderTop:"1px solid var(--c-hero-gem-bdr,transparent)",borderBottom:"0.5px solid var(--c-hero-gem-bdr-b,transparent)",padding:"5px 0 4px",marginTop:3}},React.createElement("em",{style:{fontStyle:"italic",color:"var(--c-hero-gold,"+C.goldL+")",textShadow:"var(--c-hero-gem-shadow,none)"}},"Hidden Gems"))
 ),
 React.createElement("p",{style:{fontSize:"0.9rem",fontWeight:400,color:"var(--c-hero-sub)",maxWidth:480,margin:"0 auto 26px",lineHeight:1.82}},"The insider's guide to Detroit's most exclusive dining, cocktails, experiences, and hidden gems. Not for everyone — made for you."),
 React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:"var(--hero-cat-gap)",alignItems:"center"}},
