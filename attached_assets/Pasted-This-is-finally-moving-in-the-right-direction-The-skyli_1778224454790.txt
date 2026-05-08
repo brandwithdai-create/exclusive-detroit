@@ -1,0 +1,72 @@
+This is finally moving in the right direction. The skyline feels much richer now. Let’s lock this direction in carefully and ONLY apply the overlay to the skyline background itself — nowhere else.
+
+Message for Replit:
+
+The newest dark mode direction is MUCH better. We are keeping this direction, but now we need to refine it carefully so the UI elements pop more cleanly.
+
+IMPORTANT:
+The dark overlay / haze should ONLY affect the skyline background image itself.
+
+DO NOT darken or overlay:
+
+* the hero text
+* category buttons
+* CTA buttons
+* the four bottom cards
+* nav
+* any foreground UI
+
+Right now the skyline looks better, but the foreground elements still need more separation and brightness.
+
+What I want:
+
+1. Skyline-only dark treatment
+
+* Keep the warm amber/brown cinematic haze
+* Keep the sharpened skyline image
+* Apply the haze ONLY behind the content layer
+* Foreground content should render at full brightness above the overlay
+* The skyline should feel darker/richer while the UI floats cleanly above it
+
+2. Increase luxury gold intensity
+    Please make the gold/yellow throughout dark mode more rich and luminous.
+
+Specifically:
+
+* Hero accent gold (“Hidden Gems”, active nav underline, category outlines/text)
+* About section gold accents
+* Map section gold accents
+* Active states and highlighted UI gold
+
+Direction:
+Think rich champagne gold / warm luxury amber.
+Not neon yellow.
+Not orange.
+Not muted mustard.
+
+Needs slightly more saturation + brightness so it stands out against the darker skyline.
+
+3. Preserve contrast and readability
+    The goal is:
+
+* darker cinematic skyline
+* brighter luxury foreground UI
+* stronger depth separation
+
+Foreground should feel crisp and elevated above the skyline.
+
+4. Do NOT touch light mode
+    Light mode currently stays separate.
+    All of these changes are DARK MODE ONLY.
+5. Do NOT add blur/fog over UI
+    The haze must remain subtle and behind the content.
+    No foggy effect over text/buttons/cards.
+
+This should feel:
+
+* luxury
+* cinematic
+* warm
+* premium hotel/lounge aesthetic
+* sharp and readable
+* high contrast without looking harsh
