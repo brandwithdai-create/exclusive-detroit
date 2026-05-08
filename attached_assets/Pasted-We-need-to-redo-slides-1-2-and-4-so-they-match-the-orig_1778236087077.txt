@@ -1,0 +1,107 @@
+We need to redo slides 1, 2, and 4 so they match the original mockup much more closely. Right now only slide 3 (“Collect Passport Stamps”) feels correct.
+
+SLIDE 1 — DISCOVER DETROIT
+Current issue:
+- Wrong composition
+- Feels too dark/heavy
+- Typography placement is off
+- Doesn’t match the elegance of the mockup
+
+Please match the mockup exactly:
+- Use a luxury Detroit skyline photo with deep contrast and warm city lights
+- Keep the skyline centered and dramatic
+- Add the gold compass icon above the title exactly like the mockup
+- Typography hierarchy should match:
+  “Discover” in white
+  “Detroit” in gold
+  “Hidden Gems” smaller underneath
+- Keep the soft black gradient fade at the bottom
+- Make spacing much more elegant/minimal
+- Keep the onboarding dots and button exactly like the mockup
+- Animation should feel cinematic:
+  slow skyline zoom + subtle glow on compass icon + text fade-up
+
+SLIDE 2 — BUILD MY NIGHT
+Current issue:
+- The current image is completely wrong
+- Background is too washed out
+- It lost the luxury dinner aesthetic
+- The layout no longer matches the mockup
+
+Please rebuild it to match the mockup:
+- Use a luxury rooftop dinner/table scene overlooking Detroit at sunset
+- Warm candlelight
+- Champagne/gold tones
+- Elegant upscale dining energy
+- NOT a washed out skyline photo
+
+Important:
+- The “Build My Night” text should stay centered exactly like the mockup
+- Keep the gold sparkle icon above
+- Keep the 3 small selection cards:
+  TIME — 7PM
+  VIBE — UPSCALE
+  GROUP — 2 OF US
+
+The cards should animate individually:
+- slight pop-in sequence
+- glow when appearing
+- arrows subtly animate between them
+
+Overall feeling:
+luxury concierge / romantic Detroit night planning
+
+SLIDE 3 — COLLECT PASSPORT STAMPS
+This slide is the closest to correct.
+Keep this direction.
+
+Minor improvements only:
+- Make the floating card slightly larger
+- Increase glow around the passport stamp animation
+- Make the tap ripple animation more noticeable
+- Keep everything else very close to current version
+
+SLIDE 4 — SAVE EVERYTHING
+Current issue:
+- Layout is completely different from mockup
+- The stacked notification boxes look messy
+- Feels too app-demo/tutorial instead of luxury onboarding
+- Background image is wrong
+
+Please match the mockup:
+- Use a luxury hotel room or elegant Detroit stay with soft neutral lighting
+- Warm ivory / champagne tones
+- Clean minimal composition
+
+VERY IMPORTANT:
+Remove the stacked notification cards completely.
+
+Instead:
+- Add a single elegant horizontal save bar near the bottom like the mockup
+- Use:
+  heart icon
+  passport/save icon
+  itinerary/save-night icon
+
+These should sit inside ONE clean luxury pill container.
+
+Animation direction:
+- Heart softly pulses
+- Passport icon stamps once
+- Final save icon glows subtly
+
+Overall feeling:
+quiet luxury / premium concierge / elegant and calm
+
+GLOBAL NOTES FOR ALL 4 SLIDES:
+- Match the mockup images much more closely
+- Every slide should feel like the SAME brand world
+- Light mode should stay slightly darker/warmer so the transition from dark mode is not harsh
+- Keep the cream/champagne overlay treatment we discussed
+- Do NOT reuse the same skyline image repeatedly
+- Every slide should have a unique image
+- Maintain the same typography hierarchy and spacing from the mockups
+- Animations should be intentional and visible — not subtle to the point users miss them
+
+The onboarding should feel like:
+a luxury cinematic tutorial for how to use the app.

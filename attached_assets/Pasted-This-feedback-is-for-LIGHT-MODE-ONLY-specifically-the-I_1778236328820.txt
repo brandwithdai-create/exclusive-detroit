@@ -1,0 +1,77 @@
+This feedback is for LIGHT MODE ONLY — specifically the Itinerary → Tonight section and the Build My Night flow after you tap into it.
+
+The direction is getting much closer, but a few visual refinements are needed to make this feel truly luxury and cohesive with the rest of the app.
+
+1. LIGHTEN THE SKYLINE OVERLAY EVEN MORE
+The white/cream overlay effect on the skyline background is still too strong and muddy.
+
+We want:
+- a VERY soft washed champagne haze
+- barely-there cream tint
+- lighter and more airy
+- the skyline should still feel visible and elegant underneath
+
+Think:
+soft luxury hotel brochure / editorial wash
+
+Right now it feels too foggy and muted.
+
+Please dramatically reduce the opacity of the white overlay so the skyline image breathes more.
+
+This applies to:
+- the background skyline in the Tonight section
+- the background skyline after entering Build My Night
+
+2. “BUILD MY NIGHT” TITLE IS TOO THICK/BOLD
+The title weight got too heavy.
+
+Please:
+- make “Build My Night” thinner and more elegant again
+- closer to the refined typography used in the hero section
+- less bold
+- more editorial/luxury
+
+We want:
+high-end hospitality branding energy — not chunky UI typography.
+
+3. MAKE THE QUESTION CARDS TRANSLUCENT
+The large tan boxes behind each question feel too heavy and blocky.
+
+Instead:
+- make the question cards semi-translucent/glassmorphism style
+- soft cream transparency
+- subtle blur
+- slightly frosted effect
+- allow the skyline to softly show through
+
+This will:
+- reduce visual heaviness
+- make the layout feel layered and premium
+- keep the skyline integrated into the design instead of covering it up
+
+Direction:
+soft luxury glass cards — not solid beige blocks.
+
+IMPORTANT:
+This applies BOTH to:
+- the boxes/cards at the top of the Tonight section
+- AND the question boxes/cards after tapping into Build My Night
+
+Everything in this light mode itinerary flow should feel cohesive.
+
+4. KEEP BUTTONS LEGIBLE
+Even with translucency:
+- maintain enough contrast for readability
+- selected states should still pop
+- keep the pink/gold selected glow treatment
+
+5. OVERALL GOAL
+We are trying to make this section feel:
+luxury concierge,
+soft editorial UI,
+elevated,
+airy,
+premium,
+and immersive.
+
+Right now the structure is correct — it just needs refinement and less visual heaviness.

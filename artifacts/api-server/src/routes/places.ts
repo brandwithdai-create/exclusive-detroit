@@ -68,6 +68,17 @@ async function resolvePhotoUrl(photoName: string): Promise<string | null> {
   return data.photoUri || null;
 }
 
+// ── Ensure venue_gallery table exists ────────────────────────────────────────
+pool.query(`
+  CREATE TABLE IF NOT EXISTS venue_gallery (
+    venue_id TEXT PRIMARY KEY,
+    photo_urls JSONB NOT NULL DEFAULT '[]',
+    fetched_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  )
+`).catch((err: unknown) => {
+  logger.error({ err }, "Failed to create venue_gallery table");
+});
+
 // ── Full venue list for one-time import ──────────────────────────────────────
 // Each entry: { id: venueId, query: searchQuery }
 // After running POST /api/places/import, photos are permanently stored in DB.
@@ -185,6 +196,32 @@ router.get("/places/venue-photos", async (_req, res) => {
   }
 });
 
+// GET /api/places/venue-gallery
+// Returns all stored gallery photo arrays from DB: { gallery: { [venueId]: string[] } }
+// Frontend calls this once on startup — zero Google API calls.
+router.get("/places/venue-gallery", async (_req, res) => {
+  try {
+    const cached = cacheGet("venue-gallery");
+    if (cached) return res.json(cached);
+    const result = await pool.query(
+      "SELECT venue_id, photo_urls FROM venue_gallery WHERE photo_urls IS NOT NULL AND jsonb_array_length(photo_urls) > 0"
+    );
+    const gallery: Record<string, string[]> = {};
+    for (const row of result.rows) {
+      const urls = Array.isArray(row.photo_urls) ? row.photo_urls : JSON.parse(row.photo_urls || "[]");
+      if (urls.length > 0) gallery[row.venue_id] = urls;
+    }
+    logger.info({ count: result.rows.length }, "Served venue gallery from DB");
+    const payload = { gallery };
+    cacheSet("venue-gallery", payload);
+    return res.json(payload);
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    logger.error({ err: msg }, "Error reading venue gallery from DB");
+    return res.json({ gallery: {} });
+  }
+});
+
 // POST /api/places/import
 // One-time endpoint: fetches Google Places photos for all venues and stores in DB.
 // Safe to call multiple times — skips venues already in DB (idempotent).
@@ -297,6 +334,112 @@ router.post("/places/import", importLimiter, async (req, res) => {
   };
 
   logger.info(summary, "Venue photo import complete");
+  res.write(`],"summary":${JSON.stringify(summary)}}`);
+  res.end();
+});
+
+// POST /api/places/import-gallery
+// One-time endpoint: fetches up to 4 Google Places photos per venue and stores in venue_gallery.
+// Safe to call multiple times — skips venues already imported (idempotent).
+// Cost: ~$4-8 for all venues (4 photo API calls each). After this, no live API calls.
+router.post("/places/import-gallery", importLimiter, async (req, res) => {
+  if (!KEY) {
+    return res.status(500).json({ error: "GOOGLE_PLACES_KEY not configured" });
+  }
+
+  const secret = req.body?.secret as string | undefined;
+  if (secret !== "import-venues-2024") {
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+
+  // Check which venues already have gallery photos
+  let existingIds = new Set<string>();
+  try {
+    const existing = await pool.query("SELECT venue_id FROM venue_gallery");
+    existingIds = new Set(existing.rows.map((r: { venue_id: string }) => r.venue_id));
+  } catch (err) {
+    logger.error({ err }, "Failed to read existing gallery IDs");
+  }
+
+  const toImport = VENUE_IMPORT_LIST.filter(v => !existingIds.has(v.id));
+  logger.info({ total: VENUE_IMPORT_LIST.length, toImport: toImport.length, existing: existingIds.size }, "Starting venue gallery import");
+
+  const results: { id: string; status: string; count?: number; error?: string }[] = [];
+
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  res.setHeader("Transfer-Encoding", "chunked");
+  res.write('{"importing":true,"results":[');
+
+  let first = true;
+  for (const venue of toImport) {
+    try {
+      if (!first) await sleep(200);
+
+      const fields = ["places.id", "places.photos"].join(",");
+      const places = await textSearch(venue.query, fields);
+      const place = places[0];
+
+      if (!place || !place.photos || place.photos.length === 0) {
+        await pool.query(
+          `INSERT INTO venue_gallery (venue_id, photo_urls) VALUES ($1, '[]'::jsonb)
+           ON CONFLICT (venue_id) DO NOTHING`,
+          [venue.id]
+        );
+        const r = { id: venue.id, status: "not_found", count: 0 };
+        results.push(r);
+        res.write((first ? "" : ",") + JSON.stringify(r));
+        logger.warn({ venueId: venue.id }, "No gallery photos found");
+        first = false;
+        continue;
+      }
+
+      // Resolve up to 4 photo URLs
+      const photoRefs = place.photos.slice(0, 4);
+      const photoUrls: string[] = [];
+      for (const ref of photoRefs) {
+        await sleep(60);
+        const url = await resolvePhotoUrl(ref.name);
+        if (url) photoUrls.push(url);
+      }
+
+      await pool.query(
+        `INSERT INTO venue_gallery (venue_id, photo_urls, fetched_at)
+         VALUES ($1, $2::jsonb, NOW())
+         ON CONFLICT (venue_id) DO UPDATE SET
+           photo_urls = EXCLUDED.photo_urls,
+           fetched_at = NOW()`,
+        [venue.id, JSON.stringify(photoUrls)]
+      );
+
+      // Bust the gallery cache so the next GET sees fresh data
+      _cache.delete("venue-gallery");
+
+      const r = { id: venue.id, status: photoUrls.length > 0 ? "ok" : "no_photo", count: photoUrls.length };
+      results.push(r);
+      res.write((first ? "" : ",") + JSON.stringify(r));
+      logger.info({ venueId: venue.id, count: photoUrls.length }, "Venue gallery imported");
+      first = false;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      const r = { id: venue.id, status: "error", error: msg };
+      results.push(r);
+      res.write((first ? "" : ",") + JSON.stringify(r));
+      logger.error({ venueId: venue.id, err: msg }, "Error importing venue gallery");
+      first = false;
+    }
+  }
+
+  const summary = {
+    total: VENUE_IMPORT_LIST.length,
+    alreadyExisted: existingIds.size,
+    attempted: toImport.length,
+    ok: results.filter(r => r.status === "ok").length,
+    no_photo: results.filter(r => r.status === "no_photo").length,
+    not_found: results.filter(r => r.status === "not_found").length,
+    errors: results.filter(r => r.status === "error").length,
+  };
+
+  logger.info(summary, "Venue gallery import complete");
   res.write(`],"summary":${JSON.stringify(summary)}}`);
   res.end();
 });
