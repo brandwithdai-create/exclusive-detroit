@@ -986,11 +986,12 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
 
   return (
     <div style={{ position:"relative" }}>
-      {/* Zone 1 — questions with contained skyline */}
-      <div style={{ position:"relative", overflow:"hidden" }}>
-        <div aria-hidden="true" style={{ position:"absolute",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
-        <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
-        <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
+      {/* Single fixed skyline — one continuous bg behind both zones */}
+      <div aria-hidden="true" style={{ position:"fixed",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
+      <div style={{ position:"fixed",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
+      {/* Zone 1 — questions */}
+      <div style={{ position:"relative",zIndex:1 }}>
+        <div style={{ padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
       <div style={{ marginBottom:28 }}>
@@ -1084,14 +1085,12 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
           {building ? "Building your night…" : "BUILD MY NIGHT ✨"}
         </button>
       </div>
-        </div>{/* closes inner content */}
-      </div>{/* closes Zone 1 with skyline */}
+        </div>
+      </div>
 
-      {/* Zone 2 — results with same contained skyline */}
-      {(building || result) && <div style={{ position:"relative", overflow:"hidden" }}>
-        <div aria-hidden="true" style={{ position:"absolute",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
-        <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
-        <div style={{ position:"relative",zIndex:1, padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
+      {/* Zone 2 — results; fixed bg continues seamlessly */}
+      {(building || result) && <div style={{ position:"relative",zIndex:1 }}>
+        <div style={{ padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
       {/* Building pulse */}
       {building && (
         <div className="curating-pulse" style={{ marginTop:0, padding:"14px 18px", background:"var(--c-card)", borderRadius:10, textAlign:"center" }}>
@@ -1579,7 +1578,7 @@ export default function MyDetroit({
   return (
     <div>
       {/* Section header + tabs */}
-      <div style={{ background:"var(--c-deep)", padding:"12px 20px 0", borderBottom:"1px solid var(--c-border)" }}>
+      <div style={{ position:"relative", zIndex:2, background:"var(--c-deep)", padding:"12px 20px 0", borderBottom:"1px solid var(--c-border)" }}>
         <div style={{ maxWidth:680, margin:"0 auto" }}>
           <p style={{ ...MONO,fontSize:"0.52rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"var(--c-gold)",margin:"0 0 5px" }}>Personal Guide</p>
           <h2 style={{ ...SERIF,fontSize:"clamp(1.8rem,5vw,2.8rem)",fontWeight:400,color:"var(--c-white)",margin:"0 0 4px" }}>Itinerary</h2>
