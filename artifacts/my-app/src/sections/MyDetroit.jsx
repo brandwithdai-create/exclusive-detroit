@@ -986,10 +986,10 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
 
   return (
     <div style={{ position:"relative", minHeight:"calc(100dvh - 68px - env(safe-area-inset-top))" }}>
-      {/* Background image — CSS var picks daytime/nighttime per theme, no re-render on theme switch */}
-      <div aria-hidden="true" style={{ position:"absolute",top:0,left:0,width:"100%",height:"100dvh",backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
-      {/* Cinematic overlay — same fixed height as image */}
-      <div style={{ position:"absolute",top:0,left:0,width:"100%",height:"100dvh",background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
+      {/* Background image — fixed to viewport so it covers full height regardless of content */}
+      <div aria-hidden="true" style={{ position:"fixed",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
+      {/* Cinematic overlay — fixed, always covers full viewport */}
+      <div style={{ position:"fixed",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
       <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
@@ -1125,7 +1125,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
               </div>
               {onSavePlan && (
                 <button
-                  onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); setTimeout(() => onGoToSaved?.(), 900); }}
+                  onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); setTimeout(() => onGoToSaved?.(planKey), 650); }}
                   style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background: isSaved ? "rgba(var(--c-gold-rgb),0.04)" : "rgba(var(--c-gold-rgb),0.08)", border:"1.5px solid var(--c-goldD)", color: isSaved ? "var(--c-smoke)" : "var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor: isSaved ? "default" : "pointer", transition:"all 0.2s" }}
                 >
                   {isSaved ? "✓ SAVED" : "SAVE THIS NIGHT ✦"}
@@ -1175,9 +1175,19 @@ function SavedCard({ thumb, thumbGradient, title, cat, sub, onRemove, onCardClic
   );
 }
 
-function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, onUnsaveEvent, onUnsaveHotel, onOpenVenue, photoMap, savedPlans, onDeletePlan }) {
+function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, onUnsaveEvent, onUnsaveHotel, onOpenVenue, photoMap, savedPlans, onDeletePlan, highlightPlanKey, onClearHighlight }) {
+  const [glowKey, setGlowKey] = useState(null);
+  useEffect(() => {
+    if (!highlightPlanKey) return;
+    setGlowKey(highlightPlanKey);
+    const t = setTimeout(() => { setGlowKey(null); onClearHighlight?.(); }, 2200);
+    return () => clearTimeout(t);
+  }, [highlightPlanKey]);
+
   const empty = !savedVenues.length && !savedEventItems.length && !savedHotelItems.length && (!savedPlans || !savedPlans.length);
   return (
+    <>
+    <style>{`@keyframes planGoldGlow{0%{box-shadow:0 0 0 1.5px rgba(200,168,76,0.70),0 0 24px rgba(200,168,76,0.22)}65%{box-shadow:0 0 0 1px rgba(200,168,76,0.35),0 0 10px rgba(200,168,76,0.10)}100%{box-shadow:0 0 0 0px rgba(200,168,76,0),0 0 0px rgba(200,168,76,0)}}.plan-card-glow{animation:planGoldGlow 2.2s ease-out forwards}`}</style>
     <div style={{ padding:"24px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
       {empty ? (
         <div style={{ textAlign:"center",padding:"40px 0" }}>
@@ -1195,8 +1205,10 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                 <span style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.08em",color:"var(--c-smoke)" }}>{savedPlans.length} saved</span>
               </div>
               <div style={{ display:"flex",flexDirection:"column",gap:12 }}>
-                {savedPlans.map(plan => (
-                  <div key={plan.id} style={{ background:"var(--c-card)",border:"1px solid var(--c-border)",borderRadius:10,overflow:"hidden" }}>
+                {savedPlans.map(plan => {
+                  const isNew = !!(glowKey && (plan.stops||[]).map(v=>String(v.id)).sort().join(",") === glowKey);
+                  return (
+                  <div key={plan.id} className={isNew ? "plan-card-glow" : ""} style={{ background:"var(--c-card)",border:"1px solid var(--c-border)",borderRadius:10,overflow:"hidden" }}>
                     <div style={{ padding:"12px 14px 8px",display:"flex",justifyContent:"space-between",alignItems:"flex-start" }}>
                       <div>
                         <div style={{ ...MONO,fontSize:"0.41rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-goldD)",marginBottom:3 }}>
@@ -1221,7 +1233,8 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
                       ))}
                     </div>
                   </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -1308,6 +1321,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
         </>
       )}
     </div>
+    </>
   );
 }
 
@@ -1527,6 +1541,7 @@ export default function MyDetroit({
   passportPending, onPassportConsumed,
 }) {
   const [subTab, setSubTab] = useState("tonight");
+  const [highlightPlanKey, setHighlightPlanKey] = useState(null);
 
   // Stamp overlay — only fires when visited array gains a new entry
   const prevVisitedRef = useRef(null);
@@ -1575,8 +1590,8 @@ export default function MyDetroit({
         </div>
       </div>
 
-      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]} onGoToSaved={()=>setSubTab("saved")}/>}
-      {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap} savedPlans={savedPlans||[]} onDeletePlan={onDeletePlan}/>}
+      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]} onGoToSaved={(key)=>{setSubTab("saved");setHighlightPlanKey(key);}}/>}
+      {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap} savedPlans={savedPlans||[]} onDeletePlan={onDeletePlan} highlightPlanKey={highlightPlanKey} onClearHighlight={()=>setHighlightPlanKey(null)}/>}
       {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue} visitedDates={visitedDates}/>}
     </div>
   );
