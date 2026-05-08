@@ -1169,8 +1169,8 @@ return React.createElement("div",{style:{
   bv===1&&React.createElement("div",{style:{position:"absolute",inset:5.5,borderRadius:1,border:`1px dashed rgba(${rgb},0.22)`,pointerEvents:"none"}}),
   React.createElement("div",{style:{position:"relative",zIndex:1,display:"flex",flexDirection:"column",alignItems:"center",width:"100%"}},
     React.createElement("div",{style:{opacity:.88,lineHeight:0,marginBottom:2}},BUILDINGS[n%8]),
-    React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.26rem",letterSpacing:"0.14em",color:hex,opacity:.92,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
-    dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.20rem",letterSpacing:"0.04em",color:hex,opacity:.68,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
+    React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.34rem",letterSpacing:"0.12em",color:hex,opacity:.92,textTransform:"uppercase",lineHeight:1}},"\u2713 VISITED"),
+    dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.28rem",letterSpacing:"0.05em",color:hex,opacity:.72,textTransform:"uppercase",lineHeight:1,marginTop:2}},dateStr)
   )
 );}
 function getVenueCuisine(v){if(v.cuisine)return v.cuisine;const m={"Cocktail Lounges":"Cocktails","Hidden Bars":"Craft Cocktails","Dinner":"Contemporary American","Rooftops":"Cocktails & Small Plates","Nightlife":"Full Bar","Coffee Shops & Bakeries":"Coffee & Pastries","Lunch":"American Casual","Breakfast":"Brunch & Breakfast","Happy Hour":"Bar Bites & Cocktails","Sports Bars":"Bar Food & Drinks","Outdoor Activities":"N/A"};return m[v.cat]||"Cocktails & More";}
@@ -1205,7 +1205,7 @@ React.createElement("div",{style:{position:"relative",flexShrink:0}},
   (venue.badges||[]).length>0&&React.createElement("div",{style:{position:"absolute",top:10,left:10,display:"flex",gap:5,flexWrap:"wrap",maxWidth:"75%",zIndex:2}},
     (venue.badges||[]).slice(0,2).map(b=>{
       const cfg=BADGE_CFG[b]||{label:b.toUpperCase(),bg:"rgba(0,0,0,0.78)",bdr:"rgba(255,255,255,0.28)",clr:"#fff"};
-      return React.createElement("span",{key:b,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.37rem",letterSpacing:"0.15em",textTransform:"uppercase",color:cfg.clr,background:cfg.bg,border:"1px solid "+cfg.bdr,borderRadius:100,padding:"4px 9px",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",whiteSpace:"nowrap",lineHeight:1.4}},cfg.label);
+      return React.createElement("span",{key:b,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.12em",textTransform:"uppercase",color:cfg.clr,background:cfg.bg,border:"1px solid "+cfg.bdr,borderRadius:100,padding:"4px 10px",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",whiteSpace:"nowrap",lineHeight:1.4}},cfg.label);
     })
   ),
   React.createElement("button",{
@@ -1217,9 +1217,9 @@ React.createElement("div",{style:{position:"relative",flexShrink:0}},
 // CONTENT
 React.createElement("div",{style:{padding:"14px 16px 6px",display:"flex",flexDirection:"column",gap:7,flex:1}},
   React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
-    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.15em",textTransform:"uppercase",color:C.gold}},venue.cat),
+    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",color:C.gold}},venue.cat),
     React.createElement("span",{style:{color:"rgba(201,168,76,0.38)",fontSize:"0.62rem",lineHeight:1}}," · "),
-    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.10em",textTransform:"uppercase",color:C.smoke}},venue.hood)
+    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.08em",textTransform:"uppercase",color:C.smoke}},venue.hood)
   ),
   React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.45rem",fontWeight:600,color:C.white,lineHeight:1.12,margin:0}},venue.name),
   vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.90rem",fontStyle:"italic",color:"var(--c-vibe-txt)",margin:0,lineHeight:1.3}},vibeLine),
@@ -1304,7 +1304,7 @@ return React.createElement("div",{
 React.createElement("div",{style:{position:"relative",flexShrink:0}},
   React.createElement(VenueImg,{src:dbSrc||fallbackSrc,fallbackSrc,alt:venue.name,height:imgHeight||160}),
   React.createElement("div",{style:{position:"absolute",top:10,left:10,zIndex:2}},
-    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.37rem",letterSpacing:"0.15em",textTransform:"uppercase",color:just?"#0C0904":"#fff",background:just?"rgba(201,168,76,0.92)":"rgba(110,75,195,0.88)",border:"1px solid "+(just?"rgba(201,168,76,0.72)":"rgba(110,75,195,0.62)"),borderRadius:100,padding:"4px 9px",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",whiteSpace:"nowrap",lineHeight:1.4}},just?"JUST OPENED":"COMING SOON")
+    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.12em",textTransform:"uppercase",color:just?"#0C0904":"#fff",background:just?"rgba(201,168,76,0.92)":"rgba(110,75,195,0.88)",border:"1px solid "+(just?"rgba(201,168,76,0.72)":"rgba(110,75,195,0.62)"),borderRadius:100,padding:"4px 10px",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",whiteSpace:"nowrap",lineHeight:1.4}},just?"JUST OPENED":"COMING SOON")
   ),
   React.createElement("button",{
     onClick:e=>{e.stopPropagation();onFav(String(venue.id));},
@@ -1314,12 +1314,12 @@ React.createElement("div",{style:{position:"relative",flexShrink:0}},
 ),
 React.createElement("div",{style:{padding:"14px 16px 6px",display:"flex",flexDirection:"column",gap:6,flex:1}},
   React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
-    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.15em",textTransform:"uppercase",color:acc}},venue.cat),
+    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.12em",textTransform:"uppercase",color:acc}},venue.cat),
     React.createElement("span",{style:{color:"rgba(201,168,76,0.38)",fontSize:"0.62rem",lineHeight:1}}," · "),
-    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.10em",textTransform:"uppercase",color:C.smoke}},venue.hood)
+    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.08em",textTransform:"uppercase",color:C.smoke}},venue.hood)
   ),
   React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.35rem",fontWeight:600,color:C.white,lineHeight:1.12,margin:0}},venue.name),
-  venue.note&&React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.40rem",letterSpacing:"0.10em",color:acc,margin:0,lineHeight:1.4,opacity:0.85}},venue.note),
+  venue.note&&React.createElement("p",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",letterSpacing:"0.06em",color:acc,margin:0,lineHeight:1.5,opacity:0.90}},venue.note),
   React.createElement("p",{style:{fontSize:"0.78rem",color:C.ash,fontWeight:300,lineHeight:1.62,flex:1,margin:0}},venue.desc)
 ),
 React.createElement("div",{style:{margin:"10px 16px 0",height:1,background:C.borderS}}),
@@ -1398,7 +1398,7 @@ return React.createElement(React.Fragment,null,
           React.createElement("div",{key:row.label,style:{display:"flex",alignItems:"flex-start",gap:12,padding:"11px 16px",borderBottom:idx<INFO_ROWS.length-1?"1px solid rgba(201,168,76,0.08)":"none"}},
             React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7,minWidth:120,flexShrink:0,paddingTop:1}},
               React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.58rem",color:"rgba(201,168,76,0.60)",lineHeight:1,flexShrink:0,width:14,textAlign:"center"}},row.icon),
-              React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--c-modal-lbl)",lineHeight:1.2}},row.label)
+              React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.10em",textTransform:"uppercase",color:"var(--c-modal-lbl)",lineHeight:1.2}},row.label)
             ),
             React.createElement("span",{style:{fontSize:"0.81rem",color:"var(--c-modal-val)",fontWeight:300,lineHeight:1.5,flex:1,paddingTop:1}},row.val)
           )
@@ -1745,10 +1745,10 @@ selectedPinPos&&selected&&React.createElement("div",{onClick:()=>{if(selected.ca
 React.createElement("div",{style:{width:80,flexShrink:0,overflow:"hidden",background:"rgba(20,12,4,0.8)",position:"relative",minHeight:PIN_CARD_H}},
 selImg&&React.createElement("img",{src:selImg,alt:selected.name,loading:"eager",decoding:"async",fetchPriority:"high",style:{position:"absolute",inset:0,width:"100%",height:"100%",objectFit:"cover",display:"block",opacity:0,transition:"opacity 0.22s ease"},onLoad:e=>{e.target.style.opacity="1";},onError:e=>{e.target.style.display="none";}})),
 React.createElement("div",{style:{flex:1,padding:"10px 11px 10px",display:"flex",flexDirection:"column",minWidth:0}},
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.16em",textTransform:"uppercase",color:C.gold,display:"block",marginBottom:2}},
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.13em",textTransform:"uppercase",color:C.gold,display:"block",marginBottom:2}},
 (selected.badges||[]).includes("locals")?"LOCALS KNOW":(selected.badges||[]).includes("hidden")?"HIDDEN GEM":selected.cat.toUpperCase()),
 React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.1rem",fontWeight:600,color:"#F5F2EE",lineHeight:1.15,margin:"0 0 1px",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},selected.name),
-React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.38rem",letterSpacing:"0.1em",textTransform:"uppercase",color:"rgba(245,242,238,0.4)",display:"block",marginBottom:6}},selected.hood),
+React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.08em",textTransform:"uppercase",color:"rgba(245,242,238,0.44)",display:"block",marginBottom:6}},selected.hood),
 React.createElement("div",{style:{display:"flex",alignItems:"center",justifyContent:"space-between",marginTop:"auto"}},
 React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.1em",textTransform:"uppercase",color:C.gold,display:"flex",alignItems:"center",gap:3}},"VIEW DETAILS\u00a0\u2192"),
 React.createElement("button",{onClick:e=>{e.stopPropagation();selected.cat==="Hotels"?toggleSavedHotel(String(selected.id)):toggleFav(String(selected.id));},title:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"Saved":"Save",style:{background:"none",border:"none",color:(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?C.gold:"rgba(245,242,238,0.38)",fontSize:"0.95rem",cursor:"pointer",padding:"2px 5px",lineHeight:1,transition:"color 0.15s",touchAction:"manipulation"}},(selected.cat==="Hotels"?isSavedHotel(selected.id):isFav(selected.id))?"\u2665":"\u2661"))
@@ -1938,7 +1938,7 @@ React.createElement("line",{x1:8,y1:6,x2:21,y2:6}),React.createElement("line",{x
 React.createElement("svg",{width:20,height:20,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWidth:1.5,strokeLinecap:"round",strokeLinejoin:"round"},
 React.createElement("circle",{cx:12,cy:12,r:10}),React.createElement("line",{x1:12,y1:16,x2:12,y2:12}),React.createElement("line",{x1:12,y1:8,x2:12.01,y2:8}))],
 ].map(([s,l,icon])=>
-React.createElement("button",{key:s,onClick:()=>navTo(s),style:{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:4,flex:1,background:"none",border:"none",cursor:"pointer",color:section===s?C.gold:C.smoke,transition:"color 0.15s",fontFamily:"'DM Mono',monospace",fontSize:"0.41rem",letterSpacing:"0.1em",textTransform:"uppercase",padding:"0 4px"}},
+React.createElement("button",{key:s,onClick:()=>navTo(s),style:{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:4,flex:1,background:"none",border:"none",cursor:"pointer",color:section===s?C.gold:C.smoke,transition:"color 0.15s",fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",letterSpacing:"0.08em",textTransform:"uppercase",padding:"0 4px"}},
 React.createElement("span",{style:{lineHeight:0,opacity:section===s?1:0.55,transition:"opacity 0.15s"}},icon),
 React.createElement("span",{style:{marginTop:2}},l)
 )
