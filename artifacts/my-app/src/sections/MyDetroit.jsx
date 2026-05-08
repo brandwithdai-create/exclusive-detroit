@@ -1006,7 +1006,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
       {/* Step flow — numbered 1→2→3 with dotted connector */}
       <div style={{ position:"relative" }}>
         {/* Dotted connector line behind the circles */}
-        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2.5px dashed rgba(242,203,66,0.60)",zIndex:0,pointerEvents:"none" }}/>
+        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2.5px dashed rgba(var(--c-gold-rgb),0.60)",zIndex:0,pointerEvents:"none" }}/>
 
         {/* Q1 — When */}
         <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:20 }}>
@@ -1109,7 +1109,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
                 YOUR NIGHT
               </p>
               <div style={{ position:"relative" }}>
-                <div style={{ position:"absolute",left:14,top:20,bottom:20,width:2,background:"linear-gradient(180deg,var(--c-goldD) 0%,rgba(242,203,66,0.2) 100%)",borderRadius:1 }}/>
+                <div style={{ position:"absolute",left:14,top:20,bottom:20,width:2,background:"linear-gradient(180deg,var(--c-goldD) 0%,rgba(var(--c-gold-rgb),0.2) 100%)",borderRadius:1 }}/>
                 <div style={{ display:"flex",flexDirection:"column",gap:16 }}>
                   {result.stops.map((v,i) => (
                     <div key={v.id} style={{ display:"flex",gap:14,alignItems:"flex-start" }}>
@@ -1126,7 +1126,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
               {onSavePlan && (
                 <button
                   onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); setTimeout(() => onGoToSaved?.(), 900); }}
-                  style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background: isSaved ? "rgba(242,203,66,0.04)" : "rgba(242,203,66,0.08)", border:"1.5px solid var(--c-goldD)", color: isSaved ? "var(--c-smoke)" : "var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor: isSaved ? "default" : "pointer", transition:"all 0.2s" }}
+                  style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background: isSaved ? "rgba(var(--c-gold-rgb),0.04)" : "rgba(var(--c-gold-rgb),0.08)", border:"1.5px solid var(--c-goldD)", color: isSaved ? "var(--c-smoke)" : "var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor: isSaved ? "default" : "pointer", transition:"all 0.2s" }}
                 >
                   {isSaved ? "✓ SAVED" : "SAVE THIS NIGHT ✦"}
                 </button>
@@ -1343,16 +1343,16 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
   const spineBg    = isDark
     ? "linear-gradient(90deg,#0c0904 0%,#181108 100%)"
     : "linear-gradient(90deg,#b8a060 0%,#c8b070 100%)";
-  const lineColor  = isDark ? "rgba(242,203,66,0.05)" : "rgba(100,70,20,0.07)";
-  const wmColor    = isDark ? "rgba(242,203,66,0.022)" : "rgba(100,70,20,0.045)";
-  const borderClr  = isDark ? "rgba(242,203,66,0.09)"  : "rgba(100,70,20,0.2)";
-  const headerText = isDark ? "rgba(242,203,66,0.42)"  : "rgba(80,50,15,0.52)";
+  const lineColor  = isDark ? "rgba(var(--c-gold-rgb),0.05)" : "rgba(100,70,20,0.07)";
+  const wmColor    = isDark ? "rgba(var(--c-gold-rgb),0.022)" : "rgba(100,70,20,0.045)";
+  const borderClr  = isDark ? "rgba(var(--c-gold-rgb),0.09)"  : "rgba(100,70,20,0.2)";
+  const headerText = isDark ? "rgba(var(--c-gold-rgb),0.42)"  : "rgba(80,50,15,0.52)";
   const subText    = isDark ? "var(--c-smoke)"          : "rgba(70,45,10,0.6)";
   const countColor = isDark ? "var(--c-white)"          : "rgba(50,30,5,0.88)";
   const goldClr    = isDark ? "var(--c-gold)"           : "rgba(120,85,20,0.85)";
-  const spineText  = isDark ? "rgba(242,203,66,0.22)"   : "rgba(60,35,8,0.3)";
-  const stitchClr  = isDark ? "rgba(242,203,66,0.14)"   : "rgba(80,50,15,0.2)";
-  const progressBg = isDark ? "rgba(242,203,66,0.1)"    : "rgba(100,70,20,0.12)";
+  const spineText  = isDark ? "rgba(var(--c-gold-rgb),0.22)"   : "rgba(60,35,8,0.3)";
+  const stitchClr  = isDark ? "rgba(var(--c-gold-rgb),0.14)"   : "rgba(80,50,15,0.2)";
+  const progressBg = isDark ? "rgba(var(--c-gold-rgb),0.1)"    : "rgba(100,70,20,0.12)";
   const progressFg = isDark
     ? "linear-gradient(90deg,var(--c-goldD),var(--c-gold))"
     : "linear-gradient(90deg,rgba(120,85,20,0.65),rgba(160,115,30,0.85))";
@@ -1379,7 +1379,7 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
         overflow:"hidden",
         minHeight:"calc(100dvh - 240px)",
         boxShadow: isDark
-          ? "0 20px 70px rgba(0,0,0,0.8), 0 2px 12px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(242,203,66,0.07)"
+          ? "0 20px 70px rgba(0,0,0,0.8), 0 2px 12px rgba(0,0,0,0.55), inset 0 0 0 1px rgba(var(--c-gold-rgb),0.07)"
           : "0 20px 70px rgba(0,0,0,0.38), 0 2px 12px rgba(0,0,0,0.22)",
       }}>
 
@@ -1420,9 +1420,9 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
           {/* Horizontal ruled lines */}
           <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(0deg,transparent 0px,transparent 28px,${lineColor} 28px,${lineColor} 29px)` }}/>
           {/* Vertical column lines (security paper) */}
-          <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(90deg,transparent 0px,transparent 55px,${isDark?"rgba(242,203,66,0.018)":"rgba(100,70,20,0.025)"} 55px,${isDark?"rgba(242,203,66,0.018)":"rgba(100,70,20,0.025)"} 56px)` }}/>
+          <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(90deg,transparent 0px,transparent 55px,${isDark?"rgba(var(--c-gold-rgb),0.018)":"rgba(100,70,20,0.025)"} 55px,${isDark?"rgba(var(--c-gold-rgb),0.018)":"rgba(100,70,20,0.025)"} 56px)` }}/>
           {/* Diagonal security lines */}
-          <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(47deg,transparent 0px,transparent 18px,${isDark?"rgba(242,203,66,0.012)":"rgba(100,70,20,0.018)"} 18px,${isDark?"rgba(242,203,66,0.012)":"rgba(100,70,20,0.018)"} 18.5px)` }}/>
+          <div style={{ position:"absolute",inset:0,pointerEvents:"none",backgroundImage:`repeating-linear-gradient(47deg,transparent 0px,transparent 18px,${isDark?"rgba(var(--c-gold-rgb),0.012)":"rgba(100,70,20,0.018)"} 18px,${isDark?"rgba(var(--c-gold-rgb),0.012)":"rgba(100,70,20,0.018)"} 18.5px)` }}/>
 
           {/* Circular watermark rings */}
           <div style={{ position:"absolute",top:"45%",left:"50%",transform:"translate(-50%,-50%)",width:260,height:260,borderRadius:"50%",border:`1px solid ${wmColor}`,pointerEvents:"none" }}/>
@@ -1463,7 +1463,7 @@ function PassportTab({ visited, allVenues, navTo, overlayVenueId, onOverlayDone,
           {/* Stamp scatter area — flex:1 so it fills the passport height */}
           <div style={{ flex:1, position:"relative", padding:"14px 10px 18px", zIndex:1, minHeight: stampAreaH }}>
             {stamps.length === 0 ? (
-              <p style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.08em",color:`rgba(242,203,66,0.2)`,textAlign:"center",paddingTop:28,marginBottom:0 }}>
+              <p style={{ ...MONO,fontSize:"0.42rem",letterSpacing:"0.08em",color:`rgba(var(--c-gold-rgb),0.2)`,textAlign:"center",paddingTop:28,marginBottom:0 }}>
                 Visit venues and mark them as visited to earn stamps
               </p>
             ) : (
