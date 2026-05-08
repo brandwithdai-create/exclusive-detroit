@@ -1006,7 +1006,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
       {/* Step flow — numbered 1→2→3 with dotted connector */}
       <div style={{ position:"relative" }}>
         {/* Dotted connector line behind the circles */}
-        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2.5px dashed rgba(242,203,66,0.85)",zIndex:0,pointerEvents:"none" }}/>
+        <div style={{ position:"absolute",left:18,top:38,bottom:38,borderLeft:"2.5px dashed rgba(242,203,66,0.60)",zIndex:0,pointerEvents:"none" }}/>
 
         {/* Q1 — When */}
         <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:20 }}>
