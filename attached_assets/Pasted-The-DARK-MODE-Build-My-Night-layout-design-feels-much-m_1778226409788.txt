@@ -1,0 +1,78 @@
+The DARK MODE Build My Night layout/design feels much more premium than the current LIGHT MODE version. I want to redesign LIGHT MODE so it feels visually consistent with the luxury direction of the light mode hero.
+
+Right now the light Build My Night section feels:
+- too flat
+- too white
+- too generic
+- too form-like
+- not cinematic/luxury enough
+
+I want the LIGHT MODE Build My Night redesigned to feel:
+- airy luxury
+- editorial
+- soft hotel/lounge aesthetic
+- visually layered like the light mode hero
+- elegant instead of “settings form”
+
+Design direction:
+Use the LIGHT MODE hero as the visual reference.
+
+What to change:
+
+1. Reduce the heavy white boxes
+The current large white cards feel bulky and generic.
+
+Please:
+- soften them
+- reduce the harshness of the white
+- make them feel more elevated/luxury
+- lighter shadows
+- softer edges
+- more atmospheric spacing
+
+2. Make the background feel more integrated
+Right now the section feels disconnected from the skyline/waterfront background.
+
+I want the background to feel more blended and cinematic like the hero section:
+- soft airy atmosphere
+- subtle layering
+- elegant depth
+- luxury hotel website energy
+
+3. Improve the gold styling
+The selected states/buttons should feel more refined and premium:
+- richer champagne gold
+- softer glow
+- elegant contrast
+- less “solid mustard rectangle”
+
+4. Typography refinement
+The Build My Night section should visually match the sophistication of the hero:
+- cleaner spacing
+- more breathing room
+- elegant hierarchy
+- less dense feeling
+
+5. Add gold frames around the 4 hero cards in LIGHT MODE
+On the Explore hero section in LIGHT MODE only:
+
+Add a noticeable elegant gold frame/ring around each of the 4 bottom cards:
+- Sports Tickets
+- Concerts
+- Hotel Stays
+- Events
+
+The frame should feel:
+- luxury
+- polished
+- intentional
+- high-end editorial
+
+Not thick or tacky.
+Think refined metallic gold framing.
+
+The cards should feel more premium and separated from the soft background.
+
+IMPORTANT:
+Do NOT touch DARK MODE.
+These changes are LIGHT MODE ONLY.
