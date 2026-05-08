@@ -1192,6 +1192,7 @@ React.useEffect(()=>{
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
 const vibeLine=getVibeLine(venue);
+const cta=getCTA(venue);
 const goldBdr=hov?"rgba(201,168,76,0.72)":"rgba(201,168,76,0.38)";
 return React.createElement("div",{
   ref:cardRef,
@@ -1233,9 +1234,9 @@ React.createElement("div",{style:{margin:"10px 16px 0",height:1,background:C.bor
 // BOTTOM CTA ROW
 React.createElement("div",{style:{padding:"10px 12px 14px",display:"flex",gap:8,alignItems:"center"}},
   React.createElement("button",{
-    onClick:e=>{e.stopPropagation();const url=venue.reservationUrl||venue.websiteUrl;if(url)window.open(url,"_blank","noopener");else onOpen(String(venue.id));},
+    onClick:e=>{e.stopPropagation();if(cta?.url)window.open(cta.url,"_blank","noopener");else onOpen(String(venue.id));},
     style:{flex:1,padding:"12px 0",borderRadius:10,background:"linear-gradient(135deg,#B88E38 0%,#C9A848 100%)",border:"none",color:"#0C0904",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",cursor:"pointer",fontWeight:700,transition:"opacity 0.15s"}
-  },"BOOK NOW"),
+  },cta?.label?.toUpperCase()||"BOOK NOW"),
   React.createElement("button",{
     onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),1600);}onVisit&&onVisit(String(venue.id));},
     title:isVis?"Visited":"Add to Passport",
@@ -1292,6 +1293,7 @@ React.useEffect(() => {
 }, []);
 const just = venue.status==="justopened";
 const acc = just ? C.gold : C.purple;
+const cta=getCTA(venue);
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
 const goldBdr = hov ? "rgba(201,168,76,0.72)" : "rgba(201,168,76,0.38)";
@@ -1325,9 +1327,9 @@ React.createElement("div",{style:{padding:"14px 16px 6px",display:"flex",flexDir
 React.createElement("div",{style:{margin:"10px 16px 0",height:1,background:C.borderS}}),
 React.createElement("div",{style:{padding:"10px 12px 14px",display:"flex",gap:8,alignItems:"center"}},
   React.createElement("button",{
-    onClick:e=>{e.stopPropagation();const url=venue.reservationUrl||venue.websiteUrl;if(url)window.open(url,"_blank","noopener");else onOpen(String(venue.id));},
+    onClick:e=>{e.stopPropagation();if(cta?.url)window.open(cta.url,"_blank","noopener");else onOpen(String(venue.id));},
     style:{flex:1,padding:"12px 0",borderRadius:10,background:"linear-gradient(135deg,#B88E38 0%,#C9A848 100%)",border:"none",color:"#0C0904",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",cursor:"pointer",fontWeight:700,transition:"opacity 0.15s"}
-  },just?"BOOK NOW":"LEARN MORE"),
+  },cta?.label?.toUpperCase()||"LEARN MORE"),
   React.createElement("button",{
     onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),1600);}onVisit&&onVisit(String(venue.id));},
     title:isVis?"Visited":"Add to Passport",
