@@ -1172,10 +1172,16 @@ return React.createElement("div",{style:{
     dateStr&&React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.20rem",letterSpacing:"0.04em",color:hex,opacity:.68,textTransform:"uppercase",lineHeight:1,marginTop:1}},dateStr)
   )
 );}
+function getVenueCuisine(v){if(v.cuisine)return v.cuisine;const m={"Cocktail Lounges":"Cocktails","Hidden Bars":"Craft Cocktails","Dinner":"Contemporary American","Rooftops":"Cocktails & Small Plates","Nightlife":"Full Bar","Coffee Shops & Bakeries":"Coffee & Pastries","Lunch":"American Casual","Breakfast":"Brunch & Breakfast","Happy Hour":"Bar Bites & Cocktails","Sports Bars":"Bar Food & Drinks","Outdoor Activities":"N/A"};return m[v.cat]||"Cocktails & More";}
+function getVenuePriceRange(v){if(v.priceRange)return v.priceRange;const m={"Cocktail Lounges":"$$$","Hidden Bars":"$$","Dinner":"$$$","Rooftops":"$$$","Nightlife":"$$","Coffee Shops & Bakeries":"$","Lunch":"$$","Breakfast":"$$","Happy Hour":"$$","Sports Bars":"$$","Outdoor Activities":"$"};return m[v.cat]||"$$";}
+function getVenueDressCode(v){if(v.dressCode)return v.dressCode;const m={"Cocktail Lounges":"Smart Casual","Hidden Bars":"Casual","Dinner":"Business Casual","Rooftops":"Upscale Casual","Nightlife":"Smart Casual","Coffee Shops & Bakeries":"Casual","Lunch":"Casual","Breakfast":"Casual","Happy Hour":"Casual","Sports Bars":"Casual","Outdoor Activities":"Casual"};return m[v.cat]||"Smart Casual";}
+function getVenueReservations(v){if(v.reservations)return v.reservations;const h=(v.hours||"").toLowerCase();if(h.includes("walk-in"))return"Walk-ins Only";const m={"Dinner":"Required","Cocktail Lounges":"Recommended","Rooftops":"Recommended","Hidden Bars":"Walk-ins Only","Nightlife":"Not Required","Coffee Shops & Bakeries":"Not Required","Sports Bars":"Not Required"};return m[v.cat]||"Recommended";}
+const BADGE_CFG={hidden:{label:"HIDDEN GEM",bg:"rgba(70,24,8,0.88)",bdr:"rgba(210,120,60,0.55)",clr:"#E0A060"},locals:{label:"LOCALS KNOW",bg:"rgba(50,14,36,0.88)",bdr:"rgba(180,80,130,0.55)",clr:"#D89AC0"},firsttimer:{label:"FIRST TIMER",bg:"rgba(12,30,60,0.88)",bdr:"rgba(60,110,200,0.55)",clr:"#90B8E0"}};
+function PassportSVG({stroke,w=20,h=16,style}){return React.createElement("svg",{width:w,height:h,viewBox:"0 0 72 50",fill:"none",stroke:stroke,strokeWidth:2.0,strokeLinecap:"round",strokeLinejoin:"round",style:style||{}},React.createElement("rect",{x:10,y:22,width:52,height:26}),React.createElement("rect",{x:24,y:12,width:24,height:10}),React.createElement("rect",{x:30,y:6,width:12,height:6}),React.createElement("rect",{x:16,y:17,width:40,height:5}),React.createElement("rect",{x:14,y:29,width:8,height:8,opacity:0.5}),React.createElement("rect",{x:28,y:34,width:16,height:14}),React.createElement("rect",{x:50,y:29,width:8,height:8,opacity:0.5}));}
 const VCard = React.memo(function VCard({ venue, isFav, onFav, onOpen, i, photoMap, priority=false, isVis=false, onVisit, visitedDate }) {
 const [hov, setHov] = useState(false);
-const [justVisited, setJustVisited] = React.useState(false);
-const _jvTimer = React.useRef(null);
+const [stampPop, setStampPop] = React.useState(false);
+const _spTimer = React.useRef(null);
 const cardRef = React.useRef(null);
 React.useEffect(()=>{
   const el=cardRef.current; if(!el) return;
@@ -1185,44 +1191,59 @@ React.useEffect(()=>{
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
 const vibeLine=getVibeLine(venue);
-const cardBorder = C.border;
-const cardShadow = hov ? "var(--c-shdw-h)" : "var(--c-shdw-f)";
-return React.createElement("div", {
-ref: cardRef,
-onClick:()=>{setHov(false);onOpen(String(venue.id));},
-onMouseEnter:()=>setHov(true), onMouseLeave:()=>setHov(false),
-style:{ background:C.card, border:"1px solid "+cardBorder, borderRadius:12, cursor:"pointer", display:"flex", flexDirection:"column", overflow:"hidden", transform:hov?"translateY(-4px)":"none", boxShadow:cardShadow, transition:"transform 0.24s,box-shadow 0.3s ease,border-color 0.3s ease", animation:"fadeSlideIn 0.28s ease both", animationDelay:Math.min(i*0.025,0.22)+"s" }
+const goldBdr=hov?"rgba(201,168,76,0.72)":"rgba(201,168,76,0.38)";
+return React.createElement("div",{
+  ref:cardRef,
+  onClick:()=>{setHov(false);onOpen(String(venue.id));},
+  onMouseEnter:()=>setHov(true),onMouseLeave:()=>setHov(false),
+  style:{background:C.card,border:"1.5px solid "+goldBdr,borderRadius:18,cursor:"pointer",display:"flex",flexDirection:"column",overflow:"hidden",boxShadow:hov?"0 8px 32px rgba(0,0,0,0.52)":"0 2px 14px rgba(0,0,0,0.30)",transition:"transform 0.22s,box-shadow 0.28s,border-color 0.22s",animation:"fadeSlideIn 0.28s ease both",animationDelay:Math.min(i*0.025,0.22)+"s",transform:hov?"translateY(-3px)":"none"}
 },
+// IMAGE AREA
 React.createElement("div",{style:{position:"relative",flexShrink:0}},
-React.createElement(VenueImg,{src:dbSrc||fallbackSrc,fallbackSrc,alt:venue.name,priority}),
-isVis&&React.createElement("div",{style:{position:"absolute",top:8,right:8,width:22,height:22,borderRadius:"50%",background:"rgba(var(--c-gold-rgb),0.92)",border:"1.5px solid rgba(255,255,255,0.55)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:"0.6rem",color:"#0A0A0A",fontWeight:700,zIndex:2,lineHeight:1,userSelect:"none"}},"✓")
+  React.createElement(VenueImg,{src:dbSrc||fallbackSrc,fallbackSrc,alt:venue.name,height:220,priority}),
+  (venue.badges||[]).length>0&&React.createElement("div",{style:{position:"absolute",top:10,left:10,display:"flex",gap:5,flexWrap:"wrap",maxWidth:"75%",zIndex:2}},
+    (venue.badges||[]).slice(0,2).map(b=>{
+      const cfg=BADGE_CFG[b]||{label:b.toUpperCase(),bg:"rgba(0,0,0,0.78)",bdr:"rgba(255,255,255,0.28)",clr:"#fff"};
+      return React.createElement("span",{key:b,style:{fontFamily:"'DM Mono',monospace",fontSize:"0.37rem",letterSpacing:"0.15em",textTransform:"uppercase",color:cfg.clr,background:cfg.bg,border:"1px solid "+cfg.bdr,borderRadius:100,padding:"4px 9px",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",whiteSpace:"nowrap",lineHeight:1.4}},cfg.label);
+    })
+  ),
+  React.createElement("button",{
+    onClick:e=>{e.stopPropagation();onFav(String(venue.id));},
+    onMouseDown:e=>e.preventDefault(),
+    style:{position:"absolute",top:10,right:10,zIndex:2,width:38,height:38,borderRadius:"50%",background:"rgba(0,0,0,0.52)",backdropFilter:"blur(8px)",WebkitBackdropFilter:"blur(8px)",border:isFav?"1.5px solid rgba(201,168,76,0.72)":"1.5px solid rgba(255,255,255,0.20)",color:isFav?C.gold:"rgba(255,255,255,0.90)",fontSize:"1rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.18s",padding:0,lineHeight:1}
+  },isFav?"\u2665":"\u2661")
 ),
-React.createElement("div", { style:{ padding:"14px 18px 10px", display:"flex", flexDirection:"column", gap:9, flex:1 }},
-React.createElement("div", { style:{ display:"flex", justifyContent:"space-between" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold }}, venue.cat),
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.1em", textTransform:"uppercase", color:C.smoke }}, venue.hood)
+// CONTENT
+React.createElement("div",{style:{padding:"14px 16px 6px",display:"flex",flexDirection:"column",gap:7,flex:1}},
+  React.createElement("div",{style:{display:"flex",alignItems:"center",gap:6}},
+    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.15em",textTransform:"uppercase",color:C.gold}},venue.cat),
+    React.createElement("span",{style:{color:"rgba(201,168,76,0.38)",fontSize:"0.62rem",lineHeight:1}}," · "),
+    React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.10em",textTransform:"uppercase",color:C.smoke}},venue.hood)
+  ),
+  React.createElement("h3",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"1.45rem",fontWeight:600,color:C.white,lineHeight:1.12,margin:0}},venue.name),
+  vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.90rem",fontStyle:"italic",color:"var(--c-vibe-txt)",margin:0,lineHeight:1.3}},vibeLine),
+  React.createElement("p",{style:{fontSize:"0.78rem",color:C.ash,fontWeight:300,lineHeight:1.62,flex:1,margin:0}},venue.desc),
+  React.createElement("div",{style:{display:"flex",flexWrap:"wrap",gap:4,marginTop:2}},
+    venue.vibes.slice(0,3).map(v=>React.createElement(Vibe,{key:v,label:v}))
+  )
 ),
-venue.distMi!==undefined&&React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.62rem",letterSpacing:"0.1em",color:C.purple}},"◉ "+venue.distMi.toFixed(1)+" mi away"),
-(venue.badges||[]).length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:5 }}, (venue.badges||[]).map(b=>React.createElement(Chip,{key:b,type:b}))),
-React.createElement("h3", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", fontWeight:600, color:C.white, lineHeight:1.15, margin:0 }}, venue.name),
-vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.82rem",fontStyle:"italic",color:"var(--c-vibe-txt)",margin:0,lineHeight:1.4}},vibeLine),
-React.createElement("p", { style:{ fontSize:"0.78rem", color:C.ash, fontWeight:300, lineHeight:1.65, flex:1, margin:0 }}, venue.desc),
-React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:4 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v})))
-),
-React.createElement("div",{style:{borderTop:"1px solid "+C.borderS,display:"flex",alignItems:"stretch",overflow:"hidden"}},
-React.createElement("div",{onClick:e=>{e.stopPropagation();onVisit&&onVisit(String(venue.id));if(!isVis){clearTimeout(_jvTimer.current);setJustVisited(true);_jvTimer.current=setTimeout(()=>setJustVisited(false),2000);}},style:{flex:1,display:"flex",alignItems:"center",gap:8,padding:"9px 10px",cursor:"pointer",minWidth:0,transition:"background 0.3s",background:justVisited?"rgba(var(--c-gold-rgb),0.06)":"transparent"},onPointerEnter:e=>{if(!justVisited)e.currentTarget.style.background="rgba(var(--c-gold-rgb),0.05)";},onPointerLeave:e=>{if(!justVisited)e.currentTarget.style.background="transparent";}},
-isVis?React.createElement(CardStamp,{venue,date:visitedDate}):React.createElement("div",{style:{width:36,height:36,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",borderRadius:"50%",border:"1px solid rgba(var(--c-gold-rgb),0.22)"}},
-React.createElement("svg",{width:15,height:13,viewBox:"0 0 15 13",fill:"none",stroke:C.goldD,strokeWidth:1.3,strokeLinecap:"round",strokeLinejoin:"round"},
-React.createElement("path",{d:"M1 12h13M4 12V7.5L7.5 3l3.5 4.5V12"}),
-React.createElement("rect",{x:5.5,y:8.5,width:4,height:3.5}))),
-React.createElement("div",{style:{minWidth:0,flex:1}},
-React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.4rem",letterSpacing:"0.14em",textTransform:"uppercase",color:isVis?C.gold:C.goldD,lineHeight:1.2,whiteSpace:"nowrap"}},isVis?"VISITED":"ADD TO PASSPORT"),
-React.createElement("div",{style:{fontSize:"0.64rem",color:C.smoke,fontWeight:300,lineHeight:1.3,marginTop:1.5,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},isVis?(visitedDate||"Stamped"):"Stamp this spot")
-)),
-React.createElement("div",{style:{width:1,background:C.borderS,flexShrink:0,margin:"8px 0"}}),
-React.createElement("button",{onClick:e=>{e.stopPropagation();onOpen(String(venue.id));},style:{display:"flex",alignItems:"center",justifyContent:"center",gap:4,padding:"9px 11px",background:"none",border:"none",cursor:"pointer",color:C.goldL,fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",flexShrink:0,whiteSpace:"nowrap",transition:"color 0.18s"}},"VIEW DETAILS",React.createElement("span",{style:{fontSize:"0.72rem",lineHeight:1}},"→")),
-React.createElement("div",{style:{width:1,background:C.borderS,flexShrink:0,margin:"8px 0"}}),
-React.createElement("button",{onClick:e=>{e.stopPropagation();onFav(String(venue.id));},onMouseDown:e=>e.preventDefault(),style:{background:"none",border:"none",cursor:"pointer",color:isFav?C.gold:C.bone,fontSize:"1.05rem",width:38,display:"inline-flex",alignItems:"center",justifyContent:"center",flexShrink:0,padding:0,transition:"color 0.18s"}},isFav?"\u2665":"\u2661")
+// DIVIDER
+React.createElement("div",{style:{margin:"10px 16px 0",height:1,background:C.borderS}}),
+// BOTTOM CTA ROW
+React.createElement("div",{style:{padding:"10px 12px 14px",display:"flex",gap:8,alignItems:"center"}},
+  React.createElement("button",{
+    onClick:e=>{e.stopPropagation();const url=venue.reservationUrl||venue.websiteUrl;if(url)window.open(url,"_blank","noopener");else onOpen(String(venue.id));},
+    style:{flex:1,padding:"12px 0",borderRadius:10,background:"linear-gradient(135deg,#B88E38 0%,#C9A848 100%)",border:"none",color:"#0C0904",fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",cursor:"pointer",fontWeight:700,transition:"opacity 0.15s"}
+  },"BOOK NOW"),
+  React.createElement("button",{
+    onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),1600);}onVisit&&onVisit(String(venue.id));},
+    title:isVis?"Visited":"Add to Passport",
+    style:{width:48,height:48,flexShrink:0,borderRadius:10,background:isVis?"rgba(201,168,76,0.14)":"rgba(201,168,76,0.06)",border:isVis?"1.5px solid rgba(201,168,76,0.52)":"1.5px solid rgba(201,168,76,0.26)",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all 0.22s",transform:stampPop?"scale(1.16)":"scale(1)"}
+  },
+    isVis
+      ?React.createElement("span",{style:{fontSize:"1.1rem",color:C.gold,lineHeight:1}},"\u2713")
+      :React.createElement(PassportSVG,{stroke:C.goldD})
+  )
 )
 );
 });
@@ -1314,114 +1335,100 @@ React.createElement("button",{onClick:e=>{e.stopPropagation();onFav(String(venue
 
 function Modal({ venue, isFav, onFav, onClose, photoMap, isVis=false, onVisit, visitedDate }) {
 if (!venue) return null;
-const isV = typeof venue.id === "number";
-const badges = venue.badges||[];
 const fallbackSrc = React.useMemo(() => getVenueFallbackImage(venue), [venue.id]);
 const dbSrc = photoMap?.[String(venue.id)] || null;
+const heroSrc = dbSrc || fallbackSrc;
+const vibeLine = getVibeLine(venue);
+const cuisine = getVenueCuisine(venue);
+const priceRange = getVenuePriceRange(venue);
+const dressCode = getVenueDressCode(venue);
+const reservations = getVenueReservations(venue);
+const galleryPhotos = venue.galleryPhotos || [heroSrc,heroSrc,heroSrc,heroSrc];
 React.useLayoutEffect(() => {
-const body = document.body;
-const html = document.documentElement;
-const prevBodyOverflow = body.style.overflow;
-const prevHtmlOverflow = html.style.overflow;
-body.style.overflow = "hidden";
-html.style.overflow = "hidden";
-return () => {
-body.style.overflow = prevBodyOverflow;
-html.style.overflow = prevHtmlOverflow;
-};
+  const body=document.body,html=document.documentElement;
+  const pb=body.style.overflow,ph=html.style.overflow;
+  body.style.overflow="hidden";html.style.overflow="hidden";
+  return ()=>{body.style.overflow=pb;html.style.overflow=ph;};
 }, []);
 const [visPrs,setVisPrs]=useState(false);
+const [stampAnim,setStampAnim]=useState(false);
+const _saTimer=React.useRef(null);
 const _STAMP_COLORS=[{hex:"#C0463A",rgb:"192,70,58"},{hex:"#6B4DA0",rgb:"107,77,160"},{hex:"#3A6B9B",rgb:"58,107,155"},{hex:"#3A7A3A",rgb:"58,122,58"},{hex:"#C06B2A",rgb:"192,107,42"},{hex:"#2A7A8A",rgb:"42,122,138"},{hex:"#8B3A6B",rgb:"139,58,107"},{hex:"#6B5A2A",rgb:"107,90,42"}];
 const _sn=parseInt(String(venue.id).replace(/\D/g,""))||0;
 const _sc=_STAMP_COLORS[_sn%_STAMP_COLORS.length];
-return React.createElement(React.Fragment, null,
-React.createElement("div", { onClick:onClose, onTouchMove:e=>e.preventDefault(), style:{ position:"fixed", inset:0, background:"var(--c-modal-bd)", zIndex:800, backdropFilter:"blur(6px)", WebkitBackdropFilter:"blur(6px)" }}),
-React.createElement("div", { style:{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"min(620px,93vw)", maxHeight:"92vh", overflowY:"auto", WebkitOverflowScrolling:"touch", overscrollBehavior:"contain", background:"var(--c-modal-bg)", border:"1px solid var(--c-modal-bdr)", borderRadius:16, zIndex:900 }},
-React.createElement("div", { style:{ position:"relative", flexShrink:0 } },
-React.createElement(VenueImg, { src:dbSrc || fallbackSrc, fallbackSrc, alt:venue.name, height:240, priority:true })
-),
-React.createElement("div", { style:{ padding:"20px 24px 32px", display:"flex", flexDirection:"column", gap:14 }},
-React.createElement("div", { style:{ display:"flex", justifyContent:"space-between", alignItems:"center" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.16em", textTransform:"uppercase", color:C.gold, fontWeight:400 }}, venue.cat),
-React.createElement("div", { style:{ display:"flex", alignItems:"center", gap:14 }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.51rem", letterSpacing:"0.12em", textTransform:"uppercase", color:"var(--c-modal-hood)" }}, venue.hood),
-React.createElement("button", { onClick:onClose, style:{ background:"none", border:"none", color:"var(--c-modal-close)", cursor:"pointer", fontSize:"1.15rem", fontWeight:300, flexShrink:0, transition:"color 0.18s", minWidth:36, minHeight:36, display:"flex", alignItems:"center", justifyContent:"center", lineHeight:1, padding:0 }}, "✕")
-)),
-badges.length > 0 && React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:6 }}, badges.map(b=>React.createElement(Chip,{key:b,type:b}))),
-venue.status && (venue.status==="justopened"||venue.status==="comingsoon") && React.createElement("div", null, React.createElement(Chip,{type:venue.status})),
-React.createElement("h2", { style:{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.5rem,4vw,2rem)", fontWeight:600, color:C.white, lineHeight:1.1, margin:0 }}, venue.name),
-React.createElement("div", { style:{ display:"flex", flexWrap:"wrap", gap:5 }}, venue.vibes.map(v=>React.createElement(Vibe,{key:v,label:v}))),
-React.createElement("p", { style:{ fontSize:"0.86rem", color:"var(--c-modal-body)", fontWeight:300, lineHeight:1.72, margin:0 }}, venue.desc),
-venue.exclusive && React.createElement("div", { style:{ background:"var(--c-modal-excl-bg)", border:"1px solid var(--c-modal-excl-bdr)", borderRadius:6, padding:"13px 16px" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.15em", textTransform:"uppercase", color:C.gold, display:"block", marginBottom:6 }}, isV?"Why it feels exclusive":"Why this matters"),
-React.createElement("p", { style:{ fontSize:"0.83rem", color:"var(--c-modal-body)", fontWeight:300, fontStyle:"italic", lineHeight:1.62, margin:0 }}, venue.exclusive)
-),
-venue.note && React.createElement("div", { style:{ background:venue.status==="justopened"?"var(--c-modal-note-bg)":"var(--c-modal-notep-bg)", border:"1px solid "+(venue.status==="justopened"?"var(--c-modal-note-bdr)":"var(--c-modal-notep-bdr)"), borderRadius:6, padding:"10px 14px" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.5rem", letterSpacing:"0.1em", color:venue.status==="justopened"?C.gold:C.purple }}, venue.note)
-),
-React.createElement("div", { style:{ background:"var(--c-modal-info-bg)", border:"1px solid var(--c-modal-info-bdr)", borderRadius:6, padding:"13px 16px", display:"flex", flexDirection:"column", gap:9 }},
-[["Address",venue.addr],["Hours",venue.hours],["Best for",venue.best||""]].filter(p=>p[1]).map(p=>
-React.createElement("div", { key:p[0], style:{ display:"flex", gap:12, alignItems:"flex-start" }},
-React.createElement("span", { style:{ fontFamily:"'DM Mono',monospace", fontSize:"0.52rem", letterSpacing:"0.1em", textTransform:"uppercase", color:"var(--c-modal-lbl)", minWidth:68, paddingTop:2 }}, p[0]),
-React.createElement("span", { style:{ fontSize:"0.81rem", color:"var(--c-modal-val)", fontWeight:300, lineHeight:1.5 }}, p[1])
-)
-)
-),
-React.createElement("div", { style:{ display:"flex", gap:10, alignItems:"center" }},
-React.createElement(CTA, { venue, full:true }),
-React.createElement("button", { onClick:()=>onFav(String(venue.id)), title:isFav?"Saved":"Save", style:{ width:38, height:38, flexShrink:0, display:"inline-flex", alignItems:"center", justifyContent:"center", padding:0, background:isFav?"rgba(var(--c-gold-rgb),0.15)":"var(--c-modal-save-bg)", border:"1.5px solid "+(isFav?"rgba(var(--c-gold-rgb),0.7)":"var(--c-modal-save-bdr)"), color:isFav?C.gold:"var(--c-modal-save-clr)", fontSize:"1rem", borderRadius:8, cursor:"pointer", transition:"all 0.18s" }}, isFav?"\u2665":"\u2661")
-),
-React.createElement("div",{style:{marginTop:10}},
-React.createElement("button",{
-onClick:()=>onVisit&&onVisit(String(venue.id)),
-onMouseDown:()=>setVisPrs(true),onMouseUp:()=>setVisPrs(false),
-onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>setVisPrs(true),onTouchEnd:()=>setVisPrs(false),
-style:{
-  width:"100%",padding:0,background:"none",border:"none",
-  cursor:"pointer",transition:"transform 0.18s",
-  transform:visPrs?"scale(0.975)":"scale(1)",
-}},
-isVis
-? React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:`rgba(${_sc.rgb},0.06)`,border:`1.5px solid rgba(${_sc.rgb},0.28)`,borderRadius:12,height:66,boxSizing:"border-box",overflow:"hidden"}},
-    React.createElement("div",{style:{flexShrink:0,width:40,height:40,position:"relative",display:"flex",alignItems:"center",justifyContent:"center"}},
-      React.createElement("div",{style:{position:"absolute",inset:0,border:`2px dashed rgba(${_sc.rgb},0.6)`,borderRadius:4,pointerEvents:"none"}}),
-      React.createElement("div",{style:{position:"absolute",inset:4,border:`1px solid rgba(${_sc.rgb},0.22)`,borderRadius:2,pointerEvents:"none"}}),
-      React.createElement("div",{style:{position:"relative",zIndex:1,textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",gap:1}},
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.20rem",letterSpacing:"0.12em",color:_sc.hex,opacity:.72,textTransform:"uppercase",lineHeight:1}},"★ EXCL DETROIT ★"),
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.48rem",fontWeight:700,letterSpacing:"0.10em",color:_sc.hex,lineHeight:1.15,textTransform:"uppercase"}},"VISITED"),
-        React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.20rem",letterSpacing:"0.04em",color:_sc.hex,opacity:.65,textTransform:"uppercase",lineHeight:1}},visitedDate?visitedDate.split(",")[0].toUpperCase():"")
-      )
+const bookUrl=venue.reservationUrl||venue.websiteUrl;
+const INFO_ROWS=[
+  {icon:"\u25CE",label:"ADDRESS",val:venue.addr},
+  {icon:"\u29D6",label:"HOURS",val:venue.hours},
+  {icon:"\u2726",label:"CUISINE",val:cuisine},
+  {icon:"$",label:"PRICE RANGE",val:priceRange},
+  {icon:"\u25C7",label:"RESERVATIONS",val:reservations},
+  {icon:"\u25C8",label:"DRESS CODE",val:dressCode},
+].filter(r=>r.val);
+return React.createElement(React.Fragment,null,
+  React.createElement("div",{onClick:onClose,onTouchMove:e=>e.preventDefault(),style:{position:"fixed",inset:0,background:"var(--c-modal-bd)",zIndex:800,backdropFilter:"blur(6px)",WebkitBackdropFilter:"blur(6px)"}}),
+  React.createElement("div",{style:{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:"min(620px,93vw)",maxHeight:"92vh",overflowY:"auto",WebkitOverflowScrolling:"touch",overscrollBehavior:"contain",background:"var(--c-modal-bg)",border:"1px solid var(--c-modal-bdr)",borderRadius:20,zIndex:900}},
+    // HERO IMAGE with overlay buttons
+    React.createElement("div",{style:{position:"relative",flexShrink:0,overflow:"hidden",borderRadius:"20px 20px 0 0"}},
+      React.createElement(VenueImg,{src:heroSrc,fallbackSrc,alt:venue.name,height:260,priority:true}),
+      React.createElement("div",{style:{position:"absolute",inset:0,background:"linear-gradient(to bottom,rgba(0,0,0,0.42) 0%,transparent 50%)",pointerEvents:"none"}}),
+      React.createElement("button",{onClick:onClose,style:{position:"absolute",top:14,left:14,zIndex:2,width:40,height:40,borderRadius:"50%",background:"rgba(0,0,0,0.55)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",border:"1.5px solid rgba(255,255,255,0.18)",color:"rgba(255,255,255,0.92)",fontSize:"1.15rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1,transition:"all 0.18s"}},"\u2190"),
+      React.createElement("button",{onClick:()=>onFav(String(venue.id)),onMouseDown:e=>e.preventDefault(),style:{position:"absolute",top:14,right:14,zIndex:2,width:40,height:40,borderRadius:"50%",background:"rgba(0,0,0,0.55)",backdropFilter:"blur(10px)",WebkitBackdropFilter:"blur(10px)",border:isFav?"1.5px solid rgba(201,168,76,0.72)":"1.5px solid rgba(255,255,255,0.18)",color:isFav?C.gold:"rgba(255,255,255,0.90)",fontSize:"1.1rem",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",padding:0,lineHeight:1,transition:"all 0.18s"}},isFav?"\u2665":"\u2661")
     ),
-    React.createElement("div",{style:{flex:1,minWidth:0}},
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",fontWeight:700,letterSpacing:"0.14em",textTransform:"uppercase",color:_sc.hex,marginBottom:3}},"Visited"),
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.06em",color:`rgba(${_sc.rgb},0.75)`}},visitedDate||"Stamped")
+    // CONTENT
+    React.createElement("div",{style:{padding:"20px 20px 32px",display:"flex",flexDirection:"column",gap:16}},
+      // Name + descriptor
+      React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:5}},
+        React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"clamp(1.5rem,4vw,2rem)",fontWeight:600,color:C.white,lineHeight:1.1,margin:0}},venue.name),
+        vibeLine&&React.createElement("p",{style:{fontFamily:"'Cormorant Garamond',serif",fontSize:"0.92rem",fontStyle:"italic",color:"var(--c-vibe-txt)",margin:0,lineHeight:1.3}},vibeLine)
+      ),
+      // Description
+      React.createElement("p",{style:{fontSize:"0.83rem",color:"var(--c-modal-body)",fontWeight:300,lineHeight:1.72,margin:0}},venue.desc),
+      // INFO BOX
+      React.createElement("div",{style:{background:"var(--c-modal-info-bg)",border:"1px solid var(--c-modal-info-bdr)",borderRadius:10,overflow:"hidden"}},
+        INFO_ROWS.map((row,idx)=>
+          React.createElement("div",{key:row.label,style:{display:"flex",alignItems:"flex-start",gap:12,padding:"11px 16px",borderBottom:idx<INFO_ROWS.length-1?"1px solid rgba(201,168,76,0.08)":"none"}},
+            React.createElement("div",{style:{display:"flex",alignItems:"center",gap:7,minWidth:120,flexShrink:0,paddingTop:1}},
+              React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.58rem",color:"rgba(201,168,76,0.60)",lineHeight:1,flexShrink:0,width:14,textAlign:"center"}},row.icon),
+              React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.44rem",letterSpacing:"0.12em",textTransform:"uppercase",color:"var(--c-modal-lbl)",lineHeight:1.2}},row.label)
+            ),
+            React.createElement("span",{style:{fontSize:"0.81rem",color:"var(--c-modal-val)",fontWeight:300,lineHeight:1.5,flex:1,paddingTop:1}},row.val)
+          )
+        )
+      ),
+      // PHOTOS
+      React.createElement("div",{style:{display:"flex",flexDirection:"column",gap:9}},
+        React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.50rem",letterSpacing:"0.18em",textTransform:"uppercase",color:C.gold}},"PHOTOS"),
+        React.createElement("div",{style:{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:6}},
+          galleryPhotos.slice(0,4).map((src,idx)=>
+            React.createElement("div",{key:idx,style:{aspectRatio:"1/1",borderRadius:8,overflow:"hidden",background:C.card,border:"1px solid "+C.borderS}},
+              React.createElement("img",{src,alt:venue.name,loading:"lazy",style:{width:"100%",height:"100%",objectFit:"cover",opacity:0,transition:"opacity 0.22s"},onLoad:e=>{e.target.style.opacity="1";},onError:e=>{e.target.style.display="none";}})
+            )
+          )
+        )
+      ),
+      // BOOK NOW
+      React.createElement("button",{
+        onClick:()=>{if(bookUrl)window.open(bookUrl,"_blank","noopener");},
+        style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:10,padding:"16px 0",borderRadius:12,background:"linear-gradient(135deg,#B88E38 0%,#C9A848 100%)",border:"none",color:"#0C0904",fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",letterSpacing:"0.18em",textTransform:"uppercase",cursor:bookUrl?"pointer":"default",fontWeight:700,transition:"opacity 0.15s"}
+      },"BOOK NOW",React.createElement("span",{style:{fontSize:"1rem",fontWeight:400,lineHeight:1}},"\u2192")),
+      // ADD TO PASSPORT
+      React.createElement("button",{
+        onClick:()=>{
+          if(!isVis){clearTimeout(_saTimer.current);setStampAnim(true);_saTimer.current=setTimeout(()=>setStampAnim(false),2200);}
+          onVisit&&onVisit(String(venue.id));
+        },
+        onMouseDown:()=>setVisPrs(true),onMouseUp:()=>setVisPrs(false),
+        onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>setVisPrs(true),onTouchEnd:()=>setVisPrs(false),
+        style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:10,padding:"14px 0",background:isVis?`rgba(${_sc.rgb},0.08)`:"transparent",border:isVis?`1.5px solid rgba(${_sc.rgb},0.45)`:"1.5px solid rgba(201,168,76,0.32)",borderRadius:12,cursor:isVis?"default":"pointer",transition:"all 0.22s",transform:visPrs&&!isVis?"scale(0.975)":"scale(1)"}
+      },
+        React.createElement(PassportSVG,{stroke:isVis?_sc.hex:"rgba(201,168,76,0.75)",style:{flexShrink:0,animation:stampAnim?"stampIn 0.55s cubic-bezier(0.22,1,0.36,1) both":"none"}}),
+        React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.52rem",letterSpacing:"0.18em",textTransform:"uppercase",color:isVis?_sc.hex:"rgba(201,168,76,0.82)",fontWeight:isVis?700:400,animation:stampAnim&&!isVis?"stampIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.04s both":"none"}},
+          isVis?"\u2713 VISITED \u2014 "+((visitedDate||"").split(",")[0]||"Stamped"):"ADD TO PASSPORT"
+        )
+      )
     )
   )
-: React.createElement("div",{style:{display:"flex",alignItems:"center",gap:14,padding:"13px 18px",background:"rgba(var(--c-gold-rgb),0.05)",border:"1.5px dashed rgba(var(--c-gold-rgb),0.28)",borderRadius:12,textAlign:"left",height:66,boxSizing:"border-box",overflow:"hidden"}},
-    React.createElement("div",{style:{width:40,height:40,borderRadius:8,background:"rgba(var(--c-gold-rgb),0.08)",border:"1px solid rgba(var(--c-gold-rgb),0.22)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
-      React.createElement("svg",{width:22,height:22,viewBox:"0 0 72 48",fill:"none",stroke:"rgba(var(--c-gold-rgb),0.72)",strokeWidth:1.3,strokeLinecap:"round",strokeLinejoin:"round"},
-        React.createElement("rect",{x:12,y:21,width:48,height:25,stroke:"rgba(var(--c-gold-rgb),0.72)"}),
-        React.createElement("rect",{x:25,y:11,width:22,height:10}),
-        React.createElement("rect",{x:31,y:5,width:10,height:6}),
-        React.createElement("rect",{x:18,y:16,width:36,height:5}),
-        React.createElement("rect",{x:16,y:28,width:8,height:8,opacity:.5}),
-        React.createElement("rect",{x:28,y:33,width:16,height:13}),
-        React.createElement("rect",{x:48,y:28,width:8,height:8,opacity:.5})
-      )
-    ),
-    React.createElement("div",{style:{flex:1,minWidth:0}},
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.56rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(var(--c-gold-rgb),0.88)",marginBottom:3}},"Add to Passport"),
-      React.createElement("div",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.46rem",letterSpacing:"0.06em",color:"rgba(var(--c-gold-rgb),0.45)"}},"Stamp this spot in your passport")
-    ),
-    React.createElement("svg",{width:14,height:14,viewBox:"0 0 14 14",fill:"none",stroke:"rgba(var(--c-gold-rgb),0.4)",strokeWidth:1.4,strokeLinecap:"round",strokeLinejoin:"round",flexShrink:0},
-      React.createElement("line",{x1:2,y1:7,x2:12,y2:7}),
-      React.createElement("polyline",{points:"8,3 12,7 8,11"})
-    )
-  )
-)
-)
-)
-)
 );
 }
 
@@ -1774,7 +1781,7 @@ const gridTopRef = useRef(null);
 
 useEffect(()=>{
 const s=document.createElement('style');s.id='ed-anim';
-s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes cardPopIn{0%{opacity:0;transform:scale(0.88) translateY(6px)}100%{opacity:1;transform:scale(1) translateY(0)}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
+s.textContent='@keyframes fadeSlideIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}@keyframes cardPopIn{0%{opacity:0;transform:scale(0.88) translateY(6px)}100%{opacity:1;transform:scale(1) translateY(0)}}@keyframes stampIn{0%{transform:scale(1.6) rotate(-14deg);opacity:0}55%{transform:scale(0.90) rotate(3deg);opacity:1}75%{transform:scale(1.04) rotate(-1deg)}100%{transform:scale(1) rotate(0deg);opacity:1}}.creator-highlight{position:relative}.creator-highlight.glow::after{content:"";position:absolute;inset:-6px;border-radius:16px;box-shadow:0 0 0px rgba(212,175,55,0),0 0 25px rgba(212,175,55,0.35),0 0 45px rgba(212,175,55,0.15);opacity:1;transition:opacity 1.2s ease;pointer-events:none}.creator-highlight.fade::after{opacity:0}';
 document.head.appendChild(s);
 return()=>{const el=document.getElementById('ed-anim');if(el)el.remove();};
 },[]);
