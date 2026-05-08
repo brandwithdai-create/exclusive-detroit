@@ -937,7 +937,7 @@ function buildNightSummary(when, who, energy) {
   return `We're building ${vibe} ${timeWord} ${whoSuffix}`;
 }
 
-function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans }) {
+function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, onGoToSaved }) {
   const [when,    setWhen]    = useState("night");
   const [who,     setWho]     = useState("date");
   const [energy,  setEnergy]  = useState("elevated");
@@ -1125,7 +1125,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans }
               </div>
               {onSavePlan && (
                 <button
-                  onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); }}
+                  onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); setTimeout(() => onGoToSaved?.(), 900); }}
                   style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background: isSaved ? "rgba(242,203,66,0.04)" : "rgba(242,203,66,0.08)", border:"1.5px solid var(--c-goldD)", color: isSaved ? "var(--c-smoke)" : "var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor: isSaved ? "default" : "pointer", transition:"all 0.2s" }}
                 >
                   {isSaved ? "✓ SAVED" : "SAVE THIS NIGHT ✦"}
@@ -1566,7 +1566,7 @@ export default function MyDetroit({
         </div>
       </div>
 
-      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]}/>}
+      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]} onGoToSaved={()=>setSubTab("saved")}/>}
       {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap} savedPlans={savedPlans||[]} onDeletePlan={onDeletePlan}/>}
       {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue} visitedDates={visitedDates}/>}
     </div>
