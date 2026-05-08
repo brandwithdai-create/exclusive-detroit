@@ -985,12 +985,12 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
   );
 
   return (
-    <div style={{ position:"relative", minHeight:"calc(100dvh - 68px - env(safe-area-inset-top))" }}>
-      {/* Background image — fixed to viewport so it covers full height regardless of content */}
-      <div aria-hidden="true" style={{ position:"fixed",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
-      {/* Cinematic overlay — fixed, always covers full viewport */}
-      <div style={{ position:"fixed",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
-      <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
+    <div style={{ position:"relative" }}>
+      {/* Zone 1 — skyline behind questions only */}
+      <div style={{ position:"relative", overflow:"hidden" }}>
+        <div aria-hidden="true" style={{ position:"absolute",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
+        <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
+        <div style={{ position:"relative",zIndex:1, padding:"28px 20px 32px", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
       <div style={{ marginBottom:28 }}>
@@ -1084,10 +1084,14 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
           {building ? "Building your night…" : "BUILD MY NIGHT ✨"}
         </button>
       </div>
+        </div>{/* closes inner content */}
+      </div>{/* closes Zone 1 with skyline */}
 
+      {/* Zone 2 — plain background for results */}
+      <div style={{ background:"var(--c-deep)", padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
       {/* Building pulse */}
       {building && (
-        <div className="curating-pulse" style={{ marginTop:16, padding:"14px 18px", background:"var(--c-deep)", borderRadius:10, textAlign:"center" }}>
+        <div className="curating-pulse" style={{ marginTop:0, padding:"14px 18px", background:"var(--c-card)", borderRadius:10, textAlign:"center" }}>
           <span style={{ ...MONO,fontSize:"0.46rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-goldD)" }}>
             Curating your night…
           </span>
