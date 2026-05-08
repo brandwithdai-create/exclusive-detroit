@@ -1,0 +1,75 @@
+I’m attaching a mockup for the onboarding carousel direction. I really like this overall look, so let’s test this direction.
+
+What this mockup is:
+A 4-slide luxury onboarding carousel that teaches users how to use the app while matching the actual app aesthetic.
+
+It should feel like:
+- cinematic
+- luxury Detroit
+- black / gold / champagne / cream
+- editorial
+- polished
+- connected to the real app experience
+
+IMPORTANT:
+Do not use one repeated skyline image for every slide. Each slide should have a different image that matches the app’s light/dark mode aesthetic.
+
+Slide 1: Discover Detroit Hidden Gems
+- Dark mode aesthetic
+- Moody Detroit skyline / city lights
+- Black + gold
+- Teaches users this is a curated guide for restaurants, bars, rooftops, events, and hidden gems
+
+Slide 2: Build My Night
+- Light mode aesthetic, but slightly toned down so it is not too bright
+- Champagne/cream warmth
+- Elegant dinner/rooftop/night-out imagery
+- Teaches users they can answer a few questions and get a personalized 3-stop itinerary
+
+Slide 3: Collect Passport Stamps
+- Dark mode aesthetic
+- Shows a venue card and passport stamp interaction
+- Teaches users they can mark venues as visited and collect passport stamps with visit dates
+
+Slide 4: Save Everything
+- Light mode aesthetic, but slightly warmer/darker than pure white
+- Keep the heart/save concept
+- Remove any fake bookmark or calendar icons because those do not exist in the app
+- Replace them with real app concepts only:
+  - heart/save venue
+  - passport stamp
+  - saved night/itinerary list
+- Do not show features that are not actually in the app
+
+Animation direction:
+Every slide needs a real visible animation. Not chaotic, but also not so subtle that users miss it.
+
+Examples:
+- Slide 1: soft skyline light shimmer, gold compass pulse, text fades up
+- Slide 2: preference cards animate in one by one like the user is selecting time/vibe/group
+- Slide 3: passport button presses, stamp lands, “Visited” stamp appears with date
+- Slide 4: heart fills, saved item slides into a saved list, passport/saved icons gently highlight
+
+The animation should teach:
+- tap this
+- choose this
+- stamp this
+- save this
+
+Keep animations:
+- premium
+- smooth
+- obvious enough to understand
+- not childish
+- not random floating emojis
+
+Design requirements:
+- Match the actual app typography and luxury tone
+- Use gold accents consistently
+- Use soft fade/dissolve transitions between slides
+- Avoid harsh dark-to-bright jumps
+- Light slides should be champagne/cream toned, not stark white
+- Dark slides should match the app’s dark hero mood
+
+Goal:
+The onboarding should feel like the app already started — a luxury preview that teaches users how to use Exclusive Detroit.

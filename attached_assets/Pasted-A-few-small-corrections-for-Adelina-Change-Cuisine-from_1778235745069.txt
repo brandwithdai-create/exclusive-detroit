@@ -1,0 +1,64 @@
+A few small corrections for Adelina:
+
+- Change Cuisine from “Contemporary American” to “Italian / Mediterranean”
+- Change Price Range from $$$ to $$$$
+- Keep Reservations as “Recommended” (not Required)
+
+Everything else for Adelina looked good overall.
+
+Also, the inside gallery photos need to be fixed. Right now the 4 images are duplicates of the main image. Each venue needs 4 different, real photos from that actual venue.
+
+Please apply this same level of accuracy checking across ALL venue cards and inside detail views in the app.
+
+For every venue:
+- Verify address
+- Verify hours
+- Verify cuisine
+- Verify price range
+- Verify dress code
+- Verify reservation wording
+- Verify descriptions
+- Verify images
+
+Everything needs to be accurate, real, and venue-specific.
+
+Dress codes should stay short and elegant:
+Examples:
+- Smart Casual
+- Business Casual
+- Upscale Casual
+- Cocktail Attire
+
+Reservations should generally say:
+“Recommended”
+instead of “Required”
+
+For the image galleries:
+- Pull 4 fresh venue-specific images
+- Do NOT duplicate the hero image
+- Make sure the images actually match the venue
+- Prioritize interior shots, dining atmosphere, cocktails, rooftop views, signature spaces, etc.
+- Keep all images aesthetically consistent with the luxury brand
+
+And after the one-time Places API import:
+- save all images as static local assets
+- remove all live/runtime API dependencies
+- no recurring photo API calls after import
+
+Also please make these SAME venue card updates to the Open Opportunity Detroit section as well.
+
+Those venue cards were not updated yet, but they should behave exactly like the rest of the cards in the app:
+- same new outside card layout
+- same inside detail view
+- same passport functionality
+- same visited stamp animation
+- same updated buttons
+- same typography hierarchy
+- same spacing
+- same image gallery system
+- same accurate information structure
+
+Everything across the app should now feel unified, polished, and consistent.
+
+The goal is for the app to feel:
+accurate, curated, luxury, polished, and trustworthy — not templated or AI-generated.
