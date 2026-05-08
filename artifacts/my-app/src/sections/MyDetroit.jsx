@@ -996,10 +996,10 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
       {/* Header */}
       <div style={{ marginBottom:28 }}>
         <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"var(--c-gold)",margin:"0 0 6px",opacity:0.8 }}>Personal Concierge</p>
-        <h2 style={{ ...SERIF,fontSize:"2.2rem",fontWeight:400,color:"var(--c-white)",margin:0,lineHeight:1.1 }}>
-          Build My Night ✨
+        <h2 style={{ ...SERIF,fontSize:"2.2rem",fontWeight:"var(--c-bmn-title-weight,400)",color:"var(--c-bmn-title,var(--c-white))",margin:0,lineHeight:1.1 }}>
+          Build My Night <span style={{ filter:"var(--c-sparkle-filter,none)" }}>✨</span>
         </h2>
-        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.07em",color:"var(--c-smoke)",margin:"8px 0 0" }}>
+        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.07em",color:"var(--c-bmn-subtitle,var(--c-smoke))",fontWeight:500,margin:"8px 0 0" }}>
           Answer three questions. We'll craft the perfect night.
         </p>
       </div>
@@ -1013,7 +1013,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
         <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:20 }}>
           <StepNum n={1}/>
           <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px",marginTop:0 }}>
-            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
+            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-bmn-q-label,var(--c-white))",margin:"0 0 12px" }}>
               When does your night begin?
             </p>
             <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
@@ -1028,7 +1028,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
         <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:20 }}>
           <StepNum n={2}/>
           <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
-            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
+            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-bmn-q-label,var(--c-white))",margin:"0 0 12px" }}>
               Who's joining you?
             </p>
             <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
@@ -1043,7 +1043,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
         <div style={{ display:"flex",gap:14,alignItems:"flex-start",marginBottom:26 }}>
           <StepNum n={3}/>
           <div style={{ flex:1,background:"var(--c-tonight-glass)",backdropFilter:"blur(16px)",WebkitBackdropFilter:"blur(16px)",border:"1px solid var(--c-tonight-glass-bdr)",borderRadius:14,padding:"16px 18px" }}>
-            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-white)",margin:"0 0 12px",opacity:0.9 }}>
+            <p style={{ ...MONO,fontSize:"0.58rem",letterSpacing:"0.14em",textTransform:"uppercase",color:"var(--c-bmn-q-label,var(--c-white))",margin:"0 0 12px" }}>
               What's the energy tonight?
             </p>
             <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
@@ -1063,7 +1063,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
         {/* Summary text */}
         <div style={{ display:"flex",alignItems:"flex-start",gap:12,marginBottom:18 }}>
           <span style={{ fontSize:"1.3rem",color:"var(--c-gold)",flexShrink:0,lineHeight:1,marginTop:2 }}>✦</span>
-          <p style={{ ...SERIF,fontSize:"1.05rem",fontStyle:"italic",color:"var(--c-white)",lineHeight:1.6,margin:0 }}>
+          <p style={{ ...SERIF,fontSize:"1.05rem",fontStyle:"italic",color:"var(--c-bmn-summary-txt,var(--c-white))",lineHeight:1.6,margin:0 }}>
             {buildNightSummary(when, who, energy)}
           </p>
         </div>
@@ -1131,7 +1131,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
               </div>
               {onSavePlan && (
                 <button
-                  onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); setTimeout(() => onGoToSaved?.(planKey), 650); }}
+                  onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); setTimeout(() => onGoToSaved?.(planKey), 1000); }}
                   style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background: isSaved ? "rgba(var(--c-gold-rgb),0.04)" : "var(--c-save-btn-bg,rgba(var(--c-gold-rgb),0.08))", border: isSaved ? "1.5px solid var(--c-goldD)" : "1.5px solid var(--c-save-btn-bdr,var(--c-goldD))", color: isSaved ? "var(--c-smoke)" : "var(--c-save-btn-txt,var(--c-gold))", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor: isSaved ? "default" : "pointer", transition:"all 0.2s" }}
                 >
                   {isSaved ? "✓ SAVED" : "SAVE THIS NIGHT ✦"}
@@ -1194,7 +1194,7 @@ function SavedTab({ savedVenues, savedEventItems, savedHotelItems, toggleFav, on
   const empty = !savedVenues.length && !savedEventItems.length && !savedHotelItems.length && (!savedPlans || !savedPlans.length);
   return (
     <>
-    <style>{`@keyframes planGoldGlow{0%{box-shadow:0 0 0 1.5px rgba(200,168,76,0.70),0 0 24px rgba(200,168,76,0.22)}65%{box-shadow:0 0 0 1px rgba(200,168,76,0.35),0 0 10px rgba(200,168,76,0.10)}100%{box-shadow:0 0 0 0px rgba(200,168,76,0),0 0 0px rgba(200,168,76,0)}}.plan-card-glow{animation:planGoldGlow 2.2s ease-out forwards}`}</style>
+    <style>{`@keyframes planGoldGlow{0%{transform:scale(1.018);box-shadow:0 0 0 2px rgba(200,168,76,0.82),0 0 32px rgba(200,168,76,0.28)}50%{transform:scale(1.005);box-shadow:0 0 0 1px rgba(200,168,76,0.42),0 0 14px rgba(200,168,76,0.12)}100%{transform:scale(1);box-shadow:0 0 0 0px rgba(200,168,76,0),0 0 0px rgba(200,168,76,0)}}.plan-card-glow{animation:planGoldGlow 2.4s cubic-bezier(0.16,1,0.3,1) forwards}`}</style>
     <div style={{ padding:"24px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
       {empty ? (
         <div style={{ textAlign:"center",padding:"40px 0" }}>
@@ -1597,7 +1597,7 @@ export default function MyDetroit({
         </div>
       </div>
 
-      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]} onGoToSaved={(key)=>{setSubTab("saved");setHighlightPlanKey(key);window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;}}/>}
+      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]} onGoToSaved={(key)=>{window.scrollTo({top:0,behavior:"smooth"});setTimeout(()=>{setSubTab("saved");setHighlightPlanKey(key);document.documentElement.scrollTop=0;document.body.scrollTop=0;},320);}}/>}
       {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap} savedPlans={savedPlans||[]} onDeletePlan={onDeletePlan} highlightPlanKey={highlightPlanKey} onClearHighlight={()=>setHighlightPlanKey(null)}/>}
       {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue} visitedDates={visitedDates}/>}
     </div>
