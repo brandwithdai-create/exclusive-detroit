@@ -197,21 +197,37 @@ router.get("/places/venue-photos", async (_req, res) => {
 });
 
 // GET /api/places/venue-gallery
-// Returns all stored gallery photo arrays from DB: { gallery: { [venueId]: string[] } }
+// Returns gallery photo arrays per venue.
+// Primary: dedicated multi-photo rows from venue_gallery table.
+// Fallback: single hero photo from venue_photos for venues without a full gallery yet.
 // Frontend calls this once on startup — zero Google API calls.
 router.get("/places/venue-gallery", async (_req, res) => {
   try {
     const cached = cacheGet("venue-gallery");
     if (cached) return res.json(cached);
-    const result = await pool.query(
+
+    // Dedicated gallery rows (up to 4 real venue photos each)
+    const galleryResult = await pool.query(
       "SELECT venue_id, photo_urls FROM venue_gallery WHERE photo_urls IS NOT NULL AND jsonb_array_length(photo_urls) > 0"
     );
     const gallery: Record<string, string[]> = {};
-    for (const row of result.rows) {
+    for (const row of galleryResult.rows) {
       const urls = Array.isArray(row.photo_urls) ? row.photo_urls : JSON.parse(row.photo_urls || "[]");
       if (urls.length > 0) gallery[row.venue_id] = urls;
     }
-    logger.info({ count: result.rows.length }, "Served venue gallery from DB");
+
+    // Fallback: use hero photo from venue_photos for venues without a gallery yet
+    // (this is a real Google Places photo, just the same one used as the card hero)
+    const heroResult = await pool.query(
+      "SELECT venue_id, photo_url FROM venue_photos WHERE photo_url IS NOT NULL"
+    );
+    for (const row of heroResult.rows) {
+      if (!gallery[row.venue_id] && row.photo_url) {
+        gallery[row.venue_id] = [row.photo_url];
+      }
+    }
+
+    logger.info({ dedicated: galleryResult.rows.length, total: Object.keys(gallery).length }, "Served venue gallery from DB");
     const payload = { gallery };
     cacheSet("venue-gallery", payload);
     return res.json(payload);
@@ -338,10 +354,27 @@ router.post("/places/import", importLimiter, async (req, res) => {
   res.end();
 });
 
+// Fetch photo refs for a known place_id using Places Details API (no Text Search quota)
+async function getPlacePhotos(placeId: string): Promise<PhotoRef[]> {
+  if (!KEY) return [];
+  const res = await fetch(`${BASE}/places/${placeId}`, {
+    headers: {
+      "X-Goog-Api-Key": KEY,
+      "X-Goog-FieldMask": "photos",
+    },
+  });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Places Details API ${res.status}: ${text}`);
+  }
+  const data = await res.json() as { photos?: PhotoRef[] };
+  return data.photos || [];
+}
+
 // POST /api/places/import-gallery
-// One-time endpoint: fetches up to 4 Google Places photos per venue and stores in venue_gallery.
-// Safe to call multiple times — skips venues already imported (idempotent).
-// Cost: ~$4-8 for all venues (4 photo API calls each). After this, no live API calls.
+// One-time endpoint: fetches up to 4 real venue photos per venue via Places Details API
+// (uses existing place_ids from venue_photos — no Text Search quota consumed).
+// Idempotent: skips venues that already have ≥1 gallery photo.
 router.post("/places/import-gallery", importLimiter, async (req, res) => {
   if (!KEY) {
     return res.status(500).json({ error: "GOOGLE_PLACES_KEY not configured" });
@@ -352,17 +385,32 @@ router.post("/places/import-gallery", importLimiter, async (req, res) => {
     return res.status(403).json({ error: "Unauthorized" });
   }
 
-  // Check which venues already have gallery photos
-  let existingIds = new Set<string>();
+  // Load existing place_ids from venue_photos (already fetched during hero import)
+  let placeIdMap: Record<string, string> = {};
   try {
-    const existing = await pool.query("SELECT venue_id FROM venue_gallery");
-    existingIds = new Set(existing.rows.map((r: { venue_id: string }) => r.venue_id));
+    const rows = await pool.query("SELECT venue_id, place_id FROM venue_photos WHERE place_id IS NOT NULL");
+    for (const row of rows.rows) {
+      placeIdMap[row.venue_id] = row.place_id;
+    }
+    logger.info({ count: Object.keys(placeIdMap).length }, "Loaded place_ids from venue_photos");
   } catch (err) {
-    logger.error({ err }, "Failed to read existing gallery IDs");
+    logger.error({ err }, "Failed to load place_ids");
   }
 
-  const toImport = VENUE_IMPORT_LIST.filter(v => !existingIds.has(v.id));
-  logger.info({ total: VENUE_IMPORT_LIST.length, toImport: toImport.length, existing: existingIds.size }, "Starting venue gallery import");
+  // Skip venues that already have ≥1 gallery photo (not just empty arrays)
+  let doneIds = new Set<string>();
+  try {
+    const existing = await pool.query(
+      "SELECT venue_id FROM venue_gallery WHERE jsonb_array_length(photo_urls) > 0"
+    );
+    doneIds = new Set(existing.rows.map((r: { venue_id: string }) => r.venue_id));
+    logger.info({ done: doneIds.size }, "Venues already with gallery photos");
+  } catch (err) {
+    logger.error({ err }, "Failed to read existing gallery");
+  }
+
+  const toImport = VENUE_IMPORT_LIST.filter(v => !doneIds.has(v.id));
+  logger.info({ total: VENUE_IMPORT_LIST.length, toImport: toImport.length, skipped: doneIds.size }, "Starting gallery import via place_ids");
 
   const results: { id: string; status: string; count?: number; error?: string }[] = [];
 
@@ -373,28 +421,58 @@ router.post("/places/import-gallery", importLimiter, async (req, res) => {
   let first = true;
   for (const venue of toImport) {
     try {
-      if (!first) await sleep(200);
+      if (!first) await sleep(150);
 
-      const fields = ["places.id", "places.photos"].join(",");
-      const places = await textSearch(venue.query, fields);
-      const place = places[0];
-
-      if (!place || !place.photos || place.photos.length === 0) {
+      const placeId = placeIdMap[venue.id];
+      if (!placeId) {
+        // No place_id stored — fall back to text search as last resort
+        const fields = ["places.id", "places.photos"].join(",");
+        const places = await textSearch(venue.query, fields);
+        const place = places[0];
+        if (!place?.photos?.length) {
+          const r = { id: venue.id, status: "no_place_id", count: 0 };
+          results.push(r);
+          res.write((first ? "" : ",") + JSON.stringify(r));
+          logger.warn({ venueId: venue.id }, "No place_id and text search returned nothing");
+          first = false;
+          continue;
+        }
+        // Use photos from text search result
+        const photoRefs = place.photos.slice(0, 4);
+        const photoUrls: string[] = [];
+        for (const ref of photoRefs) {
+          await sleep(60);
+          const url = await resolvePhotoUrl(ref.name);
+          if (url) photoUrls.push(url);
+        }
         await pool.query(
-          `INSERT INTO venue_gallery (venue_id, photo_urls) VALUES ($1, '[]'::jsonb)
-           ON CONFLICT (venue_id) DO NOTHING`,
-          [venue.id]
+          `INSERT INTO venue_gallery (venue_id, photo_urls, fetched_at)
+           VALUES ($1, $2::jsonb, NOW())
+           ON CONFLICT (venue_id) DO UPDATE SET photo_urls = EXCLUDED.photo_urls, fetched_at = NOW()`,
+          [venue.id, JSON.stringify(photoUrls)]
         );
-        const r = { id: venue.id, status: "not_found", count: 0 };
+        _cache.delete("venue-gallery");
+        const r = { id: venue.id, status: photoUrls.length > 0 ? "ok_search" : "no_photo", count: photoUrls.length };
         results.push(r);
         res.write((first ? "" : ",") + JSON.stringify(r));
-        logger.warn({ venueId: venue.id }, "No gallery photos found");
         first = false;
         continue;
       }
 
-      // Resolve up to 4 photo URLs
-      const photoRefs = place.photos.slice(0, 4);
+      // Primary path: use existing place_id with Places Details API (no Text Search quota)
+      const photos = await getPlacePhotos(placeId);
+
+      if (!photos.length) {
+        const r = { id: venue.id, status: "no_photo", count: 0 };
+        results.push(r);
+        res.write((first ? "" : ",") + JSON.stringify(r));
+        logger.warn({ venueId: venue.id, placeId }, "No photos returned from Details API");
+        first = false;
+        continue;
+      }
+
+      // Resolve up to 4 photo media URLs
+      const photoRefs = photos.slice(0, 4);
       const photoUrls: string[] = [];
       for (const ref of photoRefs) {
         await sleep(60);
@@ -410,32 +488,30 @@ router.post("/places/import-gallery", importLimiter, async (req, res) => {
            fetched_at = NOW()`,
         [venue.id, JSON.stringify(photoUrls)]
       );
-
-      // Bust the gallery cache so the next GET sees fresh data
       _cache.delete("venue-gallery");
 
       const r = { id: venue.id, status: photoUrls.length > 0 ? "ok" : "no_photo", count: photoUrls.length };
       results.push(r);
       res.write((first ? "" : ",") + JSON.stringify(r));
-      logger.info({ venueId: venue.id, count: photoUrls.length }, "Venue gallery imported");
+      logger.info({ venueId: venue.id, placeId, count: photoUrls.length }, "Gallery imported via place_id");
       first = false;
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       const r = { id: venue.id, status: "error", error: msg };
       results.push(r);
       res.write((first ? "" : ",") + JSON.stringify(r));
-      logger.error({ venueId: venue.id, err: msg }, "Error importing venue gallery");
+      logger.error({ venueId: venue.id, err: msg }, "Error importing gallery");
       first = false;
     }
   }
 
   const summary = {
     total: VENUE_IMPORT_LIST.length,
-    alreadyExisted: existingIds.size,
+    alreadyDone: doneIds.size,
     attempted: toImport.length,
-    ok: results.filter(r => r.status === "ok").length,
+    ok: results.filter(r => r.status === "ok" || r.status === "ok_search").length,
     no_photo: results.filter(r => r.status === "no_photo").length,
-    not_found: results.filter(r => r.status === "not_found").length,
+    skipped: results.filter(r => r.status === "no_place_id").length,
     errors: results.filter(r => r.status === "error").length,
   };
 
