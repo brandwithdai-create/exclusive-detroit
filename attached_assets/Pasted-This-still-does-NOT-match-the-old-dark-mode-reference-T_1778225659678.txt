@@ -1,0 +1,54 @@
+This still does NOT match the old dark mode reference.
+
+The skyline is still too visible, too bright, and too saturated behind the hero content. Whatever was changed did not recreate the old effect.
+
+Please stop making small subtle adjustments. I need the dark mode hero to match the older screenshot where the skyline was dramatically pushed back and the UI floated on top.
+
+Important clarification:
+Maybe “overlay” is not the right word. I mean whatever dark treatment/filter/layer/gradient/vignette was being applied in the older hero that made the skyline extremely dark and low-contrast.
+
+Please inspect the older version if possible and recreate that exact visual treatment.
+
+What needs to happen now:
+
+1. Make the DARK MODE skyline much darker
+- The skyline should be heavily dimmed
+- The city/building details should recede into the background
+- The sky should feel moody and dark, not bright gray
+- The buildings should not compete with the buttons or text
+
+2. Use a stronger actual dark layer if needed
+If the current filter is not enough, add a real black/dark gradient layer over the skyline background only.
+
+The current values are still too weak. Push it much harder if needed:
+- stronger brightness reduction
+- stronger dark overlay
+- stronger vignette
+- stronger bottom darkness
+- lower skyline visibility overall
+
+3. Foreground must remain untouched
+Do NOT darken or fade:
+- hero text
+- pill buttons
+- purple buttons
+- nav
+- bottom cards
+- foreground UI
+
+Only the skyline/background should get darker.
+
+4. Restore UI saturation/color intensity
+Please undo any reduced saturation or dullness on the foreground UI/buttons/gold accents. The buttons and gold outlines should look rich again. The skyline can be dark/desaturated, but the UI itself should stay saturated and crisp.
+
+5. Match the old screenshot, not just “darker”
+The current version is not dark enough. The old reference had the skyline pushed way farther back. Please match that older dark hero as closely as possible.
+
+The final result should be:
+- extremely dark cinematic skyline
+- low-contrast background image
+- bright readable text
+- rich gold/purple buttons
+- UI clearly popping above the background
+
+Please verify visually against the old screenshot before saying it is matched.
