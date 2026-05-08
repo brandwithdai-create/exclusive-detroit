@@ -1594,7 +1594,7 @@ export default function MyDetroit({
         </div>
       </div>
 
-      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]} onGoToSaved={(key)=>{setSubTab("saved");setHighlightPlanKey(key);}}/>}
+      {subTab==="tonight"  && <TonightTab allVenues={allVenues} photoMap={photoMap} onOpenVenue={onOpenVenue} onSavePlan={onSavePlan} savedPlans={savedPlans||[]} onGoToSaved={(key)=>{setSubTab("saved");setHighlightPlanKey(key);window.scrollTo(0,0);document.documentElement.scrollTop=0;document.body.scrollTop=0;}}/>}
       {subTab==="saved"    && <SavedTab savedVenues={savedVenues||[]} savedEventItems={savedEventItems||[]} savedHotelItems={savedHotelItems||[]} toggleFav={toggleFav} onUnsaveEvent={onUnsaveEvent} onUnsaveHotel={onUnsaveHotel} onOpenVenue={onOpenVenue} photoMap={photoMap} savedPlans={savedPlans||[]} onDeletePlan={onDeletePlan} highlightPlanKey={highlightPlanKey} onClearHighlight={()=>setHighlightPlanKey(null)}/>}
       {subTab==="passport" && <PassportTab visited={visited} allVenues={allVenues} navTo={navTo} overlayVenueId={overlayId} onOverlayDone={()=>setOverlayId(null)} onOpenVenue={onOpenVenue} visitedDates={visitedDates}/>}
     </div>
