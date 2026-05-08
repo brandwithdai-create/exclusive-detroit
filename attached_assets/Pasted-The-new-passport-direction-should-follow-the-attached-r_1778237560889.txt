@@ -1,0 +1,92 @@
+The new passport direction should follow the attached reference exactly — luxury travel inspired, editorial, collectible, and premium. Please update BOTH the outside venue cards and the inside venue pages to match this system consistently throughout the app.
+
+OUTSIDE VENUE CARDS
+
+Remove the current passport states completely:
+
+* remove the checkmark state
+* remove the house icon state
+
+Replace them with a true passport-style collectible system.
+
+BEFORE STAMPED:
+
+* use a thin outlined passport icon
+* circular button/container
+* soft cream/champagne background
+* thin gold outline
+* elegant minimal icon styling
+* should feel collectible and intentional, not like a utility button
+
+AFTER STAMPED:
+
+* transform into a filled embossed gold medallion/passport seal
+* subtle gold glow
+* slight depth/shadow
+* premium “collected” feeling
+* this should visually feel rewarding when tapped
+
+ANIMATION AFTER TAP:
+Please make this animation more dramatic and intentional (not subtle):
+
+1. user taps passport icon
+2. icon presses downward slightly
+3. gold glow expands softly
+4. stamped medallion fills in
+5. final embossed “collected” state settles in
+
+The interaction should feel:
+luxury,
+collectible,
+rewarding,
+exclusive.
+
+Not like a checkbox.
+
+INSIDE VENUE PAGE
+
+Replace the current “Add to Passport” button and the current stamped state.
+
+BEFORE STAMPED:
+
+* outlined passport icon on left
+* text:
+    ADD TO PASSPORT
+* cream/champagne translucent background
+* thin gold border
+* taller luxury button styling
+* editorial spacing
+* soft shadow/glow
+
+AFTER STAMPED:
+
+* filled gold/champagne button
+* embossed look
+* passport icon remains on left
+* text changes to:
+    STAMP COLLECTED
+
+Please do NOT use purple outlines anymore for the passport state. Keep everything inside the warm luxury palette:
+gold,
+champagne,
+bronze,
+soft cream.
+
+VERY IMPORTANT:
+The passport system should now feel like:
+
+* a luxury Detroit travel passport
+* a collectible concierge experience
+* a premium members-club feature
+
+NOT:
+
+* a generic save button
+* a task completion checkbox
+* a utility icon
+
+Also make sure:
+
+* all outside venue cards use this exact same passport system
+* all inside venue pages use this exact same passport system
+* animations and styling remain fully consistent across the app.
