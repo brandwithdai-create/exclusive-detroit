@@ -987,7 +987,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
   return (
     <div style={{ position:"relative" }}>
       {/* Single fixed skyline — one continuous bg behind both zones */}
-      <div aria-hidden="true" style={{ position:"fixed",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 15%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
+      <div aria-hidden="true" style={{ position:"fixed",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 38%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
       <div style={{ position:"fixed",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
       {/* Zone 1 — questions */}
       <div style={{ position:"relative",zIndex:1 }}>

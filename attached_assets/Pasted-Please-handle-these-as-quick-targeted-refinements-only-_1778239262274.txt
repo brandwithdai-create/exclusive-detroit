@@ -1,0 +1,50 @@
+Please handle these as quick, targeted refinements only. I’m trying to minimize Replit Agent time/cost, so please do not do broad redesigns, extra exploration, or unrelated cleanup. Only touch the areas listed below.
+
+1. Build My Night background/cards
+
+Light mode only:
+- The itinerary result cards after pressing “Build My Night” are too translucent.
+- Match the same material/transparency values as the top question cards.
+- Apply that to all 3 itinerary result cards and the “Save This Night” container.
+- Add a stronger white/champagne wash over the skyline, about 75–80%, so the cards/text are the focus.
+
+Light + dark mode:
+- Move the Build My Night skyline background image down slightly so the top of the center tower is visible.
+- Do not change section height, spacing, scroll behavior, or add another image.
+
+2. Passport stamp button
+
+Outside venue cards:
+- Make the passport button smaller than the Book Now / Visit Website button.
+- It should feel like a secondary icon action.
+- When stamped, do not turn the whole button solid yellow.
+- Use a subtle dark fill with a glowing gold outline/halo instead.
+
+Inside venue detail cards:
+- Same rule for “Stamp Collected.”
+- Do not make the whole button solid yellow.
+- Keep Book Now / Visit Website as the main full-width CTA.
+- Stamped state should be glowing outline, not solid yellow fill.
+
+3. Dark mode map pins
+
+Please refine the pin glow only. Do not change map data or venue locations.
+
+The current glow is too large/blurry/messy. Make pins feel premium:
+- small rich-gold center dot
+- crisp center
+- thin cream/gold outline
+- tight, subtle halo
+- no huge blurry blobs
+- no oversized yellow haze around clusters
+- selected pin can glow slightly more
+- purple pins can stay purple/lavender, but their glow should also be subtle
+
+For clusters:
+- do not stack massive glows
+- reduce cluster glow intensity
+- keep clustered pins readable
+
+Goal: clean, cinematic, luxury map markers — not neon or cluttered.
+
+Please make these changes efficiently and push. No other screens or styling should be changed.

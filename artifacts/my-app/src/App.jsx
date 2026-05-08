@@ -1245,11 +1245,9 @@ React.createElement("div",{style:{padding:"10px 12px 14px",display:"flex",gap:8,
     onPointerLeave:()=>setPressing(false),
     onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),900);}onVisit&&onVisit(String(venue.id));},
     title:isVis?"Stamp Collected":"Add to Passport",
-    style:{width:52,height:52,flexShrink:0,borderRadius:"50%",background:isVis?"linear-gradient(145deg,#D4A843 0%,#C9A84C 45%,#B0832A 100%)":"rgba(201,168,76,0.07)",border:isVis?"2px solid rgba(220,178,72,0.80)":"1.5px solid rgba(201,168,76,0.48)",boxShadow:isVis?"0 0 0 3px rgba(201,168,76,0.18),0 0 18px rgba(201,168,76,0.40),0 4px 14px rgba(0,0,0,0.40),inset 0 1px 0 rgba(255,235,140,0.28)":"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.30s ease,border-color 0.30s ease,box-shadow 0.30s ease",transform:pressing?"scale(0.86)":"scale(1)",animation:stampPop?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
+    style:{width:42,height:42,flexShrink:0,borderRadius:"50%",background:isVis?"rgba(201,168,76,0.10)":"rgba(201,168,76,0.07)",border:isVis?"2px solid rgba(201,168,76,0.88)":"1.5px solid rgba(201,168,76,0.48)",boxShadow:isVis?"0 0 0 3px rgba(201,168,76,0.18),0 0 12px rgba(201,168,76,0.52)":"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.25s ease,border-color 0.25s ease,box-shadow 0.25s ease",transform:pressing?"scale(0.86)":"scale(1)",animation:stampPop?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
   },
-    isVis
-      ?React.createElement(PassportFilledSVG,{stroke:"rgba(12,9,4,0.80)",size:22})
-      :React.createElement(PassportOutlineSVG,{stroke:C.goldD,size:22})
+    React.createElement(PassportOutlineSVG,{stroke:isVis?"rgba(201,168,76,0.95)":C.goldD,size:20})
   )
 )
 );
@@ -1342,11 +1340,9 @@ React.createElement("div",{style:{padding:"10px 12px 14px",display:"flex",gap:8,
     onPointerLeave:()=>setPressing(false),
     onClick:e=>{e.stopPropagation();if(!isVis){clearTimeout(_spTimer.current);setStampPop(true);_spTimer.current=setTimeout(()=>setStampPop(false),900);}onVisit&&onVisit(String(venue.id));},
     title:isVis?"Stamp Collected":"Add to Passport",
-    style:{width:52,height:52,flexShrink:0,borderRadius:"50%",background:isVis?"linear-gradient(145deg,#D4A843 0%,#C9A84C 45%,#B0832A 100%)":"rgba(201,168,76,0.07)",border:isVis?"2px solid rgba(220,178,72,0.80)":"1.5px solid rgba(201,168,76,0.48)",boxShadow:isVis?"0 0 0 3px rgba(201,168,76,0.18),0 0 18px rgba(201,168,76,0.40),0 4px 14px rgba(0,0,0,0.40),inset 0 1px 0 rgba(255,235,140,0.28)":"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.30s ease,border-color 0.30s ease,box-shadow 0.30s ease",transform:pressing?"scale(0.86)":"scale(1)",animation:stampPop?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
+    style:{width:42,height:42,flexShrink:0,borderRadius:"50%",background:isVis?"rgba(201,168,76,0.10)":"rgba(201,168,76,0.07)",border:isVis?"2px solid rgba(201,168,76,0.88)":"1.5px solid rgba(201,168,76,0.48)",boxShadow:isVis?"0 0 0 3px rgba(201,168,76,0.18),0 0 12px rgba(201,168,76,0.52)":"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background 0.25s ease,border-color 0.25s ease,box-shadow 0.25s ease",transform:pressing?"scale(0.86)":"scale(1)",animation:stampPop?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
   },
-    isVis
-      ?React.createElement(PassportFilledSVG,{stroke:"rgba(12,9,4,0.80)",size:22})
-      :React.createElement(PassportOutlineSVG,{stroke:C.goldD,size:22})
+    React.createElement(PassportOutlineSVG,{stroke:isVis?"rgba(201,168,76,0.95)":C.goldD,size:20})
   )
 )
 );
@@ -1435,12 +1431,10 @@ return React.createElement(React.Fragment,null,
         },
         onMouseDown:()=>{if(!isVis)setVisPrs(true);},onMouseUp:()=>setVisPrs(false),
         onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>{if(!isVis)setVisPrs(true);},onTouchEnd:()=>setVisPrs(false),
-        style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:12,padding:"16px 0",background:isVis?"linear-gradient(135deg,#B88E38 0%,#C9A848 55%,#D4A843 100%)":"rgba(201,168,76,0.06)",border:isVis?"1.5px solid rgba(220,178,72,0.70)":"1.5px solid rgba(201,168,76,0.38)",borderRadius:12,cursor:isVis?"default":"pointer",boxShadow:isVis?"0 0 0 3px rgba(201,168,76,0.14),0 0 18px rgba(201,168,76,0.28),inset 0 1px 0 rgba(255,235,140,0.20)":"none",transition:"all 0.30s ease",transform:visPrs&&!isVis?"scale(0.975)":"scale(1)",animation:stampAnim?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
+        style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:12,padding:"16px 0",background:"rgba(201,168,76,0.06)",border:isVis?"2px solid rgba(201,168,76,0.80)":"1.5px solid rgba(201,168,76,0.38)",borderRadius:12,cursor:isVis?"default":"pointer",boxShadow:isVis?"0 0 0 4px rgba(201,168,76,0.15),0 0 16px rgba(201,168,76,0.42)":"none",transition:"all 0.30s ease",transform:visPrs&&!isVis?"scale(0.975)":"scale(1)",animation:stampAnim?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
       },
-        isVis
-          ?React.createElement(PassportFilledSVG,{stroke:"rgba(12,9,4,0.82)",size:20,style:{flexShrink:0}})
-          :React.createElement(PassportOutlineSVG,{stroke:"rgba(201,168,76,0.80)",size:20,style:{flexShrink:0}}),
-        React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.18em",textTransform:"uppercase",color:isVis?"rgba(12,9,4,0.88)":"rgba(201,168,76,0.88)",fontWeight:isVis?700:500}},
+        React.createElement(PassportOutlineSVG,{stroke:isVis?"rgba(201,168,76,0.95)":"rgba(201,168,76,0.80)",size:20,style:{flexShrink:0}}),
+        React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(201,168,76,0.90)",fontWeight:isVis?700:500}},
           isVis?"STAMP COLLECTED":"ADD TO PASSPORT"
         )
       )
@@ -1554,17 +1548,17 @@ const isNew=!!(v.status==="comingsoon"||v.status==="justopened"||(v.badges||[]).
 const pin=isNew?"#C8AEFF":"#C9A84C";
 const glow=isNew?"rgba(200,174,255,0.55)":"rgba(201,168,76,0.62)";
 const mHtml=isNew
-  ?`<div style="width:13px;height:13px;background:${pin};border-radius:50%;border:2px solid rgba(255,255,255,0.72);box-shadow:0 0 0 2px rgba(200,174,255,0.28),0 0 10px rgba(200,174,255,0.58),0 0 22px rgba(200,174,255,0.28);cursor:pointer"></div>`
-  :`<div style="width:13px;height:13px;background:#C9A84C;border-radius:50%;border:2px solid rgba(201,168,76,0.60);box-shadow:0 0 0 2.5px rgba(201,168,76,0.30),0 0 10px rgba(201,168,76,0.68),0 0 22px rgba(201,168,76,0.32);cursor:pointer"></div>`;
-const icon=L.divIcon({className:"",html:mHtml,iconSize:[13,13],iconAnchor:[6,6]});
+  ?`<div style="width:11px;height:11px;background:${pin};border-radius:50%;border:1.5px solid rgba(255,255,255,0.60);box-shadow:0 0 0 2px rgba(200,174,255,0.16),0 0 5px rgba(200,174,255,0.32);cursor:pointer"></div>`
+  :`<div style="width:11px;height:11px;background:#C9A84C;border-radius:50%;border:1.5px solid rgba(255,240,170,0.70);box-shadow:0 0 0 2px rgba(201,168,76,0.16),0 0 5px rgba(201,168,76,0.36);cursor:pointer"></div>`;
+const icon=L.divIcon({className:"",html:mHtml,iconSize:[11,11],iconAnchor:[5,5]});
 const m=L.marker(coord,{icon}).addTo(map).on("click",(e)=>{L.DomEvent.stopPropagation(e);setHotelDetail(null);setSelected(v);});
 markersRef.current.set(String(v.id),{marker:m,pin,glow});
 });
 },[mapCat,mapReady,showSavedOnly,favs,savedHotels]);
 React.useEffect(()=>{
-if(selectedMarkerRef.current){const{marker:m,pin}=selectedMarkerRef.current;const isNewPin=pin==="#C8AEFF";const restoreHtml=isNewPin?`<div style="width:13px;height:13px;background:#C8AEFF;border-radius:50%;border:2px solid rgba(255,255,255,0.72);box-shadow:0 0 0 2px rgba(200,174,255,0.28),0 0 10px rgba(200,174,255,0.58),0 0 22px rgba(200,174,255,0.28);cursor:pointer"></div>`:`<div style="width:13px;height:13px;background:#C9A84C;border-radius:50%;border:2px solid rgba(201,168,76,0.60);box-shadow:0 0 0 2.5px rgba(201,168,76,0.30),0 0 10px rgba(201,168,76,0.68),0 0 22px rgba(201,168,76,0.32);cursor:pointer"></div>`;m.setIcon(L.divIcon({className:"",html:restoreHtml,iconSize:[13,13],iconAnchor:[6,6]}));selectedMarkerRef.current=null;}
+if(selectedMarkerRef.current){const{marker:m,pin}=selectedMarkerRef.current;const isNewPin=pin==="#C8AEFF";const restoreHtml=isNewPin?`<div style="width:11px;height:11px;background:#C8AEFF;border-radius:50%;border:1.5px solid rgba(255,255,255,0.60);box-shadow:0 0 0 2px rgba(200,174,255,0.16),0 0 5px rgba(200,174,255,0.32);cursor:pointer"></div>`:`<div style="width:11px;height:11px;background:#C9A84C;border-radius:50%;border:1.5px solid rgba(255,240,170,0.70);box-shadow:0 0 0 2px rgba(201,168,76,0.16),0 0 5px rgba(201,168,76,0.36);cursor:pointer"></div>`;m.setIcon(L.divIcon({className:"",html:restoreHtml,iconSize:[11,11],iconAnchor:[5,5]}));selectedMarkerRef.current=null;}
 const activeId=selected?String(selected.id):hotelDetail?String(hotelDetail.id):null;
-if(activeId){const entry=markersRef.current.get(activeId);if(entry){const{marker:m,pin}=entry;const isNewPin=pin==="#C8AEFF";const selBg=isNewPin?"#C8AEFF":"#C9A84C";const selGlow=isNewPin?"0 0 0 5px rgba(200,174,255,0.28),0 0 24px rgba(200,174,255,0.70),0 4px 14px rgba(0,0,0,0.42)":"0 0 0 5px rgba(201,168,76,0.30),0 0 24px rgba(201,168,76,0.72),0 4px 16px rgba(0,0,0,0.44)";const selBdr=isNewPin?"rgba(255,255,255,0.88)":"rgba(201,168,76,0.90)";m.setIcon(L.divIcon({className:"",html:`<div style="width:30px;height:30px;background:${selBg};border-radius:50%;border:2.5px solid ${selBdr};box-shadow:${selGlow};display:flex;align-items:center;justify-content:center;font-size:11px;color:rgba(10,8,4,0.92)">★</div>`,iconSize:[30,30],iconAnchor:[15,15]}));selectedMarkerRef.current=entry;}}
+if(activeId){const entry=markersRef.current.get(activeId);if(entry){const{marker:m,pin}=entry;const isNewPin=pin==="#C8AEFF";const selBg=isNewPin?"#C8AEFF":"#C9A84C";const selGlow=isNewPin?"0 0 0 3px rgba(200,174,255,0.18),0 0 8px rgba(200,174,255,0.44),0 2px 6px rgba(0,0,0,0.36)":"0 0 0 3px rgba(201,168,76,0.18),0 0 8px rgba(201,168,76,0.50),0 2px 6px rgba(0,0,0,0.36)";const selBdr=isNewPin?"rgba(255,255,255,0.85)":"rgba(255,240,160,0.88)";m.setIcon(L.divIcon({className:"",html:`<div style="width:18px;height:18px;background:${selBg};border-radius:50%;border:2px solid ${selBdr};box-shadow:${selGlow};display:flex;align-items:center;justify-content:center;font-size:8px;color:rgba(10,8,4,0.90)">★</div>`,iconSize:[18,18],iconAnchor:[9,9]}));selectedMarkerRef.current=entry;}}
 },[selected,hotelDetail,mapCat,mapReady,showSavedOnly,favs,savedHotels]);
 React.useEffect(()=>{
 if(prevMapCatRef.current===mapCat)return;
