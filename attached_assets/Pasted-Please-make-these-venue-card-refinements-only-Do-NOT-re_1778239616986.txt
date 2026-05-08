@@ -1,0 +1,74 @@
+Please make these venue card refinements only. Do NOT redesign unrelated sections. Keep this implementation focused and efficient.
+
+1. INSIDE VENUE DETAIL CARD — IMAGE GALLERY IS MISSING
+
+The inside venue detail cards are missing the photo gallery section entirely.
+
+We NEED the gallery section implemented exactly like the mockup:
+- 4 separate horizontal gallery images
+- these should NOT reuse the hero/cover image
+- they should show:
+  - interior
+  - exterior
+  - food/drinks
+  - atmosphere/views
+- user should be able to tap/open/swipe through images
+
+This needs to exist on EVERY venue detail card.
+
+Important:
+- use ONE-TIME image imports only
+- no live runtime API dependency
+- save images locally/static after import
+- verify images actually belong to the correct venue
+- prioritize high-quality luxury-looking images only
+- double/triple check image accuracy
+
+2. DARK MODE VENUE CARDS ARE TOO PURPLE
+
+Dark mode venue cards should feel:
+- black
+- charcoal
+- luxury black/gold
+
+Right now they have too much purple tone.
+
+Please adjust dark mode venue card surfaces/backgrounds closer to the mockup:
+- deeper black/charcoal
+- reduce purple tint significantly
+- keep gold typography accents
+- preserve readability and current layout
+
+Goal:
+closer to cinematic luxury black, not purple.
+
+3. ADD TO PASSPORT BUTTON REFINEMENT
+
+Inside venue detail cards:
+- “Add to Passport” button should NEVER feel larger or more dominant than Book Now / Visit Website
+- it should remain visually secondary
+
+Please:
+- slightly reduce visual weight/height if needed
+- keep it more subtle/dark
+- maintain the glowing gold outline treatment instead of solid yellow fill
+
+Book Now / Visit Website must remain the primary CTA.
+
+4. MATCH MOCKUP MORE CLOSELY
+
+Overall direction is close, but the venue detail cards still feel slightly generic compared to the mockup.
+
+Please refine ONLY these luxury details:
+- deeper blacks
+- cleaner spacing
+- more premium contrast
+- subtle gold accents
+- stronger cinematic feel
+
+Do NOT redesign layout structure.
+Do NOT change data structure.
+Do NOT touch unrelated screens.
+
+Goal:
+get as visually close to the provided mockup as possible while keeping the current architecture.

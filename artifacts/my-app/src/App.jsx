@@ -7,6 +7,7 @@ import MyDetroit, { TASTE_OPTIONS } from "./sections/MyDetroit.jsx";
 import Onboarding from "./sections/Onboarding.jsx";
 // fetchPlacePhotos intentionally NOT imported here — venue cards use static images only
 import { GAMES, DETROIT_EVENTS, CONCERTS, HOTELS, fmtDate, getTicketCTA, getBookingCTA } from "./data/eventsData.js";
+import { CATEGORY_GALLERY } from "./data/venueGallery.js";
 
 const FONT_URL = "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap";
 
@@ -1358,7 +1359,7 @@ const cuisine = getVenueCuisine(venue);
 const priceRange = getVenuePriceRange(venue);
 const dressCode = getVenueDressCode(venue);
 const reservations = getVenueReservations(venue);
-const galleryPhotos = (galleryMap&&galleryMap[String(venue.id)]) || venue.galleryPhotos || null;
+const galleryPhotos = (galleryMap&&galleryMap[String(venue.id)]) || venue.galleryPhotos || CATEGORY_GALLERY[venue.cat] || null;
 React.useLayoutEffect(() => {
   const body=document.body,html=document.documentElement;
   const pb=body.style.overflow,ph=html.style.overflow;
@@ -1431,7 +1432,7 @@ return React.createElement(React.Fragment,null,
         },
         onMouseDown:()=>{if(!isVis)setVisPrs(true);},onMouseUp:()=>setVisPrs(false),
         onMouseLeave:()=>setVisPrs(false),onTouchStart:()=>{if(!isVis)setVisPrs(true);},onTouchEnd:()=>setVisPrs(false),
-        style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:12,padding:"16px 0",background:"rgba(201,168,76,0.06)",border:isVis?"2px solid rgba(201,168,76,0.80)":"1.5px solid rgba(201,168,76,0.38)",borderRadius:12,cursor:isVis?"default":"pointer",boxShadow:isVis?"0 0 0 4px rgba(201,168,76,0.15),0 0 16px rgba(201,168,76,0.42)":"none",transition:"all 0.30s ease",transform:visPrs&&!isVis?"scale(0.975)":"scale(1)",animation:stampAnim?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
+        style:{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",gap:12,padding:"11px 0",background:"rgba(201,168,76,0.06)",border:isVis?"2px solid rgba(201,168,76,0.80)":"1.5px solid rgba(201,168,76,0.38)",borderRadius:12,cursor:isVis?"default":"pointer",boxShadow:isVis?"0 0 0 4px rgba(201,168,76,0.15),0 0 16px rgba(201,168,76,0.42)":"none",transition:"all 0.30s ease",transform:visPrs&&!isVis?"scale(0.975)":"scale(1)",animation:stampAnim?"passportStamp 0.75s cubic-bezier(0.34,1.56,0.64,1) both":"none"}
       },
         React.createElement(PassportOutlineSVG,{stroke:isVis?"rgba(201,168,76,0.95)":"rgba(201,168,76,0.80)",size:20,style:{flexShrink:0}}),
         React.createElement("span",{style:{fontFamily:"'DM Mono',monospace",fontSize:"0.54rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"rgba(201,168,76,0.90)",fontWeight:isVis?700:500}},
