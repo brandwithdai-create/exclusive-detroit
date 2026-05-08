@@ -1826,6 +1826,7 @@ const [taste,setTaste]=useState(()=>{try{return JSON.parse(localStorage.getItem(
 useEffect(()=>{try{localStorage.setItem("ed-visited",JSON.stringify(visited));}catch(e){}},[visited]);
 useEffect(()=>{try{localStorage.setItem("ed-taste",JSON.stringify(taste));}catch(e){}},[taste]);
 const [visitedDates,setVisitedDates]=useState(()=>{try{return JSON.parse(localStorage.getItem("ed-visited-dates")||"{}");}catch{return {};}});
+const [passportPending,setPassportPending]=useState(false);
 const [savedPlans,setSavedPlans]=useState(()=>{try{const raw=JSON.parse(localStorage.getItem("ed-saved-plans")||"[]");const seen=new Set();return raw.filter(p=>{const k=(p.stops||[]).map(v=>String(v.id)).sort().join(",");if(seen.has(k))return false;seen.add(k);return true;});}catch{return [];}});
 useEffect(()=>{try{localStorage.setItem("ed-visited-dates",JSON.stringify(visitedDates));}catch(e){}},[visitedDates]);
 useEffect(()=>{try{localStorage.setItem("ed-saved-plans",JSON.stringify(savedPlans));}catch(e){}},[savedPlans]);
@@ -2021,7 +2022,7 @@ React.createElement("h2",{style:{fontFamily:"'Cormorant Garamond',serif",fontSiz
 ),
 React.createElement("div",{style:{display:"flex",gap:12,overflowX:"auto",scrollbarWidth:"none",WebkitOverflowScrolling:"touch",scrollSnapType:"x mandatory",paddingBottom:4,marginLeft:-22,marginRight:-22,paddingLeft:22,paddingRight:22}},
 UPCOMING.slice(0,4).map((v,i)=>React.createElement("div",{key:v.id,style:{flexShrink:0,width:"calc(100vw - 60px)",maxWidth:400,scrollSnapAlign:"start"}},
-React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:130,hideVibes:true,isVis:isVisited(String(v.id)),onVisit:toggleVisited,visitedDate:getVisitedDate(String(v.id))})
+React.createElement(UCard,{venue:v,i,onOpen:setModalId,isFav:isFav(v.id),onFav:toggleFav,photoMap,imgHeight:130,hideVibes:true,isVis:isVisited(String(v.id)),onVisit:id=>{if(!isVisited(String(id))){toggleVisited(String(id));setPassportPending(true);navTo("itinerary");}else{toggleVisited(String(id));}},visitedDate:getVisitedDate(String(v.id))})
 ))
 )
 )
@@ -2316,7 +2317,7 @@ section==="explore"       && Explore(),
 section==="map"           && React.createElement(MapView,{isFav,toggleFav,favs,setModalId,modalId,navTo,photoMap,theme,isSavedHotel,toggleSavedHotel,savedHotels}),
 section==="favorites"     && Favs({savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel}),
 section==="neighborhoods" && Areas(),
-section==="itinerary"     && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:ALL,savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,toggleFav,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel,photoMap,savedPlans,onSavePlan:savePlan,onDeletePlan:deletePlan,visitedDates}),
+section==="itinerary"     && React.createElement(MyDetroit,{visited,taste,onTasteChange:setTaste,onOpenVenue:setModalId,navTo,allVenues:[...ALL,...UPCOMING],savedVenues:favVenues,savedEventItems:savedEventObjects,savedHotelItems:savedHotelObjects,toggleFav,onUnsaveEvent:toggleSavedEvent,onUnsaveHotel:toggleSavedHotel,photoMap,savedPlans,onSavePlan:savePlan,onDeletePlan:deletePlan,visitedDates,passportPending,onPassportConsumed:()=>setPassportPending(false)}),
 section==="about"         && About({tick:aboutTick}),
 section==="settings"      && Settings(),
 section==="things-to-do"  && React.createElement(ThingsToDo,{isSavedEvent,toggleSavedEvent,initialTab:doTab,onBack:()=>navTo("explore")}),

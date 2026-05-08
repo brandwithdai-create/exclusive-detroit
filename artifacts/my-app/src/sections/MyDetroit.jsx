@@ -1524,6 +1524,7 @@ export default function MyDetroit({
   savedVenues, savedEventItems, savedHotelItems,
   toggleFav, onUnsaveEvent, onUnsaveHotel, photoMap,
   savedPlans, onSavePlan, onDeletePlan, visitedDates,
+  passportPending, onPassportConsumed,
 }) {
   const [subTab, setSubTab] = useState("tonight");
 
@@ -1543,6 +1544,14 @@ export default function MyDetroit({
       added.forEach(id => prev.add(id));
     }
   }, [visited]);
+
+  // Navigate to Passport tab when an Opening Soon venue is stamped from Explore
+  useEffect(() => {
+    if (passportPending) {
+      setSubTab("passport");
+      onPassportConsumed?.();
+    }
+  }, [passportPending]);
 
   return (
     <div>
