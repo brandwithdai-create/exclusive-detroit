@@ -1,0 +1,138 @@
+We are fully redesigning the venue cards across the Explore section to match the attached mockups EXACTLY — both the outside venue card and the inside detail view after tap.
+
+The current venue cards feel too cluttered and busy. The new design is much cleaner, more luxury-focused, easier to scan, and more conversion-focused for bookings while still keeping the “passport” functionality Apple wanted for stronger app interaction.
+
+IMPORTANT:
+Please match the mockups as closely as possible. Same spacing, hierarchy, proportions, typography balance, button placement, and overall feel.
+
+OUTSIDE VENUE CARD REQUIREMENTS:
+
+Use the exact structure shown in the mockup:
+
+- Large immersive image at the top
+- Thin elegant gold border around the card
+- Heart/save icon ONLY in the top-right corner
+- Small passport icon button ONLY in the bottom-right corner beside the Book Now button
+- Do NOT write “Add to Passport” on the outside card
+- The passport icon should visually look like a passport
+- Book Now button should be centered and clean with NO arrow
+- Keep the overall layout minimal and uncluttered
+
+Card hierarchy should be:
+
+1. Venue image
+2. Small optional tags (Hidden Gem / Locals Know / etc when applicable)
+3. Venue name
+4. One elegant short descriptor line
+5. Short description paragraph
+6. Small subtle category pills/tags
+7. Bottom CTA row:
+   - Book Now button
+   - Small passport icon button
+
+INSIDE DETAIL VIEW (AFTER TAP):
+
+Please duplicate the mockup layout exactly.
+
+Structure should be:
+
+- Large top image
+- Back button top-left
+- Heart/save button top-right
+- Venue title
+- Short elegant descriptor line
+- Venue description
+- Information box with:
+  - Address
+  - Hours
+  - Cuisine
+  - Price Range
+  - Reservations (Recommended / Suggested / etc)
+  - Dress Code
+
+Then:
+- Photo gallery section with 4 photos
+- Large Book Now button
+- Add to Passport button at bottom
+
+IMPORTANT:
+Inside detail view should NOT include:
+- Hidden Gem
+- Locals Know
+- Rooftops
+- Downtown
+or other category/location labels at the top.
+
+Keep the inside view cleaner and more editorial/luxury.
+
+PASSPORT FUNCTIONALITY:
+
+The passport feature still needs to be a major interactive app function.
+
+Outside card:
+- Passport icon sits bottom-right beside Book Now
+- Small passport icon only
+
+Inside card:
+- Full “Add to Passport” button remains
+
+When a user taps the passport:
+- Animate it clearly so users know it worked
+- Passport should transform into a “Visited” stamp state
+- Include the visit date
+- Stamp must be legible
+- Gold styling is fine
+- Smooth luxury animation preferred
+
+This needs to feel intentional and premium, not gimmicky.
+
+PHOTO API APPROVAL:
+
+I am approving a ONE-TIME Google Places API pull for venue photos for all venues currently in the app (approximately 89 venues).
+
+Goal:
+- Pull 4 correct photos per venue for the inside detail gallery
+
+IMPORTANT:
+- One-time import only
+- After import, convert everything into STATIC local assets
+- Remove all live/runtime API dependencies afterward
+- No ongoing API calls during app usage
+
+Please make sure:
+- Photos actually belong to the correct venue
+- Images accurately represent the venue
+- No random filler luxury photos
+
+ACCURACY REQUIREMENTS:
+
+Please verify and double-check ALL venue information before implementing.
+
+Everything shown in the app must be accurate and real:
+- venue name
+- description
+- address
+- hours
+- cuisine/category
+- price range
+- reservation recommendation
+- dress code
+- booking/website links
+- photos
+
+Please research each venue carefully and make sure the information is current and correct.
+
+For price range:
+Use realistic and accurate dollar-sign pricing.
+
+For dress code:
+Research the actual venue dress code when possible and keep it short and clean like:
+- Casual
+- Smart Casual
+- Business Casual
+- Upscale Casual
+- Cocktail Attire
+
+If a venue doesn’t officially list one, use the most accurate reasonable classification based on the venue.
+
+Everything in the app should feel curated, trustworthy, polished, luxurious, and real.
