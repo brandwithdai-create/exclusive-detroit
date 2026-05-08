@@ -1133,7 +1133,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
               {onSavePlan && (
                 <button
                   onClick={() => { if(isSaved) return; onSavePlan({ when, who, energy, stops: result.stops }); setJustSaved(true); setTimeout(() => onGoToSaved?.(planKey), 650); }}
-                  style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background: isSaved ? "rgba(var(--c-gold-rgb),0.04)" : "rgba(var(--c-gold-rgb),0.08)", border:"1.5px solid var(--c-goldD)", color: isSaved ? "var(--c-smoke)" : "var(--c-gold)", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor: isSaved ? "default" : "pointer", transition:"all 0.2s" }}
+                  style={{ ...MONO, display:"block", width:"100%", marginTop:16, padding:"13px 0", borderRadius:100, background: isSaved ? "rgba(var(--c-gold-rgb),0.04)" : "var(--c-save-btn-bg,rgba(var(--c-gold-rgb),0.08))", border: isSaved ? "1.5px solid var(--c-goldD)" : "1.5px solid var(--c-save-btn-bdr,var(--c-goldD))", color: isSaved ? "var(--c-smoke)" : "var(--c-save-btn-txt,var(--c-gold))", fontSize:"0.52rem", letterSpacing:"0.16em", textTransform:"uppercase", cursor: isSaved ? "default" : "pointer", transition:"all 0.2s" }}
                 >
                   {isSaved ? "✓ SAVED" : "SAVE THIS NIGHT ✦"}
                 </button>
