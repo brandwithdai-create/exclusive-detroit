@@ -990,7 +990,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
       <div style={{ position:"relative", overflow:"hidden" }}>
         <div aria-hidden="true" style={{ position:"absolute",inset:0,backgroundImage:"var(--c-tonight-bg-img)",backgroundSize:"cover",backgroundPosition:"center 30%",filter:"var(--c-tonight-img-filter)",pointerEvents:"none",userSelect:"none",zIndex:0 }}/>
         <div style={{ position:"absolute",inset:0,background:"var(--c-tonight-overlay)",pointerEvents:"none",zIndex:0 }}/>
-        <div style={{ position:"relative",zIndex:1, padding:"28px 20px 32px", maxWidth:680, margin:"0 auto" }}>
+        <div style={{ position:"relative",zIndex:1, padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
       <div style={{ marginBottom:28 }}>
@@ -1087,8 +1087,8 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
         </div>{/* closes inner content */}
       </div>{/* closes Zone 1 with skyline */}
 
-      {/* Zone 2 — plain background for results */}
-      <div style={{ background:"var(--c-deep)", padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
+      {/* Zone 2 — plain background for results, only rendered when there is content */}
+      {(building || result) && <div style={{ background:"var(--c-deep)", padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
       {/* Building pulse */}
       {building && (
         <div className="curating-pulse" style={{ marginTop:0, padding:"14px 18px", background:"var(--c-card)", borderRadius:10, textAlign:"center" }}>
@@ -1139,7 +1139,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
           )}
         </div>
       )}
-      </div>
+      </div>}
     </div>
   );
 }
