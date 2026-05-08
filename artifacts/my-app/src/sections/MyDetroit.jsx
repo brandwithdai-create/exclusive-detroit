@@ -904,7 +904,7 @@ function ResultCard({ v, stopLabel, photoMap, onOpen }) {
     <div
       onClick={() => onOpen && onOpen(String(v.id))}
       onMouseDown={()=>setPressed(true)} onMouseUp={()=>setPressed(false)} onMouseLeave={()=>setPressed(false)} onTouchStart={()=>setPressed(true)} onTouchEnd={()=>setPressed(false)}
-      style={{ display:"flex", alignItems:"stretch", gap:12, background:"var(--c-card)", border:"1px solid var(--c-border)", borderRadius:10, overflow:"hidden", transform:pressed?"scale(0.975)":"scale(1)", transition:"transform 0.08s", cursor:"pointer" }}
+      style={{ display:"flex", alignItems:"stretch", gap:12, background:"var(--c-tonight-result-card-bg,var(--c-card))", border:"1px solid var(--c-tonight-result-card-bdr,var(--c-border))", borderRadius:10, overflow:"hidden", transform:pressed?"scale(0.975)":"scale(1)", transition:"transform 0.08s", cursor:"pointer" }}
     >
       {/* Thumbnail — always shows an image */}
       <div style={{ width:68, flexShrink:0, background:venueGradient(v), position:"relative", overflow:"hidden" }}>
@@ -913,7 +913,7 @@ function ResultCard({ v, stopLabel, photoMap, onOpen }) {
       {/* Text */}
       <div style={{ flex:1, padding:"12px 14px 12px 0", minWidth:0 }}>
         <div style={{ ...MONO,fontSize:"0.4rem",letterSpacing:"0.18em",textTransform:"uppercase",color:"var(--c-goldD)",marginBottom:3 }}>{stopLabel}</div>
-        <div style={{ ...SERIF,fontSize:"1.05rem",fontWeight:600,color:"var(--c-white)",lineHeight:1.2,marginBottom:3 }}>{v.name}</div>
+        <div style={{ ...SERIF,fontSize:"1.05rem",fontWeight:600,color:"var(--c-bmn-title,var(--c-white))",lineHeight:1.2,marginBottom:3 }}>{v.name}</div>
         <div style={{ fontSize:"0.73rem",color:"var(--c-ash)",lineHeight:1.45,marginBottom:4 }}>
           {v.desc && v.desc.length>65 ? v.desc.slice(0,65)+"…" : v.desc}
         </div>
@@ -994,12 +994,12 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
         <div style={{ padding:"28px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
 
       {/* Header */}
-      <div style={{ marginBottom:28 }}>
+      <div style={{ marginBottom:28, background:"var(--c-bmn-header-bg,transparent)", backdropFilter:"var(--c-bmn-header-blur,none)", WebkitBackdropFilter:"var(--c-bmn-header-blur,none)", borderRadius:"var(--c-bmn-header-radius,0)", padding:"var(--c-bmn-header-pad,0)" }}>
         <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.22em",textTransform:"uppercase",color:"var(--c-gold)",margin:"0 0 6px",opacity:0.8 }}>Personal Concierge</p>
         <h2 style={{ ...SERIF,fontSize:"2.2rem",fontWeight:"var(--c-bmn-title-weight,400)",color:"var(--c-bmn-title,var(--c-white))",margin:0,lineHeight:1.1 }}>
           Build My Night <span style={{ filter:"var(--c-sparkle-filter,none)" }}>✨</span>
         </h2>
-        <p style={{ ...MONO,fontSize:"0.44rem",letterSpacing:"0.07em",color:"var(--c-bmn-subtitle,var(--c-smoke))",fontWeight:500,margin:"8px 0 0" }}>
+        <p style={{ ...MONO,fontSize:"0.60rem",letterSpacing:"0.07em",color:"var(--c-bmn-subtitle,var(--c-smoke))",fontWeight:500,margin:"8px 0 0" }}>
           Answer three questions. We'll craft the perfect night.
         </p>
       </div>
@@ -1093,7 +1093,7 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans, 
         <div style={{ padding:"16px 20px calc(80px + env(safe-area-inset-bottom))", maxWidth:680, margin:"0 auto" }}>
       {/* Building pulse */}
       {building && (
-        <div className="curating-pulse" style={{ marginTop:0, padding:"14px 18px", background:"var(--c-card)", borderRadius:10, textAlign:"center" }}>
+        <div className="curating-pulse" style={{ marginTop:0, padding:"14px 18px", background:"var(--c-tonight-result-card-bg,var(--c-card))", borderRadius:10, textAlign:"center" }}>
           <span style={{ ...MONO,fontSize:"0.46rem",letterSpacing:"0.16em",textTransform:"uppercase",color:"var(--c-goldD)" }}>
             Curating your night…
           </span>
