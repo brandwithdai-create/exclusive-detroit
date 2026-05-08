@@ -878,10 +878,10 @@ function ChipBtn({ val, current, onSet, label, icon }) {
       style={{
         ...MONO, fontSize:"0.58rem", letterSpacing:"0.09em", textTransform:"uppercase",
         display:"flex", alignItems:"center", gap:6, padding:"9px 14px", borderRadius:8,
-        border:`1px solid ${active ? "rgba(242,203,66,0.55)" : "rgba(242,203,66,0.30)"}`,
-        background: active ? "linear-gradient(135deg,#F2CB42 0%,#C0A020 100%)" : "var(--c-tonight-chip-bg)",
-        color: active ? "#0A0808" : "var(--c-tonight-chip-txt)",
-        boxShadow: active ? "0 2px 14px rgba(242,203,66,0.35)" : "none",
+        border:`1px solid ${active ? "var(--c-tonight-chip-active-bdr)" : "var(--c-tonight-chip-inactive-bdr)"}`,
+        background: active ? "var(--c-tonight-chip-active-bg)" : "var(--c-tonight-chip-bg)",
+        color: active ? "var(--c-tonight-chip-active-txt)" : "var(--c-tonight-chip-txt)",
+        boxShadow: active ? "var(--c-tonight-chip-active-shadow)" : "none",
         cursor:"pointer", transition:"all 0.12s",
         transform: pressed ? "scale(0.91)" : "scale(1)", whiteSpace:"nowrap", flexShrink:0,
       }}
@@ -1073,9 +1073,10 @@ function TonightTab({ allVenues, photoMap, onOpenVenue, onSavePlan, savedPlans }
           style={{
             ...MONO, fontSize:"0.54rem", letterSpacing:"0.18em", textTransform:"uppercase",
             width:"100%", padding:"18px 0", borderRadius:100,
-            border:"none", color:"#0A0808",
-            background: building ? "rgba(192,160,32,0.85)" : "linear-gradient(135deg,#F2CB42 0%,#C0A020 100%)",
-            boxShadow: building ? "none" : "0 4px 28px rgba(242,203,66,0.4)",
+            border:"none",
+            background: building ? "var(--c-tonight-build-building)" : "var(--c-tonight-build-bg)",
+            boxShadow: building ? "none" : "var(--c-tonight-build-shadow)",
+            color: "var(--c-tonight-build-txt,#0A0808)",
             cursor:"pointer", transition:"all 0.12s",
             transform: btnPrs ? "scale(0.97)" : "scale(1)",
           }}
